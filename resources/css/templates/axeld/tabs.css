@@ -1,0 +1,39 @@
+.tabs {
+  height: 48px;
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  margin: 20px 0 0 0;
+}
+.tabs .tab {
+  padding: 0 1.5%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 48px;
+  color: #282828;
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 1em;
+  letter-spacing: 0.5px;
+  border-radius: 4px;
+  transition: 0.2s;
+  cursor: pointer;
+  margin-right: 5px;
+}
+.tabs .tab a {
+  text-decoration: none;
+}
+.tabs .tab.active,
+.tabs .tab:hover {
+  background: rgba(239, 83, 63, 0.16);
+  color: #EF533F;
+}
+.tabs .tab:first-child {
+  /*   padding: 0 1.5% 0 0;*/
+}
+.tabs .tab:last-child {
+  /* padding: 0 0 0 1.5%;*/
+}
+
+/*# sourceMappingURL=tabs.css.map */

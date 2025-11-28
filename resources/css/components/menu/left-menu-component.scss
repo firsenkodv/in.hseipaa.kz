@@ -1,0 +1,180 @@
+@charset "utf-8";
+$color: #282828;
+$colorRed: #EF533F;
+$colorCCC: #CCCCCC;
+$colorGrey: #667085;
+$colorBlue: #095C9A;
+$colorBlue2: #03a9f4;
+$colorGreen: #0f6567;
+$colorYellow: #FF931E;
+$colorOrange: #FF732C;
+
+$maxWidth: 1200;
+@mixin adaptiv-font($pcSize, $mobSize) {
+    $addSize: $pcSize - $mobSize;
+    $maxWidth: $maxWidth - 320;
+    font-size: calc(#{$mobSize + px} + #{$addSize} * ((100vw - 320px) / #{$maxWidth}));
+}
+
+
+@mixin SourceSans3 {
+    font-family: 'Source Sans 3 Variable', sans-serif;
+}
+
+
+    .left_menu {
+
+        .left_menu__ul {
+            box-shadow: 0 0 4px rgba(0, 0, 0, 0.08);
+
+
+        }
+
+        .left_menu__ul > li {
+            display: block;
+            width: 100%;
+            position: relative;
+
+            a {
+
+
+            }
+
+            &.parent {
+                ul.submenu {
+                    height: 0;
+                    overflow: hidden;
+                    transition: height 0.5s ease-in-out;
+                    display: block;
+
+
+                    li {
+                        display: block;
+                        width: 100%;
+                        position: relative;
+
+                        a {
+
+                            span {
+                                padding-left: 25px;
+                            }
+
+
+                        }
+                    }
+
+
+                    &.active {
+
+                        height: 100%;
+
+                    }
+
+                }
+
+            }
+
+            &.active > a {
+
+                background: rgba(239, 83, 63, 0.16);
+
+                &:before {
+                    background: $colorRed;
+                }
+
+            }
+
+            &.active {
+                li.active {
+                    a {
+                    background: #f5f5f5;
+
+                    &:before {
+                        background: #f5f5f5;
+                    }
+                        }
+                }
+            }
+
+        }
+
+        li a {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            color: $color;
+            position: relative;
+            width: 100%;
+            min-height: 50px;
+            border-bottom: 1px solid #e0e0e0;
+            transition: 0.3s;
+            padding: 15px 5px 15px 0;
+
+            span {
+                padding-left: 15px;
+            }
+
+            &:before {
+                content: '';
+                width: 5px;
+                height: 100%;
+                position: absolute;
+                background: #fff;
+                transition: 0.2s;
+            }
+
+            &:hover {
+                background: #F5F5F7;
+
+                &:before {
+                    background: #F5F5F7;
+                }
+
+            }
+        }
+
+        .left_arrow {
+            width: 25px;
+            height: 53px;
+            position: absolute;
+            display: inline-block;
+            right: 10px;
+            float: right;
+            top: 0;
+            cursor: pointer;
+
+            &:hover:before, &:hover:after {
+                background: red;
+            }
+
+            &:before {
+                content: '';
+                width: 6px;
+                height: 1px;
+                display: block;
+                position: absolute;
+                background: #282828;
+                transform: rotate(38deg);
+                top: 30px;
+                left: 7px;
+            }
+
+            &:after {
+                content: '';
+                width: 6px;
+                height: 1px;
+                display: block;
+                position: absolute;
+                background: #282828;
+                transform: rotate(-38deg);
+                top: 30px;
+                right: 7.3px;
+            }
+        }
+    }
+
+
+
+
+
+

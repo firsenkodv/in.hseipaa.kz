@@ -1,0 +1,111 @@
+.tax_wrapper {
+  position: relative;
+}
+.tax_wrapper .quarters {
+  display: flex;
+  padding-bottom: 30px;
+}
+.tax_wrapper .quarters .quarter {
+  display: flex;
+  height: 48px;
+  justify-content: center;
+  align-items: center;
+  background: none;
+  transition: 0.2s;
+  margin: 0 8px;
+  padding: 0 14px;
+  text-decoration: underline;
+  color: #282828;
+  cursor: pointer;
+  border-radius: 4px;
+  font-size: 18px;
+}
+.tax_wrapper .quarters .quarter.active {
+  background: rgba(254, 82, 68, 0.08);
+  color: #EF533F;
+  text-decoration: none;
+  font-weight: 600;
+}
+.tax_wrapper .quarters .quarter:first-child {
+  margin-left: 0;
+}
+.tax_wrapper .quarters .quarter:last-child {
+  margin-right: 0;
+}
+
+.mounts {
+  position: relative;
+  width: 100%;
+}
+.mounts .q_flex {
+  display: none;
+  justify-content: flex-start;
+  align-items: center;
+  min-height: 48px;
+  padding: 0;
+  border-bottom: 1px solid #E0E0E0;
+}
+.mounts .q_flex .mount {
+  font-size: 24px;
+  display: flex;
+  height: 48px;
+  justify-content: center;
+  align-items: center;
+  color: #282828;
+  line-height: 1em;
+  margin: 0 13.2px;
+  border-bottom: 1px solid #E0E0E0;
+  position: relative;
+  top: 1px;
+  z-index: 10;
+  cursor: pointer;
+  transition: 0.3s;
+}
+.mounts .q_flex .mount.active {
+  color: #EF533F;
+  border-bottom: 2px solid #EF533F;
+  transition: 0.3s;
+}
+.mounts .q_flex .mount:hover {
+  color: #EF533F;
+  transition: 0.3s;
+}
+.mounts .q_flex .mount:first-child {
+  margin-left: 0;
+}
+.mounts .q_flex .mount:last-child {
+  margin-right: 0;
+}
+.mounts .q_flex.active {
+  display: flex;
+}
+
+.tax-contents {
+  min-height: 100px;
+}
+.tax-contents .q_none {
+  display: none;
+}
+.tax-contents .q_none.active {
+  display: block;
+}
+.tax-contents .q_none .tax-content {
+  padding: 10px;
+  margin-bottom: 0;
+  border-bottom: 1px solid #E0E0E0;
+}
+.tax-contents .q_none .tax-content .ya_it_left {
+  font-size: 18px;
+  color: #282828;
+  line-height: 1.3em;
+  padding: 10px 0;
+  font-weight: 600;
+  width: 20%;
+  margin: 0;
+}
+.tax-contents .q_none .tax-content .ya_it_right {
+  width: 80%;
+  margin: 0;
+}
+
+/*# sourceMappingURL=tax-content-component.css.map */

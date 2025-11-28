@@ -1,0 +1,103 @@
+.left_menu .left_menu__ul {
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.08);
+}
+.left_menu .left_menu__ul > li {
+  display: block;
+  width: 100%;
+  position: relative;
+}
+.left_menu .left_menu__ul > li.parent ul.submenu {
+  height: 0;
+  overflow: hidden;
+  transition: height 0.5s ease-in-out;
+  display: block;
+}
+.left_menu .left_menu__ul > li.parent ul.submenu li {
+  display: block;
+  width: 100%;
+  position: relative;
+}
+.left_menu .left_menu__ul > li.parent ul.submenu li a span {
+  padding-left: 25px;
+}
+.left_menu .left_menu__ul > li.parent ul.submenu.active {
+  height: 100%;
+}
+.left_menu .left_menu__ul > li.active > a {
+  background: rgba(239, 83, 63, 0.16);
+}
+.left_menu .left_menu__ul > li.active > a:before {
+  background: #EF533F;
+}
+.left_menu .left_menu__ul > li.active li.active a {
+  background: #f5f5f5;
+}
+.left_menu .left_menu__ul > li.active li.active a:before {
+  background: #f5f5f5;
+}
+.left_menu li a {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: #282828;
+  position: relative;
+  width: 100%;
+  min-height: 50px;
+  border-bottom: 1px solid #e0e0e0;
+  transition: 0.3s;
+  padding: 15px 5px 15px 0;
+}
+.left_menu li a span {
+  padding-left: 15px;
+}
+.left_menu li a:before {
+  content: "";
+  width: 5px;
+  height: 100%;
+  position: absolute;
+  background: #fff;
+  transition: 0.2s;
+}
+.left_menu li a:hover {
+  background: #F5F5F7;
+}
+.left_menu li a:hover:before {
+  background: #F5F5F7;
+}
+.left_menu .left_arrow {
+  width: 25px;
+  height: 53px;
+  position: absolute;
+  display: inline-block;
+  right: 10px;
+  float: right;
+  top: 0;
+  cursor: pointer;
+}
+.left_menu .left_arrow:hover:before, .left_menu .left_arrow:hover:after {
+  background: red;
+}
+.left_menu .left_arrow:before {
+  content: "";
+  width: 6px;
+  height: 1px;
+  display: block;
+  position: absolute;
+  background: #282828;
+  transform: rotate(38deg);
+  top: 30px;
+  left: 7px;
+}
+.left_menu .left_arrow:after {
+  content: "";
+  width: 6px;
+  height: 1px;
+  display: block;
+  position: absolute;
+  background: #282828;
+  transform: rotate(-38deg);
+  top: 30px;
+  right: 7.3px;
+}
+
+/*# sourceMappingURL=left-menu-component.css.map */

@@ -1,0 +1,98 @@
+@charset "utf-8";
+$color: #282828;
+$colorRed: #EF533F;
+$colorCCC: #CCCCCC;
+$colorGrey: #667085;
+$colorBlue: #095C9A;
+$colorBlue2: #03a9f4;
+$colorGreen: #0f6567;
+$colorYellow: #FF931E;
+$colorOrange: #FF732C;
+
+$maxWidth: 1200;
+@mixin adaptiv-font($pcSize, $mobSize) {
+    $addSize: $pcSize - $mobSize;
+    $maxWidth: $maxWidth - 320;
+    font-size: calc(#{$mobSize + px} + #{$addSize} * ((100vw - 320px) / #{$maxWidth}));
+}
+
+.content_content-faq {
+    position: relative;
+    width: 100%;
+}
+
+.faq__products {
+    padding: 20px 0;
+
+
+
+    .faq_spb_title {
+        width: 100%;
+        font-size: 22px;
+        color: $color;
+        line-height: 1.2em;
+        padding: 24px 0;
+        cursor: pointer;
+        transition: 0.3s;
+        display: flex;
+        justify-content: space-between;;
+        align-items: flex-start;
+
+        &:hover {
+            color: $colorRed;
+        }
+
+    }
+
+    .faq_close {
+        font-size: 48px;
+        padding: 0 0 0 20px;
+        color: $colorRed;
+        transition: 0.3s
+    }
+
+
+    .faq_close:hover {
+        color: #000
+    }
+
+    .faq_t_r {
+        border-bottom: 1px solid #F5F5F7;
+        padding: 0;
+        &.active {
+            .faq_close {
+                transform: rotate(46deg);
+            }
+        }
+        &:last-child {
+            border-bottom: 1px solid #ffffff;
+
+        }
+    }
+
+    .faq_spb_request_wrap {
+        position: relative;
+        display: none;
+
+        &.active {
+
+        }
+
+
+        .faq_spb_request {
+            background: #F5F5F7;
+            padding: 24px 30px 24px 16px;
+            font-size: 18px;
+            border-radius: 8px;
+            line-height: 1.3em;
+
+            p, li {
+                font-size: 18px;
+            }
+        }
+
+    }
+
+
+}
+

@@ -1,0 +1,218 @@
+@charset "utf-8";
+$color: #282828;
+$colorRed: #EF533F;
+$colorCCC: #CCCCCC;
+$colorGrey: #667085;
+$colorBlue: #095C9A;
+$colorBlue2: #03a9f4;
+$colorGreen: #0f6567;
+$colorYellow: #FF931E;
+$colorOrange: #FF732C;
+
+$maxWidth: 1200;
+@mixin adaptiv-font($pcSize, $mobSize) {
+    $addSize: $pcSize - $mobSize;
+    $maxWidth: $maxWidth - 320;
+    font-size: calc(#{$mobSize + px} + #{$addSize} * ((100vw - 320px) / #{$maxWidth}));
+}
+
+
+@mixin SourceSans3 {
+    font-family: 'Source Sans 3 Variable', sans-serif;
+}
+
+/* Нужно установить https://animate.style/ */
+:root {
+    --animate-duration: 800ms;
+    --animate-delay: 0.9s;
+}
+
+@import url('reset.css');
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    height: 100%;
+}
+
+body {
+    @include SourceSans3;
+    color: $color;
+    font-size: 16px;
+    font-weight: 400;
+    font-style: normal;
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+
+    .content_ {
+        flex: 1 0 auto;
+        background: #FFFFFF;
+    }
+
+    footer {
+        flex-shrink: 0;
+    }
+}
+
+
+main {
+
+}
+
+hr {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    border: 0;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.clear {
+    clear: both;
+}
+
+a {
+    color: $colorRed;
+}
+
+a:hover {
+    color: red;
+    text-decoration: none;
+}
+
+.color_red {
+    color: $colorRed;
+}
+
+.background_f7f7f7 {
+    background: #f7f7f7;
+}
+
+.border_top_FFFFFF {
+    border-top: 1px solid #ffffff;
+}
+
+.block {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.flex {
+    display: flex;
+}
+
+.display_block {
+    display: block;
+}
+
+.display_none {
+    display: none;
+}
+
+.color_white,
+.color_FFFFFF {
+    background-color: #ffffff;
+}
+
+.color_F5F5F7 {
+    background-color: #F5F5F7;
+}
+
+.z-index_100 {
+    position: relative;
+    z-index: 100;
+}
+
+.z-index_105 {
+    position: relative;
+    z-index: 105;
+}
+
+.z-index_110 {
+    position: relative;
+    z-index: 110;
+}
+
+.z-index_115 {
+    position: relative;
+    z-index: 115;
+}
+
+.relative {
+    position: relative;
+}
+
+.h1 {
+    font-weight: 600;
+    font-size: 36px;
+    line-height: 1.1em;
+    position: relative;
+
+}
+
+.h2 {
+
+    font-weight: 600;
+    font-size: 32px;
+    line-height: 1.2em;
+    position: relative;
+
+}
+
+.h3 {
+
+    font-weight: 600;
+    font-size: 30px;
+    line-height: 1.2em;
+    position: relative;
+
+}
+
+.h4 {
+
+    font-weight: 600;
+    font-size: 28px;
+    line-height: 1.2em;
+    position: relative;
+}
+
+
+.scroll-block {
+    width: 100%;
+    overflow-y: scroll
+}
+
+.scroll-block::-webkit-scrollbar-track {
+    border-radius: 4px
+}
+
+.scroll-block::-webkit-scrollbar {
+    width: 6px
+}
+
+.scroll-block::-webkit-scrollbar-thumb {
+    border-radius: 4px;
+    background: #fff
+}
+
+.scroll-block:hover::-webkit-scrollbar-thumb {
+    background: #ebebed
+}
+
+
+
+@media (max-width: 1440px) {
+
+    .block {
+        width: 100%;
+        padding-left: 15px;
+        padding-right: 15px;
+        position: relative;
+    }
+}
+

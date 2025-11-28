@@ -1,0 +1,65 @@
+@charset "utf-8";
+$color: #282828;
+$colorRed: #EF533F;
+$colorCCC: #CCCCCC;
+$colorGrey: #667085;
+$colorBlue: #095C9A;
+$colorBlue2: #03a9f4;
+$colorGreen: #0f6567;
+$colorYellow: #FF931E;
+$colorOrange: #FF732C;
+
+.btn,
+.btn_danger{
+    width: auto;
+    height: 34px;
+    display: inline-table;
+    text-align: center;
+    padding: 5px 20px;
+    background: $colorRed;
+    border-radius: 4px;
+    border: 1px solid $colorRed;
+    color: #FFFFFF;
+    position: relative;
+    transition: 0.3s;
+    text-decoration: none !important;
+}
+.btn.btn_white{
+    background: #fff;
+    border-radius: 4px;
+    border: 1px solid $colorRed;
+    color: $color;
+    position: relative;
+    transition: 0.3s;
+    text-decoration: none !important;
+}
+.btn.btn_white:hover {
+    background: $colorRed;
+    border-radius: 4px;
+    border: 1px solid $colorRed;
+    color: #fff;
+    position: relative;
+    transition: 0.3s;
+    text-decoration: none !important;
+}
+.btn.over,
+.btn:hover {
+background: #FFFFFF;
+    color: $colorRed;
+    border: 1px solid $colorRed;
+}
+
+.btn.over:hover {
+    background: $colorRed;
+    color: #FFFFFF;
+    border: 1px solid $colorRed;
+}
+
+.btn.btn-middle {
+    padding: 8px 20px;
+}
+.btn.btn-big {
+    padding: 10px 20px;
+    height: auto;
+    font-size: 18px;
+}

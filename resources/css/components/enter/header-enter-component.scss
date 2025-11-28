@@ -1,0 +1,51 @@
+@charset "utf-8";
+$color: #282828;
+$colorRed: #EF533F;
+$colorCCC: #CCCCCC;
+$colorGrey: #667085;
+$colorBlue: #095C9A;
+$colorBlue2: #03a9f4;
+$colorGreen: #0f6567;
+$colorYellow: #FF931E;
+$colorOrange: #FF732C;
+
+$maxWidth: 1200;
+@mixin adaptiv-font($pcSize, $mobSize) {
+    $addSize: $pcSize - $mobSize;
+    $maxWidth: $maxWidth - 320;
+    font-size: calc(#{$mobSize + px} + #{$addSize} * ((100vw - 320px) / #{$maxWidth}));
+}
+
+
+@mixin SourceSans3 {
+    font-family: 'Source Sans 3 Variable', sans-serif;
+}
+.enter_header-enter-component {
+    padding: 0 20px;
+}
+.enter_to_website {
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    height: 52px;
+    a {
+        position: relative;
+        display: flex;
+        align-items: center;
+        height: 100%;
+        i {
+            top: 0;
+            position: relative;
+            width: 20px;
+            height: 20px;
+            display: inline-block;
+            margin: 0 0 0 6px;
+                background-position: 0 0;
+                background-repeat: no-repeat;
+                background-image: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHZpZXdCb3g9IjAgMCAyMCAyMCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTEyLjExMzYgMi4xNzk2OUgxNS40NDdDMTUuODg5IDIuMTc5NjkgMTYuMzEyOSAyLjM1NTI4IDE2LjYyNTUgMi42Njc4NEMxNi45MzgxIDIuOTgwNCAxNy4xMTM2IDMuNDA0MzMgMTcuMTEzNiAzLjg0NjM1VjE1LjUxM0MxNy4xMTM2IDE1Ljk1NSAxNi45MzgxIDE2LjM3OSAxNi42MjU1IDE2LjY5MTVDMTYuMzEyOSAxNy4wMDQxIDE1Ljg4OSAxNy4xNzk3IDE1LjQ0NyAxNy4xNzk3SDEyLjExMzYiIHN0cm9rZT0iI0VGNTMzRiIgc3Ryb2tlLXdpZHRoPSIxLjYiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIvPgo8cGF0aCBkPSJNNy45NDY5OCAxMy44NDY1TDEyLjExMzYgOS42Nzk4NUw3Ljk0Njk4IDUuNTEzMTgiIHN0cm9rZT0iI0VGNTMzRiIgc3Ryb2tlLXdpZHRoPSIxLjYiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIvPgo8cGF0aCBkPSJNMTIuMTEzNiA5LjY3OTY5SDIuMTEzNjUiIHN0cm9rZT0iI0VGNTMzRiIgc3Ryb2tlLXdpZHRoPSIxLjYiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIvPgo8L3N2Zz4K');
+
+
+        }
+
+    }
+}

@@ -1,0 +1,87 @@
+.header_1__phone_cities {
+  width: 100%;
+  height: 44px;
+  position: relative;
+  display: flex;
+  justify-content: end;
+  align-items: center;
+  z-index: 110;
+}
+.header_1__phone_cities .phone_rack a {
+  color: #282828;
+  font-weight: 600;
+  text-decoration: none;
+  display: block;
+}
+.header_1__phone_cities .cities {
+  padding: 0 0 0 20px;
+}
+.header_1__phone_cities .cities .city_rack {
+  display: flex;
+  align-items: center;
+}
+.header_1__phone_cities .cities .city_rack span {
+  color: #667085;
+  cursor: pointer;
+  transition: 0.2s;
+  min-width: 88px;
+  display: flex;
+  justify-content: end;
+}
+.header_1__phone_cities .cities .city_rack span:hover {
+  color: #EF533F;
+}
+.header_1__phone_cities .cities .city_rack i {
+  width: 12px;
+  height: 6px;
+  display: inline-block;
+  font-style: normal;
+  background-position: 0 1px;
+  background-repeat: no-repeat;
+  background-image: url("data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTIiIGhlaWdodD0iNiIgdmlld0JveD0iMCAwIDEyIDYiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxwYXRoIGQ9Ik0xLjMzMzAxIDAuNjY2MDE2TDUuOTk5NjcgNC42NjYwMkwxMC42NjYzIDAuNjY2MDE2IiBzdHJva2U9IiM2Rjc4OTMiIHN0cm9rZS13aWR0aD0iMS4yIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiLz4KPC9zdmc+Cg==");
+  transition: 0.3s;
+  margin-left: 6px;
+}
+.header_1__phone_cities .cities .city_rack i.active {
+  transform: rotateX(180deg);
+}
+
+.cities_list {
+  position: relative;
+  min-height: 1px;
+  z-index: 110;
+}
+.cities_list .cities_list__ul {
+  display: none;
+  opacity: 0;
+  position: absolute;
+  top: 18px;
+  right: 0;
+  min-width: 300px;
+  border-radius: 12px;
+  padding: 16px;
+  border: 1px solid #E0E0E0;
+  background-color: #FFFFFF;
+}
+.cities_list .cities_list__ul.active {
+  display: block;
+}
+.cities_list .cities_list__ul .city_li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  min-height: 30px;
+  font-size: 14px;
+}
+.cities_list .cities_list__ul .city_li-name:hover {
+  position: relative;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+/* This only changes this particular animation duration */
+.animate__animated.animate__fadeInDown {
+  --animate-duration: 0.4s;
+}
+
+/*# sourceMappingURL=city-component.css.map */

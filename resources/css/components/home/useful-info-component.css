@@ -1,0 +1,41 @@
+.home_useful-info-component {
+  position: relative;
+  padding: 10px 0 40px 0;
+}
+
+.teaser_info {
+  position: relative;
+}
+.teaser_info .teaser_info__flex {
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
+}
+.teaser_info .teaser_info__flex .teaser {
+  width: 33%;
+  height: 358px;
+  overflow: hidden;
+  background: #F5F5F7;
+}
+.teaser_info .teaser_info__flex .teaser_img {
+  padding: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.teaser_info .teaser_info__flex .teaser_desc {
+  padding: 0 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  line-height: 1.4em;
+  max-height: 50px;
+  overflow: hidden;
+}
+.teaser_info .teaser_info__flex .teaser_button {
+  padding: 24px;
+  line-height: 1.4em;
+}
+
+/*# sourceMappingURL=useful-info-component.css.map */

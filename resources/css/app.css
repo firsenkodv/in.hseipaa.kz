@@ -1,0 +1,44 @@
+@import 'pagination.scss';
+@import 'general-style/paddind.scss';
+@import 'general-style/width.scss';
+@import 'general-style/button.scss';
+@import '@fontsource-variable/source-sans-3';
+@import 'loader_map.css';
+
+
+@import 'contacts/contacts.scss';
+@import 'components/home/output-category-component.scss';
+@import 'components/home/output-news-component.scss';
+@import 'components/home/output-service-category-component.scss';
+@import 'components/home/everything-personal-account-component.scss';
+@import 'components/home/consultation-component.scss';
+@import 'components/home/useful-info-component.scss';
+@import 'components/contacts/city-component.scss';
+@import 'components/logo/logo-component.scss';
+@import 'components/menu/header-menu-component.scss';
+@import 'components/enter/header-enter-component.scss';
+@import 'components/social_network/header-socialnetwork-component.scss';
+@import 'components/language/header-language-component.scss';
+@import 'components/menu/hamburger-component.scss';
+@import 'components/menu/left-menu-component.scss';
+@import 'components/search/exchange.scss';
+@import 'components/buttons/buttons.scss';
+@import 'components/content/content-component.scss';
+@import 'components/content/content-other-component.scss';
+@import 'components/content/tooltip.scss';
+@import 'components/content/download-file.scss';
+@import 'components/content/teaser.scss';
+@import 'components/content/content-faq-component.scss';
+@import 'components/tax/tax-content-component.scss';
+@import 'templates/axeld/swiper.scss';
+@import 'templates/axeld/tabs.scss';
+@import 'templates/axeld/breadcrumbs.scss';
+@import 'templates/axeld/header.scss';
+@import 'templates/axeld/footer.scss';
+@import 'templates/axeld/content.scss';
+@import 'templates/axeld/search.scss';
+
+@import 'components/mobile/mobile-menu-component.scss';
+
+@import 'style.scss';
+@import 'animate.css';

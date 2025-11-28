@@ -1,0 +1,48 @@
+.home_everything-personal-account-component {
+  position: relative;
+  padding: 10px 0 40px 0;
+}
+.home_everything-personal-account-component .personal_account_background {
+  width: 100%;
+  padding: 24px;
+  background: #f0fcf6;
+  border-radius: 12px;
+}
+.home_everything-personal-account-component .personal_account_background .personal_account__flex {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+.home_everything-personal-account-component .personal_account_background .personal_account__flex .personal_account__left {
+  width: 60%;
+  padding-left: 40px;
+}
+.home_everything-personal-account-component .personal_account_background .personal_account__flex .personal_account__left .personal_account__title {
+  padding: 10px 0;
+}
+.home_everything-personal-account-component .personal_account_background .personal_account__flex .personal_account__left .personal_account__desc {
+  color: #282828;
+  font-size: 22px;
+  padding: 16px 0 10px 0;
+  line-height: 1.4em;
+}
+.home_everything-personal-account-component .personal_account_background .personal_account__flex .personal_account__left .personal_account__button {
+  padding: 14px 0;
+}
+.home_everything-personal-account-component .personal_account_background .personal_account__flex .personal_account__left .personal_account__button .btn {
+  min-width: 220px;
+}
+.home_everything-personal-account-component .personal_account_background .personal_account__flex .personal_account__left .personal_account__button .btn:first-child {
+  margin-right: 20px;
+}
+.home_everything-personal-account-component .personal_account_background .personal_account__flex .personal_account__right {
+  width: 33%;
+  min-height: 276px;
+  position: relative;
+}
+.home_everything-personal-account-component .personal_account_background .personal_account__flex .personal_account__right img {
+  position: absolute;
+  left: -20%;
+}
+
+/*# sourceMappingURL=everything-personal-account-component.css.map */

@@ -1,0 +1,140 @@
+@charset "utf-8";
+$color: #282828;
+$colorRed: #EF533F;
+$colorCCC: #CCCCCC;
+$colorGrey: #667085;
+$colorBlue: #095C9A;
+$colorBlue2: #03a9f4;
+$colorGreen: #0f6567;
+$colorYellow: #FF931E;
+$colorOrange: #FF732C;
+
+$maxWidth: 1200;
+@mixin adaptiv-font($pcSize, $mobSize) {
+    $addSize: $pcSize - $mobSize;
+    $maxWidth: $maxWidth - 320;
+    font-size: calc(#{$mobSize + px} + #{$addSize} * ((100vw - 320px) / #{$maxWidth}));
+}
+
+.content_content-component {
+    padding-bottom: 30px;
+}
+
+.desc {
+    width: 100%;
+    position: relative;
+
+    .bl_desc {
+        width: 100%;
+        position: relative;
+        padding: 10px 0;
+    }
+
+    .bl_desc2 {
+        width: 100%;
+        position: relative;
+        padding-bottom: 10px;
+    }
+
+    p {
+        width: 100%;
+        position: relative;
+        padding: 10px 0;
+        line-height: 1.6rem;
+        font-size: 16px;
+
+    }
+
+    h1 {
+        line-height: 2.3rem;
+        padding: 10px 0;
+        font-weight: 700;
+        font-style: normal;
+        font-size: 30px;
+        color: $colorRed;
+    }
+
+    h2 {
+        line-height: 2.1rem;
+        padding: 10px 0 8px 0;
+        font-weight: 700;
+        font-style: normal;
+        font-size: 27px;
+        color: $colorRed;
+    }
+
+    h3 {
+        line-height: 2rem;
+        padding: 9px 0 8px 0;
+        font-weight: 700;
+        font-style: normal;
+        font-size: 26px;
+        color: $color;
+    }
+
+    h4 {
+        line-height: 2rem;
+        padding: 8px 0;
+        font-weight: 700;
+        font-style: normal;
+        font-size: 24px;
+        color: $color;
+    }
+
+    iframe, embed {
+        box-sizing: border-box;
+        border: 8px solid $colorRed;
+        border-radius: 24px;
+        margin: 16px 0;
+    }
+
+    ul, ol {
+        padding: 5px 10px 5px 6px;
+    }
+
+    ul li:before {
+        content: '';
+        display: inline-block;
+        border-radius: 10px;
+        width: 8px;
+        height: 8px;
+        position: absolute;
+        background: #cbdaed;
+        left: -4px;
+        top: 12px;
+    }
+
+    ul li {
+        padding: 5px 5px 5px 25px;
+        font-size: 16px;
+        position: relative;
+        line-height: 1.4rem;
+    }
+
+    ol {
+        padding-left: 15px
+    }
+
+    ol li {
+        padding: 5px 5px 5px 5px;
+        font-size: 16px;
+        position: relative;
+        line-height: 1.4rem;
+        list-style-type: decimal;
+    }
+
+    ._img2 {
+        width: 100%;
+        position: relative;
+        margin: 10px 0;
+
+        img {
+            max-width: 100%;
+        }
+    }
+
+}
+
+._subtitle {
+    color: $colorGrey;
+}

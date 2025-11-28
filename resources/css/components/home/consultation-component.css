@@ -1,0 +1,97 @@
+.home_consultation-component {
+  position: relative;
+  padding: 10px 0 40px 0;
+}
+.home_consultation-component .consult_background {
+  width: 100%;
+  padding: 24px;
+  background: #fef5f4;
+  border-radius: 12px;
+}
+.home_consultation-component .consult_background .consult__flex {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+.home_consultation-component .consult_background .consult__flex .consult__left {
+  width: 64%;
+}
+.home_consultation-component .consult_background .consult__flex .consult__left .consult__title {
+  padding: 10px 0;
+  text-align: center;
+}
+.home_consultation-component .consult_background .consult__flex .consult__right {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 28%;
+  min-height: 276px;
+  flex-direction: column;
+}
+.home_consultation-component .consult_background .consult__flex .consult__right .consult_h_25 {
+  height: 25px;
+}
+.home_consultation-component .consult_background .consult__flex .consult__right .btn {
+  width: 100%;
+}
+.home_consultation-component .consult_background .F_Lflex {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 16px 0;
+}
+.home_consultation-component .consult_background .F_i_ {
+  width: 225px;
+  align-items: center;
+}
+.home_consultation-component .consult_background .F_i_ img {
+  max-width: none;
+  margin: 0 auto;
+  display: block;
+}
+.home_consultation-component .consult_background .F_i_ span {
+  display: block;
+  color: #6F7893;
+  font-size: 18px;
+  font-weight: 400;
+  text-align: center;
+  padding: 20px 0 5px 0;
+}
+.home_consultation-component .consult_background .F_i_ p {
+  color: #282828;
+  font-size: 22px;
+  text-align: center;
+  padding: 5px 0 10px 0;
+  line-height: 1.1em;
+}
+.home_consultation-component .consult_background .F_i_2, .home_consultation-component .consult_background .F_i_4 {
+  width: 50px;
+  padding: 95px 0 0 0;
+  position: relative;
+}
+.home_consultation-component .consult_background .F_i_2 span, .home_consultation-component .consult_background .F_i_4 span {
+  width: 10px;
+  height: 10px;
+  background: none;
+  padding: 0;
+  float: right;
+  border: 1px solid #667085;
+  box-sizing: border-box;
+  border-top: none;
+  border-left: none;
+  position: relative;
+  transform: rotate(-45deg);
+  top: -5px;
+  font-size: 0;
+}
+.home_consultation-component .consult_background .F_i_3 img, .home_consultation-component .consult_background .F_i_5 img {
+  margin-bottom: 6px;
+}
+.home_consultation-component .consult_background .d_42 {
+  width: 42px;
+  height: 1px;
+  background: #667085;
+}
+
+/*# sourceMappingURL=consultation-component.css.map */

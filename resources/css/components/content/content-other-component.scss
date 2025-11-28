@@ -1,0 +1,59 @@
+@charset "utf-8";
+$color: #282828;
+$colorRed: #EF533F;
+$colorCCC: #CCCCCC;
+$colorGrey: #667085;
+$colorBlue: #095C9A;
+$colorBlue2: #03a9f4;
+$colorGreen: #0f6567;
+$colorYellow: #FF931E;
+$colorOrange: #FF732C;
+
+$maxWidth: 1200;
+@mixin adaptiv-font($pcSize, $mobSize) {
+    $addSize: $pcSize - $mobSize;
+    $maxWidth: $maxWidth - 320;
+    font-size: calc(#{$mobSize + px} + #{$addSize} * ((100vw - 320px) / #{$maxWidth}));
+}
+
+.content_content-other-component {
+    width: 100%;
+    position: relative;
+
+    .other_flex {
+
+        display: flex;
+        justify-content: space-between;
+        align-items: start;
+        position: relative;
+
+        .other_left {
+            min-width: 430px;
+            height: auto;
+
+
+        }
+
+        .other_right {
+            width: 100%;
+            padding: 0 0 0 16px;
+            .temp_title {
+                h2 {
+                    color: $color;
+                    font-size: 24px;
+                    font-weight: 500;
+                }
+
+            }
+            .temp_desc {
+
+            }
+            .temp_price {
+                padding:5px 0  10px 0;
+                color: $colorRed;
+                font-size: 24px;
+                font-weight: 600;
+            }
+        }
+    }
+}

@@ -1,0 +1,90 @@
+.h_toggle {
+  width: 100%;
+  height: 60px;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: 0.2s;
+}
+.h_toggle:hover {
+  opacity: 0.8;
+}
+.h_toggle .h_img {
+  display: none;
+}
+.h_toggle .h_img.active {
+  display: block;
+}
+
+.add_hm {
+  width: 100%;
+  min-height: 100px;
+  background-color: #FFFFFF;
+  z-index: 101;
+  padding: 24px;
+  display: block;
+  position: absolute;
+  visibility: hidden;
+  opacity: 0;
+  transform: translate(0, 20px);
+  transition: 0.3s;
+  box-shadow: 0 8px 11px rgba(0, 0, 0, 0.1);
+  border-radius: 0 0 6px 6px;
+}
+
+.add_hm.active {
+  visibility: visible;
+  opacity: 1;
+  transform: translate(0, 0);
+}
+
+.add_hm__flex {
+  display: flex;
+  justify-content: space-between;
+}
+.add_hm__flex .add_hm__left {
+  width: 70%;
+  position: relative;
+  padding: 0 20px 0 0;
+}
+.add_hm__flex .add_hm__right {
+  width: 30%;
+  position: relative;
+  padding: 0 30px 0 0;
+  display: flex;
+  flex-direction: column;
+  align-items: end;
+  z-index: 100;
+}
+.add_hm__flex .add_hm__right .add_hm_blocks {
+  height: 100%;
+  position: relative;
+  display: inline-table;
+}
+.add_hm__flex .add_hm__right .add_hm_blocks .hm_phone {
+  font-weight: 600;
+  padding: 3px 0;
+  position: relative;
+}
+.add_hm__flex .add_hm__right .add_hm_blocks .hm_email {
+  font-weight: 300;
+  padding: 3px 0;
+  color: #667085;
+  position: relative;
+}
+.add_hm__flex .add_hm__right .add_hm_blocks .hm_social {
+  position: relative;
+  padding: 0;
+}
+.add_hm__flex .add_hm__right .add_hm_blocks .hm_button {
+  padding: 3px 0;
+  position: relative;
+}
+
+.hm_social {
+  width: 140px;
+}
+
+/*# sourceMappingURL=hamburger-component.css.map */

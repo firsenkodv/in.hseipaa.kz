@@ -1,0 +1,123 @@
+@charset "utf-8";
+$color: #282828;
+$colorRed: #EF533F;
+$colorCCC: #CCCCCC;
+$colorGrey: #667085;
+$colorBlue: #095C9A;
+$colorBlue2: #03a9f4;
+$colorGreen: #0f6567;
+$colorYellow: #FF931E;
+$colorOrange: #FF732C;
+
+$maxWidth: 1200;
+@mixin adaptiv-font($pcSize, $mobSize) {
+    $addSize: $pcSize - $mobSize;
+    $maxWidth: $maxWidth - 320;
+    font-size: calc(#{$mobSize + px} + #{$addSize} * ((100vw - 320px) / #{$maxWidth}));
+}
+
+.home_output-news-component {
+    position: relative;
+    padding-bottom: 40px;
+}
+
+.output-news__topBar {
+    display: flex;
+    align-items: center;
+    padding: 0 0 30px 0;
+
+    .topBar__left {
+        padding-right: 20px;
+    }
+
+    .topBar__right {
+        padding-left: 20px;
+        width: 100%;
+
+        .tabs {
+            margin: 0;
+        }
+
+    }
+}
+
+.news__centerBar {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.centerBar__left {
+    width: 778px;
+    min-width: 778px;
+    height: 410px;
+    overflow: hidden;
+
+}
+
+.centerBar__right {
+    width: 100%;
+    height: 410px;
+    display: flex;
+    justify-content: end;
+
+    .output_news__module {
+        width: 100%;
+        margin: 0;
+        position: relative;
+        z-index: 9;
+        border-radius: 12px;
+        padding: 10px;
+        max-width: 389px;
+        background: #FFFFFF;
+        border: 2px solid #F5F5F7;
+        box-sizing: border-box;
+        height: 410px;
+
+    }
+}
+
+.on__link {
+    padding: 10px 8px 18px 8px;
+    margin: 0 0 5px 0;
+    display: block;
+    text-decoration: none;
+    color: $color;
+    font-size: 16px;
+    line-height: 1.3em;
+    transition: 0.3s;
+    border-bottom: 1px solid #E0E0E0;
+
+    &:hover {
+        color: $color;
+        background: #F5F5F7;
+        border-radius: 4px 0 0 4px;
+        border-bottom: 1px solid #F5F5F7;
+        text-decoration: none;
+
+    }
+
+    .on__date,
+    .on__category {
+        color: $colorGrey;
+        position: relative;
+    }
+    .on__date {
+       &:after {
+            width: 4px;
+            height: 4px;
+            border-radius: 60%;
+            background: #6F7893;
+            display: inline-block;
+            content: '';
+            position: absolute;
+            right: -14px;
+            top: 10px;
+        }
+    }
+    .on__category {
+        margin-left: 20px;
+    }
+
+}

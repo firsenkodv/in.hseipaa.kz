@@ -1,0 +1,104 @@
+<?php
+use Diglactic\Breadcrumbs\Breadcrumbs;
+
+// Home
+Breadcrumbs::for('home', function ($trail) {
+    $trail->push('Главная', route('home'));
+});
+// Home > Contacts
+Breadcrumbs::for('contacts', function ($trail) {
+    $trail->parent('home');
+    $trail->push((config2('moonshine.contact.title'))?:' - ', route('contacts'));
+});
+
+// Home > Company > Categories
+Breadcrumbs::for('company_categories', function ($trail) {
+    $trail->parent('home');
+    $trail->push((config2('moonshine.company.title'))?:' - ' , route('company_categories'));
+});
+
+// Home > Company > Category
+Breadcrumbs::for('company_category', function ($trail, $category) {
+    $trail->parent('company_categories');
+    $trail->push($category->title , route('company_category', ['category_slug' => $category->slug]));
+
+});// Home > Company > Category > Item
+Breadcrumbs::for('company_item', function ($trail, $category, $item) {
+    $trail->parent('company_category', $category);
+    $trail->push($item->title , route('company_item', ['category_slug' => $category->slug, 'item_slug' => $item->slug]));
+});
+
+// Home
+Breadcrumbs::for('search', function ($trail) {
+    $trail->parent('home');
+
+    $trail->push('Поиск', route('search'));
+});
+// Home > News
+Breadcrumbs::for('site_new_categories', function ($trail) {
+    $trail->parent('home');
+    $trail->push((config2('moonshine.new.title'))?:' - ' , route('site_new_categories'));
+});
+
+// Home > News > Categories
+Breadcrumbs::for('site_new_category', function ($trail, $category) {
+    $trail->parent('site_new_categories');
+    $trail->push($category->title , route('site_new_category', ['category_slug' => $category->slug]));
+});
+
+// Home > News > Categories >Item
+Breadcrumbs::for('site_new_item', function ($trail, $category, $item) {
+    $trail->parent('site_new_category', $category);
+    $trail->push($item->title , route('site_new_item', ['category_slug' => $category->slug, 'item_slug' => $item->slug]));
+});
+
+// Home > Useful
+Breadcrumbs::for('useful_section', function ($trail, $section) {
+    $trail->parent('home');
+    $trail->push($section->title , route('useful_section', $section->slug));
+});
+
+// Home > Useful > Category
+Breadcrumbs::for('useful_category', function ($trail, $section, $category) {
+    $trail->parent('useful_section', $section);
+    $trail->push($category->title , route('useful_category', ['useful' => $section->slug ,'category_slug' => $category->slug]));
+});
+
+// Home > Useful > Category > Subcategory
+Breadcrumbs::for('useful_subcategory', function ($trail, $section, $category, $subcategory) {
+    $trail->parent('useful_category', $section, $category);
+    $trail->push($subcategory->title , route('useful_subcategory', ['useful' => $section->slug ,'category_slug' => $category->slug, 'subcategory_slug' => $subcategory->slug]));
+});
+
+
+// Home > Useful > Category > Subcategory >item
+Breadcrumbs::for('useful_item', function ($trail, $section, $category, $subcategory, $item) {
+    $trail->parent('useful_subcategory', $section, $category, $subcategory);
+    $trail->push($item->title , route('useful_item', ['useful' => $section->slug ,'category_slug' => $category->slug, 'subcategory_slug' => $subcategory->slug, 'item_slug' => $item->slug]));
+});
+
+
+// Home > Service
+Breadcrumbs::for('service_section', function ($trail, $section) {
+    $trail->parent('home');
+    $trail->push($section->title , route('service_section', $section->slug));
+});
+
+// Home > Service > Category
+Breadcrumbs::for('service_category', function ($trail, $section, $category) {
+    $trail->parent('service_section', $section);
+    $trail->push($category->title , route('service_category', ['service' => $section->slug ,'category_slug' => $category->slug]));
+});
+
+// Home > Service > Category  >item
+Breadcrumbs::for('service_item', function ($trail, $section, $category, $item) {
+    $trail->parent('service_category', $section, $category);
+    $trail->push($item->title , route('service_item', ['service' => $section->slug ,'category_slug' => $category->slug,  'item_slug' => $item->slug]));
+});
+
+// Home > Tax
+Breadcrumbs::for('tax_calendar', function ($trail, $item) {
+    $trail->parent('home');
+    $trail->push($item->title , route('tax_calendar', ['item_slug' => $item->slug]));
+});
+

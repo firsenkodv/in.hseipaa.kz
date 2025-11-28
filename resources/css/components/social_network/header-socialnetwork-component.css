@@ -1,0 +1,33 @@
+.ss_social {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.ss_social a {
+  text-decoration: none;
+  color: #FFFFFF;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.ss_social a img {
+  opacity: 0.6;
+}
+
+.social_header-socialnetwork-component {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 52px;
+  width: 100%;
+}
+.social_header-socialnetwork-component .ss_social {
+  width: 100%;
+  height: 40px;
+  padding: 0 10px;
+}
+.social_header-socialnetwork-component .ss_social a {
+  height: 40px;
+}
+
+/*# sourceMappingURL=header-socialnetwork-component.css.map */

@@ -1,0 +1,107 @@
+@charset "utf-8";
+$color: #282828;
+$colorRed: #EF533F;
+$colorCCC: #CCCCCC;
+$colorGrey: #667085;
+$colorBlue: #095C9A;
+$colorBlue2: #03a9f4;
+$colorGreen: #0f6567;
+$colorYellow: #FF931E;
+$colorOrange: #FF732C;
+
+$maxWidth: 1200;
+@mixin adaptiv-font($pcSize, $mobSize) {
+    $addSize: $pcSize - $mobSize;
+    $maxWidth: $maxWidth - 320;
+    font-size: calc(#{$mobSize + px} + #{$addSize} * ((100vw - 320px) / #{$maxWidth}));
+}
+
+
+.block_content {
+    padding: 10px 0 20px 0;
+    .block_content__title {
+        h1 {
+            font-size: 40px;
+        }
+
+    }
+
+    .block_content__breadcrumbs {
+
+    }
+
+    .block_content__flex {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+        position: relative;
+        padding: 30px 0 20px 0;
+
+        .block_content__left {
+            width: 26%;
+            min-width: 300px;
+            height: auto;
+            position: relative;
+
+        }
+
+        .block_content__right {
+            width: 73%;
+            height: auto;
+            position: relative;
+            padding:0  24px 24px 36px;
+        }
+    }
+}
+
+@media (max-width: 999px) {
+
+    .block_content {
+        .block_content__flex {
+
+            width: 100%;
+
+
+            .block_content__left {
+
+                min-width: 250px;
+                height: auto;
+
+
+            }
+
+            .block_content__right {
+                width: 100%;
+                height: auto;
+
+            }
+        }
+    }
+}
+
+@media (max-width: 742px) {
+
+    .block_content {
+        .block_content__flex {
+
+            width: 100%;
+            flex-direction: column-reverse;
+
+
+            .block_content__left {
+
+                min-width: 1px;
+                width: 100%;
+                height: auto;
+
+
+            }
+
+            .block_content__right {
+                width: 100%;
+                height: auto;
+
+            }
+        }
+    }
+}

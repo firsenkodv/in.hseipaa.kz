@@ -1,0 +1,135 @@
+@charset "utf-8";
+$color: #282828;
+$colorRed: #EF533F;
+$colorCCC: #CCCCCC;
+$colorGrey: #667085;
+$colorBlue: #095C9A;
+$colorBlue2: #03a9f4;
+$colorGreen: #0f6567;
+$colorYellow: #FF931E;
+$colorOrange: #FF732C;
+
+$maxWidth: 1200;
+@mixin adaptiv-font($pcSize, $mobSize) {
+    $addSize: $pcSize - $mobSize;
+    $maxWidth: $maxWidth - 320;
+    font-size: calc(#{$mobSize + px} + #{$addSize} * ((100vw - 320px) / #{$maxWidth}));
+}
+
+.home_consultation-component {
+
+    position: relative;
+    padding: 10px 0 40px 0;
+
+    .consult_background {
+        width: 100%;
+        padding: 24px;
+        background: #fef5f4;
+        border-radius: 12px;
+
+        .consult__flex {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+
+            .consult__left {
+                width: 64%;
+
+                .consult__title {
+                    padding: 10px 0;
+                    text-align: center;
+
+                }
+            }
+
+            .consult__right {
+
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                width: 28%;
+                min-height: 276px;
+                flex-direction: column;
+                .consult_h_25 {
+                    height: 25px;
+                }
+                .btn {
+                    width: 100%;
+                }
+            }
+
+        }
+
+
+
+        .F_Lflex {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            padding: 16px 0;
+        }
+
+        .F_i_ {
+            width: 225px;
+            align-items: center
+        }
+
+        .F_i_ img {
+            max-width: none;
+            margin: 0 auto;
+            display: block
+        }
+
+        .F_i_ span {
+            display: block;
+            color: #6F7893;
+            font-size: 18px;
+            font-weight: 400;
+            text-align: center;
+            padding: 20px 0 5px 0;
+        }
+
+        .F_i_ p {
+            color: $color;
+            font-size: 22px;
+            text-align: center;
+            padding: 5px 0 10px 0;
+            line-height: 1.1em;
+        }
+
+        .F_i_2, .F_i_4 {
+            width: 50px;
+            padding: 95px 0 0 0;
+            position: relative;
+        }
+
+        .F_i_2 span, .F_i_4 span {
+            width: 10px;
+            height: 10px;
+            background: none;
+            padding: 0;
+            float: right;
+            border: 1px solid $colorGrey;
+            box-sizing: border-box;
+            border-top: none;
+            border-left: none;
+            position: relative;
+            transform: rotate(-45deg);
+            top: -5px;
+            font-size: 0
+        }
+
+        .F_i_3 img, .F_i_5 img {
+            margin-bottom: 6px
+        }
+
+        .d_42 {
+            width: 42px;
+            height: 1px;
+            background: $colorGrey
+        }
+
+
+    }
+}
