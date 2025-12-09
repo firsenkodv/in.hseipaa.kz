@@ -26,7 +26,8 @@
                 </div>
                 <div class="hm_button">
                     <x-buttons.button-component
-                        class="btn btn-middle"
+                        class="btn btn-middle open-fancybox"
+                        data="data-form=subscription_me"
                     >Оформить подписку</x-buttons.button-component>
                 </div>
                 </div>

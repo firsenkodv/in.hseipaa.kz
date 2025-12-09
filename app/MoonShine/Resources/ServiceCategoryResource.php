@@ -9,6 +9,7 @@ use App\Models\ServiceCategory;
 
 use MoonShine\Laravel\Enums\Action;
 use MoonShine\Laravel\Fields\Relationships\BelongsTo;
+use MoonShine\Laravel\Fields\Relationships\BelongsToMany;
 use MoonShine\Laravel\Fields\Slug;
 use MoonShine\Laravel\Resources\ModelResource;
 use MoonShine\Support\ListOf;
@@ -190,8 +191,8 @@ class ServiceCategoryResource extends ModelResource
                         Grid::make([
                             Column::make([
                                 Collapse::make('Вопрос/Ответ', [
-                                    Text::make('Заголовок', 'faq_title')->unescape(),
 
+                                    Text::make('Заголовок', 'faq_title')->unescape(),
                                     Json::make('Вопрос-ответ', 'faq')->fields([
                                         Textarea::make('Вопрос', 'faq_question'),
                                         TinyMce::make('Ответ', 'faq_answer')
@@ -199,6 +200,18 @@ class ServiceCategoryResource extends ModelResource
                                     ])->vertical()->creatable(limit: 50)
                                         ->removable(),
 
+                                ]),
+                            ])->columnSpan(12),
+                        ]),
+
+                    ]),
+
+                    Tab::make(__('Тарифы'), [
+
+                        Grid::make([
+                            Column::make([
+                                Collapse::make('Вывод тарифов', [
+                                    BelongsToMany::make('Тариф', 'tarif', 'title', resource: TarifResource::class )->selectMode(),
                                 ]),
                             ])->columnSpan(12),
                         ]),

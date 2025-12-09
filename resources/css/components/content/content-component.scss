@@ -27,7 +27,7 @@ $maxWidth: 1200;
     .bl_desc {
         width: 100%;
         position: relative;
-        padding: 10px 0;
+        padding:0 0  10px 0;
     }
 
     .bl_desc2 {
@@ -137,4 +137,18 @@ $maxWidth: 1200;
 
 ._subtitle {
     color: $colorGrey;
+}
+
+@media screen and (max-width: 794px){
+    .content_content-component {
+        padding-bottom: 15px;
+    }
+    .desc {
+        width: 100%;
+        position: relative;
+
+        .bl_desc {
+            padding: 0;
+        }
+    }
 }

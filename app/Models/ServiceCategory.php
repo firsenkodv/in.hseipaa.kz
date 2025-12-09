@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class ServiceCategory extends Model
@@ -50,6 +51,7 @@ class ServiceCategory extends Model
 
     ];
 
+    protected $with = ['tarif'];
 
     public function service(): BelongsTo {
         return $this->belongsTo(Service::class, 'service_id')->where('published', 1);
@@ -59,6 +61,13 @@ class ServiceCategory extends Model
     {
         return $this->hasMany(ServiceItem::class)->where('published', 1)->orderBy('sorting', 'asc');
     }
+
+
+    public function tarif():BelongsToMany
+    {
+        return $this->belongsToMany(Tarif::class)->where('published', 1)->orderBy('sorting', 'desc');
+    }
+
 
     /** метод (получение правильных url) **/
     public function getUrlAttribute()

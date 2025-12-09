@@ -32,6 +32,9 @@ use App\MoonShine\Pages\UsefulModulePage;
 use App\MoonShine\Resources\SiteNewModuleResource;
 use App\MoonShine\Pages\ServiceModulePage;
 use App\MoonShine\Pages\HomePage;
+use App\MoonShine\Resources\MzpResource;
+use App\MoonShine\Resources\TarifResource;
+use App\MoonShine\Resources\SavedFormDataResource;
 
 class MoonShineServiceProvider extends ServiceProvider
 {
@@ -60,6 +63,9 @@ class MoonShineServiceProvider extends ServiceProvider
                 TaxResource::class,
                 AxeldPassportResource::class,
                 SiteNewModuleResource::class,
+                MzpResource::class,
+                TarifResource::class,
+                SavedFormDataResource::class,
             ])
             ->pages([
                 ...$config->getPages(),

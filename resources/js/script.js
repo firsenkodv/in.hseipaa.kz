@@ -7,8 +7,10 @@ import {yandex_map_object} from "./include/site/yandex_map";
 import {left_menu} from "./include/site/left_menu";
 import {tax_calendar} from "./include/site/tax_calendar";
 import {swiper} from "./include/site/swiper";
-import {content_faq} from "./include/site/content_faq.js";
-import {mobileMenuComponent} from "./include/site/mobile/mobile-menu-component.js";
+import {content_faq} from "./include/site/content_faq";
+import {mobileMenuComponent} from "./include/site/mobile/mobile-menu-component";
+import {removeErrors} from "./include/fancybox/form/removeErrors";
+import {select} from "./include/select/select";
 
 
 
@@ -26,6 +28,8 @@ document.addEventListener('DOMContentLoaded', function () {
     swiper()
     content_faq() // FAQ
     mobileMenuComponent() // мобильное меню
+    removeErrors() // убрать ошибки с input`s
+select()
 
 
 });

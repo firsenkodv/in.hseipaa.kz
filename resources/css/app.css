@@ -26,10 +26,17 @@
 @import 'components/content/content-component.scss';
 @import 'components/content/content-other-component.scss';
 @import 'components/content/tooltip.scss';
+@import 'components/content/tooltip.scss';
 @import 'components/content/download-file.scss';
 @import 'components/content/teaser.scss';
 @import 'components/content/content-faq-component.scss';
+@import 'components/content/content-tarif-component.scss';
 @import 'components/tax/tax-content-component.scss';
+@import 'components/mzp/mzp-content-component.scss';
+@import 'components/form/form_input_component.scss';
+@import 'components/form/form_select_component.scss';
+@import 'components/form/form_loader_component.scss';
+@import 'components/form/form_response_controller.scss';
 @import 'templates/axeld/swiper.scss';
 @import 'templates/axeld/tabs.scss';
 @import 'templates/axeld/breadcrumbs.scss';
@@ -39,6 +46,7 @@
 @import 'templates/axeld/search.scss';
 
 @import 'components/mobile/mobile-menu-component.scss';
+@import 'fancybox/fancubox6.scss';
 
 @import 'style.scss';
 @import 'animate.css';

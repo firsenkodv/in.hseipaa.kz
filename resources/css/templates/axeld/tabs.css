@@ -36,4 +36,16 @@
   /* padding: 0 0 0 1.5%;*/
 }
 
+@media screen and (max-width: 742px) {
+  .tabs {
+    height: auto;
+    flex-wrap: wrap;
+  }
+  .tabs .tab {
+    margin: 0 5px 5px 0;
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+}
+
 /*# sourceMappingURL=tabs.css.map */

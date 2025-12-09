@@ -19,6 +19,7 @@ $maxWidth: 1200;
 .output {
     padding-bottom: 90px;
 }
+
 .home_out_c_cal {
     width: 100%;
     justify-content: space-between;
@@ -33,7 +34,7 @@ $maxWidth: 1200;
 .home_out_c_cal__right {
     width: 35%;
     display: flex;
-    justify-content:end;
+    justify-content: end;
 
 }
 
@@ -46,12 +47,13 @@ $maxWidth: 1200;
     .output__right {
         background: #F5F5F7;
         border-radius: 8px;
-        padding:24px 16px 16px 16px;
+        padding: 24px 16px 16px 16px;
         width: 50%;
         height: 342px;
         overflow: hidden;
 
     }
+
     .output__left {
         margin-right: 20px;
 
@@ -59,6 +61,7 @@ $maxWidth: 1200;
 
     .o__flex {
         display: flex;
+
         .output_t {
             min-height: 40px;
             display: flex;
@@ -69,15 +72,18 @@ $maxWidth: 1200;
             margin-left: 18px;
         }
     }
+
     .output_text {
         width: 100%;
         position: relative;
         padding: 16px;
         height: 257px;
+
         .output_text__item {
             position: relative;
             padding-bottom: 16px;
             margin-top: 10px;
+
             &:before {
                 position: absolute;
                 display: inline-block;
@@ -87,9 +93,11 @@ $maxWidth: 1200;
                 top: -3px;
             }
         }
+
         a {
             color: $color;
             text-decoration: none;
+
             &:hover {
                 color: $colorRed;
                 text-decoration: underline;
@@ -120,7 +128,6 @@ $maxWidth: 1200;
 }
 
 
-
 .output_calendar {
     width: 389px;
     max-width: 389px;
@@ -134,6 +141,7 @@ $maxWidth: 1200;
     padding: 24px;
     overflow: hidden;
     z-index: 10;
+
     .output_calendar__module {
         width: 100%;
         height: 266px;
@@ -148,6 +156,7 @@ $maxWidth: 1200;
     .tax-contents {
         .tax-content {
             display: block;
+
             .ya_it_left {
                 font-weight: bold;
             }
@@ -160,4 +169,99 @@ $maxWidth: 1200;
         position: relative;
         top: 5px;
     }
+}
+
+@media screen and (max-width: 1440px) {
+
+    .home_out_c_cal {
+        width: 100%;
+        justify-content: space-between;
+
+        .output_flex {
+            display: flex;
+            max-width: 1000px;
+            width: 65%;
+        }
+
+        .home_out_c_cal__left {
+            position: relative;
+            margin-right: 30px;
+        }
+
+        .home_out_c_cal__right {
+            position: relative;
+        }
+    }
+    .output_calendar {
+        width: auto;
+        max-width: 1000px;
+        top: -45px;
+
+    }
+}
+
+@media screen and (max-width: 999px) {
+
+    .home_out_c_cal {
+        display: block !important;
+
+        .home_out_c_cal__left {
+            position: relative;
+            margin-right: 0;
+            width: 100%;
+            max-width: 1000px;
+        }
+
+        .home_out_c_cal__right {
+            position: relative;
+            margin-right: 0;
+            width: 100%;
+            max-width: 1000px;
+            margin-top: 20px;
+
+            .output_calendar {
+                width: 100%;
+                max-width: 1000px;
+                top: 0;
+                position: relative;
+                height: auto;
+
+                .output_calendar__module {
+                    width: 100%;
+                    height: 294px;
+
+                }
+
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 742px) {
+
+    .home_out_c_cal__left {
+        display: block !important;
+
+        .output__left,
+        .output__right {
+            background: #F5F5F7;
+            border-radius: 8px;
+            padding: 24px 16px 16px 16px;
+            width: 100%;
+            height: auto;
+            overflow: hidden;
+            margin: 0
+        }
+
+        .output__left {
+            margin-bottom: 20px;
+        }
+    }
+    .output_flex {
+        .output_text {
+
+            height: auto;
+        }
+    }
+
 }

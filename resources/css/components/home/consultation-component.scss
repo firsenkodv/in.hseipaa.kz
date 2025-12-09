@@ -50,16 +50,17 @@ $maxWidth: 1200;
                 width: 28%;
                 min-height: 276px;
                 flex-direction: column;
+
                 .consult_h_25 {
                     height: 25px;
                 }
+
                 .btn {
                     width: 100%;
                 }
             }
 
         }
-
 
 
         .F_Lflex {
@@ -133,3 +134,92 @@ $maxWidth: 1200;
 
     }
 }
+
+@media screen and (max-width: 968px) {
+
+    .home_consultation-component {
+        .consult_background {
+            .consult__flex {
+                flex-direction: column;
+                width: 100%;
+
+                .consult__left {
+                    width: 100%;
+                    margin: 0 0 30px 0;
+                }
+
+                .consult__right {
+                    width: 100%;
+
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+
+                    min-height: 1px;
+                    height: auto;
+                    flex-direction: column;
+
+                    .btn {
+                        width: auto;
+                        min-width: 250px;
+                    }
+
+                }
+            }
+        }
+    }
+
+}
+
+@media screen and (max-width: 742px) {
+
+    .home_consultation-component {
+        .consult_background {
+            .F_Lflex {
+
+                width: 100%;
+                display: flex;
+                justify-content: space-between;
+                align-items: flex-start;
+                flex-direction: column;
+                padding: 16px 0;
+
+                .F_i_ {
+                    margin: 0 auto;
+                }
+
+                .F_i_2,
+
+                .F_i_4, {
+                    padding: 10px 0;
+                    height: 80px;
+                    .d_42 {
+                        width: 1px;
+                        height: 42px;
+                        background: #667085;
+                        margin: 0 auto;
+                       span {
+                            width: 10px;
+                            height: 10px;
+                            background: none;
+                            padding: 0;
+                            float: right;
+                           left: 4px;
+                            border: 1px solid #667085;
+                            box-sizing: border-box;
+                            border-top: none;
+                            border-left: none;
+                            position: relative;
+                            transform: rotate(43deg);
+                            top: 31px;
+                            font-size: 0;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+
+}
+

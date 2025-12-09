@@ -201,5 +201,15 @@
     display: none !important;
   }
 }
+@media (max-width: 568px) {
+  .phone_rack {
+    font-size: 13px;
+  }
+}
+@media (max-width: 390px) {
+  .phone_rack {
+    display: none;
+  }
+}
 
 /*# sourceMappingURL=header.css.map */

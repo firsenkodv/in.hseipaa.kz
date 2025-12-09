@@ -1,0 +1,70 @@
+@charset "UTF-8";
+.input-group {
+  margin-bottom: 20px;
+  position: relative;
+}
+.input-group .input-group__label {
+  display: block;
+  position: absolute;
+  top: 0;
+  line-height: 50px;
+  color: #667085;
+  left: 5px;
+  padding: 0 5px;
+  transition: line-height 200ms ease-in-out, font-size 200ms ease-in-out, top 200ms ease-in-out;
+  pointer-events: none;
+}
+.input-group .input-group__label span {
+  color: #EF533F;
+}
+.input-group .input-group__input, .input-group textarea {
+  width: 100%;
+  height: 50px;
+  border: 1px solid #E0E0E0;
+  border-radius: 3px;
+  padding: 0 10px;
+  cursor: auto !important;
+}
+.input-group .input-group__input:not(:placeholder-shown) + label, .input-group .input-group__input:focus + label, .input-group textarea:not(:placeholder-shown) + label, .input-group textarea:focus + label {
+  background-color: white;
+  line-height: 10px;
+  opacity: 1;
+  font-size: 14px;
+  top: -5px;
+}
+.input-group .input-group__input:focus, .input-group textarea:focus {
+  outline: none;
+  border: 1px solid #E0E0E0;
+}
+.input-group .input-group__input:focus + label, .input-group textarea:focus + label {
+  color: #667085;
+}
+.input-group textarea {
+  min-height: 80px;
+  width: 100%;
+  padding: 10px;
+}
+
+.input-button {
+  padding: 7px 0 10px 0;
+  position: relative;
+}
+.input-button .btn {
+  cursor: pointer !important;
+}
+
+/** Ошибки **/
+.input-group .input_error {
+  position: absolute;
+  background: #fff;
+  padding: 0 10px;
+  color: #EF533F;
+  font-size: 14px;
+  bottom: -9px;
+  left: 10px;
+}
+.input-group .input-group__input._error, .input-group textarea._error {
+  border: 1px solid #EF533F;
+}
+
+/*# sourceMappingURL=form_input_component.css.map */

@@ -91,6 +91,9 @@ export function toggle_cities() {
                     app_city_rack.innerHTML = result.city_title;
                 }
 
+                 app_cities_list__ul.classList.remove('active')
+
+
              })
              .catch((err) => {
                 /** console.error(err); // Обрабатываем возможные ошибки **/

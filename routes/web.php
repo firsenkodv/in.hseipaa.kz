@@ -2,8 +2,11 @@
 
 use App\Http\Controllers\Company\CompanyController;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\FancyBox\FancyBoxController;
+use App\Http\Controllers\FancyBox\FancyBoxSendingFromFormController;
 use App\Http\Controllers\Fetch\FetchCityController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\Mzp\MzpController;
 use App\Http\Controllers\Search\SearchController;
 use App\Http\Controllers\Service\ServiceController;
 use App\Http\Controllers\SiteNew\SiteNewController;
@@ -31,6 +34,25 @@ Route::post('/moonshine/useful_module', [MoonshineUsefulModule::class, 'useful_m
 Route::post('/moonshine/service_module', [MoonshineServiceModule::class, 'service_module' ]);
 /**
  * админка
+ */
+
+/**
+ * fancybox-ajax
+ */
+
+Route::controller(FancyBoxController::class)->group(function () {
+    Route::post('/fancybox-ajax', 'fancybox');
+});
+
+Route::controller(FancyBoxSendingFromFormController::class)->group(function () {
+    Route::post('/subscription_me', 'fancyboxSubscriptionMe');
+    Route::post('/request_for_training', 'fancyboxRequestForTraining');
+    Route::post('/call_me', 'fancyboxCallMe');
+    Route::post('/consult_me', 'fancyboxConsultMe');
+});
+
+/**
+ * ///fancybox-ajax
  */
 
 Route::controller(TestController::class)->group(function () {
@@ -112,11 +134,22 @@ Route::controller(ServiceController::class)->group(function () {
 
 Route::controller(TaxController::class)->group(function () {
 
-    Route::get('tax-calendar/{item_slug}', 'taxCalendar')->name('tax_calendar');
+    Route::get('/tax-calendar/{item_slug}', 'taxCalendar')->name('tax_calendar');
 
 });
 
 /** ///Налоговый календарь **/
+
+/** МЗП  **/
+
+Route::controller(MzpController::class)->group(function () {
+
+    Route::get('/mzp', 'items')->name('mzp_items');
+    Route::get('/mzp/{item_slug}', 'item')->name('mzp_item');
+
+});
+
+/** ///МЗП **/
 
 /** Поиск **/
 
@@ -130,4 +163,6 @@ Route::controller(SearchController::class)->group(function () {
 /** ///Поиск **/
 
 
+/** Login */
+Route::get('/login', [MoonshineHome::class, 'login' ])->name('login');
 

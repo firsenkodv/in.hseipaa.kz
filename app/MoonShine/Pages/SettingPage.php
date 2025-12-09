@@ -45,6 +45,7 @@ class SettingPage extends Page
         return (is_array($result)) ? $result : null;
 
     }
+
     public function getTitle(): string
     {
         return $this->title ?: 'Настройки сайта';
@@ -54,7 +55,7 @@ class SettingPage extends Page
      * @return list<ComponentContract>
      */
     protected function components(): iterable
-	{
+    {
         if (!is_null($this->setting())) {
             extract($this->setting());
         }
@@ -135,34 +136,31 @@ class SettingPage extends Page
                             ]),
                         ]),
 
-                        Tab::make(__('Заявки'), [
-
-                            Grid::make([
-                                Column::make([
-                                    Divider::make('На всех страницах'),
-                                    Box::make([
-                                        Text::make('Заголовок', 'title_c_1')->default((isset($title_c_1)) ? $title_c_1 : '')
-                                            ->hint('Синяя горизонтальная форма'),
-                                       /* Textarea::make('Описание', 'text_c')->default((isset($text_c)) ? $text_c : ''),*/
-                                    ]),
-                                    Box::make([
-                                        Text::make('Заголовок', 'title_c_2')->default((isset($title_c_2)) ? $title_c_2 : '')
-                                            ->hint('В разработке'),
-                                        Textarea::make('Описание', 'text_c_2')->default((isset($text_c_2)) ? $text_c_2 : ''),
-                                    ]),
-                                ])->columnSpan(12),
-                            ])
-
-                        ]),
 
                         Tab::make(__('МЗП'), [
 
                             Grid::make([
                                 Column::make([
-                                    Divider::make('Вывод данных'),
+                                    Divider::make('МЗП'),
                                     Box::make([
-                                        Text::make('Заголовок над поиском', 'mzp_title')->default((isset($mzp_title)) ? $mzp_title : '')
-                                            ->hint('Только цифры'),
+                                        Text::make('Заголовок', 'mzp_page_title')->default((isset($mzp_page_title)) ? $mzp_page_title : ''),
+                                        Text::make('Подзаголовок', 'mzp_page_subtitle')->default((isset($mzp_page_subtitle)) ? $mzp_page_subtitle : ''),
+
+                                        Text::make('Заголовок таблицы 1', 'mzp_page_td_1')->default((isset($mzp_page_td_1)) ? $mzp_page_td_1 : ''),
+
+                                        Text::make('Заголовок таблицы 2', 'mzp_page_td_2')->default((isset($mzp_page_td_2)) ? $mzp_page_td_2 : ''),
+
+                                        Text::make('Заголовок таблицы 3', 'mzp_page_td_3')->default((isset($mzp_page_td_3)) ? $mzp_page_td_3 : ''),
+
+                                        Text::make('Заголовок таблицы 4', 'mzp_page_td_4')->default((isset($mzp_page_td_4)) ? $mzp_page_td_4 : ''),
+
+                                    ]),
+                                ])->columnSpan(6),
+                                Column::make([
+
+                                    Divider::make('Модуль на главной'),
+                                    Box::make([
+                                        Text::make('Заголовок над поиском', 'mzp_title')->default((isset($mzp_title)) ? $mzp_title : ''),
                                         Number::make('МЗП', 'mzp')->default((isset($mzp)) ? $mzp : '')
                                             ->hint('Только цифры'),
                                         Number::make('МРП', 'mrp')->default((isset($mrp)) ? $mrp : '')
@@ -171,8 +169,57 @@ class SettingPage extends Page
                                             ->hint('В произвольной форме'),
                                     ]),
 
-                                ])->columnSpan(12),
+                                ])->columnSpan(6),
                             ])
+
+                        ]),
+
+                        Tab::make(__('Формы'), [
+
+                            Divider::make('Обучение'),
+                            Grid::make([
+                                Column::make([
+
+                                    Box::make([
+
+                                        Text::make('Заголовок', 'f1_title')->default((isset($f1_title)) ? $f1_title : '')->hint('Можно оставить пустым'),
+                                        Text::make('Название поля', 'f1_label')->default((isset($f1_label)) ? $f1_label : '')->required(),
+
+                                        Json::make('Услуги бухгалтера', 'json_accountant_training')->fields([
+
+                                            Text::make('', 'json_text')->hint('Вводите короткие словосочетания, проверяйте как они выглядят на сайте, особенно в мобильной версии'),
+
+                                        ])->vertical()->creatable(limit: 50)
+                                            ->removable()->default((isset($json_accountant_training)) ? $json_accountant_training : ''),
+
+
+                                    ]),
+
+
+                                ])->columnSpan(6),
+                            ]),
+                            Divider::make('Консультации'),
+                            Grid::make([
+                                Column::make([
+
+                                    Box::make([
+
+                                        Text::make('Заголовок', 'f2_title')->default((isset($f2_title)) ? $f2_title : '')->hint('Можно оставить пустым'),
+                                        Text::make('Название поля', 'f2_label')->default((isset($f2_label)) ? $f2_label : '')->required(),
+
+                                        Json::make('Услуги бухгалтера', 'json_accountant_services')->fields([
+
+                                            Text::make('', 'json_text')->hint('Вводите короткие словосочетания, проверяйте как они выглядят на сайте, особенно в мобильной версии'),
+
+                                        ])->vertical()->creatable(limit: 50)
+                                            ->removable()->default((isset($json_accountant_services)) ? $json_accountant_services : ''),
+
+
+                                    ]),
+
+
+                                ])->columnSpan(6),
+                            ]),
 
                         ]),
 
@@ -214,5 +261,5 @@ class SettingPage extends Page
 
                 ])->submit(label: 'Сохранить', attributes: ['class' => 'btn-primary'])
         ];
-	}
+    }
 }

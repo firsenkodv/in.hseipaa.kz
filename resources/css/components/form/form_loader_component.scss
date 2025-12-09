@@ -1,0 +1,44 @@
+@charset "utf-8";
+$color: #282828;
+$colorRed: #EF533F;
+$colorCCC: #CCCCCC;
+$colorGrey: #667085;
+$colorBlue: #095C9A;
+$colorBlue2: #03a9f4;
+$colorGreen: #0f6567;
+$colorYellow: #FF931E;
+$colorOrange: #FF732C;
+.form-form_loader {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    display: none;
+    justify-content: center;
+    align-items: center;
+
+    &.active {
+        display: flex;
+
+        .dots {
+            width: 4.5px;
+            height: 4.5px;
+            border-radius: 50%;
+            color: #ffffff;
+            box-shadow: 21.3px 0 0 7.8px, 42.6px 0 0 3.4px, 63.900000000000006px 0 0 0;
+            transform: translateX(-42.6px);
+            animation: dots-ijr34dmd 0.9s infinite alternate linear;
+        }
+
+        @keyframes dots-ijr34dmd {
+            50% {
+                box-shadow: 21.3px 0 0 3.4px, 42.6px 0 0 7.8px, 63.900000000000006px 0 0 3.4px;
+            }
+
+            100% {
+                box-shadow: 21.3px 0 0 0, 42.6px 0 0 3.4px, 63.900000000000006px 0 0 7.8px;
+            }
+        }
+    }
+}

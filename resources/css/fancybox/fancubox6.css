@@ -1,0 +1,55 @@
+.f-html {
+  border-radius: 12px;
+  padding: 0 !important;
+}
+
+.modal-form-container {
+  position: relative;
+  max-width: 900px;
+  width: 900px;
+}
+.modal-form-container.mini {
+  max-width: 600px;
+  width: 600px;
+}
+.modal-form-container .modal_padding {
+  padding: 24px;
+}
+.modal-form-container .form_title {
+  padding: 3px 0 30px 0;
+  position: relative;
+  cursor: pointer !important;
+}
+.modal-form-container .form_title .form_title__h1 {
+  font-size: 30px;
+  font-weight: 700;
+  line-height: 1.2em;
+  padding: 0 0 8px 0;
+}
+.modal-form-container .form_title .form_title__h2 {
+  color: #667085;
+  font-size: 16px;
+  line-height: 1.2em;
+  padding: 0 0 5px 0;
+}
+
+@media screen and (max-width: 968px) {
+  .modal-form-container {
+    position: relative;
+    width: 100%;
+  }
+}
+@media screen and (max-width: 742px) {
+  .f-html {
+    width: 96%;
+  }
+  .modal-form-container {
+    position: relative;
+  }
+  .modal-form-container.mini {
+    max-width: 742px;
+    width: 100%;
+  }
+}
+
+/*# sourceMappingURL=fancubox6.css.map */

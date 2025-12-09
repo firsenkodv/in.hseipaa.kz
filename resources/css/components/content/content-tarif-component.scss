@@ -1,0 +1,155 @@
+@charset "utf-8";
+$color: #282828;
+$colorRed: #EF533F;
+$colorCCC: #CCCCCC;
+$colorGrey: #667085;
+$colorBlue: #095C9A;
+$colorBlue2: #03a9f4;
+$colorGreen: #0f6567;
+$colorYellow: #FF931E;
+$colorOrange: #FF732C;
+
+$maxWidth: 1200;
+@mixin adaptiv-font($pcSize, $mobSize) {
+    $addSize: $pcSize - $mobSize;
+    $maxWidth: $maxWidth - 320;
+    font-size: calc(#{$mobSize + px} + #{$addSize} * ((100vw - 320px) / #{$maxWidth}));
+}
+
+.content_content-tarif-component {
+    position: relative;
+
+    .tarif_flex {
+        display: flex;
+        justify-content: start;
+        align-items: stretch;
+        gap: 10px;
+        flex-wrap: wrap;
+
+        .tarif__item {
+            width: 32%;
+            padding: 24px;
+            min-height: 100%;
+            max-height: 100%;
+            border-radius: 8px;
+
+            h2 {
+                text-align: center;
+            }
+
+            .tarif_subtitle {
+                color: $colorGrey;
+                padding: 10px 0 10px 0;
+                font-size: 18px;
+                text-align: center;
+            }
+
+            .tarif_price {
+                padding: 0 0 10px 0;
+                font-size: 36px;
+                text-align: center;
+                font-weight: 600;
+            }
+
+            .tarif_mpr {
+                color: $colorGrey;
+                padding: 0 0 20px 0;
+                font-size: 18px;
+                text-align: center;
+            }
+
+            .tarif_checkUser {
+                display: block;
+                text-align: center;
+                padding: 4px 0;
+                color: $color;
+            }
+
+            .tarif_line {
+                background: rgba(40, 40, 40, 0.1);
+                width: 100%;
+                height: 1px;
+                margin: 20px 0;
+            }
+
+            .t_ulLabel {
+                font-weight: 600;
+                font-size: 18px;
+                padding-bottom: 10px;
+
+            }
+
+            .t_li {
+                font-size: 14px;
+                color: $colorGrey;
+                padding: 5px 0 5px 30px;
+                background-position: 0 7.5px;
+                background-repeat: no-repeat;
+                background-image: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTYiIGhlaWdodD0iMTciIHZpZXdCb3g9IjAgMCAxNiAxNyIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGNpcmNsZSBjeD0iNy45OTkzNSIgY3k9IjguMTc1MTMiIHI9IjcuMzMzMzMiIHN0cm9rZT0iI0VGNTMzRiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIi8+CjxwYXRoIGQ9Ik01LjMzMzk4IDkuMjIzNEw3LjYxOTcgMTAuNzQ3MkwxMC42NjczIDYuMTc1NzgiIHN0cm9rZT0iI0VGNTMzRiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIi8+Cjwvc3ZnPgo=');
+
+
+            }
+
+        }
+    }
+}
+
+@media screen and (max-width: 968px) {
+    .content_content-tarif-component {
+        .tarif_flex {
+            .tarif__item {
+                padding:24px 16px;
+                .tarif_price {
+                    padding: 0 0 10px 0;
+                    font-size: 26px;
+                    text-align: center;
+                    font-weight: 600;
+                }
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 868px) {
+    .content_content-tarif-component {
+        .tarif_flex {
+            .tarif__item {
+                width: 48.5%;
+                padding:24px 16px;
+                .tarif_price {
+
+                }
+            }
+        }
+    }
+}
+@media screen and (max-width: 800px) {
+    .content_content-tarif-component {
+        .tarif_flex {
+            padding-bottom: 30px;
+            .tarif__item {
+                width: 48.5%;
+                padding:24px;
+                .tarif_price {
+
+                }
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 468px) {
+    .content_content-tarif-component {
+        .tarif_flex {
+            padding-bottom: 30px;
+            .tarif__item {
+                width: 100%;
+                padding:24px 16px;
+                .tarif_price {
+
+                }
+            }
+        }
+    }
+}
+

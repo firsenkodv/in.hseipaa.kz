@@ -102,3 +102,15 @@ Breadcrumbs::for('tax_calendar', function ($trail, $item) {
     $trail->push($item->title , route('tax_calendar', ['item_slug' => $item->slug]));
 });
 
+// Home > Mzps
+Breadcrumbs::for('mzp_items', function ($trail) {
+    $trail->parent('home');
+    $trail->push((config2('moonshine.setting.mzp_page_title'))??' - ' , route('mzp_items'));
+});
+
+// Home > Mzps > Mzp
+Breadcrumbs::for('mzp_item', function ($trail, $item) {
+    $trail->parent('mzp_items');
+    $trail->push($item->title , route('mzp_item', ['item_slug' => $item->slug]));
+});
+

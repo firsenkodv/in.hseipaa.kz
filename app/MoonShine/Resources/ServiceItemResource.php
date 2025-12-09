@@ -11,6 +11,7 @@ use App\Models\ServiceItem;
 use Illuminate\Http\UploadedFile;
 use MoonShine\Laravel\Enums\Action;
 use MoonShine\Laravel\Fields\Relationships\BelongsTo;
+use MoonShine\Laravel\Fields\Relationships\BelongsToMany;
 use MoonShine\Laravel\Fields\Slug;
 use MoonShine\Laravel\Resources\ModelResource;
 use MoonShine\Support\ListOf;
@@ -24,8 +25,6 @@ use MoonShine\UI\Components\Tabs\Tab;
 use MoonShine\UI\Fields\Field;
 use MoonShine\UI\Fields\File;
 use MoonShine\UI\Fields\ID;
-use MoonShine\Contracts\UI\FieldContract;
-use MoonShine\Contracts\UI\ComponentContract;
 use MoonShine\UI\Fields\Image;
 use MoonShine\UI\Fields\Json;
 use MoonShine\UI\Fields\Number;
@@ -216,6 +215,17 @@ class ServiceItemResource extends ModelResource
                         ]),
 
                     ]),
+                    Tab::make(__('Тарифы'), [
+                        Grid::make([
+                            Column::make([
+                                Collapse::make('Вывод тарифов', [
+                                    BelongsToMany::make('Тариф', 'tarif', 'title', resource: TarifResource::class )->selectMode(),
+                                ]),
+                            ])->columnSpan(12),
+                        ]),
+
+                    ]),
+
 
 
                 ]),

@@ -108,4 +108,29 @@
   margin: 0;
 }
 
+@media screen and (max-width: 742px) {
+  .tax_wrapper {
+    position: relative;
+  }
+  .tax_wrapper .quarters .quarter {
+    display: flex;
+    height: 44px;
+    margin: 0 5px;
+    padding: 0 8px;
+    font-size: 15px;
+  }
+  .tax-contents .q_none .tax-content .ya_it_left {
+    font-size: 15px;
+    line-height: 1.3em;
+    padding: 10px 10px 10px 0;
+  }
+  .tax-contents .q_none .tax-content .ya_it_right {
+    font-size: 15px;
+  }
+  .tax-contents .q_none .tax-content .ya_it_right p {
+    line-height: 1.3em;
+    font-size: 15px;
+  }
+}
+
 /*# sourceMappingURL=tax-content-component.css.map */

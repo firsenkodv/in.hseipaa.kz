@@ -53,22 +53,41 @@ $maxWidth: 1440;
 
 @media screen and (max-width:740px) {
     .breadcrumbs {
-        padding-top: 5px;
+        padding: 5px 0 16px 0;
+        min-height: 0;
         ul {
+            display: flex;
+            flex-wrap: wrap;
             li {
                 display: block;
                 font-size: 14px;
+
                 a, span {
-                    padding: 2px 0;
+                    padding: 2px 5px 2px 6px;
 
                 }
                 a {
                     text-decoration: underline;
                 }
             }
-            li.li_span {
-                display: none;
+
+        }
+    }
+}
+@media screen and (max-width:568px) {
+    .breadcrumbs {
+        ul {
+
+            li {
+
+
+                a, span {
+                    padding: 2px 5px 2px 0;
+
+                }
+
             }
+
         }
     }
 }

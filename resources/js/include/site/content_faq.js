@@ -15,8 +15,4 @@ export function content_faq() {
         slideToggle(parentEl.querySelector('.app_answer'), 400);
     }
 
-
-
-
-
 }

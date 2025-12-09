@@ -6,6 +6,7 @@
 />
 
 @section('content')
+
     <main>
 
         <section>
@@ -17,17 +18,19 @@
                         <p class="_subtitle">{{ $category->subtitle }}</p>
                     @endif
                 </div>
+
                 <div class="block_content__flex">
                     <div class="block_content__left">
                         <x-menu.left-menu-component menu="services"/>
                     </div>
                     <div class="block_content__right">
 
-
-
                         <x-content.content-other-component  :content="$category"  />
+
                         <x-content.content-component :content="$category" />
 
+
+                        <x-content.content-tarif-component :content="$category" />
 
                     @if($items->isNotEmpty())
                         <div class="teaser">
@@ -41,6 +44,10 @@
                         @endif
                     </div>
                 </div>
+
+
+
+
                 <x-content.content-faq-component :content="$category" />
 
 

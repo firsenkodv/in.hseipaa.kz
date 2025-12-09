@@ -48,6 +48,7 @@
     border-top: 1px solid #eaeaea;
     bottom: 0;
     background: #ffffff;
+    z-index: 200;
   }
   .mobile_mobile-menu .mobile_menu .m_flex {
     display: flex;

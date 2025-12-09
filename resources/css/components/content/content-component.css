@@ -9,7 +9,7 @@
 .desc .bl_desc {
   width: 100%;
   position: relative;
-  padding: 10px 0;
+  padding: 0 0 10px 0;
 }
 .desc .bl_desc2 {
   width: 100%;
@@ -102,6 +102,19 @@
 
 ._subtitle {
   color: #667085;
+}
+
+@media screen and (max-width: 794px) {
+  .content_content-component {
+    padding-bottom: 15px;
+  }
+  .desc {
+    width: 100%;
+    position: relative;
+  }
+  .desc .bl_desc {
+    padding: 0;
+  }
 }
 
 /*# sourceMappingURL=content-component.css.map */

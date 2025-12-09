@@ -57,3 +57,36 @@ $maxWidth: 1200;
         }
     }
 }
+
+@media screen and (max-width: 999px){
+    .content_content-other-component {
+        .other_flex {
+            .other_left {
+                min-width: 330px;
+                height: auto;
+                img {
+                    width: 330px;
+                    height: auto;
+                }
+            }
+        }
+    }
+}
+@media screen and (max-width: 968px){
+    .content_content-other-component {
+        .other_flex {
+            padding-bottom: 30px;
+            .other_left {
+                min-width: 1px;
+                height: auto;
+                position: relative;
+                img {
+                    width:100%;
+                    height: auto;
+                }
+            }
+        }
+    }
+}
+
+

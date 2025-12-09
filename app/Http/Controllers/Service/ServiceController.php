@@ -29,10 +29,14 @@ class ServiceController extends Controller
         if(!$category) {
             abort(404);
         }
+
         $items = $category->item()->paginate(config('site.constants.paginate'));
         if(!$items) {
             abort(404);
         }
+
+
+
         return view('pages.service.category.category', [
             'section' => $service,
             'category' => $category,

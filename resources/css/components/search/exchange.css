@@ -68,4 +68,56 @@
   text-decoration: none;
 }
 
+@media screen and (max-width: 999px) {
+  .exchange .mod_search_blue {
+    min-height: 270px;
+    height: auto;
+    padding: 16px 24px;
+  }
+  .exchange .mod_search_blue h2 {
+    font-size: 32px;
+    text-align: left;
+    position: relative;
+    padding-bottom: 32px;
+  }
+  .exchange .row_form_800 {
+    max-width: 1000px;
+  }
+  .exchange .sub_m_sb_flex {
+    flex-direction: column;
+    padding-top: 20px;
+    height: auto;
+    line-height: 1.7em;
+    max-width: 1000px;
+  }
+}
+@media screen and (max-width: 742px) {
+  .exchange .mod_search_blue h2 {
+    font-size: 32px;
+    line-height: 1.3em;
+  }
+  .exchange .row_form_800 {
+    max-width: 1000px;
+  }
+  .exchange .sub_m_sb_flex {
+    font-size: 18px;
+  }
+}
+@media screen and (max-width: 668px) {
+  .exchange .mod_search_blue h2 {
+    font-size: 30px;
+    line-height: 1.2em;
+  }
+  .exchange .sub_m_sb_flex {
+    font-size: 18px;
+  }
+  .exchange .sub_m_sb_flex .ax_pm_d {
+    padding: 10px 0 0 0;
+  }
+  .exchange .sub_m_sb_flex .ax_pm_d span {
+    width: 100%;
+    display: block;
+  }
+}
+
 /*# sourceMappingURL=exchange.css.map */

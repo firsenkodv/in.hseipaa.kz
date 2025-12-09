@@ -46,14 +46,14 @@
 </div>
 <div class="mobile_menu">
     <div class="m_flex">
-    <a href="/" class="m_1 m_default active">
+    <a href="/" class="m_1 m_default {{ active_linkMenu(asset(route('home'))) }}">
         <div class="m_img">
             <img class="m_img_active" alt="Главная" width="24" height="24" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTkuMDQ4MzQgMjEuNzg4NlYxMS43ODg2SDE1LjA0ODNWMjEuNzg4NiIgc3Ryb2tlPSIjMjgyODI4IiBzdHJva2Utd2lkdGg9IjEuNiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIi8+CjxwYXRoIGQ9Ik0zLjA0ODM0IDguNzg4NTdMMTIuMDQ4MyAxLjc4ODU3TDIxLjA0ODMgOC43ODg1N1YxOS43ODg2QzIxLjA0ODMgMjAuMzE5IDIwLjgzNzYgMjAuODI3NyAyMC40NjI2IDIxLjIwMjhDMjAuMDg3NSAyMS41Nzc5IDE5LjU3ODggMjEuNzg4NiAxOS4wNDgzIDIxLjc4ODZINS4wNDgzNEM0LjUxNzkxIDIxLjc4ODYgNC4wMDkyIDIxLjU3NzkgMy42MzQxMyAyMS4yMDI4QzMuMjU5MDUgMjAuODI3NyAzLjA0ODM0IDIwLjMxOSAzLjA0ODM0IDE5Ljc4ODZWOC43ODg1N1oiIHN0cm9rZT0iI0VGNTMzRiIgc3Ryb2tlLXdpZHRoPSIxLjYiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIvPgo8L3N2Zz4K" />
             <img class="m_img_default" alt="Главная" width="24" height="24" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTkuMDQ4MzQgMjEuNzg4NlYxMS43ODg2SDE1LjA0ODNWMjEuNzg4NiIgc3Ryb2tlPSIjNkY3ODkzIiBzdHJva2Utd2lkdGg9IjEuNiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIi8+CjxwYXRoIGQ9Ik0zLjA0ODM0IDguNzg4NTdMMTIuMDQ4MyAxLjc4ODU3TDIxLjA0ODMgOC43ODg1N1YxOS43ODg2QzIxLjA0ODMgMjAuMzE5IDIwLjgzNzYgMjAuODI3NyAyMC40NjI2IDIxLjIwMjhDMjAuMDg3NSAyMS41Nzc5IDE5LjU3ODggMjEuNzg4NiAxOS4wNDgzIDIxLjc4ODZINS4wNDgzNEM0LjUxNzkxIDIxLjc4ODYgNC4wMDkyIDIxLjU3NzkgMy42MzQxMyAyMS4yMDI4QzMuMjU5MDUgMjAuODI3NyAzLjA0ODM0IDIwLjMxOSAzLjA0ODM0IDE5Ljc4ODZWOC43ODg1N1oiIHN0cm9rZT0iIzZGNzg5MyIgc3Ryb2tlLXdpZHRoPSIxLjYiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIvPgo8L3N2Zz4K">
         </div>
         <span class="m_title">Главная</span>
     </a>
-    <div class="m_2 m_default  ">
+    <a href="#" class="m_2 m_default  ">
 
         <div class="m_img">
             <img class="m_img_active" alt="Кабинет" width="24" height="24"  src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZmlsbC1ydWxlPSJldmVub2RkIiBjbGlwLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik0xMiAxNEMxNC4yMDggMTQgMTYgMTIuMjA4IDE2IDEwQzE2IDcuNzkyIDE0LjIwOCA2IDEyIDZDOS43OTIgNiA4IDcuNzkyIDggMTBDOCAxMi4yMDggOS43OTIgMTQgMTIgMTRaIiBzdHJva2U9IiM2Rjc4OTMiIHN0cm9rZS13aWR0aD0iMS4yIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiLz4KPHBhdGggZD0iTTE4Ljk2MzEgMjEuODdDMTguNjMwMSAxOS4xNDIgMTUuNjM4MSAxNyAxMi4wMDAxIDE3QzguMzYzMTEgMTcgNS4zNzExMSAxOS4xNDIgNS4wMzcxMSAyMS44NjkiIHN0cm9rZT0iIzI4MjgyOCIgc3Ryb2tlLXdpZHRoPSIxLjIiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIvPgo8cGF0aCBkPSJNMi4xMjYgMTlDMi4wNDQgMTguNjgxIDIgMTguMzQ2IDIgMThWNkMyIDMuNzkxIDMuNzkxIDIgNiAySDE4QzIwLjIwOSAyIDIyIDMuNzkxIDIyIDZWMThDMjIgMjAuMjA5IDIwLjIwOSAyMiAxOCAyMkg2QzQuMTM2IDIyIDIuNTcgMjAuNzI2IDIuMTI2IDE5IiBzdHJva2U9IiNFRjUzM0YiIHN0cm9rZS13aWR0aD0iMS4yIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiLz4KPC9zdmc+Cg==">
@@ -61,8 +61,9 @@
         </div>
         <span class="m_title">Кабинет</span>
 
-    </div>
-    <div class="m_3 m_default">
+    </a>
+
+    <a href="{{ route('contacts')  }}" class="m_3 m_default {{ active_linkMenu(asset(route('contacts'))) }}">
 
 
         <div class="m_img">
@@ -71,14 +72,12 @@
         </div>
         <span class="m_title">Контакты</span>
 
+    </a>
 
-
-
-    </div>
     <div class="m_4 m_default app_mobile_menu ">
 
         <div class="m_img">
-            <img class="m_img_active" alt="Контакты" width="24" height="24"   src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTMuMDAwMjQgNUgyMS4wMDAyIiBzdHJva2U9IiNFRjUzM0YiIHN0cm9rZS13aWR0aD0iMS42IiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiLz4KPHBhdGggZD0iTTMuMDAwMjQgMTJIMjEuMDAwMiIgc3Ryb2tlPSIjRUY1MzNGIiBzdHJva2Utd2lkdGg9IjEuNiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIi8+CjxwYXRoIGQ9Ik0zLjAwMDI0IDE5SDIxLjAwMDIiIHN0cm9rZT0iI0VGNTMzRiIgc3Ryb2tlLXdpZHRoPSIxLjYiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIvPgo8L3N2Zz4K">
+            <img class="m_img_active" alt="Меню" width="24" height="24"   src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTMuMDAwMjQgNUgyMS4wMDAyIiBzdHJva2U9IiNFRjUzM0YiIHN0cm9rZS13aWR0aD0iMS42IiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiLz4KPHBhdGggZD0iTTMuMDAwMjQgMTJIMjEuMDAwMiIgc3Ryb2tlPSIjRUY1MzNGIiBzdHJva2Utd2lkdGg9IjEuNiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIi8+CjxwYXRoIGQ9Ik0zLjAwMDI0IDE5SDIxLjAwMDIiIHN0cm9rZT0iI0VGNTMzRiIgc3Ryb2tlLXdpZHRoPSIxLjYiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIvPgo8L3N2Zz4K">
             <img class="m_img_default" alt="Меню" width="24" height="24"  src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTMuMDAwMjQgNUgyMS4wMDAyIiBzdHJva2U9IiM2Rjc4OTMiIHN0cm9rZS13aWR0aD0iMS42IiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiLz4KPHBhdGggZD0iTTMuMDAwMjQgMTJIMjEuMDAwMiIgc3Ryb2tlPSIjNkY3ODkzIiBzdHJva2Utd2lkdGg9IjEuNiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIi8+CjxwYXRoIGQ9Ik0zLjAwMDI0IDE5SDIxLjAwMDIiIHN0cm9rZT0iIzZGNzg5MyIgc3Ryb2tlLXdpZHRoPSIxLjYiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIvPgo8L3N2Zz4K">
         </div>
         <span class="m_title">Меню</span>

@@ -8,7 +8,7 @@ trait EmailAddressCollector
 
     /** Метод создания массива для использования его в отправке ** */
 
-    public function emails()
+    public function emails():array
     {
 
         settype($emails, "array");

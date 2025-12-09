@@ -18,7 +18,7 @@
 
         @if(isset($item['temp_button_left']))
             <div class="temp_button">
-                <a href="#" class="btn btn-middle"> {{  $item['temp_button_left'] }}</a>
+                <a href="#"  class="btn btn-middle open-fancybox"  data-form="subscription_me">{{  $item['temp_button_left'] }}</a>
             </div>
         @endif
 
@@ -50,7 +50,7 @@
 
         @if(isset($item['temp_button_right']))
             <div class="temp_button">
-                <a href="#" class="btn btn-middle"> {{  $item['temp_button_right'] }}</a>
+                <a href="#" class="btn btn-middle open-fancybox"  data-form="subscription_me"> {{  $item['temp_button_right'] }}</a>
             </div>
         @endif
 

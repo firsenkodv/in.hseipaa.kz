@@ -21,7 +21,7 @@
 </head>
 <body>
 <div id="back-to-top"></div>
-{{--{!!  config('google.google_tag.body') !!}--}}
+{{--  {!!  config('google.google_tag.body') !!}  --}}
     <div class="content_  @yield('class')  {{ route_name() }}" >
         <x-message.message/>
         <x-message.message_error/>
@@ -29,16 +29,15 @@
  @include('templates.axeld.header')
  @yield('content')
 
+
+
 </div><!--.content_-->
  @include('templates.axeld.footer')
 <x-mobile.mobile-menu />
-{{--    @include('html.mobile.bottom')
-    @include('include.connect.connect')--}}
-
-
-   {{-- <script src="//translate.google.com/translate_a/element.js?cb=TranslateInit"></script>
-    <script src="/js/language/google-translate.js"></script>
-    <script src="/js/language/script.js"></script>--}}
+    {{--  @include('include.connect.connect')  --}}
+    {{--  <script src="//translate.google.com/translate_a/element.js?cb=TranslateInit"></script>
+          <script src="/js/language/google-translate.js"></script>
+          <script src="/js/language/script.js"></script>  --}}
 </body>
 </html>
 

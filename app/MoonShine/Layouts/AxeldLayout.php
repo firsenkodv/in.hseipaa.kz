@@ -58,6 +58,9 @@ use App\MoonShine\Resources\CompanyItemResource;
 use App\MoonShine\Resources\TaxResource;
 use App\MoonShine\Resources\AxeldPassportResource;
 use App\MoonShine\Resources\SiteNewModuleResource;
+use App\MoonShine\Resources\MzpResource;
+use App\MoonShine\Resources\TarifResource;
+use App\MoonShine\Resources\SavedFormDataResource;
 
 
 final class AxeldLayout extends AppLayout
@@ -85,15 +88,17 @@ final class AxeldLayout extends AppLayout
                 MenuItem::make('Категории', CompanyCategoryResource::class, 'folder-plus'),
                 MenuItem::make('Материалы', CompanyItemResource::class, 'folder-arrow-down'),
             ]),
+
+
             MenuGroup::make(static fn() => __('Новости'), [
                 MenuItem::make('Раздел', NewPage::class, 'folder'),
                 MenuItem::make('Категории', SiteNewResource::class, 'folder-plus'),
                 MenuItem::make('Материалы', SiteNewItemResource::class, 'folder-arrow-down'),
                 MenuItem::make('Модуль', SiteNewModuleResource::class, 'rectangle-group'),
 
-
-
             ]),
+
+
             MenuGroup::make(static fn() => __('Полезное'), [
                 MenuItem::make('Раздел', UsefulResource::class, 'folder'),
                 MenuItem::make('Категория', UsefulCategoryResource::class, 'folder-plus'),
@@ -102,6 +107,8 @@ final class AxeldLayout extends AppLayout
                 MenuItem::make('Модуль', UsefulModulePage::class, 'rectangle-group'),
 
             ]),
+
+
             MenuGroup::make(static fn() => __('Услуги'), [
                 MenuItem::make('Раздел', ServiceResource::class, 'folder'),
                 MenuItem::make('Категория', ServiceCategoryResource::class, 'folder-plus'),
@@ -110,21 +117,30 @@ final class AxeldLayout extends AppLayout
 
             ]),
 
-         MenuGroup::make(static fn() => __('Налоги'), [
+            MenuGroup::make(static fn() => __('Налоги/МЗП'), [
                 MenuItem::make('Налоговый календарь', TaxResource::class, 'calendar-days'),
-
+                MenuItem::make('МЗП', MzpResource::class, 'calendar-days'),
             ]),
 
+            MenuGroup::make(static fn() => __('Тарифы'), [
+                MenuItem::make('Тарифы', TarifResource::class, 'currency-dollar'),
+            ]),
+
+            MenuGroup::make(static fn() => __('Контакты'), [
+                MenuItem::make('Контакты', ContactPage::class, 'map-pin'),
+            ]),
 
             MenuGroup::make(static fn() => __('Настройки'), [
                 MenuItem::make('Настройки', SettingPage::class, 'adjustments-vertical'),
                 MenuItem::make('Как пользоваться', AxeldPassportResource::class, 'academic-cap'),
 
             ]),
+            MenuGroup::make(static fn() => __('Формы отправки'), [
+                MenuItem::make('Данные с форм', SavedFormDataResource::class , 'envelope'),
 
-            MenuGroup::make(static fn() => __('Контакты'), [
-                MenuItem::make('Контакты', ContactPage::class, 'map-pin'),
             ]),
+
+
 
         ];
     }

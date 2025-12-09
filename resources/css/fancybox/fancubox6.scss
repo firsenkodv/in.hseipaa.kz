@@ -1,0 +1,83 @@
+@charset "utf-8";
+$color: #282828;
+$colorRed: #EF533F;
+$colorCCC: #CCCCCC;
+$colorGrey: #667085;
+$colorBlue: #095C9A;
+$colorBlue2: #03a9f4;
+$colorGreen: #0f6567;
+$colorYellow: #FF931E;
+$colorOrange: #FF732C;
+
+
+.f-html {
+    border-radius: 12px;
+    padding: 0 !important;
+}
+
+.modal-form-container {
+    position: relative;
+    max-width: 900px;
+    width: 900px;
+
+    &.mini {
+        max-width: 600px;
+        width: 600px;
+    }
+
+    .modal_padding {
+        padding: 24px;
+    }
+
+    .form_title {
+        padding: 3px 0 30px 0;
+        position: relative;
+        cursor: pointer !important;
+
+        .form_title__h1 {
+            font-size: 30px;
+            font-weight: 700;
+            line-height: 1.2em;
+            padding: 0 0 8px 0;
+
+        }
+
+        .form_title__h2 {
+            color: $colorGrey;
+            font-size: 16px;
+            line-height: 1.2em;
+            padding: 0 0 5px 0;
+        }
+
+    }
+}
+
+
+@media screen and (max-width: 968px) {
+    .f-html {
+    }
+
+    .modal-form-container {
+        position: relative;
+        width: 100%;
+
+
+    }
+}
+
+@media screen and (max-width: 742px) {
+    .f-html {
+     width: 96%;
+    }
+
+    .modal-form-container {
+        position: relative;
+
+
+        &.mini {
+            max-width: 742px;
+            width: 100%;
+        }
+
+    }
+}

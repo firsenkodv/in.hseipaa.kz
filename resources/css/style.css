@@ -145,6 +145,57 @@ a:hover {
   position: relative;
 }
 
+.fancybox__dialog * {
+  user-select: auto !important; /* Включаем выделение текста */
+  cursor: default !important; /*Меняем курсор мыши на стандартный */
+}
+
+.last_block {
+  padding-bottom: 50px;
+}
+
+.background_F5F5F7 {
+  background: #F5F5F7;
+}
+
+@media (max-width: 1440px) {
+  .block {
+    width: 100%;
+    padding-left: 15px;
+    padding-right: 15px;
+    position: relative;
+  }
+}
+@media (max-width: 999px) {
+  .h1 {
+    font-size: 32px !important;
+    line-height: 1.2em !important;
+    position: relative;
+  }
+  .h2 {
+    font-size: 32px !important;
+    line-height: 1.2em !important;
+    position: relative;
+  }
+  .h3 {
+    font-size: 28px !important;
+    line-height: 1.2em !important;
+    position: relative;
+  }
+  .h4 {
+    font-size: 28px !important;
+    line-height: 1.2em !important;
+    position: relative;
+  }
+}
+@media screen and (max-width: 794px) {
+  .JFormFieldMap_wrapper {
+    max-width: 96%;
+    overflow: hidden;
+    margin-bottom: 55px;
+  }
+}
+/** временно **/
 .scroll-block {
   width: 100%;
   overflow-y: scroll;
@@ -165,15 +216,6 @@ a:hover {
 
 .scroll-block:hover::-webkit-scrollbar-thumb {
   background: #ebebed;
-}
-
-@media (max-width: 1440px) {
-  .block {
-    width: 100%;
-    padding-left: 15px;
-    padding-right: 15px;
-    position: relative;
-  }
 }
 
 /*# sourceMappingURL=style.css.map */

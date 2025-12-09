@@ -9,9 +9,9 @@ export default defineConfig({
         }),
     ],
     resolve: {
-   /*     alias: {
+   /**     alias: {
             '$': 'jQuery'
-        },*/
+        },**/
     },
     css: {
         preprocessorOptions: {

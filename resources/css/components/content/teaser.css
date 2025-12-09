@@ -55,4 +55,10 @@
   border-bottom: 1px dashed #EF533F;
 }
 
+@media screen and (max-width: 794px) {
+  .teaser {
+    padding-bottom: 30px;
+  }
+}
+
 /*# sourceMappingURL=teaser.css.map */

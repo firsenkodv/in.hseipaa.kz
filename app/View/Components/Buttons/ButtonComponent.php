@@ -10,7 +10,7 @@ class ButtonComponent extends Component
 {
  public $href;
  public bool $target;
-    public function __construct($href = '', $target = false)
+    public function __construct($href = '#', $target = false)
     {
         $this->href = $href;
         $this->target = $target;

@@ -64,4 +64,89 @@
   text-align: center;
 }
 
+@media screen and (max-width: 1168px) {
+  .home_output-service-category-component ._osc__flex .temp_title {
+    padding-bottom: 30px;
+  }
+  .home_output-service-category-component ._osc__flex .temp_title h2 {
+    line-height: 1.2em;
+  }
+}
+@media screen and (max-width: 968px) {
+  .home_output-service-category-component ._osc__flex {
+    flex-wrap: wrap;
+  }
+  .home_output-service-category-component ._osc__flex ._osc__left {
+    width: 50%;
+    margin: 0 0 40px 0;
+    order: 1;
+  }
+  .home_output-service-category-component ._osc__flex ._osc__left .temp_title {
+    padding-right: 20px;
+  }
+  .home_output-service-category-component ._osc__flex ._osc__left .temp_desc {
+    padding-right: 20px;
+  }
+  .home_output-service-category-component ._osc__flex ._osc__center {
+    width: 100%;
+    margin: 0;
+    order: 3;
+  }
+  .home_output-service-category-component ._osc__flex ._osc__right {
+    width: 50%;
+    margin: 0 0 40px 0;
+    order: 2;
+  }
+  .home_output-service-category-component ._osc__flex ._osc__right .temp_title {
+    padding-left: 20px;
+  }
+  .home_output-service-category-component ._osc__flex ._osc__right .temp_desc {
+    padding-left: 20px;
+  }
+}
+@media screen and (max-width: 742px) {
+  .home_output-service-category-component ._osc__flex {
+    flex-wrap: wrap;
+  }
+  .home_output-service-category-component ._osc__flex ._osc__left {
+    width: 100%;
+    margin: 0 0 40px 0;
+    order: 1;
+  }
+  .home_output-service-category-component ._osc__flex ._osc__left .temp_title {
+    padding-right: 0;
+  }
+  .home_output-service-category-component ._osc__flex ._osc__left .temp_desc {
+    padding-right: 0;
+  }
+  .home_output-service-category-component ._osc__flex ._osc__center {
+    width: 100%;
+    margin: 0;
+    order: 3;
+  }
+  .home_output-service-category-component ._osc__flex ._osc__right {
+    width: 100%;
+    margin: 0 0 40px 0;
+    order: 2;
+  }
+  .home_output-service-category-component ._osc__flex ._osc__right .temp_title {
+    padding-left: 0;
+  }
+  .home_output-service-category-component ._osc__flex ._osc__right .temp_desc {
+    padding-left: 0;
+  }
+}
+@media screen and (max-width: 568px) {
+  .home_output-service-category-component ._osc__flex .temp_title {
+    padding-bottom: 20px;
+  }
+  .home_output-service-category-component ._osc__flex .temp_title h2 {
+    line-height: 1.2em;
+  }
+  ._osc__center .temp_img img {
+    width: 90%;
+    height: auto;
+  }
+}
+
 /*# sourceMappingURL=output-service-category-component.css.map */

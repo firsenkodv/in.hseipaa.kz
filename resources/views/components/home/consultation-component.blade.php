@@ -36,9 +36,10 @@
             </div>
             <div class="consult__right">
 
-                <a href="#" class="btn btn-big"><span>{{ $item['button1'] }}</span></a>
+
+                <a href="#" class="btn btn-big open-fancybox" data-form="request_for_training"><span>{{ $item['button1'] }}</span></a>
                 <div class="consult_h_25"></div>
-                <a href="#" class="btn btn-big btn_white"><span>{{ $item['button2'] }}</span></a>
+                <a href="#" class="btn btn-big btn_white open-fancybox" data-form="call_me"><span>{{ $item['button2'] }}</span></a>
 
             </div>
         </div>

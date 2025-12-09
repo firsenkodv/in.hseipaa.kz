@@ -127,4 +127,78 @@
   top: 5px;
 }
 
+@media screen and (max-width: 1440px) {
+  .home_out_c_cal {
+    width: 100%;
+    justify-content: space-between;
+  }
+  .home_out_c_cal .output_flex {
+    display: flex;
+    max-width: 1000px;
+    width: 65%;
+  }
+  .home_out_c_cal .home_out_c_cal__left {
+    position: relative;
+    margin-right: 30px;
+  }
+  .home_out_c_cal .home_out_c_cal__right {
+    position: relative;
+  }
+  .output_calendar {
+    width: auto;
+    max-width: 1000px;
+    top: -45px;
+  }
+}
+@media screen and (max-width: 999px) {
+  .home_out_c_cal {
+    display: block !important;
+  }
+  .home_out_c_cal .home_out_c_cal__left {
+    position: relative;
+    margin-right: 0;
+    width: 100%;
+    max-width: 1000px;
+  }
+  .home_out_c_cal .home_out_c_cal__right {
+    position: relative;
+    margin-right: 0;
+    width: 100%;
+    max-width: 1000px;
+    margin-top: 20px;
+  }
+  .home_out_c_cal .home_out_c_cal__right .output_calendar {
+    width: 100%;
+    max-width: 1000px;
+    top: 0;
+    position: relative;
+    height: auto;
+  }
+  .home_out_c_cal .home_out_c_cal__right .output_calendar .output_calendar__module {
+    width: 100%;
+    height: 294px;
+  }
+}
+@media screen and (max-width: 742px) {
+  .home_out_c_cal__left {
+    display: block !important;
+  }
+  .home_out_c_cal__left .output__left,
+  .home_out_c_cal__left .output__right {
+    background: #F5F5F7;
+    border-radius: 8px;
+    padding: 24px 16px 16px 16px;
+    width: 100%;
+    height: auto;
+    overflow: hidden;
+    margin: 0;
+  }
+  .home_out_c_cal__left .output__left {
+    margin-bottom: 20px;
+  }
+  .output_flex .output_text {
+    height: auto;
+  }
+}
+
 /*# sourceMappingURL=output-category-component.css.map */

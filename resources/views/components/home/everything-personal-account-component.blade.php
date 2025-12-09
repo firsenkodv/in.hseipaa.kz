@@ -10,8 +10,9 @@
                 </div>
 
                 <div class="personal_account__button">
-                    <a href="#" class="btn btn-big"><span>{{ $item['button1'] }}</span></a>
-                    <a href="#" class="btn btn-big btn_white"><span>{{ $item['button2'] }}</span></a>
+
+                    <a href="{{ route('login') }}" class="btn btn-big"><span>{{ $item['button1'] }}</span></a>
+                    <a href="/service-services/tarify" class="btn btn-big btn_white"><span>{{ $item['button2'] }}</span></a>
                 </div>
 
             </div>

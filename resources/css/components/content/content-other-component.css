@@ -28,4 +28,29 @@
   font-weight: 600;
 }
 
+@media screen and (max-width: 999px) {
+  .content_content-other-component .other_flex .other_left {
+    min-width: 330px;
+    height: auto;
+  }
+  .content_content-other-component .other_flex .other_left img {
+    width: 330px;
+    height: auto;
+  }
+}
+@media screen and (max-width: 968px) {
+  .content_content-other-component .other_flex {
+    padding-bottom: 30px;
+  }
+  .content_content-other-component .other_flex .other_left {
+    min-width: 1px;
+    height: auto;
+    position: relative;
+  }
+  .content_content-other-component .other_flex .other_left img {
+    width: 100%;
+    height: auto;
+  }
+}
+
 /*# sourceMappingURL=content-other-component.css.map */

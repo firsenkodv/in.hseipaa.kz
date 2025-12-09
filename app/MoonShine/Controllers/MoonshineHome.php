@@ -19,4 +19,10 @@ final class MoonshineHome extends MoonShineController
 
         return back();
     }
+
+    public function login()
+    {
+        dd('login');
+
+    }
 }
