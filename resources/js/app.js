@@ -18,5 +18,6 @@ import 'swiper/css/bundle';
 
 import './script';
 import './include/fancybox/fancybox';
+import './include/form_async/async';
 
 

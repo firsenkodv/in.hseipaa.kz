@@ -1,0 +1,96 @@
+@charset "UTF-8";
+.padding_blue_form {
+  padding: 20px 0 60px 0;
+  position: relative;
+}
+
+.axios__uploading_form {
+  height: 200px;
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+  background: #fff;
+  border-radius: 12px;
+  position: relative;
+}
+
+.form_form-blue-component {
+  position: relative;
+}
+.form_form-blue-component .background_575EEF {
+  background: #575EEF;
+  width: 100%;
+  min-height: 200px;
+  border-radius: 12px;
+  padding: 24px 30px;
+  /**  Отдельная дописка только на голубую форму **/
+  /**  Отдельная дописка только на голубую форму **/
+}
+.form_form-blue-component .background_575EEF h4, .form_form-blue-component .background_575EEF h5, .form_form-blue-component .background_575EEF h6 {
+  text-align: center;
+  line-height: 1.2em;
+  padding: 10px 0;
+  color: #ffffff;
+}
+.form_form-blue-component .background_575EEF .form_blue {
+  padding: 20px 0 0 0;
+}
+.form_form-blue-component .background_575EEF .form_blue .form_blue__flex {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.form_form-blue-component .background_575EEF .form_blue .form_blue__flex .input-group {
+  width: 24%;
+}
+.form_form-blue-component .background_575EEF .form_blue .form_blue__flex .input-button {
+  width: 24%;
+  padding: 0;
+  margin-bottom: 20px;
+}
+.form_form-blue-component .background_575EEF .form_blue .form_blue__flex .input-button .btn.btn-big {
+  padding: 11.2px 20px;
+}
+.form_form-blue-component .background_575EEF .form_blue .input-group .input-group__input:not(:placeholder-shown) + label,
+.form_form-blue-component .background_575EEF .form_blue .input-group .input-group__input:focus + label,
+.form_form-blue-component .background_575EEF .form_blue .input-group textarea:not(:placeholder-shown) + label,
+.form_form-blue-component .background_575EEF .form_blue .input-group textarea:focus + label {
+  display: none;
+}
+.form_form-blue-component .background_575EEF .form_blue .input-group .input_error {
+  border-radius: 3px;
+}
+
+@media screen and (max-width: 1168px) {
+  .form_form-blue-component .form_blue__flex {
+    flex-wrap: wrap;
+  }
+  .form_form-blue-component .input-group {
+    width: 49% !important;
+  }
+  .form_form-blue-component .input-button {
+    width: 49% !important;
+  }
+  .form_form-blue-component .input-button .btn.btn-big {
+    width: 100% !important;
+  }
+}
+@media screen and (max-width: 742px) {
+  .form_form-blue-component {
+    padding-bottom: 80px;
+  }
+  .form_form-blue-component .form_blue__flex {
+    display: block !important;
+  }
+  .form_form-blue-component .input-group {
+    width: 100% !important;
+  }
+  .form_form-blue-component .input-button {
+    width: 100% !important;
+  }
+  .form_form-blue-component .input-button .btn.btn-big {
+    width: 100% !important;
+  }
+}
+
+/*# sourceMappingURL=form_blue_component.css.map */

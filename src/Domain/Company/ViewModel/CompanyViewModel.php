@@ -14,11 +14,11 @@ class CompanyViewModel
 {
     use Makeable;
 
-    public function categories(): Collection | null
+    public function categories(): Collection|null
     {
         return Cache::rememberForever('company_categories', function () {
 
-            return  CompanyCategory::query()
+            return CompanyCategory::query()
                 ->where('published', 1)
                 ->with('item')
                 ->orderBy('created_at', 'desc')
@@ -27,25 +27,32 @@ class CompanyViewModel
 
     }
 
-    public function category($slug): Model | null
+    public function category($slug): Model|null
     {
-        return  CompanyCategory::query()
-            ->where('published', 1)
-            ->where('slug', $slug)
-            ->with('item')
-            ->first();
-
+        // Генерируем уникальный ключ для каждого значения параметра
+        $cacheKey = 'company-category-slug-' . md5($slug);
+        return Cache::remember($cacheKey, now()->addHour(), function () use ($slug) {
+            return CompanyCategory::query()
+                ->where('published', 1)
+                ->where('slug', $slug)
+                ->with('item')
+                ->first();
+        });
     }
 
-    public function item($slug): Model | null
+    public function item($slug): Model|null
     {
+        // Генерируем уникальный ключ для каждого значения параметра
+        $cacheKey = 'company-item-slug-' . md5($slug);
+        return Cache::remember($cacheKey, now()->addHour(), function () use ($slug) {
         return CompanyItem::query()
             ->where('published', 1)
             ->where('slug', $slug)
             ->with('category')
             ->first();
-
+        });
     }
+
 
 
 }

@@ -11,6 +11,8 @@ import {content_faq} from "./include/site/content_faq";
 import {mobileMenuComponent} from "./include/site/mobile/mobile-menu-component";
 import {removeErrors} from "./include/fancybox/form/removeErrors";
 import {select} from "./include/select/select";
+import {flash_message} from "./include/flash_message/flash_message";
+import {uploadAvatar} from "./include/cabinet/uploadAvatar";
 
 
 
@@ -29,7 +31,8 @@ document.addEventListener('DOMContentLoaded', function () {
     content_faq() // FAQ
     mobileMenuComponent() // мобильное меню
     removeErrors() // убрать ошибки с input`s
-select()
-
+    select() // select, для axios модальных форм подключается отдельно
+    flash_message() // закрытие модального окна
+    uploadAvatar() // отправляем аватар пользователя
 
 });

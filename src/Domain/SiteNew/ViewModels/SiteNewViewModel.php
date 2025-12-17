@@ -16,7 +16,7 @@ class SiteNewViewModel
 {
     use Makeable;
 
-    public function categories(): LengthAwarePaginator| null
+    public function categories(): LengthAwarePaginator|null
     {
         return SiteNew::query()
             ->where('published', 1)
@@ -41,31 +41,47 @@ class SiteNewViewModel
 
     public function category($slug): Model|null
     {
-        return SiteNew::query()
-            ->where('published', 1)
-            ->where('slug', $slug)
-            ->with('item')
-            ->first();
+        // Генерируем уникальный ключ для каждого значения параметра
+        $cacheKey = 'site-new-category-slug-' . md5($slug);
+        return Cache::remember($cacheKey, now()->addHour(), function () use ($slug) {
+
+            return SiteNew::query()
+                ->where('published', 1)
+                ->where('slug', $slug)
+                ->with('item')
+                ->first();
+        });
 
     }
 
     public function item($slug): Model|null
     {
-        return SiteNewItem::query()
-            ->where('published', 1)
-            ->where('slug', $slug)
-            ->with('category')
-            ->first();
+
+        // Генерируем уникальный ключ для каждого значения параметра
+        $cacheKey = 'site-new-slug-' . md5($slug);
+        return Cache::remember($cacheKey, now()->addHour(), function () use ($slug) {
+
+            return SiteNewItem::query()
+                ->where('published', 1)
+                ->where('slug', $slug)
+                ->with('category')
+                ->first();
+        });
 
     }
 
     public function category_items($category_id): Collection|null
     {
-        return SiteNewItem::query()
-            ->where('published', 1)
-            ->where('site_new_id', $category_id)
-            ->with('category')
-            ->get();
+
+        // Генерируем уникальный ключ для каждого значения параметра
+        $cacheKey = 'site-new-category-items-slug-' . md5($category_id);
+        return Cache::remember($cacheKey, now()->addHour(), function () use ($category_id) {
+            return SiteNewItem::query()
+                ->where('published', 1)
+                ->where('site_new_id', $category_id)
+                ->with('category')
+                ->get();
+        });
 
     }
 

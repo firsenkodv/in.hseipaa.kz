@@ -1,10 +1,10 @@
-import {axiosLaravel} from '../axios/axiosLaravel'
-import {fieldErrors} from './form/fieldErrors'
-import {removeErrors} from "./form/removeErrors";
-import {select} from "../select/select";
-import {imask} from "../imask";
+import {axiosLaravel} from '../axios/axiosLaravel.js'
+import {fieldErrors} from '../fancybox/form/fieldErrors.js'
+import {removeErrors} from "../fancybox/form/removeErrors.js";
+import {select} from "../select/select.js";
+import {imask} from "../imask.js";
 
-export function fancyboxExecution() {
+export function asyncExecution() {
 
 
     /** подключим возможные select **/
@@ -41,6 +41,7 @@ export function fancyboxExecution() {
 
         function submitFormData(e) {
 
+
             //console.log(e.target);
             const parentEl = e.target.closest('.app_form_modal');
             /** parent **/
@@ -75,7 +76,7 @@ export function fancyboxExecution() {
 
             /** добавим ссылку в общий request **/
             resultObject['url'] = url;
-          //  console.log(resultObject)
+            //  console.log(resultObject)
 
             /** Включаем компонент loader **/
             const loader = parentEl.querySelector('.app_loader');
@@ -88,6 +89,7 @@ export function fancyboxExecution() {
             const modal = parentEl.querySelector('.app_modal');
 
             /** Выполняем запрос и ждем результата **/
+
 
             axiosLaravel(resultObject, url)
                 .then((result) => {

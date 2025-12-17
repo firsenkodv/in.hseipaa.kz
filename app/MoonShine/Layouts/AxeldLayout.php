@@ -61,6 +61,13 @@ use App\MoonShine\Resources\SiteNewModuleResource;
 use App\MoonShine\Resources\MzpResource;
 use App\MoonShine\Resources\TarifResource;
 use App\MoonShine\Resources\SavedFormDataResource;
+use App\MoonShine\Resources\UserCityResource;
+use App\MoonShine\Resources\UserExpertResource;
+use App\MoonShine\Resources\UserFileQualificationResource;
+use App\MoonShine\Resources\UserHumanResource;
+use App\MoonShine\Resources\UserLecturerResource;
+use App\MoonShine\Resources\UserSexResource;
+use App\MoonShine\Resources\UserResource;
 
 
 final class AxeldLayout extends AppLayout
@@ -80,6 +87,13 @@ final class AxeldLayout extends AppLayout
 
             MenuGroup::make('Пользователи', [
                 MenuItem::make('Админ', MoonShineUserResource::class, 'user'),
+                MenuItem::make('Города', UserCityResource::class, 'building-office-2'),
+                MenuItem::make('Эксперты', UserExpertResource::class, 'beaker'),
+                MenuItem::make('Квалификации', UserFileQualificationResource::class ,'bolt'),
+              /*  MenuItem::make('Физ/Юр лица', UserHumanResource::class),*/
+                MenuItem::make('Лекторы', UserLecturerResource::class, 'book-open'),
+               /* MenuItem::make('UserSexes', UserSexResource::class),*/
+                MenuItem::make('Пользователи', UserResource::class, 'user-group'),
 
             ]),
 
@@ -139,6 +153,7 @@ final class AxeldLayout extends AppLayout
                 MenuItem::make('Данные с форм', SavedFormDataResource::class , 'envelope'),
 
             ]),
+
 
 
 

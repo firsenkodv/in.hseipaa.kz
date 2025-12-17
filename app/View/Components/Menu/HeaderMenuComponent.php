@@ -6,6 +6,7 @@ use Closure;
 use Domain\Company\ViewModel\CompanyViewModel;
 use Domain\Service\ViewModels\ServiceViewModel;
 use Domain\SiteNew\ViewModels\SiteNewViewModel;
+use Domain\Tax\ViewModels\TaxViewModel;
 use Domain\UseFul\ViewModels\UseFulViewModel;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
@@ -30,11 +31,13 @@ class HeaderMenuComponent extends Component
 
     public function setMenu1()
     {
+        /** получаем текущий год*/
+        $tax = TaxViewModel::make()->itemY(date("Y"));
 
         $i = 0;
 
-        $menu[$i]['text'] = config2('moonshine.company.title');
-        $menu[$i]['link'] = config2('moonshine.company.slug');
+        $menu[$i]['text'] = 'Календарь';
+        $menu[$i]['link'] = route('tax_calendar', ['item_slug' => $tax->slug]);
         $menu[$i]['class'] = false;
         $menu[$i]['class_li'] = false;
         $menu[$i]['data'] = false;

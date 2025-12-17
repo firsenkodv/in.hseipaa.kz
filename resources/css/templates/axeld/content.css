@@ -23,6 +23,15 @@
   position: relative;
   padding: 0 24px 24px 36px;
 }
+.block_content .block_content__flex.reverse {
+  flex-direction: row-reverse;
+}
+.block_content .block_content__flex.reverse .block_content__left {
+  padding: 0 24px 24px 36px;
+}
+.block_content .block_content__flex.reverse .block_content__right {
+  padding: 0;
+}
 .block_content .block_content__block {
   width: 100%;
   height: auto;

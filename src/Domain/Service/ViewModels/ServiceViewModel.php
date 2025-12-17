@@ -51,33 +51,48 @@ class ServiceViewModel
 
     public function category($slug): Model | null
     {
+
+        // Генерируем уникальный ключ для каждого значения параметра
+        $cacheKey = 'service-category-slug-' . md5($slug);
+        return Cache::remember($cacheKey, now()->addHour(), function () use ($slug) {
         return ServiceCategory::query()
             ->where('published', 1)
             ->where('slug', $slug)
             ->with('service')
             ->with('item')
             ->first();
+        });
 
     }
     public function categoryId($id): Model | null
     {
+
+        // Генерируем уникальный ключ для каждого значения параметра
+        $cacheKey = 'service-category-id-' . md5($id);
+        return Cache::remember($cacheKey, now()->addHour(), function () use ($id) {
         return ServiceCategory::query()
             ->where('published', 1)
             ->where('id', $id)
             ->with('service')
             ->with('item')
             ->first();
+        });
 
     }
 
 
     public function item($slug): Model | null
     {
+        // Генерируем уникальный ключ для каждого значения параметра
+        $cacheKey = 'service-item-slug-' . md5($slug);
+        return Cache::remember($cacheKey, now()->addHour(), function () use ($slug) {
+
         return ServiceItem::query()
             ->where('published', 1)
             ->where('slug', $slug)
             ->with('category')
             ->first();
+        });
 
     }
 }

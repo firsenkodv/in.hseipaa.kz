@@ -28,9 +28,7 @@
 
  @include('templates.axeld.header')
  @yield('content')
-
-
-
+<x-form.form-end-to-end.form-blue-component />
 </div><!--.content_-->
  @include('templates.axeld.footer')
 <x-mobile.mobile-menu />

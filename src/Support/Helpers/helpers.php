@@ -1,10 +1,12 @@
 <?php
+
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
@@ -330,7 +332,7 @@ if (!function_exists('rusdate5')) {
         $m = $month[date('n', $timestump)];
 
 
-        return $d . ' ' . $m ;
+        return $d . ' ' . $m;
 
     }
 }
@@ -539,8 +541,8 @@ if (!function_exists('usortDate')) {
 
     function usortDate($data)
     {
-            $d = $data;
-        if(is_object($data)) {
+        $d = $data;
+        if (is_object($data)) {
             $d = $data->toArray();
         }
 
@@ -578,9 +580,21 @@ if (!function_exists('to_object')) {
         /** Преобразуем в объект */
     {
 
-       return array_map(function ($array) {
+        return array_map(function ($array) {
             return (object)$array;
         }, $array);
+
+    }
+}
+
+if (!function_exists('logErrors')) {
+
+    function logErrors($th): void
+
+    {
+        if ($th) {
+            Log::error("Ошибка в методе: {$th->getFile()} строка: {$th->getLine()} сообщение: {$th->getMessage()}");
+        }
 
     }
 }

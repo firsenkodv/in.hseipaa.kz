@@ -71,7 +71,7 @@ class MzpResource extends ModelResource
     public function formFields(): array
     {
         return [
-            Box::make([
+
                 Tabs::make([
 
                     Tab::make(__('Общие настройки'), [
@@ -127,16 +127,11 @@ class MzpResource extends ModelResource
 
                             ])
                                 ->columnSpan(6),
+
                             Column::make([
-
                                 Collapse::make('Детали вывода', [
-
                                     Switcher::make('Публикация', 'published')->default(1),
-
-
-
                                 ]),
-
 
                                 Collapse::make('Метаданные', [
 
@@ -146,8 +141,7 @@ class MzpResource extends ModelResource
                                 ]),
 
 
-                            ])
-                                ->columnSpan(6)
+                            ])->columnSpan(6)
 
                         ]),
 
@@ -184,7 +178,7 @@ class MzpResource extends ModelResource
 
                     ]),
                 ]),
-            ]),
+
 
 
         ];

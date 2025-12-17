@@ -1,6 +1,6 @@
 import { Fancybox } from "@fancyapps/ui/dist/fancybox/";
 import "@fancyapps/ui/dist/fancybox/fancybox.css";
-import {fancyboxExecution} from "./fancybox_execution";
+import {asyncExecution} from "../form_async/async_execution";
 
 
 /*Fancybox.bind('[data-fancybox]', {
@@ -66,7 +66,7 @@ async  function openFancyBox(e) {
             );
 
 
-        fancyboxExecution() // соберем эту форму
+        asyncExecution() // соберем эту форму
 
     } catch (err) {
         console.error('Ошибка AJAX:', err.message);

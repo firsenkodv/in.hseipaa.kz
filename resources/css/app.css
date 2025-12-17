@@ -34,9 +34,17 @@
 @import 'components/tax/tax-content-component.scss';
 @import 'components/mzp/mzp-content-component.scss';
 @import 'components/form/form_input_component.scss';
+@import 'components/form/form_blue_component.scss';
 @import 'components/form/form_select_component.scss';
 @import 'components/form/form_loader_component.scss';
 @import 'components/form/form_response_controller.scss';
+@import 'components/form/form_radio2_component.scss';
+@import 'components/cabinet-user/cabinet-user-top-menu-component.scss';
+@import 'components/cabinet-user/cabinet-user_cabinet-user-personal.scss';
+@import 'components/avatar/avatar-user-component.scss';
+@import 'auth/auth.scss';
+@import 'message/flach_message.scss';
+
 @import 'templates/axeld/swiper.scss';
 @import 'templates/axeld/tabs.scss';
 @import 'templates/axeld/breadcrumbs.scss';

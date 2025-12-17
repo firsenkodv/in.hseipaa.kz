@@ -1,12 +1,12 @@
 @if ($errors->any())
-    <div class="class__alert flashMassege">
-        <div class="flashMassege__relative">
-            <div class="flashMassege__close flashClose__js"></div>
-            {!!  config('message_flash.alert.h2error') !!}
-        @foreach ($errors->all() as $error)
-                <p>{{ $error }}</p>
-        @endforeach
-
+    <div class="app_flach_message flashMessage__wrap">
+        <div class="class__alert flashMessage">
+            <div class="message  message--error">
+                <div class="btn-close  app_f_message_close"></div>
+                @foreach ($errors->all() as $error)
+                    <p>{{ $error }}</p>
+                @endforeach
+            </div>
         </div>
     </div>
 @endif

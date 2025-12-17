@@ -47,6 +47,8 @@ $primary-color: $colorGrey;
         border-radius: 3px;
         padding: 0 10px;
         cursor: auto !important;
+        appearance:none;
+        resize: none;
         // there must a required prop in input
         // &:valid,
         // need to add placeholder

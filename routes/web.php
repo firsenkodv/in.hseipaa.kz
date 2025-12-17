@@ -1,5 +1,14 @@
 <?php
 
+use App\Http\Controllers\Auth\ForgotPasswordController;
+use App\Http\Controllers\Auth\LogoutController;
+use App\Http\Controllers\Auth\ResetPasswordController;
+use App\Http\Controllers\Auth\SignInController;
+use App\Http\Controllers\Auth\SignUpController;
+use App\Http\Controllers\Axios\AxiosController;
+use App\Http\Controllers\Axios\AxiosSendingFromFormController;
+use App\Http\Controllers\Axios\AxiosUploadPhotoController;
+use App\Http\Controllers\Cabinet\CabinetUser\CabinetUserController;
 use App\Http\Controllers\Company\CompanyController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\FancyBox\FancyBoxController;
@@ -13,6 +22,8 @@ use App\Http\Controllers\SiteNew\SiteNewController;
 use App\Http\Controllers\Tax\TaxController;
 use App\Http\Controllers\TestController;
 use App\Http\Controllers\UseFul\UseFulController;
+use App\Http\Middleware\RedirectIfAuthenticated;
+use App\Http\Middleware\UserMiddleware;
 use App\MoonShine\Controllers\MoonshineCompany;
 use App\MoonShine\Controllers\MoonshineContact;
 use App\MoonShine\Controllers\MoonshineHome;
@@ -21,6 +32,7 @@ use App\MoonShine\Controllers\MoonshineServiceModule;
 use App\MoonShine\Controllers\MoonshineSetting;
 use App\MoonShine\Controllers\MoonshineUsefulModule;
 use Illuminate\Support\Facades\Route;
+use Spatie\Honeypot\ProtectAgainstSpam;
 
 /**
  * админка
@@ -39,11 +51,11 @@ Route::post('/moonshine/service_module', [MoonshineServiceModule::class, 'servic
 /**
  * fancybox-ajax
  */
-
+/** получение самой формы */
 Route::controller(FancyBoxController::class)->group(function () {
     Route::post('/fancybox-ajax', 'fancybox');
 });
-
+/** Отправка самой формы */
 Route::controller(FancyBoxSendingFromFormController::class)->group(function () {
     Route::post('/subscription_me', 'fancyboxSubscriptionMe');
     Route::post('/request_for_training', 'fancyboxRequestForTraining');
@@ -53,6 +65,25 @@ Route::controller(FancyBoxSendingFromFormController::class)->group(function () {
 
 /**
  * ///fancybox-ajax
+ *//**
+ *
+ *
+ * axios
+ */
+ /** получение самой формы */
+Route::controller(AxiosController::class)->group(function () {
+    Route::post('/upload-form-async', 'async');
+});
+/** Отправка самой формы */
+Route::controller(AxiosSendingFromFormController::class)->group(function () {
+    Route::post('/call_me_blue', 'axiosCallMeBlue');
+
+});
+
+//axiosCallMeBlue
+
+/**
+ * ///axios
  */
 
 Route::controller(TestController::class)->group(function () {
@@ -113,7 +144,6 @@ Route::controller(UseFulController::class)->group(function () {
  Route::get('section-{useful:slug}/{category_slug}/{subcategory_slug}', 'subcategory')->name('useful_subcategory');
  Route::get('section-{useful:slug}/{category_slug}/{subcategory_slug}/{item_slug}', 'item')->name('useful_item');
 
-
 });
 
 /** ///Полезное **/
@@ -164,5 +194,81 @@ Route::controller(SearchController::class)->group(function () {
 
 
 /** Login */
-Route::get('/login', [MoonshineHome::class, 'login' ])->name('login');
+/**
+ * Auth
+ */
+
+Route::controller(SignInController::class)->group(function () {
+
+    Route::get('/login', 'login')
+        ->middleware(RedirectIfAuthenticated::class)
+        ->name('login');
+
+    Route::post('/login', 'handleLogin')->name('handle_login');
+
+});
+
+Route::controller(SignUpController::class)->group(function () {
+
+       Route::get('/sign-up', 'signUp')
+            ->middleware(RedirectIfAuthenticated::class)
+           ->name('sign_up');
+
+        Route::post('/sign-up', 'handleSignUp')->middleware(ProtectAgainstSpam::class)
+            ->name('handle_sign_up');
+
+});
+
+Route::controller(ForgotPasswordController::class)->group(function () {
+
+        Route::get('/forgot-password', 'forgot')
+            ->name('forgot')
+            ->middleware(RedirectIfAuthenticated::class);
+
+        Route::post('/forgot-password', 'handleForgot')
+            ->name('handel_forgot')
+            ->middleware(RedirectIfAuthenticated::class);
+
+});
+
+Route::controller(ResetPasswordController::class)->group(function () {
+
+    /*    Route::get('/reset-password/{token}','page')
+            ->name('password.reset')
+            ->middleware(RedirectIfAuthenticated::class);
+
+        Route::post('/reset-password', 'handle')
+            ->name('password.handle')
+            ->middleware(RedirectIfAuthenticated::class);*/
+
+});
+
+Route::controller(LogoutController::class)->group(function () {
+
+    Route::post('/logout', 'page')->name('logout');
+
+});
+
+/**
+ *  ///Auth
+ */
+/** Cabinet_user */
+Route::controller(CabinetUserController::class)->group(function () {
+
+    Route::get('/cabinet', 'cabinetUser')
+        ->name('cabinet_user')
+        ->middleware(UserMiddleware::class);;
+
+});
+/** ** аватар  **   **/
+Route::controller(AxiosUploadPhotoController::class)->group(function () {
+
+    Route::post('/cabinet.upload.photo', 'uploadPhoto')
+        ->middleware(UserMiddleware::class);;
+
+});
+
+/** ** аватар  **   **/
+/** ///Cabinet_user */
+
 

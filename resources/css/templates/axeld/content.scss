@@ -49,7 +49,18 @@ $maxWidth: 1200;
             width: 73%;
             height: auto;
             position: relative;
-            padding:0  24px 24px 36px;
+            padding: 0  24px 24px 36px;
+        }
+
+        &.reverse {
+            flex-direction: row-reverse;
+            .block_content__left {
+                padding: 0  24px 24px 36px;
+            }
+
+            .block_content__right {
+                padding: 0;
+            }
         }
     }
 

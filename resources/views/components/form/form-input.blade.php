@@ -10,7 +10,7 @@
     'required' => false
 ])
 <div class="input-group app_input_group">
-    <input  class="input-group__input app_input_name {{ $class }}" type="{{ $type }}" placeholder="" name="{{ $name }}" id="{{  $name . $rand }}" value="{{ $value }}" autocomplete="{{ $autocomplete }}" {{ ($autofocus)? 'autofocus' : '' }}/>
+    <input  class="input-group__input app_input_name {{ $class }}       @error($name) _error @enderror" type="{{ $type }}" placeholder="" name="{{ $name }}" id="{{  $name . $rand }}" value="{{ $value }}" autocomplete="{{ $autocomplete }}" {{ ($autofocus)? 'autofocus' : '' }}/>
     <label class="input-group__label" for="{{  $name . $rand  }}">{{ $label }} {!! ($required) ?'<span>*</span>':'' !!}</label>
-    <div class="input_error app_input_error"></div>
+    <div class="input_error app_input_error">@error($name){{$message}}@enderror</div>
 </div>

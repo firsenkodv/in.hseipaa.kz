@@ -30,6 +30,10 @@ class TaxViewModel
 /** вывод календаря по slug  */
     public function item($slug): Model|null
     {
+
+        // Генерируем уникальный ключ для каждого значения параметра
+        $cacheKey = 'tax-item-slug-' . md5($slug);
+        return Cache::remember($cacheKey, now()->addHour(), function () use ($slug) {
         $tax = Tax::class::query()
             ->where('published', 1)
             ->where('slug', $slug)
@@ -40,21 +44,28 @@ class TaxViewModel
         }
 
         return null;
+        });
     }
 
 /** вывод календаря по году  */
     public function itemY($y): Model|null
     {
-        $tax = Tax::class::query()
-            ->where('published', 1)
-            ->where('y', $y)
-            ->first();
 
-        if ($tax) {
-          return  $this->usortMonth($tax);
-        }
+        // Генерируем уникальный ключ для каждого значения параметра $y
+        $cacheKey = 'tax-item-y-' . md5($y);
+       return Cache::remember($cacheKey, now()->addHour(), function () use ($y) {
 
-        return null;
+            $tax = Tax::class::query()
+                ->where('published', 1)
+                ->where('y', $y)
+                ->first();
+
+            if ($tax) {
+                return $this->usortMonth($tax);
+            }
+
+            return null;
+        });
     }
 
 

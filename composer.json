@@ -18,6 +18,7 @@
         "moonshine/moonshine": "^3.16",
         "moonshine/ru": "^1.0",
         "moonshine/tinymce": "^1.0",
+        "predis/predis": "^3.3",
         "spatie/laravel-honeypot": "^4.6"
     },
     "require-dev": {

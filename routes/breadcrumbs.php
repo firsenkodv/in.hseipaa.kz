@@ -114,3 +114,15 @@ Breadcrumbs::for('mzp_item', function ($trail, $item) {
     $trail->push($item->title , route('mzp_item', ['item_slug' => $item->slug]));
 });
 
+// Home > Login
+Breadcrumbs::for('login', function ($trail) {
+    $trail->parent('home');
+    $trail->push('Вход' , route('login'));
+});
+
+// Home > CabinetUser
+Breadcrumbs::for('cabinet_user', function ($trail) {
+    $trail->parent('home');
+    $trail->push('Кабинет' , route('cabinet_user'));
+});
+

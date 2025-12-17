@@ -29,10 +29,14 @@ class MzpViewModel
 
     public function item($slug): Model|null
     {
+        // Генерируем уникальный ключ для каждого значения параметра
+        $cacheKey = 'mzp-item-slug-' . md5($slug);
+        return Cache::remember($cacheKey, now()->addHour(), function () use ($slug) {
             return Mzp::class::query()
                 ->where('published', 1)
                 ->where('slug', $slug)
                 ->first();
+        });
 
     }
 

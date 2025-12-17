@@ -40,11 +40,8 @@ class SiteNewItemResource extends ModelResource
 {
     protected string $model = SiteNewItem::class;
 
-
     protected string $title = 'Материалы новостей';
-
     protected string $column = 'created_at';
-
     protected string $sortColumn = 'created_at';
 
 

@@ -17,6 +17,7 @@ $colorOrange: #FF732C;
     display: none;
     justify-content: center;
     align-items: center;
+    border-radius: 12px;
 
     &.active {
         display: flex;

@@ -35,6 +35,13 @@ use App\MoonShine\Pages\HomePage;
 use App\MoonShine\Resources\MzpResource;
 use App\MoonShine\Resources\TarifResource;
 use App\MoonShine\Resources\SavedFormDataResource;
+use App\MoonShine\Resources\UserCityResource;
+use App\MoonShine\Resources\UserExpertResource;
+use App\MoonShine\Resources\UserFileQualificationResource;
+use App\MoonShine\Resources\UserHumanResource;
+use App\MoonShine\Resources\UserLecturerResource;
+use App\MoonShine\Resources\UserSexResource;
+use App\MoonShine\Resources\UserResource;
 
 class MoonShineServiceProvider extends ServiceProvider
 {
@@ -66,6 +73,13 @@ class MoonShineServiceProvider extends ServiceProvider
                 MzpResource::class,
                 TarifResource::class,
                 SavedFormDataResource::class,
+                UserCityResource::class,
+                UserExpertResource::class,
+                UserFileQualificationResource::class,
+                UserHumanResource::class,
+                UserLecturerResource::class,
+                UserSexResource::class,
+                UserResource::class,
             ])
             ->pages([
                 ...$config->getPages(),

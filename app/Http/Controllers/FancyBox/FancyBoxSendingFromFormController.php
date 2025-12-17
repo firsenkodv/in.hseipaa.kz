@@ -4,6 +4,7 @@ namespace App\Http\Controllers\FancyBox;
 
 use App\Events\Form\FancyBoxSendingFromFormEvent;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\RequestCallMeBlueRequest;
 use App\Http\Requests\RequestCallMeRequest;
 use App\Http\Requests\RequestConsultMeRequest;
 use App\Http\Requests\RequestForTrainingRequest;
@@ -19,6 +20,8 @@ class FancyBoxSendingFromFormController extends Controller
     public function fancyboxSubscriptionMe(SendSubscriptionMeRequest $request) {
 
       SavedFormDataViewModel::make()->save($request);
+        $data = $request->except('url');
+        FancyBoxSendingFromFormEvent::dispatch($data);
 
      return response()->json([
             'response' => $request->all(),
@@ -43,6 +46,8 @@ class FancyBoxSendingFromFormController extends Controller
     public function fancyboxCallMe(RequestCallMeRequest $request) {
 
       SavedFormDataViewModel::make()->save($request);
+        $data = $request->except('url');
+        FancyBoxSendingFromFormEvent::dispatch($data);
 
      return response()->json([
             'response' => $request->all(),
@@ -54,6 +59,21 @@ class FancyBoxSendingFromFormController extends Controller
     public function fancyboxConsultMe(RequestConsultMeRequest $request) {
 
       SavedFormDataViewModel::make()->save($request);
+        $data = $request->except('url');
+        FancyBoxSendingFromFormEvent::dispatch($data);
+
+     return response()->json([
+            'response' => $request->all(),
+        ], 200);
+
+    }
+
+    /** перезвоните мне с голубой, горизонтальной, сквозной формы  */
+    public function fancyboxCallMeBlue(RequestCallMeBlueRequest $request) {
+
+      SavedFormDataViewModel::make()->save($request);
+        $data = $request->except('url');
+        FancyBoxSendingFromFormEvent::dispatch($data);
 
      return response()->json([
             'response' => $request->all(),

@@ -1,0 +1,64 @@
+@charset "UTF-8";
+.auth {
+  position: relative;
+  background-color: #F5F5F7;
+  margin-bottom: 30px;
+  /* Убираем подсветку автозаполненных полей */
+}
+.auth .block_content__title {
+  padding: 50px 0 20px 0;
+  text-align: center;
+}
+.auth .window_white_wrap {
+  width: 100%;
+  padding: 44px 0 40px 0;
+  position: relative;
+}
+.auth .window_white {
+  position: relative;
+  max-width: 460px;
+  width: 100%;
+  height: auto;
+  min-height: 200px;
+  background: #fff;
+  border-radius: 12px;
+  margin: 0 auto;
+}
+.auth .window_white .window_white__padding {
+  padding: 44px 24px 24px 24px;
+  position: relative;
+}
+.auth input:-webkit-autofill,
+.auth input:-webkit-autofill:focus {
+  transition: background-color 5000s ease-in-out 0s;
+}
+.auth .auth_links {
+  padding: 10px 0 6px 0;
+}
+.auth .auth_links a {
+  display: block;
+  line-height: 100%;
+  text-align: center;
+  padding: 5px 0;
+  color: #667085;
+}
+.window_white__title {
+  position: relative;
+  top: -20px;
+  padding: 10px 0;
+}
+.window_white__title .h1 {
+  font-size: 28px;
+  padding-bottom: 4px;
+}
+
+@media screen and (max-width: 742px) {
+  .auth .window_white_wrap {
+    padding-top: 31px;
+  }
+  .auth .block_content__title {
+    padding: 30px 0 20px 0;
+  }
+}
+
+/*# sourceMappingURL=auth.css.map */

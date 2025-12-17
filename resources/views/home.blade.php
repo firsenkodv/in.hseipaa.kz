@@ -79,7 +79,7 @@
         </div>
     </section>
 
-    <section class="last_block">
+    <section class="">
         <div class="block relative pad_t18">
             <x-content.content-faq-component :content="$faq" />
         </div>

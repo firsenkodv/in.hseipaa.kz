@@ -24,6 +24,8 @@
   border-radius: 3px;
   padding: 0 10px;
   cursor: auto !important;
+  appearance: none;
+  resize: none;
 }
 .input-group .input-group__input:not(:placeholder-shown) + label, .input-group .input-group__input:focus + label, .input-group textarea:not(:placeholder-shown) + label, .input-group textarea:focus + label {
   background-color: white;

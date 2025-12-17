@@ -8,12 +8,12 @@ use Illuminate\View\Component;
 
 class HeaderEnterComponent extends Component
 {
-    /**
-     * Create a new component instance.
-     */
+public object | null $user;
     public function __construct()
     {
-        //
+        if(auth()->check()) {
+            $this->user = auth()->user();
+        }
     }
 
     /**
