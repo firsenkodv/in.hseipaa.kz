@@ -11,10 +11,11 @@ document.addEventListener('DOMContentLoaded', async () => {
     for (let container of containers) {
         const formTemplate = container.getAttribute('data-form');/** название шаблона для blade **/
 
+
         try {
             const template = { template: formTemplate, author: '@AxeldMaster' };
 
-            console.log(template)
+
 
             const response = await fetch('/upload-form-async', {
                 method: 'POST',
@@ -32,12 +33,11 @@ document.addEventListener('DOMContentLoaded', async () => {
 
             //e.target.innerHTML = data;
             container.innerHTML = data;
-
              asyncExecution() // соберем эту форму
 
         } catch (err) {
             console.error('Ошибка AJAX:', err.message);
-            alert('Ошибка при получении данных');
+           // alert('Ошибка при получении данных');
         }
     }
 });

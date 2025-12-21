@@ -1,7 +1,7 @@
 export function select() {
 
-    const selects = Array.from(document.querySelectorAll('.selected'))
-
+    const selects = Array.from(document.querySelectorAll('.select-box .selected'))
+    console.log(selects)
     if(selects.length) {
         /** получим все возможные selected (типа вывод select` а) на всех формах **/
         for (let selected of selects) {
@@ -12,6 +12,9 @@ export function select() {
             /** получим поиск **/
             const searchBox = parentEl.querySelector(".search-box input");
 
+            /** получим input в который будем записывать результат (есть не везде)  **/
+            const fieldName = parentEl.querySelector(".app_field_name");
+
             /** все options **/
             const optionsList = parentEl.querySelectorAll(".option");
             for (let option of optionsList) {
@@ -21,15 +24,20 @@ export function select() {
 
             selected.addEventListener("click", () => {
 
-                /** откроем options **/
-                optionsContainer.classList.toggle("active");
 
-                searchBox.value = "";
+                 searchBox.value = "";
                 filterList("");
 
                 if (optionsContainer.classList.contains('active')) {
+
+                    /** закроем options **/
+                    optionsContainer.classList.remove("active");
                     /** когда открыты options фокусируем поиск **/
                     searchBox.focus();
+                } else {
+
+                    /** откроем options **/
+                    optionsContainer.classList.add("active");
                 }
 
 
@@ -111,7 +119,14 @@ export function select() {
                 optionsContainer.classList.remove('active');
                 selected.classList.add('active')
                 selected.classList.add('app_selected')
-            }
+
+                 /** если есть поле, для записи результата селекта **/
+                if (fieldName !== null) {
+                    fieldName.value = label.dataset.id
+                }
+
+
+                }
 
 
             searchBox.addEventListener("keyup", function (e) {

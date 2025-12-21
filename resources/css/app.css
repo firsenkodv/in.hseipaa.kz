@@ -33,14 +33,17 @@
 @import 'components/content/content-tarif-component.scss';
 @import 'components/tax/tax-content-component.scss';
 @import 'components/mzp/mzp-content-component.scss';
-@import 'components/form/form_input_component.scss';
-@import 'components/form/form_blue_component.scss';
-@import 'components/form/form_select_component.scss';
-@import 'components/form/form_loader_component.scss';
-@import 'components/form/form_response_controller.scss';
-@import 'components/form/form_radio2_component.scss';
+@import 'components/form/form-input-component.scss';
+@import 'components/form/form-blue-component.scss';
+@import 'components/form/form-select-component.scss';
+@import 'components/form/form-loader-component.scss';
+@import 'components/form/form-response-component.scss';
+@import 'components/form/form-radio2-component.scss';
+@import 'components/form/form-checkbox3-component.scss';
 @import 'components/cabinet-user/cabinet-user-top-menu-component.scss';
-@import 'components/cabinet-user/cabinet-user_cabinet-user-personal.scss';
+@import 'components/cabinet-user/cabinet-user-personal-component.scss';
+@import 'components/cabinet-user/cabinet-user-personal-data-relation-component.scss';
+@import 'components/cabinet-user/cabinet-user-update-component.scss';
 @import 'components/avatar/avatar-user-component.scss';
 @import 'auth/auth.scss';
 @import 'message/flach_message.scss';
@@ -52,6 +55,8 @@
 @import 'templates/axeld/footer.scss';
 @import 'templates/axeld/content.scss';
 @import 'templates/axeld/search.scss';
+
+@import 'datepicker/datepicker.css';
 
 @import 'components/mobile/mobile-menu-component.scss';
 @import 'fancybox/fancubox6.scss';

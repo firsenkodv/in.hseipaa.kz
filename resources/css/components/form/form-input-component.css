@@ -69,4 +69,16 @@
   border: 1px solid #EF533F;
 }
 
-/*# sourceMappingURL=form_input_component.css.map */
+.input-date-picker input::placeholder {
+  color: #282828;
+}
+
+.position_top {
+  background-color: white;
+  line-height: 10px !important;
+  opacity: 1;
+  font-size: 14px;
+  top: -5px !important;
+}
+
+/*# sourceMappingURL=form-input-component.css.map */

@@ -1,0 +1,58 @@
+@charset "utf-8";
+$color: #282828;
+$colorRed: #EF533F;
+$colorCCC: #CCCCCC;
+$colorGrey: #667085;
+$colorBlue: #095C9A;
+$colorBlue2: #03a9f4;
+$colorGreen: #0f6567;
+$colorYellow: #FF931E;
+$colorOrange: #FF732C;
+
+.cabinet-user-update_update_cabinet-user-update {
+    position: relative;
+    padding: 10px 0;
+
+    .cabinet_user_update_handel {
+        padding: 40px 0 0 0;
+    }
+}
+
+.cu_row_50 {
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+
+    .cu__col {
+        width: 49%;
+        position: relative;
+    }
+
+    .cu__col:first-child {
+        padding: 0 10px 0 0;
+    }
+
+    .cu__col:last-child {
+        padding: 0 0 0 10px;
+    }
+}
+
+
+@media screen and (max-width: 999px){
+    .cu_row_50 {
+        display: block;
+
+        .cu__col {
+            width: 100%;
+        }
+
+        .cu__col:first-child {
+            padding:  0;
+        }
+
+        .cu__col:last-child {
+            padding: 0 ;
+        }
+    }
+
+}

@@ -1,0 +1,49 @@
+.cabinet-user_cabinet-user-personal {
+  position: relative;
+  padding: 10px 0;
+}
+.cabinet-user_cabinet-user-personal .cu__personal_label {
+  color: #667085;
+  text-align: end;
+  padding: 10px 20px 10px 10px;
+}
+.cabinet-user_cabinet-user-personal .cu__personal_option {
+  color: #095C9A;
+  padding: 10px 10px 10px 0;
+}
+.cabinet-user_cabinet-user-personal .cu__personal_option h2 {
+  padding: 10px 0 0 0;
+  color: #282828;
+}
+
+.cabinet_user_personal__flex {
+  position: relative;
+  width: 100%;
+  display: flex;
+  justify-content: start;
+  align-items: stretch;
+}
+.cabinet_user_personal__flex .cabinet_user_personal__left {
+  width: 200px;
+  min-width: 200px;
+  position: relative;
+}
+.cabinet_user_personal__flex .cabinet_user_personal__right {
+  width: 100%;
+  position: relative;
+}
+
+.cu_username {
+  max-width: 400px;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: start;
+  flex-direction: column;
+}
+
+.cu__personal_wrap {
+  padding: 20px 0 0 0;
+}
+
+/*# sourceMappingURL=cabinet-user-personal-component.css.map */

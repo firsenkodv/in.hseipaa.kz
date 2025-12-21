@@ -204,7 +204,9 @@ Route::controller(SignInController::class)->group(function () {
         ->middleware(RedirectIfAuthenticated::class)
         ->name('login');
 
-    Route::post('/login', 'handleLogin')->name('handle_login');
+    Route::post('/login', 'handleLogin')
+        ->middleware(RedirectIfAuthenticated::class)
+        ->name('handle_login');
 
 });
 
@@ -245,7 +247,7 @@ Route::controller(ResetPasswordController::class)->group(function () {
 
 Route::controller(LogoutController::class)->group(function () {
 
-    Route::post('/logout', 'page')->name('logout');
+    Route::post('/logout', 'logout')->name('logout');
 
 });
 
@@ -257,14 +259,22 @@ Route::controller(CabinetUserController::class)->group(function () {
 
     Route::get('/cabinet', 'cabinetUser')
         ->name('cabinet_user')
-        ->middleware(UserMiddleware::class);;
+        ->middleware(UserMiddleware::class);
+
+    Route::get('/cabinet/setting/update', 'cabinetUserUpdate')
+        ->name('cabinet_user_update')
+        ->middleware(UserMiddleware::class);
+
+    Route::post('/cabinet/setting/update', 'cabinetUserUpdateHandel')
+        ->name('cabinet_user_update_handel')
+        ->middleware(UserMiddleware::class);
 
 });
 /** ** аватар  **   **/
 Route::controller(AxiosUploadPhotoController::class)->group(function () {
 
     Route::post('/cabinet.upload.photo', 'uploadPhoto')
-        ->middleware(UserMiddleware::class);;
+        ->middleware(UserMiddleware::class);
 
 });
 

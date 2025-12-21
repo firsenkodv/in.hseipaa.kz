@@ -13,7 +13,10 @@ public object | null $user;
     {
         if(auth()->check()) {
             $this->user = auth()->user();
+        } else {
+            $this->user = null;
         }
+
     }
 
     /**

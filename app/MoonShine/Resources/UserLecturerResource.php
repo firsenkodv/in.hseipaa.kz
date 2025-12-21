@@ -46,6 +46,7 @@ class UserLecturerResource extends ModelResource
         return [
             ID::make()->sortable(),
             Text::make(__('Название'), 'title'),
+            Text::make(__('Пояснение'), 'subtitle'),
             Number::make('Сортировка', 'sorting'),
         ];
     }
@@ -59,7 +60,7 @@ class UserLecturerResource extends ModelResource
             Box::make([
                 ID::make(),
                 Text::make(__('Название'), 'title'),
-                Text::make(__('Подзаголовок'), 'subtitle')->hint('Не используется'),
+                Text::make(__('Пояснение'), 'subtitle'),
                 Number::make('Сортировка', 'sorting')->buttons()->default(999),
             ])
         ];

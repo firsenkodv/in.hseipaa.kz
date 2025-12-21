@@ -101,11 +101,15 @@
 }
 
 .select-box .option,
-.selected {
+.select-box .selected {
   padding: 12px 5px 0 16px;
   align-items: center;
   height: 50px;
   cursor: pointer !important;
+}
+
+.select-box .selected {
+  padding: 0 5px 0 16px;
 }
 
 .search-box {
@@ -120,7 +124,7 @@
   border-radius: 3px;
   z-index: 100;
   border: 1px solid #E0E0E0;
-  display: none;
+  /*   display: none;*/
   opacity: 0;
   pointer-events: none;
 }
@@ -153,4 +157,4 @@
   border: 1px solid #EF533F;
 }
 
-/*# sourceMappingURL=form_select_component.css.map */
+/*# sourceMappingURL=form-select-component.css.map */

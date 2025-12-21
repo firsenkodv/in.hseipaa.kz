@@ -1,0 +1,105 @@
+.checkbox-wrapper-3 input[type=checkbox] {
+  visibility: hidden;
+  display: none;
+}
+
+.checkbox-wrapper-3 .toggle {
+  position: relative;
+  display: block;
+  width: 40px;
+  height: 20px;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  transform: translate3d(0, 0, 0);
+}
+
+.checkbox-wrapper-3 .toggle:before {
+  content: "";
+  position: relative;
+  top: 3px;
+  left: 3px;
+  width: 34px;
+  height: 14px;
+  display: block;
+  background: #9A9999;
+  border-radius: 8px;
+  transition: background 0.2s ease;
+}
+
+.checkbox-wrapper-3 .toggle span {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 20px;
+  height: 20px;
+  display: block;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 3px 8px rgba(154, 153, 153, 0.5);
+  transition: all 0.2s ease;
+}
+
+.checkbox-wrapper-3 .toggle span:before {
+  content: "";
+  position: absolute;
+  display: block;
+  margin: -18px;
+  width: 56px;
+  height: 56px;
+  background: rgba(79, 46, 220, 0.5);
+  border-radius: 50%;
+  transform: scale(0);
+  opacity: 1;
+  pointer-events: none;
+}
+
+.checkbox-wrapper-3 .cbx-3:checked + .toggle:before {
+  background: rgba(9, 92, 154, 0.12);
+}
+
+.checkbox-wrapper-3 .cbx-3:checked + .toggle span {
+  background: #095C9A;
+  transform: translateX(20px);
+  transition: all 0.2s cubic-bezier(0.8, 0.4, 0.3, 1.25), background 0.15s ease;
+  box-shadow: 0 3px 8px rgba(79, 46, 220, 0.2);
+}
+
+.checkbox-wrapper-3 .cbx-3:checked + .toggle span:before {
+  transform: scale(1);
+  opacity: 0;
+  transition: all 0.4s ease;
+}
+
+.checkbox__flex {
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+}
+.checkbox__flex .checkbox__left {
+  width: 100%;
+  min-height: 30px;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  padding: 4px 20px 4px 0;
+}
+.checkbox__flex .checkbox__right {
+  min-width: 45px;
+  max-width: 50px;
+  min-height: 30px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  padding: 4px 0;
+}
+.checkbox__flex .checkbox__title {
+  line-height: 1.3em;
+  font-size: 18px;
+  padding-bottom: 2px;
+}
+.checkbox__flex .checkbox__subtitle {
+  color: #667085;
+}
+
+/*# sourceMappingURL=form-checkbox3-component.css.map */

@@ -20,7 +20,10 @@
 
             <div class="block_content__flex reverse">
                 <div class="block_content__left">
-                    
+
+                    <x-cabinet-user.cabinet-user-personal-data-relation :user="$user"/>
+
+
                 </div>
                 <div class="block_content__right">
 

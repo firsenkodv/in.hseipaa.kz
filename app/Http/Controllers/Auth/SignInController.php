@@ -18,25 +18,21 @@ class SignInController extends Controller
     }
 
 
-/*
-    public function handle(SignInFormRequest $request): RedirectResponse
-    {
 
+    public function handleLogin(SignInFormRequest $request): RedirectResponse
+    {
 
         if (!auth()->attempt($request->validated()))
         {
-
             return back()->withErrors([
                 'email' => 'Ошибка в поле E-mail или пароль',
             ])->onlyInput('email');
         }
 
-
-
         $request->session()->regenerate();
-        return redirect()->intended(route('cabinet')); // intended - назад или route
+        return redirect()->intended(route('cabinet_user')); // intended - назад или route
     }
-    */
+
 
 
 

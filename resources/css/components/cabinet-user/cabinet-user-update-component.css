@@ -1,0 +1,40 @@
+.cabinet-user-update_update_cabinet-user-update {
+  position: relative;
+  padding: 10px 0;
+}
+.cabinet-user-update_update_cabinet-user-update .cabinet_user_update_handel {
+  padding: 40px 0 0 0;
+}
+
+.cu_row_50 {
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+}
+.cu_row_50 .cu__col {
+  width: 49%;
+  position: relative;
+}
+.cu_row_50 .cu__col:first-child {
+  padding: 0 10px 0 0;
+}
+.cu_row_50 .cu__col:last-child {
+  padding: 0 0 0 10px;
+}
+
+@media screen and (max-width: 999px) {
+  .cu_row_50 {
+    display: block;
+  }
+  .cu_row_50 .cu__col {
+    width: 100%;
+  }
+  .cu_row_50 .cu__col:first-child {
+    padding: 0;
+  }
+  .cu_row_50 .cu__col:last-child {
+    padding: 0;
+  }
+}
+
+/*# sourceMappingURL=cabinet-user-update-component.css.map */

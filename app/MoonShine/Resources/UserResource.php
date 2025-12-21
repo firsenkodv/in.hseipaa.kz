@@ -95,7 +95,6 @@ class UserResource extends ModelResource
 
                                             if ($file !== false) {
 
-
                                                 $destinationPath = 'users/' . $data->id . '/avatar';
                                                 $file->storeAs($destinationPath, $data->avatar);
                                                 Storage::disk('public')->delete($data->avatar);
@@ -106,7 +105,7 @@ class UserResource extends ModelResource
                                             }
 
                                         })
-                                        ->allowedExtensions(['jpg', 'png', 'jpeg', 'gif', 'svg', 'webp'])
+                                        ->allowedExtensions(['jpg', 'png', 'jpeg', 'gif', 'svg', 'webp', 'gif'])
                                         ->removable(),
 
                                     Text::make(__('Email'), 'email'),
@@ -147,7 +146,7 @@ class UserResource extends ModelResource
                                         ->valuesQuery(fn(Builder $query, Field $field) => $query->orderBy('sorting', 'DESC'))
                                         ->nullable()->creatable(),
 
-                                    BelongsToMany::make('Лекторы', 'UserLecturer', 'title', resource: UserLecturerResource::class)
+                                    BelongsToMany::make('Лектор', 'UserLecturer', 'title', resource: UserLecturerResource::class)
                                         ->valuesQuery(fn(Builder $query, Field $field) => $query->orderBy('sorting', 'DESC'))
                                         ->nullable()->creatable(),
 
@@ -175,10 +174,11 @@ class UserResource extends ModelResource
                                     Box::make('Адрес', [
 
                                         Json::make('', 'address')->fields([
-                                            Text::make(__('Индекс'), 'json_address_post_index'),
-                                            Text::make(__('Область'), 'json_address_area'),
-                                            Text::make(__('Улица'), 'json_address_street'),
-                                            Text::make(__('кв/офис'), 'json_address_office'),
+                                            Text::make(__('Индекс'), 'json_address_post_index')->unescape(),
+                                            Text::make(__('Область'), 'json_address_area')->unescape(),
+                                            Text::make(__('Улица'), 'json_address_street')->unescape(),
+                                            Text::make(__('Дом'), 'json_address_house')->unescape(),
+                                            Text::make(__('кв/офис'), 'json_address_office')->unescape(),
 
                                         ])->object(),
                                     ]),
@@ -186,11 +186,11 @@ class UserResource extends ModelResource
                                     TinyMce::make(__('Сертификат'), 'certificate'),
                                     TinyMce::make(__('Обо мне'), 'about_me')->hint('Напишите коротко о себе для анкеты консультанта'),
                                     TinyMce::make(__('Опыт'), 'experience'),
-                                    Text::make('Место работы (наименование организации)', 'accountant_work'),
-                                    Text::make('Должность', 'accountant_position'),
-                                    Text::make('Номер сертификата профессионального бухгалтера', 'accountant_ticket'),
+                                    Text::make('Место работы (наименование организации)', 'accountant_work')->unescape(),
+                                    Text::make('Должность', 'accountant_position')->unescape(),
+                                    Text::make('Номер сертификата профессионального бухгалтера', 'accountant_ticket')->unescape(),
                                     Date::make('Дата выдачи сертификата профессионального бухгалтера', 'accountant_ticket_date')->format('d.m.Y'),
-                                    Date::make('Дата выдачи сертификата профессионального бухгалтера', 'date_entry')->format('d.m.Y'),
+                                    Date::make('Дата вступления в профессиональную организацию', 'date_entry')->format('d.m.Y')->hint('Заполняем менеджер'),
                                 ]),
 
                             ])->columnSpan(6),
@@ -198,9 +198,9 @@ class UserResource extends ModelResource
                                 Collapse::make('', [
 
                                     Divider::make('Юридическое лицо'),
-                                    Text::make(__('БИН'), 'bin'),
-                                    Text::make(__('Компания'), 'company'),
-                                    Text::make(__('ФИО первого руководителя'), 'position_boss'),
+                                    Text::make(__('БИН'), 'bin')->unescape(),
+                                    Text::make(__('Компания'), 'company')->unescape(),
+                                    Text::make(__('ФИО первого руководителя'), 'position_boss')->unescape(),
                                 ]),
 
                             ])->columnSpan(6)

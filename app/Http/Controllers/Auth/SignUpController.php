@@ -27,8 +27,7 @@ class SignUpController extends Controller
 
             $user = UserViewModel::make()->UserCreate($request->all());
             auth()->login($user, true); // залогинили
-            flash()->alert(config('message_flash.info.sign_up_ok'));
-
+            flash()->info(config('message_flash.info.sign_up_ok'));
             return redirect()->route('cabinet_user');
 
         } catch (\Throwable $th) {

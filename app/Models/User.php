@@ -3,6 +3,9 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Domain\City\ViewModels\CityViewModel;
+use Domain\UserExpert\ViewModels\UserExpertViewModel;
+use Domain\UserSex\ViewModels\UserSexViewModel;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -36,7 +39,7 @@ class User extends Authenticatable
         'accountant_position', // Должность
         'accountant_ticket', // Номер сертификата профессионального бухгалтера
         'accountant_ticket_date', // Дата выдачи сертификата профессионального бухгалтера
-        'date_entry', // Дата выдачи сертификата профессионального бухгалтера
+        'date_entry', // Дата вступления в профессиональную организацию (заполняем менеджер)
         'bin', // БИН
         'company', // Компания
         'position_boss', // ФИО первого руководителя
@@ -56,6 +59,8 @@ class User extends Authenticatable
         'user_human_id', // belongsTo - физ лицо - юр. лицо
         'user_city_id', // belongsTo - город
         'created_at',
+        'user_expert_id',
+        'user_lecturer_id',
     ];
 
 
@@ -79,47 +84,129 @@ class User extends Authenticatable
             'file_legal_registration' => 'collection',
             'file_legal_regulation' => 'collection',
             'file_legal_first_boss' => 'collection',
+            'date_birthday' => 'date', // Кастует к дате без времени
+
         ];
     }
 
 
-    public function UserSex():BelongsTo
+    public function UserSex(): BelongsTo
     {
         return $this->belongsTo(UserSex::class, 'user_sex_id');
 
     }
 
-    public function UserHuman():BelongsTo
+    public function UserHuman(): BelongsTo
     {
         return $this->belongsTo(UserHuman::class, 'user_human_id');
 
     }
 
-    public function UserCity():BelongsTo
+    public function UserCity(): BelongsTo
     {
         return $this->belongsTo(UserCity::class, 'user_city_id');
 
     }
 
-    public function UserExpert():BelongsToMany
+    public function UserExpert(): BelongsToMany
     {
         return $this->belongsToMany(UserExpert::class);
 
     }
 
-    public function UserLecturer():BelongsToMany
+    public function UserLecturer(): BelongsToMany
     {
         return $this->belongsToMany(UserLecturer::class);
 
     }
 
-    public function UserFileQualification():BelongsToMany
+    public function UserFileQualification(): BelongsToMany
     {
         return $this->belongsToMany(UserFileQualification::class)
             ->withPivot(['custom_documents']);
 
     }
 
+    /**
+     * @return bool
+     * Проверка на юр лицо
+     */
+    public function getLegalEntityAttribute(): bool
+    {
+
+        if (!is_null($this->user_human_id)) {
+            return $this->user_human_id == 2;
+        }
+        return false;
+    }
+
+    /**
+     * @return bool
+     * Проверка на физ лицо
+     */
+    public function getIndividualAttribute(): bool
+    {
+
+        if (!is_null($this->user_human_id)) {
+            return $this->user_human_id == 1;
+        }
+        return false;
+    }
+
+    /**
+     * @return array
+     * Получение всех городов в виде массива
+     */
+    public function getUserCitiesAttribute(): array
+    {
+         $cities = CityViewModel::make()->Cities();
+            if (!is_null($cities)) {
+                return $cities->toArray();
+            }
+        return [];
+    }
+
+    /**
+     * @return array
+     * Получение всех полов в виде массива
+     */
+    public function getUserSexesAttribute(): array
+    {
+         $sexes = UserSexViewModel::make()->Sexes();
+            if (!is_null($sexes)) {
+                return $sexes->toArray();
+            }
+        return [];
+    }
+    /**
+     * @return array
+     * Получение всех типов экспертности
+     */
+    public function getUserExpertsAttribute(): array
+    {
+         $experts = UserExpertViewModel::make()->UserExperts($this->id);
+            if (!is_null($experts)) {
+                return $experts->toArray();
+            }
+        return [];
+    }
+
+    /** Кастомный акцессор в модель User **/
+    /** get **/
+    public function getDateBirthdayAttribute(?string $value): string|null
+    {
+        if ($value === null || empty($value)) {
+            return null; // Можно вернуть null или строку "", зависит от ваших предпочтений
+        }
+        return \Carbon\Carbon::parse($value)->format('d.m.Y');
+    }
+    public function getAccountantTicketDateAttribute(?string $value): string|null
+    {
+        if ($value === null || empty($value)) {
+            return null; // Можно вернуть null или строку "", зависит от ваших предпочтений
+        }
+        return \Carbon\Carbon::parse($value)->format('d.m.Y');
+    }
 
 
 

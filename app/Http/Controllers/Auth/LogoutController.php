@@ -10,7 +10,7 @@ class LogoutController extends Controller
 {
 
 
-    public function page(): RedirectResponse
+    public function logout(): RedirectResponse
     {
 
         auth()->logout();

@@ -5,6 +5,8 @@
   position: relative;
   z-index: 200;
   top: 40px;
+  /** не испрльзуем пока **/
+  /** не испрльзуем пока **/
 }
 .flashMessage__wrap .flashMessage {
   position: fixed;
@@ -42,7 +44,19 @@
 .flashMessage__wrap .message p:last-child {
   margin-bottom: 0;
 }
-.flashMessage__wrap .message--error {
+.flashMessage__wrap .class__info .message {
+  border: 1px solid darkolivegreen;
+  border-left-color: darkolivegreen;
+  border-left-width: 6px;
+  border-left-style: solid;
+  background-color: #d1e7dd;
+  color: #0f5132;
+}
+.flashMessage__wrap .class__info .message:before {
+  background-color: darkolivegreen;
+  content: "✔";
+}
+.flashMessage__wrap .class__alert .message {
   border: 1px solid #EF533F;
   border-left-color: #EF533F;
   border-left-width: 6px;
@@ -50,7 +64,7 @@
   color: #842029;
   background-color: #f8d7da;
 }
-.flashMessage__wrap .message--error:before {
+.flashMessage__wrap .class__alert .message:before {
   background-color: #EF533F;
   content: "‼";
 }
@@ -63,18 +77,6 @@
 .flashMessage__wrap .message--warning:before {
   background-color: darkorange;
   content: "!";
-}
-.flashMessage__wrap .message--success {
-  border: 1px solid darkolivegreen;
-  border-left-color: darkolivegreen;
-  border-left-width: 6px;
-  border-left-style: solid;
-  background-color: #d1e7dd;
-  color: #0f5132;
-}
-.flashMessage__wrap .message--success:before {
-  background-color: darkolivegreen;
-  content: "✔";
 }
 .flashMessage__wrap .btn-close {
   box-sizing: content-box;

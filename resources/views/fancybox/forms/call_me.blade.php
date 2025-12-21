@@ -16,8 +16,6 @@
                 autofocus="{{ true }}"
                 required="{{ true }}"
 
-
-
             />
             <x-form.form-input
                 name="Телефон"
