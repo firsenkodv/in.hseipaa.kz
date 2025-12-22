@@ -246,12 +246,55 @@
                     />
                 @endif
 
+                <h2 class="h2 pad_b20 pad_t10">Социальные сети и мессенджеры</h2>
+
+                <x-form.form-input
+                    name="telegram"
+                    type="text"
+                    label="Telegram"
+                    description="Заполняйте правильно - <span>@hseipaa</span> или <span>t.me/hseipaa</span>"
+                    value="{{ (old('telegram'))?: ($user->telegram?:'') }}"
+
+                />
+
+                <x-form.form-input
+                    name="whatsapp"
+                    type="text"
+                    label="WhatsApp"
+                    description="Указывайте только номер, без + и пробелов - <span>77075594060</span>"
+                    value="{{ (old('whatsapp'))?: ($user->whatsapp?:'') }}"
+
+                />
+
+                <x-form.form-input
+                    name="instagram"
+                    type="text"
+                    label="Instagram"
+                    description="Указывайте только ваш аккаунт -  <span>generalre.kz</span>"
+                    value="{{ (old('instagram'))?: ($user->instagram?:'') }}"
+
+                />
+                <x-form.form-input
+                    name="website"
+                    type="text"
+                    label="WebSite"
+                    description="Ваш сайт в любом виде -  <span>https://in.hseipaa.kz/</span>"
+                    value="{{ (old('website'))?: (($user->site_utf8)?:'') }}"
+
+                />
+
+
+
                 <h2 class="h2 pad_b20 pad_t10">Эксперт</h2>
-
-
-
-               <x-form.form-checkboxes  class="pad_b40"
+               <x-form.form-checkboxes  class="pad_b10"
+                                        name="experts[]"
                                         :checkboxes="$user->user_experts"
+                                        />
+
+                <h2 class="h2 pad_b20 pad_t15">Лектор</h2>
+               <x-form.form-checkboxes  class="pad_b40"
+                                        name="lecturers[]"
+                                        :checkboxes="$user->user_lecturers"
                                         />
 
 

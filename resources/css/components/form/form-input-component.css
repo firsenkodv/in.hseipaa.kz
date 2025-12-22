@@ -81,4 +81,14 @@
   top: -5px !important;
 }
 
+.input_group__description {
+  color: #282828;
+  position: relative;
+  padding: 0 0 14px 0;
+  left: 9px;
+}
+.input_group__description span {
+  color: #EF533F;
+}
+
 /*# sourceMappingURL=form-input-component.css.map */

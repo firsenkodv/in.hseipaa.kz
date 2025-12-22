@@ -120,3 +120,14 @@ $primary-color: $colorGrey;
     font-size: 14px;
     top: -5px !important;
 }
+
+.input_group__description {
+    color: $color;
+    position: relative;
+    padding: 0 0 14px 0;
+    left: 9px;
+    span {
+        color: $colorRed;
+    }
+
+}

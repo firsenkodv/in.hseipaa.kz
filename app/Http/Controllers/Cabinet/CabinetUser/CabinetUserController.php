@@ -19,6 +19,8 @@ class CabinetUserController extends Controller
      */
     public function cabinetUser(): View
     {
+
+        dd('В работе');
         try {
 
             $user = UserViewModel::make()->User();
@@ -46,6 +48,9 @@ class CabinetUserController extends Controller
         try {
 
             $user = UserViewModel::make()->User();
+
+
+           // dd(idn_to_utf8('xn--24-6kcdtb9axj4gqa.xn--p1ai'));
             return view('cabinet.cabinet_user.cabinet_user_update', [
                 'user' => $user
             ]);

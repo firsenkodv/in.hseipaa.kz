@@ -20,7 +20,7 @@ class UserUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'username' => ['required', 'string' , 'min:1', 'max:255'],
+            'username' => ['required', 'string', 'min:1', 'max:255'],
             'email' => ['required', 'email', 'email:dns',
                 Rule::unique('users')->ignore(auth()->id(), 'id')],
 
@@ -32,14 +32,19 @@ class UserUpdateRequest extends FormRequest
             'address.json_address_street' => ['nullable', 'string', 'max:256'],
             'address.json_address_house' => ['nullable', 'string', 'max:256'],
             'address.json_address_office' => ['nullable', 'string', 'max:256'],
-            'accountant_ticket'=>  ['nullable', 'string', 'max:256'],
+            'accountant_ticket' => ['nullable', 'string', 'max:256'],
+            'telegram' => ['nullable', 'string', 'min:2', 'max:256'],
+            'whatsapp' => ['nullable', 'string', 'min:5', 'max:256'],
+            'instagram' => ['nullable', 'string', 'min:3', 'max:256'],
+            'website' => ['nullable', 'string', 'min:3', 'max:256', new \App\Rules\ValidUrl],
+
 
         ];
 
 
     }
 
-    protected function prepareForValidation():void
+    protected function prepareForValidation(): void
     {
         $this->merge(
             [
@@ -49,18 +54,22 @@ class UserUpdateRequest extends FormRequest
                     ->value(),
                 'phone' => phone($this->phone),
                 // Конвертируем дату в нужный формат
-                'date_birthday' => ($this->input('date_birthday'))?Carbon::createFromFormat('d.m.Y', $this->input('date_birthday'))->format('Y-m-d'):null,
+                'date_birthday' => ($this->input('date_birthday')) ? Carbon::createFromFormat('d.m.Y', $this->input('date_birthday'))->format('Y-m-d') : null,
                 // Конвертируем дату в нужный формат
-                'accountant_ticket_date' => ($this->input('accountant_ticket_date'))?Carbon::createFromFormat('d.m.Y', $this->input('accountant_ticket_date'))->format('Y-m-d'):null,
-                'iin' => trim($this->iin),
-                'bin' => trim($this->bin),
+                'accountant_ticket_date' => ($this->input('accountant_ticket_date')) ? Carbon::createFromFormat('d.m.Y', $this->input('accountant_ticket_date'))->format('Y-m-d') : null,
+                'iin' => str(request('iin'))->squish()->lower()->value(),
+                'bin' => str(request('bin'))->squish()->lower()->value(),
                 'accountant_ticket' => trim($this->accountant_ticket),
-
+                'telegram' => str(request('telegram'))->squish()->lower()->value(),
+                'whatsapp' => str(request('whatsapp'))->squish()->lower()->value(),
+                'instagram' => str(request('instagram'))->squish()->lower()->value(),
+             /*   'website' => str(request('website'))->squish()->lower()->value(),*/
 
 
             ]
         );
     }
+
     public function messages(): array
     {
         return [
@@ -79,6 +88,15 @@ class UserUpdateRequest extends FormRequest
             'address.json_address_house.max' => 'Длина для номера дома слишком велика.',
             'address.json_address_office.max' => 'Длина для улицы или офиса дома слишком велика.',
             'accountant_ticket' => 'Длина номера макс. :max.',
+            'telegram.min' => 'Длина telegram мин. :min.',
+            'telegram.max' => 'Длина telegram макс. :max.',
+            'whatsapp.min' => 'Длина whatsapp мин. :min.',
+            'whatsapp.max' => 'Длина whatsapp макс. :max.',
+            'instagram.min' => 'Длина instagram мин. :min.',
+            'instagram.max' => 'Длина instagram макс. :max.',
+            'website.min' => 'Длина website мин. :min.',
+            'website.max' => 'Длина website макс. :max.',
+            'website.ValidUrl' => '!Описано в классе!',
 
         ];
     }

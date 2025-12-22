@@ -30,9 +30,8 @@ class UserViewModel
      */
     public function  UserUpdate($request, $id):bool
     {
-
-        $data = $request->only(['username', 'phone', 'email', 'date_birthday', 'user_city_id',  'user_sex_id', 'iin', 'address','bin', 'company', 'position_boss', 'accountant_work', 'accountant_position', 'accountant_ticket', 'accountant_ticket_date']);
         /**  Укажите список нужных полей **/
+        $data = $request->only(['username', 'phone', 'email', 'date_birthday', 'user_city_id',  'user_sex_id', 'iin', 'address','bin', 'company', 'position_boss', 'accountant_work', 'accountant_position', 'accountant_ticket', 'accountant_ticket_date', 'telegram', 'whatsapp', 'instagram', 'website']);
 
         /** Сначала получаем пользователя по указанному ID **/
         $user = User::query()->where('id', $id)->first();
@@ -44,11 +43,22 @@ class UserViewModel
         /** Далее выполняем обновление **/
         $rowsAffected = $user->update($data);
 
-        if ($rowsAffected > 0) {
-            return true;
-        } else {
+        if ($rowsAffected <= 0) {
             throw new \Exception("Данные пользователя не были обновлены.");
         }
+
+        /** Получаем выбранные IDs направлений эксперта **/
+        $expertIds = $request->input('experts', []); /** Чекбоксы передают именно IDs **/
+        /** Синхронизируем связи с направлениями экспертов **/
+        $user->UserExpert()->sync($expertIds);
+
+        /** Получаем выбранные IDs направлений лектора **/
+        $lecturerIds = $request->input('lecturers', []); /** Чекбоксы передают именно IDs **/
+        /** Синхронизируем связи с направлениями лекторов **/
+        $user->UserLecturer()->sync($lecturerIds);
+
+        return true;
+
     }
 
     public function User():Model | null

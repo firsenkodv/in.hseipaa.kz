@@ -5,7 +5,9 @@ namespace App\Models;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Domain\City\ViewModels\CityViewModel;
 use Domain\UserExpert\ViewModels\UserExpertViewModel;
+use Domain\UserLecturer\ViewModels\UserLecturerViewModel;
 use Domain\UserSex\ViewModels\UserSexViewModel;
+use Exception;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -159,10 +161,10 @@ class User extends Authenticatable
      */
     public function getUserCitiesAttribute(): array
     {
-         $cities = CityViewModel::make()->Cities();
-            if (!is_null($cities)) {
-                return $cities->toArray();
-            }
+        $cities = CityViewModel::make()->Cities();
+        if (!is_null($cities)) {
+            return $cities->toArray();
+        }
         return [];
     }
 
@@ -172,35 +174,91 @@ class User extends Authenticatable
      */
     public function getUserSexesAttribute(): array
     {
-         $sexes = UserSexViewModel::make()->Sexes();
-            if (!is_null($sexes)) {
-                return $sexes->toArray();
-            }
+        $sexes = UserSexViewModel::make()->Sexes();
+        if (!is_null($sexes)) {
+            return $sexes->toArray();
+        }
         return [];
     }
+
+    /**
+     * @return string
+     * Для русскоязычных доменов
+     */
+    public function getSiteUtf8Attribute(): string
+    {
+        if ($this->website) {
+            /** Извлекаем домен из полного URL **/
+            $parsedUrl = parse_url($this->website);
+
+            if (!$parsedUrl || !isset($parsedUrl['host'])) {
+                throw new Exception("Некорректный URL");
+            }
+
+            $domain = $parsedUrl['host'];
+
+            // Проверяем, является ли домен Punycode-доменом
+            if (substr($domain, 0, 4) === 'xn--') {
+                // Да, это Punycode, делаем дешифровку
+                $decodedDomain = idn_to_utf8($domain);
+            } else {
+                // Нет, оставляем как есть
+                $decodedDomain = $domain;
+            }
+
+            // Реконструируем URL
+            $newPath = isset($parsedUrl['path']) ? $parsedUrl['path'] : '';
+            $newQuery = isset($parsedUrl['query']) ? '?'.$parsedUrl['query'] : '';
+            $newFragment = isset($parsedUrl['fragment']) ? '#'.$parsedUrl['fragment'] : '';
+
+            // Собираем полный URL
+            return $parsedUrl['scheme'] . '://' . $decodedDomain . $newPath . $newQuery . $newFragment;
+
+        }
+        return '';
+    }
+
     /**
      * @return array
      * Получение всех типов экспертности
      */
-    public function getUserExpertsAttribute(): array
+    public
+    function getUserExpertsAttribute(): array
     {
-         $experts = UserExpertViewModel::make()->UserExperts($this->id);
-            if (!is_null($experts)) {
-                return $experts->toArray();
-            }
+        $experts = UserExpertViewModel::make()->UserExperts($this->id);
+        if (!is_null($experts)) {
+            return $experts->toArray();
+        }
+        return [];
+    }
+
+    /**
+     * @return array
+     * Получение всех типов лекторов
+     */
+    public
+    function getUserLecturersAttribute(): array
+    {
+        $lecturers = UserLecturerViewModel::make()->UserLecturers($this->id);
+        if (!is_null($lecturers)) {
+            return $lecturers->toArray();
+        }
         return [];
     }
 
     /** Кастомный акцессор в модель User **/
     /** get **/
-    public function getDateBirthdayAttribute(?string $value): string|null
+    public
+    function getDateBirthdayAttribute(?string $value): string|null
     {
         if ($value === null || empty($value)) {
             return null; // Можно вернуть null или строку "", зависит от ваших предпочтений
         }
         return \Carbon\Carbon::parse($value)->format('d.m.Y');
     }
-    public function getAccountantTicketDateAttribute(?string $value): string|null
+
+    public
+    function getAccountantTicketDateAttribute(?string $value): string|null
     {
         if ($value === null || empty($value)) {
             return null; // Можно вернуть null или строку "", зависит от ваших предпочтений
@@ -209,8 +267,8 @@ class User extends Authenticatable
     }
 
 
-
-    protected static function boot()
+    protected
+    static function boot()
     {
         parent::boot();
 
