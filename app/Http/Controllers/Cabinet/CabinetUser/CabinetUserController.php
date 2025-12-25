@@ -20,7 +20,6 @@ class CabinetUserController extends Controller
     public function cabinetUser(): View
     {
 
-        dd('В работе');
         try {
 
             $user = UserViewModel::make()->User();
@@ -92,6 +91,29 @@ class CabinetUserController extends Controller
 
         }
 
+
+    }
+
+    /**
+     * @return View
+     * Страница тарифного плана пользователя
+     */
+    public function cabinetPricing(): View
+    {
+        try {
+
+            $user = UserViewModel::make()->User();
+            return view('cabinet.cabinet_user.pricing.pricing', [
+                'user' => $user
+            ]);
+
+        } catch (\Throwable $th) {
+
+            // Обрабатываем исключение
+            logErrors($th);
+            abort(404);
+
+        }
 
     }
 

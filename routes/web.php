@@ -61,6 +61,7 @@ Route::controller(FancyBoxSendingFromFormController::class)->group(function () {
     Route::post('/request_for_training', 'fancyboxRequestForTraining');
     Route::post('/call_me', 'fancyboxCallMe');
     Route::post('/consult_me', 'fancyboxConsultMe');
+
 });
 
 /**
@@ -80,7 +81,6 @@ Route::controller(AxiosSendingFromFormController::class)->group(function () {
 
 });
 
-//axiosCallMeBlue
 
 /**
  * ///axios
@@ -257,19 +257,29 @@ Route::controller(LogoutController::class)->group(function () {
 /** Cabinet_user */
 Route::controller(CabinetUserController::class)->group(function () {
 
+     /** кабинет  */
     Route::get('/cabinet', 'cabinetUser')
         ->name('cabinet_user')
         ->middleware(UserMiddleware::class);
 
+    /** кабинет страница обновления  */
     Route::get('/cabinet/setting/update', 'cabinetUserUpdate')
         ->name('cabinet_user_update')
         ->middleware(UserMiddleware::class);
 
+    /** кабинет метод обновления  */
     Route::post('/cabinet/setting/update', 'cabinetUserUpdateHandel')
         ->name('cabinet_user_update_handel')
         ->middleware(UserMiddleware::class);
 
+    /** тариф  */
+    Route::get('/cabinet/pricing', 'cabinetPricing')
+        ->name('cabinet_pricing')
+        ->middleware(UserMiddleware::class);
+
 });
+
+
 /** ** аватар  **   **/
 Route::controller(AxiosUploadPhotoController::class)->group(function () {
 

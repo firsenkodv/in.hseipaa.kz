@@ -14,6 +14,7 @@ class SignInController extends Controller
 
     public function login():View
     {
+        dd('login');
         return view('auth.login');
     }
 

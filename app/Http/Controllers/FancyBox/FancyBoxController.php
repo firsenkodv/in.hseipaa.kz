@@ -26,6 +26,10 @@ class FancyBoxController extends Controller
             return view('fancybox.forms.consult_me');
         }
 
+        if($request->template == 'cabinet_user_social_description') {
+            return view('fancybox.forms.cabinet_user_social_description');
+        }
+
         return view('fancybox.forms.error.error_form');
 
     }

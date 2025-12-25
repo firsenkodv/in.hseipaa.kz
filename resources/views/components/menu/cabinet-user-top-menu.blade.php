@@ -3,8 +3,8 @@
     <li class="{{ active_linkMenu(asset(route('cabinet_user')))  }}">
         <a href="{{ route('cabinet_user') }}">Кабинет</a>
     </li>
-    <li>
-        <a href="#">Мой тариф</a>
+    <li class="{{ active_linkMenu(asset(route('cabinet_pricing'), 'find'))  }}">
+        <a href="{{ route('cabinet_pricing') }}">Мой тариф</a>
     </li>
     <li>
         <a href="#">Услуги</a>

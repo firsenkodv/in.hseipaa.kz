@@ -58,12 +58,13 @@
 
     <section>
         <div class="block relative">
-            <x-home.output-service-category-component />
+            <x-home.consultation-component />
         </div>
     </section>
+
     <section>
         <div class="block relative">
-            <x-home.consultation-component />
+            <x-home.output-service-category-component />
         </div>
     </section>
 

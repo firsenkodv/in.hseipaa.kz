@@ -246,7 +246,11 @@
                     />
                 @endif
 
-                <h2 class="h2 pad_b20 pad_t10">Социальные сети и мессенджеры</h2>
+                <h2 class="h2 pad_b20 pad_t10">Социальные сети и мессенджеры
+                    <x-form.form-exclamation
+                    data="cabinet_user_social_description"
+                    />
+                </h2>
 
                 <x-form.form-input
                     name="telegram"
@@ -263,7 +267,6 @@
                     label="WhatsApp"
                     description="Указывайте только номер, без + и пробелов - <span>77075594060</span>"
                     value="{{ (old('whatsapp'))?: ($user->whatsapp?:'') }}"
-
                 />
 
                 <x-form.form-input
@@ -272,20 +275,17 @@
                     label="Instagram"
                     description="Указывайте только ваш аккаунт -  <span>generalre.kz</span>"
                     value="{{ (old('instagram'))?: ($user->instagram?:'') }}"
-
                 />
+
                 <x-form.form-input
                     name="website"
                     type="text"
                     label="WebSite"
                     description="Ваш сайт в любом виде -  <span>https://in.hseipaa.kz/</span>"
                     value="{{ (old('website'))?: (($user->site_utf8)?:'') }}"
-
                 />
 
-
-
-                <h2 class="h2 pad_b20 pad_t10">Эксперт</h2>
+               <h2 class="h2 pad_b20 pad_t10">Эксперт</h2>
                <x-form.form-checkboxes  class="pad_b10"
                                         name="experts[]"
                                         :checkboxes="$user->user_experts"

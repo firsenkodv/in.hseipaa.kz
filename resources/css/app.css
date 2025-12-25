@@ -35,6 +35,7 @@
 @import 'components/mzp/mzp-content-component.scss';
 @import 'components/form/form-input-component.scss';
 @import 'components/form/form-blue-component.scss';
+@import 'components/form/form-exclamation.scss';
 @import 'components/form/form-select-component.scss';
 @import 'components/form/form-loader-component.scss';
 @import 'components/form/form-response-component.scss';
