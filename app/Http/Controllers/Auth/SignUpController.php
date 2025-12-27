@@ -17,7 +17,7 @@ class SignUpController extends Controller
     public function signUp(): View
     {
 
-        dd('signUp');
+       // dd('signUp');
         return view('auth.sign_up');
 
     }

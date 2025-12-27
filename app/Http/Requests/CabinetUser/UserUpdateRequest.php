@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\CabinetUser;
 
+use App\Rules\ValidUrl;
 use Carbon\Carbon;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
@@ -36,7 +37,7 @@ class UserUpdateRequest extends FormRequest
             'telegram' => ['nullable', 'string', 'min:2', 'max:256'],
             'whatsapp' => ['nullable', 'string', 'min:5', 'max:256'],
             'instagram' => ['nullable', 'string', 'min:3', 'max:256'],
-            'website' => ['nullable', 'string', 'min:3', 'max:256', new \App\Rules\ValidUrl],
+            'website' => ['nullable', 'string', 'min:3', 'max:256', new   \App\Rules\ValidUrl],
 
 
         ];

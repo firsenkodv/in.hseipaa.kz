@@ -589,11 +589,11 @@ if (!function_exists('to_object')) {
 
 if (!function_exists('logErrors')) {
 
-    function logErrors($th): void
+    function logErrors($exception): void
 
     {
-        if ($th) {
-            Log::error("Ошибка в методе: {$th->getFile()} строка: {$th->getLine()} сообщение: {$th->getMessage()}");
+        if ($exception) {
+            Log::error("Ошибка в методе: {$exception->getFile()} строка: {$exception->getLine()} сообщение: {$exception->getMessage()}");
         }
 
     }

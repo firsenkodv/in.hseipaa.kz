@@ -3,6 +3,7 @@
 namespace Domain\User\ViewModels;
 
 use App\Models\User;
+use Domain\User\DTOs\UserUpdateDto;
 use Illuminate\Database\Eloquent\Model;
 use Support\Traits\Makeable;
 
@@ -30,8 +31,8 @@ class UserViewModel
      */
     public function  UserUpdate($request, $id):bool
     {
-        /**  Укажите список нужных полей **/
-        $data = $request->only(['username', 'phone', 'email', 'date_birthday', 'user_city_id',  'user_sex_id', 'iin', 'address','bin', 'company', 'position_boss', 'accountant_work', 'accountant_position', 'accountant_ticket', 'accountant_ticket_date', 'telegram', 'whatsapp', 'instagram', 'website']);
+
+        $data =  UserUpdateDto::formRequest($request);
 
         /** Сначала получаем пользователя по указанному ID **/
         $user = User::query()->where('id', $id)->first();
@@ -40,22 +41,37 @@ class UserViewModel
             throw new \Exception("Пользователь с указанным ID не найден.");
         }
 
-        /** Далее выполняем обновление **/
-        $rowsAffected = $user->update($data);
-
-        if ($rowsAffected <= 0) {
-            throw new \Exception("Данные пользователя не были обновлены.");
-        }
 
         /** Получаем выбранные IDs направлений эксперта **/
         $expertIds = $request->input('experts', []); /** Чекбоксы передают именно IDs **/
-        /** Синхронизируем связи с направлениями экспертов **/
-        $user->UserExpert()->sync($expertIds);
 
         /** Получаем выбранные IDs направлений лектора **/
         $lecturerIds = $request->input('lecturers', []); /** Чекбоксы передают именно IDs **/
-        /** Синхронизируем связи с направлениями лекторов **/
-        $user->UserLecturer()->sync($lecturerIds);
+
+
+
+        \DB::beginTransaction(); // Начинаем транзакцию
+
+        try {
+            /** Обновляем основного пользователя **/
+            $user->update($data->toArray());
+
+            /** Синхронизируем связи с направлениями экспертов **/
+            $user->UserExpert()->sync($expertIds);
+
+            /** Синхронизируем связи с направлениями лекторов **/
+            $user->UserLecturer()->sync($lecturerIds);
+
+            \DB::commit(); // Подтверждение успешной транзакции
+        } catch (\Throwable $exception) {
+            \DB::rollBack(); // Откат транзакции в случае ошибки
+            logErrors($exception);
+            throw $exception; // Повторно выбрасываем исключение вверх по стеку
+
+        }
+
+
+
 
         return true;
 

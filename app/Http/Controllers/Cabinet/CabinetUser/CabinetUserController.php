@@ -77,7 +77,7 @@ class CabinetUserController extends Controller
        try {
 
             $user = UserViewModel::make()->User();
-            $result = UserViewModel::make()->UserUpdate($request, $user->id);
+            UserViewModel::make()->UserUpdate($request, $user->id);
             flash()->info(config('message_flash.info.cabinet_user_ok'));
             return redirect()->back();
 
