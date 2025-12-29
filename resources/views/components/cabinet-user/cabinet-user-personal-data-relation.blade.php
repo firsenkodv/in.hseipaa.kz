@@ -1,3 +1,6 @@
+@props([
+'relation' => true
+])
 <div class="cabinet-user_cabinet-user-personal-data-relation">
 
     <div class="block_published">
@@ -8,41 +11,43 @@
             <div class="__off">{!!   config('site.constants.published_off') !!}</div>
         @endif
     </div>
+    @if($relation)
+        <div class="block_grey">
+            <div class="__head">
+                Лектор
+            </div>
+            <div class="__body">
+                @if(count($user->UserLecturer))
 
-    <div class="block_grey">
-        <div class="__head">
-            Лектор
+                    @foreach($user->UserLecturer as $lecturer)
+                        <div class="__body__option">
+                            {{ $lecturer->title }}
+                        </div>
+                    @endforeach
+                @else
+                    Выбор в настройках
+                @endif
+            </div>
         </div>
-        <div class="__body">
-            @if(count($user->UserLecturer))
+        <div class="block_green">
+            <div class="__head">
+                Эксперт
+            </div>
+            <div class="__body">
+                @if(count($user->UserExpert))
 
-                @foreach($user->UserLecturer as $lecturer)
-                    <div class="__body__option">
-                        {{ $lecturer->title }}
-                    </div>
-                @endforeach
-            @else
-                Выбор в настройках
-            @endif
+                    @foreach($user->UserExpert as $expert)
+                        <div class="__body__option">
+                            {{ $expert->title }}
+                        </div>
+                    @endforeach
+                @else
+                    Выбор в настройках
+                @endif
+            </div>
         </div>
-    </div>
-    <div class="block_green">
-        <div class="__head">
-            Эксперт
-        </div>
-        <div class="__body">
-            @if(count($user->UserExpert))
+    @endif
 
-                @foreach($user->UserExpert as $expert)
-                    <div class="__body__option">
-                        {{ $expert->title }}
-                    </div>
-                @endforeach
-            @else
-                Выбор в настройках
-            @endif
-        </div>
-    </div>
 
     <div class="block_exit">
         <x-form action="{{ route('logout') }}">

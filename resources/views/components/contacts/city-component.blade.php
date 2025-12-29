@@ -1,5 +1,7 @@
 <div class="header_1__phone_cities">
 
+    <a  href="{{ route('search') }}" class="plus__search"></a>
+
     <div class="phone_rack">
         <a class="app_phone_rack" href="@if($first_city_phone)tel:+{{ format_phone($first_city_phone) }}@endif">
             @if($first_city_phone){{ format_phone($first_city_phone) }}@endif

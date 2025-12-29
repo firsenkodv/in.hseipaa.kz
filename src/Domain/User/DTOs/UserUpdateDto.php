@@ -11,7 +11,7 @@ class UserUpdateDto
 
     /** Список полей, которые будем сохранять **/
     const FIELDS = [
-        'username', 'phone', 'email', 'date_birthday', 'user_city_id', 'user_sex_id', 'iin', 'address', 'bin', 'company', 'position_boss', 'accountant_work', 'accountant_position', 'accountant_ticket', 'accountant_ticket_date', 'telegram', 'whatsapp', 'instagram', 'website'
+        'username', 'phone', 'email', 'date_birthday', 'user_city_id', 'user_sex_id', 'iin', 'address', 'bin', 'company', 'position_boss', 'accountant_work', 'accountant_position', 'accountant_ticket', 'accountant_ticket_date', 'telegram', 'whatsapp', 'instagram', 'website', 'published'
     ];
 
     public function __construct(
@@ -34,6 +34,7 @@ class UserUpdateDto
         public readonly ?string $whatsapp = null,
         public readonly ?string $instagram = null,
         public readonly ?string $website = null,
+        public readonly ?int $published = 0,
 
     )
     {
