@@ -68,6 +68,7 @@ use App\MoonShine\Resources\UserHumanResource;
 use App\MoonShine\Resources\UserLecturerResource;
 use App\MoonShine\Resources\UserSexResource;
 use App\MoonShine\Resources\UserResource;
+use App\MoonShine\Resources\MenuResource;
 
 
 final class AxeldLayout extends AppLayout
@@ -149,6 +150,8 @@ final class AxeldLayout extends AppLayout
                 MenuItem::make('Как пользоваться', AxeldPassportResource::class, 'academic-cap'),
 
             ]),
+            MenuItem::make('Меню', MenuResource::class),
+
             MenuGroup::make(static fn() => __('Формы отправки'), [
                 MenuItem::make('Данные с форм', SavedFormDataResource::class , 'envelope'),
 

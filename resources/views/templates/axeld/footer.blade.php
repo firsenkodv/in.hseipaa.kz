@@ -18,7 +18,7 @@
             <div class="add_hm__flex relative">
                 <div class="add_hm__left">
 
-
+<x-menu.footer-menu-component />
 
                 </div>
                 <div class="add_hm__right">

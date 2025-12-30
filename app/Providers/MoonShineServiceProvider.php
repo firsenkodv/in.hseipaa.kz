@@ -42,6 +42,7 @@ use App\MoonShine\Resources\UserHumanResource;
 use App\MoonShine\Resources\UserLecturerResource;
 use App\MoonShine\Resources\UserSexResource;
 use App\MoonShine\Resources\UserResource;
+use App\MoonShine\Resources\MenuResource;
 
 class MoonShineServiceProvider extends ServiceProvider
 {
@@ -80,6 +81,7 @@ class MoonShineServiceProvider extends ServiceProvider
                 UserLecturerResource::class,
                 UserSexResource::class,
                 UserResource::class,
+                MenuResource::class,
             ])
             ->pages([
                 ...$config->getPages(),

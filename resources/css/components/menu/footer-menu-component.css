@@ -1,0 +1,16 @@
+.menu_footer-menu-component .f_menu__flex {
+  display: flex;
+  gap: 10%;
+}
+.menu_footer-menu-component .f_menu__flex li a {
+  display: block;
+  text-decoration: none;
+  padding: 5px;
+  color: #282828;
+  line-height: 1.3em;
+}
+.menu_footer-menu-component .f_menu__flex li.active a {
+  color: #EF533F;
+}
+
+/*# sourceMappingURL=footer-menu-component.css.map */

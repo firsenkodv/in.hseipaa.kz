@@ -15,10 +15,11 @@
 @import 'components/home/useful-info-component.scss';
 @import 'components/contacts/city-component.scss';
 @import 'components/logo/logo-component.scss';
-@import 'components/menu/header-menu-component.scss';
 @import 'components/enter/header-enter-component.scss';
 @import 'components/social_network/header-socialnetwork-component.scss';
 @import 'components/language/header-language-component.scss';
+@import 'components/menu/footer-menu-component.scss';
+@import 'components/menu/header-menu-component.scss';
 @import 'components/menu/hamburger-component.scss';
 @import 'components/menu/left-menu-component.scss';
 @import 'components/search/exchange.scss';
