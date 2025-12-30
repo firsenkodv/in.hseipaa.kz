@@ -268,7 +268,7 @@ Route::controller(CabinetUserController::class)->group(function () {
         ->middleware(UserMiddleware::class);
 
     /** кабинет метод обновления  */
-    Route::post('/cabinet/setting/update', 'cabinetUserUpdateHandel')
+    Route::put('/cabinet/setting/update', 'cabinetUserUpdateHandel')
         ->name('cabinet_user_update_handel')
         ->middleware(UserMiddleware::class);
 

@@ -90,8 +90,8 @@ class UserResource extends ModelResource
                                         ->onAfterApply(function (Model $data, $file, Image $field) {
 
                                                     /*           dump($data);
-                                                               dump($file);
-                                                               dd($field);*/
+                                                                 dump($file);
+                                                                 dd($field);   */
 
                                             if ($file !== false) {
 
@@ -115,10 +115,10 @@ class UserResource extends ModelResource
                                 Collapse::make('', [
 
                                     Divider::make('Социальные сети'),
-                                    Text::make('Телеграм', 'telegram')->hint('Заполняйте правильно - https://t.me/hseipaa'),
+                                    Text::make('Телеграм', 'telegram')->hint('Заполняйте правильно - t.me/hseipaa или @hseipaa'),
                                     Number::make('WhatsApp', 'whatsapp')->hint('Заполняйте правильно  - (только цифры) - 77075594059'),
                                     Text::make('Website', 'website')->hint('Заполняйте правильно - https://in.hseipaa.kz'),
-                                    Text::make('Instagram', 'instagram')->hint('Заполняйте правильно - https://www.instagram.com/hseipaa.kz/'),
+                                    Text::make('Instagram', 'instagram')->hint('Заполняйте правильно только аккаунт - hseipaa.kz'),
                                     Text::make('Другая соц. сеть', 'network')->hint('Заполняйте правильно -  https://vk.com/axeld'),
                                 ]),
 
@@ -141,6 +141,15 @@ class UserResource extends ModelResource
                                         ->creatable(),
 
                                     BelongsTo::make('Пол', 'UserSex', 'title', resource: UserSexResource::class)->nullable(),
+
+                                    BelongsToMany::make('Языки', 'UserLanguage', 'title', resource: UserLanguageResource::class)
+                                        ->valuesQuery(fn(Builder $query, Field $field) => $query->orderBy('sorting', 'DESC'))
+                                        ->nullable()->creatable(),
+
+                                    BelongsToMany::make('Специалист', 'UserSpecialist', 'title', resource: UserSpecialistResource::class)
+                                        ->valuesQuery(fn(Builder $query, Field $field) => $query->orderBy('sorting', 'DESC'))
+                                        ->nullable()->creatable(),
+
 
                                     BelongsToMany::make('Эксперт', 'UserExpert', 'title', resource: UserExpertResource::class)
                                         ->valuesQuery(fn(Builder $query, Field $field) => $query->orderBy('sorting', 'DESC'))

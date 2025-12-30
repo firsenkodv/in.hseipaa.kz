@@ -38,6 +38,7 @@ class UserUpdateRequest extends FormRequest
             'whatsapp' => ['nullable', 'string', 'min:5', 'max:256'],
             'instagram' => ['nullable', 'string', 'min:3', 'max:256'],
             'website' => ['nullable', 'string', 'min:3', 'max:256', new   \App\Rules\ValidUrl],
+            'about_me' => ['nullable', 'string', 'min:3', 'max:1000'],
 
 
         ];
@@ -64,6 +65,8 @@ class UserUpdateRequest extends FormRequest
                 'telegram' => str(request('telegram'))->squish()->lower()->value(),
                 'whatsapp' => str(request('whatsapp'))->squish()->lower()->value(),
                 'instagram' => str(request('instagram'))->squish()->lower()->value(),
+                'about_me' => str(request('about_me'))->stripTags('<br></br></ br><p><ul><li><h2>')->value(),
+                'experience' => str(request('about_me'))->stripTags('<br></br></ br><p><ul><li><h2>')->value(),
              /*   'website' => str(request('website'))->squish()->lower()->value(),*/
 
 
@@ -98,6 +101,10 @@ class UserUpdateRequest extends FormRequest
             'website.min' => 'Длина website мин. :min.',
             'website.max' => 'Длина website макс. :max.',
             'website.ValidUrl' => '!Описано в классе!',
+            'about_me.min' => 'Длина описания минимум :min.',
+            'about_me.max' => 'Длина описания макс. :max.',
+            'experience.min' => 'Длина описания минимум :min.',
+            'experience.max' => 'Длина описания макс. :max.',
 
         ];
     }

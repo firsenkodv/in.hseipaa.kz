@@ -5,8 +5,10 @@ namespace App\Models;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Domain\City\ViewModels\CityViewModel;
 use Domain\UserExpert\ViewModels\UserExpertViewModel;
+use Domain\UserLanguage\ViewModels\UserLanguageViewModel;
 use Domain\UserLecturer\ViewModels\UserLecturerViewModel;
 use Domain\UserSex\ViewModels\UserSexViewModel;
+use Domain\UserSpecialist\ViewModels\UserSpecialistViewModel;
 use Exception;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -60,9 +62,9 @@ class User extends Authenticatable
         'user_sex_id', // belongsTo - пол
         'user_human_id', // belongsTo - физ лицо - юр. лицо
         'user_city_id', // belongsTo - город
-        'created_at',
-        'user_expert_id',
-        'user_lecturer_id',
+        'created_at', // дата создания
+        'user_expert_id', // не нужное поле
+        'user_lecturer_id', // не нужное поле
     ];
 
 
@@ -119,6 +121,18 @@ class User extends Authenticatable
     public function UserLecturer(): BelongsToMany
     {
         return $this->belongsToMany(UserLecturer::class);
+
+    }
+
+    public function UserSpecialist(): BelongsToMany
+    {
+        return $this->belongsToMany(UserSpecialist::class);
+
+    }
+
+    public function UserLanguage(): BelongsToMany
+    {
+        return $this->belongsToMany(UserLanguage::class);
 
     }
 
@@ -228,6 +242,34 @@ class User extends Authenticatable
         $experts = UserExpertViewModel::make()->UserExperts($this->id);
         if (!is_null($experts)) {
             return $experts->toArray();
+        }
+        return [];
+    }
+
+    /**
+     * @return array
+     * Получение всех типов языков
+     */
+    public
+    function getUserLanguagesAttribute(): array
+    {
+        $languages = UserLanguageViewModel::make()->UserLanguages($this->id);
+        if (!is_null($languages)) {
+            return $languages->toArray();
+        }
+        return [];
+    }
+
+    /**
+     * @return array
+     * Получение всех типов специалистов
+     */
+    public
+    function getUserSpecialistsAttribute(): array
+    {
+        $specialists = UserSpecialistViewModel::make()->UserSpecialists($this->id);
+        if (!is_null($specialists)) {
+            return $specialists->toArray();
         }
         return [];
     }

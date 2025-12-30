@@ -69,6 +69,8 @@ use App\MoonShine\Resources\UserLecturerResource;
 use App\MoonShine\Resources\UserSexResource;
 use App\MoonShine\Resources\UserResource;
 use App\MoonShine\Resources\MenuResource;
+use App\MoonShine\Resources\UserSpecialistResource;
+use App\MoonShine\Resources\UserLanguageResource;
 
 
 final class AxeldLayout extends AppLayout
@@ -89,6 +91,8 @@ final class AxeldLayout extends AppLayout
             MenuGroup::make('Пользователи', [
                 MenuItem::make('Админ', MoonShineUserResource::class, 'user'),
                 MenuItem::make('Города', UserCityResource::class, 'building-office-2'),
+                MenuItem::make('Языки', UserLanguageResource::class, 'language'),
+                MenuItem::make('Специалисты', UserSpecialistResource::class, 'light-bulb'),
                 MenuItem::make('Эксперты', UserExpertResource::class, 'beaker'),
                 MenuItem::make('Квалификации', UserFileQualificationResource::class ,'bolt'),
               /*  MenuItem::make('Физ/Юр лица', UserHumanResource::class),*/

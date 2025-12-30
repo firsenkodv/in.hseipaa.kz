@@ -11,13 +11,15 @@ class UserUpdateDto
 
     /** Список полей, которые будем сохранять **/
     const FIELDS = [
-        'username', 'phone', 'email', 'date_birthday', 'user_city_id', 'user_sex_id', 'iin', 'address', 'bin', 'company', 'position_boss', 'accountant_work', 'accountant_position', 'accountant_ticket', 'accountant_ticket_date', 'telegram', 'whatsapp', 'instagram', 'website', 'published'
+        'username', 'phone', 'email', 'about_me', 'experience', 'date_birthday', 'user_city_id', 'user_sex_id', 'iin', 'address', 'bin', 'company', 'position_boss', 'accountant_work', 'accountant_position', 'accountant_ticket', 'accountant_ticket_date', 'telegram', 'whatsapp', 'instagram', 'website', 'published'
     ];
 
     public function __construct(
         public readonly ?string $username = null,
         public readonly ?string $phone = null,
         public readonly ?string $email = null,
+        public readonly ?string $about_me = null,
+        public readonly ?string $experience = null,
         public readonly ?string $date_birthday = null,
         public readonly ?int    $user_city_id = null,
         public readonly ?int    $user_sex_id = null,
@@ -34,10 +36,11 @@ class UserUpdateDto
         public readonly ?string $whatsapp = null,
         public readonly ?string $instagram = null,
         public readonly ?string $website = null,
-        public readonly ?int $published = 0,
+        public  ?int $published = 0,
 
     )
     {
+
     }
 
     public static function formRequest(Request $request):UserUpdateDto

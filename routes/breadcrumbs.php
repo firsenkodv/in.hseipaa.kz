@@ -22,7 +22,8 @@ Breadcrumbs::for('company_category', function ($trail, $category) {
     $trail->parent('company_categories');
     $trail->push($category->title , route('company_category', ['category_slug' => $category->slug]));
 
-});// Home > Company > Category > Item
+});
+// Home > Company > Category > Item
 Breadcrumbs::for('company_item', function ($trail, $category, $item) {
     $trail->parent('company_category', $category);
     $trail->push($item->title , route('company_item', ['category_slug' => $category->slug, 'item_slug' => $item->slug]));

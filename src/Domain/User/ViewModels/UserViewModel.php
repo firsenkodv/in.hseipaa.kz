@@ -42,12 +42,19 @@ class UserViewModel
         }
 
 
+        /** Получаем выбранные IDs языков **/
+        $languageIds = $request->input('languages', []); /** Чекбоксы передают именно IDs **/
+
+        /** Получаем выбранные IDs направлений эксперта **/
+        $specialistIds = $request->input('specialists', []); /** Чекбоксы передают именно IDs **/
+
         /** Получаем выбранные IDs направлений эксперта **/
         $expertIds = $request->input('experts', []); /** Чекбоксы передают именно IDs **/
 
         /** Получаем выбранные IDs направлений лектора **/
         $lecturerIds = $request->input('lecturers', []); /** Чекбоксы передают именно IDs **/
 
+        $data->published = empty($specialistIds) ? 1 : 0;
 
 
         \DB::beginTransaction(); // Начинаем транзакцию
@@ -55,6 +62,12 @@ class UserViewModel
         try {
             /** Обновляем основного пользователя **/
             $user->update($data->toArray());
+
+            /** Синхронизируем связи с направлениями языков **/
+            $user->UserLanguage()->sync($languageIds);
+
+            /** Синхронизируем связи с направлениями cпециалистов **/
+            $user->UserSpecialist()->sync($specialistIds);
 
             /** Синхронизируем связи с направлениями экспертов **/
             $user->UserExpert()->sync($expertIds);

@@ -73,9 +73,10 @@ $primary-color: $colorGrey;
 
     }
     textarea {
-        min-height: 80px;
-        width: 100%;
-        padding: 10px;
+        min-height: 120px;
+        width: 100% !important;
+        padding: 20px 10px !important;
+        resize: vertical !important;
 
     }
 

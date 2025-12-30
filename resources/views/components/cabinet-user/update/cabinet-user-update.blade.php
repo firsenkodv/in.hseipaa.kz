@@ -104,6 +104,23 @@
                     </div>
                 </div>
 
+                <x-form.form-textarea
+                    name="about_me"
+                    label="Напишите коротко о себе для анкеты"
+                    value="{!!  (old('about_me'))?: (($user->about_me)?:'') !!}"
+
+                />
+
+
+                <x-form.form-textarea
+                    name="experience"
+                    label="Опыт работы"
+                    value="{!!  (old('experience'))?: (($user->experience)?:'') !!}"
+
+                />
+
+
+
                 <h2 class="h2 pad_b15 pad_t10">Адрес</h2>
                 @if($user->user_cities)
                     <x-form.form-select-cabinet
@@ -285,6 +302,18 @@
                     value="{{ (old('website'))?: (($user->site_utf8)?:'') }}"
                 />
 
+               <h2 class="h2 pad_b20 pad_t10">Владение языками</h2>
+               <x-form.form-checkboxes  class="pad_b10"
+                                        name="languages[]"
+                                        :checkboxes="$user->user_languages"
+                                        />
+
+               <h2 class="h2 pad_b20 pad_t10">Специалист</h2>
+               <x-form.form-checkboxes  class="pad_b10"
+                                        name="specialists[]"
+                                        :checkboxes="$user->user_specialists"
+                                        />
+
                <h2 class="h2 pad_b20 pad_t10">Эксперт</h2>
                <x-form.form-checkboxes  class="pad_b10"
                                         name="experts[]"
@@ -300,7 +329,7 @@
 
 
                 <div class="row_form_800__right">
-                    <button type="submit" class="btn btn-big"><span>Редактировать</span></button>
+                    <button type="submit" class="btn btn-big"><span>Редактировать профиль</span></button>
                 </div>
 
             </x-form.form>

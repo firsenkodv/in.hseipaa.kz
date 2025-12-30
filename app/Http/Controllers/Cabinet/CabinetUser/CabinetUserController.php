@@ -48,8 +48,6 @@ class CabinetUserController extends Controller
 
             $user = UserViewModel::make()->User();
 
-
-           // dd(idn_to_utf8('xn--24-6kcdtb9axj4gqa.xn--p1ai'));
             return view('cabinet.cabinet_user.cabinet_user_update', [
                 'user' => $user
             ]);
@@ -73,9 +71,7 @@ class CabinetUserController extends Controller
     public function cabinetUserUpdateHandel(UserUpdateRequest $request)
     {
 
-
        try {
-
             $user = UserViewModel::make()->User();
             UserViewModel::make()->UserUpdate($request, $user->id);
             flash()->info(config('message_flash.info.cabinet_user_ok'));
