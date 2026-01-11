@@ -7,6 +7,7 @@ use App\Http\Controllers\Auth\SignInController;
 use App\Http\Controllers\Auth\SignUpController;
 use App\Http\Controllers\Axios\AxiosController;
 use App\Http\Controllers\Axios\AxiosSendingFromFormController;
+use App\Http\Controllers\Axios\AxiosUploadFilesController;
 use App\Http\Controllers\Axios\AxiosUploadPhotoController;
 use App\Http\Controllers\Cabinet\CabinetUser\CabinetUserController;
 use App\Http\Controllers\Company\CompanyController;
@@ -61,6 +62,7 @@ Route::controller(FancyBoxSendingFromFormController::class)->group(function () {
     Route::post('/request_for_training', 'fancyboxRequestForTraining');
     Route::post('/call_me', 'fancyboxCallMe');
     Route::post('/consult_me', 'fancyboxConsultMe');
+    Route::post('/select_tarif', 'fancyboxSelectTarif');
 
 });
 
@@ -282,13 +284,23 @@ Route::controller(CabinetUserController::class)->group(function () {
 
 /** ** аватар  **   **/
 Route::controller(AxiosUploadPhotoController::class)->group(function () {
-
     Route::post('/cabinet.upload.photo', 'uploadPhoto')
         ->middleware(UserMiddleware::class);
-
 });
-
 /** ** аватар  **   **/
+/** ** загрузка файлов  **   **/
+Route::controller(AxiosUploadFilesController::class)->group(function () {
+    Route::post('/cabinet.upload.files', 'uploadFiles')
+        ->middleware(UserMiddleware::class);
+    Route::post('/cabinet.delete.files', 'deleteFiles')
+        ->middleware(UserMiddleware::class);
+});
+/** ** загрузка файлов  **   **/
+/** ** новый токен ** **/
+Route::get('/refresh-csrf', function () {
+    return response()->json(['csrf_token' => csrf_token()]);
+});
+/** ** новый токен ** **/
 /** ///Cabinet_user */
 
 

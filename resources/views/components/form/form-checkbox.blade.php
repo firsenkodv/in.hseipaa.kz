@@ -1,5 +1,5 @@
 @props([
-    'rand' =>  rand(1, 10000),
+    'rand' =>  rand(100, 10000),
     'checked' => false,
     'name' => '',
     'value' => ''

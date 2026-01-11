@@ -4,7 +4,7 @@
     'label' => '',
     'class' => '',
     'selected' => '',
-    'rand' => rand(1, 10000),
+    'rand' => rand(100, 10000),
     'value' => '',
     'options' => [],
     'required' => false,

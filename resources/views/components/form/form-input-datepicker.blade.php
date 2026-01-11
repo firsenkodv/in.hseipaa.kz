@@ -2,7 +2,7 @@
     'name' => '',
     'label' => '',
     'class' => '',
-    'rand' => rand(1, 10000),
+    'rand' => rand(100, 10000),
     'autocomplete' => 'off',
     'value' => '',
     'autofocus' => false,

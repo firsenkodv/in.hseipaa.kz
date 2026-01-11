@@ -20,9 +20,11 @@ $colorOrange: #FF732C;
         gap: 30px;
 
         height: 40px;
+
         li {
             position: relative;
             height: auto;
+
             a {
                 display: flex;
                 justify-content: center;
@@ -35,9 +37,11 @@ $colorOrange: #FF732C;
                 font-size: 18px;
                 font-weight: 600;
             }
+
             a:hover {
                 color: $color;
             }
+
             &.active {
                 a {
                     color: $color;
@@ -47,4 +51,45 @@ $colorOrange: #FF732C;
             }
         }
     }
+}
+
+@media screen and (max-width: 999px) {
+
+    .cabinet-user_cabinet-user-top-menu {
+        padding: 20px 0;
+        position: relative;
+
+        .cabinet-user-top-menu {
+       display: block;
+            height: auto;
+            padding: 16px;
+            border: 1px solid #e0e0e0;
+            border-radius: 12px;
+            li {
+                a {
+                    width: 100%;
+                    padding: 0 10px;
+                    justify-content: start;
+                    min-height: 48px;
+                    border-bottom: none !important;
+                    font-weight: 400;
+                    border-radius: 8px;
+
+                    &:hover {
+                        background: #F5F5F7;
+                        color: #000;
+                    }
+                }
+                &.active {
+                    a {
+                        background: #F5F5F7;
+                        color: #000;
+
+                    }
+                }
+            }
+        }
+
+    }
+
 }

@@ -36,7 +36,8 @@ async  function openFancyBox(e) {
         /** в случае клика по-внутреннему тэгу, получим data-form в любом случае **/
         const parentEl = e.target.closest('.open-fancybox');
         const formTemplate = parentEl.dataset.form; /** название шаблона для blade **/
-        const template = { template: formTemplate, author: '@AxeldMaster' };
+        const transferData = parentEl.dataset.transfer; /** дополнительные данные в json для blade **/
+        const template = { template: formTemplate, author: '@AxeldMaster', data: transferData };
 
         console.log(template)
 

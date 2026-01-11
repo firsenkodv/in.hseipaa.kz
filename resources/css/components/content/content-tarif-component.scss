@@ -91,6 +91,16 @@ $maxWidth: 1200;
             }
 
         }
+        .tarif_btn__center {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 0 0 8px 0;
+            .btn {
+                max-width: 160px;
+                min-width: 160px;
+            }
+        }
     }
 }
 

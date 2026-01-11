@@ -77,6 +77,7 @@ if (!function_exists('cache_clear ')) {
         Cache::forget('site_new_items');
         Cache::forget('site_new_modules');
         Cache::forget('mzp_items');
+        Cache::forget('tarifs');
 
 
     }

@@ -3,13 +3,16 @@
 namespace App\Http\Controllers\FancyBox;
 
 use App\Http\Controllers\Controller;
+use App\Models\User;
+use Domain\Tarif\ViewModels\Tarif;
+use Domain\User\ViewModels\UserViewModel;
 use Illuminate\Http\Request;
 
 class FancyBoxController extends Controller
 {
     public function fancybox(Request $request) {
 
-        //dd($request->all());
+
 
         if($request->template == 'subscription_me') {
             return view('fancybox.forms.subscription_me');
@@ -28,6 +31,16 @@ class FancyBoxController extends Controller
 
         if($request->template == 'cabinet_user_social_description') {
             return view('fancybox.forms.cabinet_user_social_description');
+        }
+
+        if($request->template == 'select_tarif') {
+
+            $tarif = Tarif::make()->tarif(json_decode($request->data)->tarif_id);
+            $user = UserViewModel::make()->User();
+            return view('fancybox.forms.select_tarif', [
+                'tarif' => $tarif,
+                'user' => $user,
+            ]);
         }
 
         return view('fancybox.forms.error.error_form');

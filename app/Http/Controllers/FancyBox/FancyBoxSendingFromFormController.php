@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\FancyBox;
 
+use App\Events\Form\FancyBoxSelectTarifEvent;
 use App\Events\Form\FancyBoxSendingFromFormEvent;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\RequestCallMeBlueRequest;
@@ -61,6 +62,20 @@ class FancyBoxSendingFromFormController extends Controller
       SavedFormDataViewModel::make()->save($request);
         $data = $request->except('url');
         FancyBoxSendingFromFormEvent::dispatch($data);
+
+     return response()->json([
+            'response' => $request->all(),
+        ], 200);
+
+    }
+
+    /** Выбрали тариф  */
+    public function fancyboxSelectTarif(Request $request) {
+
+        // "tarif" => "2"
+
+        $data = $request->except('url');
+        FancyBoxSelectTarifEvent::dispatch($data);
 
      return response()->json([
             'response' => $request->all(),

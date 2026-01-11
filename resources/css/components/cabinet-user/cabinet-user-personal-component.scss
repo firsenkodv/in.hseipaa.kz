@@ -53,6 +53,13 @@ $colorOrange: #FF732C;
     .cabinet_user_personal__right {
         width: 100%;
         position: relative;
+        .desc {
+            color: $colorBlue;
+            padding: 10px 0;
+            h1, h2, h3, h4 {
+padding-top: 0;
+            }
+        }
 
     }
 }

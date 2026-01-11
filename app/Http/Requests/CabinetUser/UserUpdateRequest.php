@@ -65,8 +65,8 @@ class UserUpdateRequest extends FormRequest
                 'telegram' => str(request('telegram'))->squish()->lower()->value(),
                 'whatsapp' => str(request('whatsapp'))->squish()->lower()->value(),
                 'instagram' => str(request('instagram'))->squish()->lower()->value(),
-                'about_me' => str(request('about_me'))->stripTags('<br></br></ br><p><ul><li><h2>')->value(),
-                'experience' => str(request('about_me'))->stripTags('<br></br></ br><p><ul><li><h2>')->value(),
+                'about_me' => str(request('about_me'))->stripTags('<br></br></ br><ul><li>')->value(),
+                'experience' => str(request('experience'))->stripTags('<br></br></ br><ul><li>')->value(),
              /*   'website' => str(request('website'))->squish()->lower()->value(),*/
 
 

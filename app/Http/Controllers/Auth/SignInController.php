@@ -14,7 +14,7 @@ class SignInController extends Controller
 
     public function login():View
     {
-      //  dd('login');
+       // dd('login');
         return view('auth.login');
     }
 
@@ -22,6 +22,7 @@ class SignInController extends Controller
 
     public function handleLogin(SignInFormRequest $request): RedirectResponse
     {
+
 
         if (!auth()->attempt($request->validated()))
         {

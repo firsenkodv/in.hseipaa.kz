@@ -4,6 +4,7 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Domain\City\ViewModels\CityViewModel;
+use Domain\User\ViewModels\UserFilesViewModel;
 use Domain\UserExpert\ViewModels\UserExpertViewModel;
 use Domain\UserLanguage\ViewModels\UserLanguageViewModel;
 use Domain\UserLecturer\ViewModels\UserLecturerViewModel;
@@ -55,10 +56,12 @@ class User extends Authenticatable
         'file_diploma_education', // Диплом о высшем образовании
         'file_accountant_certificate', // Сертификат бухгалтера
         'file_scientific_degrees', // Научные степени
+
         'file_legal_registration', // Справка о регистрации компании
         'file_legal_regulation', // Устав
         'file_legal_first_boss', // Приказ на первого руководителя
 
+        'tarif_id', // belongsTo - пол только один тариф, который у пользователя
         'user_sex_id', // belongsTo - пол
         'user_human_id', // belongsTo - физ лицо - юр. лицо
         'user_city_id', // belongsTo - город
@@ -143,6 +146,11 @@ class User extends Authenticatable
 
     }
 
+    public function tarif(): BelongsTo {
+        return $this->belongsTo(Tarif::class, 'tarif_id')->where('published', 1);
+    }
+
+
     /**
      * @return bool
      * Проверка на юр лицо
@@ -222,8 +230,8 @@ class User extends Authenticatable
 
             // Реконструируем URL
             $newPath = isset($parsedUrl['path']) ? $parsedUrl['path'] : '';
-            $newQuery = isset($parsedUrl['query']) ? '?'.$parsedUrl['query'] : '';
-            $newFragment = isset($parsedUrl['fragment']) ? '#'.$parsedUrl['fragment'] : '';
+            $newQuery = isset($parsedUrl['query']) ? '?' . $parsedUrl['query'] : '';
+            $newFragment = isset($parsedUrl['fragment']) ? '#' . $parsedUrl['fragment'] : '';
 
             // Собираем полный URL
             return $parsedUrl['scheme'] . '://' . $decodedDomain . $newPath . $newQuery . $newFragment;
@@ -307,6 +315,8 @@ class User extends Authenticatable
         }
         return \Carbon\Carbon::parse($value)->format('d.m.Y');
     }
+
+
 
 
     protected

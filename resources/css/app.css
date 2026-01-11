@@ -42,6 +42,7 @@
 @import 'components/form/form-response-component.scss';
 @import 'components/form/form-radio2-component.scss';
 @import 'components/form/form-checkbox3-component.scss';
+@import 'components/form/form-upload-files-component.scss';
 @import 'components/cabinet-user/cabinet-user-top-menu-component.scss';
 @import 'components/cabinet-user/cabinet-user-personal-component.scss';
 @import 'components/cabinet-user/cabinet-user-personal-data-relation-component.scss';
@@ -49,6 +50,7 @@
 @import 'components/avatar/avatar-user-component.scss';
 @import 'auth/auth.scss';
 @import 'message/flach_message.scss';
+@import 'font-awesome/css/font-awesome.css';
 
 @import 'templates/axeld/swiper.scss';
 @import 'templates/axeld/tabs.scss';

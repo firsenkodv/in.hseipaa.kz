@@ -42,10 +42,7 @@ export function uploadAvatar() {
 
 
                     })
-                    .catch((error) => {
-
-
-                    });
+                    .catch((error) => {  });
             } catch (err) {
                 console.error(err.response.data || err.message);
             }

@@ -27,7 +27,8 @@
                 </div>
                 <div class="block_content__right">
 
-                    <x-cabinet-user.cabinet-user-personal-data :user="$user"/>
+                    <x-content.content-tarif-component />
+
 
                 </div>
             </div>

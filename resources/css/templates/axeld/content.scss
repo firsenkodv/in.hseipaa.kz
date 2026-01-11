@@ -101,6 +101,24 @@ $maxWidth: 1200;
     }
 }
 
+@media (max-width: 926px) {
+
+    .block_content {
+        .block_content__flex.reverse {
+            flex-direction: column-reverse;
+            .block_content__right {
+                width: 100%;
+                height: auto;
+                padding: 0;
+            }
+            .block_content__left {
+                width: 100%;
+                height: auto;
+                padding:30px 0 0  0;
+            }
+        }
+    }
+}
 @media (max-width: 800px) {
 
     .block_content {

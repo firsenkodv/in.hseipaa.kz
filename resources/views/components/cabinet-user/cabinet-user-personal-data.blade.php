@@ -76,6 +76,29 @@
 
             <div class="cabinet_user_personal__flex">
                 <div class="cabinet_user_personal__left">
+                    <div class="cu__personal_label"><span>Коротко о себе:</span></div>
+                </div>
+                <div class="cabinet_user_personal__right">
+                    <div class="desc">
+                        {!!  ($user->about_me) ?: ' - '!!}
+                    </div>
+                </div>
+            </div>
+
+            <div class="cabinet_user_personal__flex">
+                <div class="cabinet_user_personal__left">
+                    <div class="cu__personal_label"><span>Опыт работы:</span></div>
+                </div>
+                <div class="cabinet_user_personal__right">
+                    <div class="desc">
+                        {!!  ($user->experience) ?: ' - '!!}
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="cabinet_user_personal__flex">
+                <div class="cabinet_user_personal__left">
                     <div class="cu__personal_label"></div>
                 </div>
                 <div class="cabinet_user_personal__right">

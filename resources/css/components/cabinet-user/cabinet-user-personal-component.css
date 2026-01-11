@@ -32,6 +32,13 @@
   width: 100%;
   position: relative;
 }
+.cabinet_user_personal__flex .cabinet_user_personal__right .desc {
+  color: #095C9A;
+  padding: 10px 0;
+}
+.cabinet_user_personal__flex .cabinet_user_personal__right .desc h1, .cabinet_user_personal__flex .cabinet_user_personal__right .desc h2, .cabinet_user_personal__flex .cabinet_user_personal__right .desc h3, .cabinet_user_personal__flex .cabinet_user_personal__right .desc h4 {
+  padding-top: 0;
+}
 
 .cu_username {
   max-width: 400px;

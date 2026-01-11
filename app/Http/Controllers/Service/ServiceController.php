@@ -30,6 +30,7 @@ class ServiceController extends Controller
             abort(404);
         }
 
+
         $items = $category->item()->paginate(config('site.constants.paginate'));
         if(!$items) {
             abort(404);

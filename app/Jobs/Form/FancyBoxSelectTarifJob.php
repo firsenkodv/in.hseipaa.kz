@@ -2,14 +2,14 @@
 
 namespace App\Jobs\Form;
 
-use App\Mail\Form\FancyBoxSendingFromFormMail;
+use App\Mail\Form\FancyBoxSelectTarifMail;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Queue\Queueable;
 use Illuminate\Support\Facades\Mail;
 use Support\Traits\CreatorToken;
 use Support\Traits\EmailAddressCollector;
 
-class FancyBoxSendingFromFormJob implements ShouldQueue
+class FancyBoxSelectTarifJob implements ShouldQueue
 {
     use Queueable;
 
@@ -24,7 +24,7 @@ class FancyBoxSendingFromFormJob implements ShouldQueue
 
     public function handle(): void
     {
-        Mail::to($this->emails())->send(new FancyBoxSendingFromFormMail($this->data));
+        Mail::to($this->emails())->send(new FancyBoxSelectTarifMail($this->data));
 
     }
 

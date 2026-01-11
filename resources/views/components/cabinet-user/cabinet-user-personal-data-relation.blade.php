@@ -46,6 +46,40 @@
                 @endif
             </div>
         </div>
+        <div class="block_grey">
+            <div class="__head">
+                Владение языками
+            </div>
+            <div class="__body">
+                @if(count($user->UserLanguage))
+
+                    @foreach($user->UserLanguage as $language)
+                        <div class="__body__option">
+                            {{ $language->title }}
+                        </div>
+                    @endforeach
+                @else
+                    Выбор в настройках
+                @endif
+            </div>
+        </div>
+        <div class="block_green">
+            <div class="__head">
+                Специалист
+            </div>
+            <div class="__body">
+                @if(count($user->UserSpecialist))
+
+                    @foreach($user->UserSpecialist as $specialist)
+                        <div class="__body__option">
+                            {{ $specialist->title }}
+                        </div>
+                    @endforeach
+                @else
+                    Выбор в настройках
+                @endif
+            </div>
+        </div>
     @endif
 
 

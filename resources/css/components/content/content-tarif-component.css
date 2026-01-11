@@ -61,6 +61,16 @@
   background-repeat: no-repeat;
   background-image: url("data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTYiIGhlaWdodD0iMTciIHZpZXdCb3g9IjAgMCAxNiAxNyIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGNpcmNsZSBjeD0iNy45OTkzNSIgY3k9IjguMTc1MTMiIHI9IjcuMzMzMzMiIHN0cm9rZT0iI0VGNTMzRiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIi8+CjxwYXRoIGQ9Ik01LjMzMzk4IDkuMjIzNEw3LjYxOTcgMTAuNzQ3MkwxMC42NjczIDYuMTc1NzgiIHN0cm9rZT0iI0VGNTMzRiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIi8+Cjwvc3ZnPgo=");
 }
+.content_content-tarif-component .tarif_flex .tarif_btn__center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0 0 8px 0;
+}
+.content_content-tarif-component .tarif_flex .tarif_btn__center .btn {
+  max-width: 160px;
+  min-width: 160px;
+}
 
 @media screen and (max-width: 968px) {
   .content_content-tarif-component .tarif_flex .tarif__item {

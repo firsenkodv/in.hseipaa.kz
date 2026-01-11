@@ -13,6 +13,7 @@ import {removeErrors} from "./include/fancybox/form/removeErrors";
 // import {select} from "./include/select/select";
 import {flash_message} from "./include/flash_message/flash_message";
 import {uploadAvatar} from "./include/cabinet/uploadAvatar";
+import {uploadFiles} from "./include/cabinet/uploadFiles";
 import {datepicker_accountant_ticket_date, datepicker_date_birthday} from "./include/datepicker/datepicker";
 
 
@@ -35,6 +36,7 @@ document.addEventListener('DOMContentLoaded', function () {
     //  select() // select, для axios модальных форм подключается отдельно
     flash_message() // закрытие модального окна
     uploadAvatar() // отправляем аватар пользователя
+     uploadFiles() //
     datepicker_date_birthday() // календарик день рождения
     datepicker_accountant_ticket_date() // календарик (Дата выдачи сертификата профессионального бухгалтера)
 });

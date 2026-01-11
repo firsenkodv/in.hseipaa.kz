@@ -33,4 +33,35 @@
   border-bottom: 3px solid #EF533F;
 }
 
+@media screen and (max-width: 999px) {
+  .cabinet-user_cabinet-user-top-menu {
+    padding: 20px 0;
+    position: relative;
+  }
+  .cabinet-user_cabinet-user-top-menu .cabinet-user-top-menu {
+    display: block;
+    height: auto;
+    padding: 16px;
+    border: 1px solid #e0e0e0;
+    border-radius: 12px;
+  }
+  .cabinet-user_cabinet-user-top-menu .cabinet-user-top-menu li a {
+    width: 100%;
+    padding: 0 10px;
+    justify-content: start;
+    min-height: 48px;
+    border-bottom: none !important;
+    font-weight: 400;
+    border-radius: 8px;
+  }
+  .cabinet-user_cabinet-user-top-menu .cabinet-user-top-menu li a:hover {
+    background: #F5F5F7;
+    color: #000;
+  }
+  .cabinet-user_cabinet-user-top-menu .cabinet-user-top-menu li.active a {
+    background: #F5F5F7;
+    color: #000;
+  }
+}
+
 /*# sourceMappingURL=cabinet-user-top-menu-component.css.map */

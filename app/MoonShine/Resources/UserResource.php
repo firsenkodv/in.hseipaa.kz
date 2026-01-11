@@ -136,9 +136,12 @@ class UserResource extends ModelResource
                                         ->valuesQuery(fn(Builder $query, Field $field) => $query->orderBy('sorting', 'DESC'))
                                         ->nullable()->searchable()->creatable(),
 
+                                    BelongsTo::make('Тариф', 'tarif', 'title', resource: TarifResource::class)->nullable(),
+
                                     BelongsTo::make('Физ.лицо/Юл. лицо', 'UserHuman', 'title', resource: UserHumanResource::class)
                                         ->valuesQuery(fn(Builder $query, Field $field) => $query->orderBy('sorting', 'DESC'))
                                         ->creatable(),
+
 
                                     BelongsTo::make('Пол', 'UserSex', 'title', resource: UserSexResource::class)->nullable(),
 
@@ -230,7 +233,7 @@ class UserResource extends ModelResource
                                         ->onAfterApply(function (Model $data, false|array $values) {
                                             $this->moveDocuments($data, 'file_id_card');
                                         })
-                                        ->vertical()->creatable(limit: 5)
+                                        ->vertical()->creatable(limit: 4)
                                         ->removable(),
 
                                     Json::make('Справка об отсутствии судимости', 'file_criminal_record')->fields([
@@ -241,7 +244,7 @@ class UserResource extends ModelResource
                                     ])->onAfterApply(function (Model $data, false|array $values) {
                                         $this->moveDocuments($data, 'file_criminal_record');
                                     })
-                                        ->vertical()->creatable(limit: 5)
+                                        ->vertical()->creatable(limit: 4)
                                         ->removable(),
 
                                     Json::make('Справка с псих. Диспансера', 'file_dispensary')->fields([File::make(
@@ -252,7 +255,7 @@ class UserResource extends ModelResource
                                     ])->onAfterApply(function (Model $data, false|array $values) {
                                         $this->moveDocuments($data, 'file_dispensary');
                                     })
-                                        ->vertical()->creatable(limit: 5)
+                                        ->vertical()->creatable(limit: 4)
                                         ->removable(),
 
 
@@ -264,7 +267,7 @@ class UserResource extends ModelResource
                                     ])->onAfterApply(function (Model $data, false|array $values) {
                                         $this->moveDocuments($data, 'file_diploma_education');
                                     })
-                                        ->vertical()->creatable(limit: 5)
+                                        ->vertical()->creatable(limit: 4)
                                         ->removable(),
 
                                     Json::make('Сертификат бухгалтера', 'file_accountant_certificate')->fields([
@@ -275,7 +278,7 @@ class UserResource extends ModelResource
                                     ])->onAfterApply(function (Model $data, false|array $values) {
                                         $this->moveDocuments($data, 'file_accountant_certificate');
                                     })
-                                        ->vertical()->creatable(limit: 5)
+                                        ->vertical()->creatable(limit: 4)
                                         ->removable(),
 
                                     Json::make('Научные степени', 'file_scientific_degrees')->fields([File::make(__(
@@ -286,7 +289,7 @@ class UserResource extends ModelResource
                                     ])->onAfterApply(function (Model $data, false|array $values) {
                                         $this->moveDocuments($data, 'file_scientific_degrees');
                                     })
-                                        ->vertical()->creatable(limit: 5)
+                                        ->vertical()->creatable(limit: 4)
                                         ->removable(),
 
                                     Json::make('Справка о регистрации компании', 'file_legal_registration')->fields([
@@ -297,7 +300,7 @@ class UserResource extends ModelResource
                                     ])->onAfterApply(function (Model $data, false|array $values) {
                                         $this->moveDocuments($data, 'file_legal_registration');
                                     })
-                                        ->vertical()->creatable(limit: 5)
+                                        ->vertical()->creatable(limit: 4)
                                         ->removable(),
 
                                     Json::make('Устав', 'file_legal_regulation')->fields([File::make(__('
@@ -308,7 +311,7 @@ class UserResource extends ModelResource
                                     ])->onAfterApply(function (Model $data, false|array $values) {
                                         $this->moveDocuments($data, 'file_legal_regulation');
                                     })
-                                        ->vertical()->creatable(limit: 5)
+                                        ->vertical()->creatable(limit: 4)
                                         ->removable(),
 
                                     Json::make('Приказ на первого руководителя', 'file_legal_first_boss')->fields([
@@ -319,7 +322,7 @@ class UserResource extends ModelResource
                                     ])->onAfterApply(function (Model $data, false|array $values) {
                                         $this->moveDocuments($data, 'file_legal_first_boss');
                                     })
-                                        ->vertical()->creatable(limit: 5)
+                                        ->vertical()->creatable(limit: 4)
                                         ->removable(),
 
                                 ]),
