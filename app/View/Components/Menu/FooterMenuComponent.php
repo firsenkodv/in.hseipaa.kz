@@ -22,11 +22,10 @@ class FooterMenuComponent extends Component
     {
 
         $footerMenu = MenuViewModel::make()->footerMenu();
-
         $menu =  [];
         $i = 0;
-            if (count($footerMenu->col1)) {
-                $column = [];
+        if (is_array($footerMenu->col1) && count($footerMenu->col1) > 0) {
+             $column = [];
 
                 foreach ($footerMenu->col1 as $k => $col) {
 
@@ -43,7 +42,7 @@ class FooterMenuComponent extends Component
 
             }
 
-            if (count($footerMenu->col2)) {
+        if (is_array($footerMenu->col2) && count($footerMenu->col2) > 0) {
 
                 $column = [];
 
@@ -62,7 +61,7 @@ class FooterMenuComponent extends Component
 
             }
 
-            if (count($footerMenu->col3)) {
+        if (is_array($footerMenu->col3) && count($footerMenu->col3) > 0) {
 
                 $column = [];
 
@@ -80,7 +79,8 @@ class FooterMenuComponent extends Component
                 $i++;
 
             }
-            if (count($footerMenu->col4)) {
+
+        if (is_array($footerMenu->col4) && count($footerMenu->col4) > 0) {
 
                 $column = [];
 

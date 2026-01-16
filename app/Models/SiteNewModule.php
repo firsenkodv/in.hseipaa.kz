@@ -55,19 +55,19 @@ class SiteNewModule extends Model
                    // return true;
                 }
             }
+            cache_clear();
+
         });
 
 
         static::deleted(function ($model) {
             cache_clear();
 
-
         });
 
         # Выполняем действия после сохранения
         static::saved(function ($model) {
             cache_clear();
-
         });
 
 
