@@ -56,23 +56,16 @@ class UsefulCategory extends Model
         return $this->hasMany(UsefulSubcategory::class)->where('published', 1)->orderBy('sorting', 'asc');
     }
 
-    protected static function boot()
+    protected static function boot(): void
     {
         parent::boot();
 
-        # Проверка данных  перед сохранением
-        #  static::saving(function ($Moonshine) {   });
-
-
-        static::created(function () {
-            cache_clear();
-        });
-
-        static::updated(function () {
-            cache_clear();
-        });
-
         static::deleted(function () {
+            cache_clear();
+        });
+
+        # Выполняем действия после сохранения
+        static::saved(function () {
             cache_clear();
         });
 

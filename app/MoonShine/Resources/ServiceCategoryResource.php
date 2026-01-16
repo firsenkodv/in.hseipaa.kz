@@ -167,7 +167,11 @@ class ServiceCategoryResource extends ModelResource
                             Column::make([
                                 Collapse::make('Шаблон с картинкой', [
 
+                                    Switcher::make('Вывести в ЛК', 'cabinet_service')->default(0)->hint('D Личный кабинет будет выведена информация только из  вкладки "Дополнительно"'),
+
+
                                     Text::make('Заголовок', 'temp_title'),
+
 
                                     Image::make(__('Изображение'), 'temp_img')
                                         ->dir('service')

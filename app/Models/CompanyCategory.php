@@ -53,24 +53,19 @@ class CompanyCategory extends Model
 
 
 
-    protected static function boot()
+    protected static function boot(): void
     {
         parent::boot();
 
-        # Проверка данных  перед сохранением
-        #  static::saving(function ($Moonshine) {   });
-
-
-        static::created(function () {
+        static::deleted(function ($model) {
             cache_clear();
+            cache_clear_by_key('company-category-slug-', $model->slug);
         });
 
-        static::updated(function () {
+        # Выполняем действия после сохранения
+        static::saved(function ($model) {
             cache_clear();
-        });
-
-        static::deleted(function () {
-            cache_clear();
+            cache_clear_by_key('company-category-slug-', $model->slug);
         });
 
 

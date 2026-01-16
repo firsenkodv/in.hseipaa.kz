@@ -63,7 +63,7 @@ if (!function_exists('phone')) {
  */
 if (!function_exists('cache_clear ')) {
 
-    function cache_clear($model = null)
+    function cache_clear()
     {
         Cache::forget('site_new_categories');
         Cache::forget('useful_sections');
@@ -78,9 +78,22 @@ if (!function_exists('cache_clear ')) {
         Cache::forget('site_new_modules');
         Cache::forget('mzp_items');
         Cache::forget('tarifs');
+    }
 
+}
+
+/**
+ * Удаляем кэш по ключу
+ */
+if (!function_exists('cache_clear_by_key ')) {
+
+    function cache_clear_by_key( string $value , string $key): void
+    {
+        $cache = $value . md5($key); // Используем тот же алгоритм, что и при создании ключа
+        Cache::forget($cache);
 
     }
+
 }
 
 /**

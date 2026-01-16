@@ -36,7 +36,7 @@ class ServiceController extends Controller
             abort(404);
         }
 
-
+    //   dd($category);
 
         return view('pages.service.category.category', [
             'section' => $service,
@@ -55,6 +55,9 @@ class ServiceController extends Controller
         if(!$item) {
             abort(404);
         }
+
+
+
         return view('pages.service.item.item', [
             'section' => $service,
             'category' => $category,

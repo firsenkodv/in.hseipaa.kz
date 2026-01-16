@@ -4,11 +4,11 @@
             <div class="_short_desc bl_desc">{!!  $content->short_desc  !!}</div>
         @endif
 
-            <div class="_desc bl_desc">{!!  $content->desc  !!}</div>
+        <div class="_desc bl_desc">{!!  $content->desc  !!}</div>
 
         @if($content->img2)
             <div class="_img2 bl_img2 relative">
-                <img src="{{ Storage::url($content->img2) }}" alt="{{ $content->title }}" />
+                <img src="{{ Storage::url($content->img2) }}" alt="{{ $content->title }}"/>
             </div>
         @endif
 
@@ -17,14 +17,12 @@
         @endif
 
         @if($content->files)
-            <x-content.download-file-component :files="$content->files" />
+            <x-content.download-file-component :files="$content->files"/>
         @endif
-
-        @if($content->script_published)
-           <div class="">{!! $content->script !!}</div>
-        @endif
-
-
 
     </div>
+@endif
+
+@if($content->script_published)
+    <div class="">{!! $content->script !!}</div>
 @endif

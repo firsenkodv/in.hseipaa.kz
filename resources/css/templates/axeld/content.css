@@ -41,6 +41,26 @@
   padding: 30px 0 20px 0;
 }
 
+.block_temp1 .block_temp1__flex {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  position: relative;
+  padding: 0 0 20px 0;
+}
+.block_temp1 .block_temp1__left {
+  width: 26%;
+  min-width: 300px;
+  height: auto;
+  position: relative;
+}
+.block_temp1 .block_temp1__right {
+  width: 73%;
+  height: auto;
+  position: relative;
+  padding: 0 24px 24px 36px;
+}
+
 @media (max-width: 999px) {
   .block_content .block_content__flex {
     width: 100%;

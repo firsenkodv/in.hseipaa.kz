@@ -20,4 +20,19 @@ class SavedFormData extends Model
         'params' => 'collection',
     ];
 
+    protected static function boot(): void
+    {
+        parent::boot();
+
+        static::deleted(function ($model) {
+            cache_clear();
+        });
+
+        # Выполняем действия после сохранения
+        static::saved(function ($model) {
+            cache_clear();
+        });
+
+
+    }
 }

@@ -1,6 +1,7 @@
 .content_content-other-component {
   width: 100%;
   position: relative;
+  padding-bottom: 30px;
 }
 .content_content-other-component .other_flex {
   display: flex;

@@ -37,7 +37,7 @@ class SiteNewModule extends Model
         return $this->belongsTo(SiteNewItem::class, 'site_new_item_id')->where('published', 1);
     }
 
-    protected static function boot()
+    protected static function boot(): void
     {
         parent::boot();
 
@@ -52,25 +52,22 @@ class SiteNewModule extends Model
                     $mod->site_new_id = null;
                     $mod->site_new_item_id = null;
                     $mod->$key = $value;
-                    return true;
-
+                   // return true;
                 }
             }
+        });
+
+
+        static::deleted(function ($model) {
+            cache_clear();
 
 
         });
 
-
-        static::created(function () {
+        # Выполняем действия после сохранения
+        static::saved(function ($model) {
             cache_clear();
-        });
 
-        static::updated(function () {
-            cache_clear();
-        });
-
-        static::deleted(function () {
-            cache_clear();
         });
 
 

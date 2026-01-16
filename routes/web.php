@@ -53,9 +53,11 @@ Route::post('/moonshine/service_module', [MoonshineServiceModule::class, 'servic
  * fancybox-ajax
  */
 /** получение самой формы */
+
 Route::controller(FancyBoxController::class)->group(function () {
     Route::post('/fancybox-ajax', 'fancybox');
 });
+
 /** Отправка самой формы */
 Route::controller(FancyBoxSendingFromFormController::class)->group(function () {
     Route::post('/subscription_me', 'fancyboxSubscriptionMe');
@@ -77,6 +79,7 @@ Route::controller(FancyBoxSendingFromFormController::class)->group(function () {
 Route::controller(AxiosController::class)->group(function () {
     Route::post('/upload-form-async', 'async');
 });
+
 /** Отправка самой формы */
 Route::controller(AxiosSendingFromFormController::class)->group(function () {
     Route::post('/call_me_blue', 'axiosCallMeBlue');
@@ -277,6 +280,11 @@ Route::controller(CabinetUserController::class)->group(function () {
     /** тариф  */
     Route::get('/cabinet/pricing', 'cabinetPricing')
         ->name('cabinet_pricing')
+        ->middleware(UserMiddleware::class);
+
+    /** услуги  */
+    Route::get('/cabinet/service', 'cabinetService')
+        ->name('cabinet_service')
         ->middleware(UserMiddleware::class);
 
 });

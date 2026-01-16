@@ -152,8 +152,7 @@ class TarifResource extends ModelResource
 
     protected function activeActions(): ListOf
     {
-        return parent::activeActions()
-            ->except(Action::VIEW /*Action::MASS_DELETE, Action::DELETE, Action::CREATE*/)// ->only(Action::VIEW)
-            ;
+        return parent::activeActions()->except( Action::CREATE, Action::VIEW);
+
     }
 }
