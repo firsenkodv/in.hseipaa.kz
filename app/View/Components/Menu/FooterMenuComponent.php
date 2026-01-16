@@ -43,7 +43,7 @@ class FooterMenuComponent extends Component
                 $i++;
 
             }
-
+        /** проверим col2 на существование **/
         if (isset($footerMenu->col2) && count($footerMenu->col2) > 0) {
 
                 $column = [];
@@ -62,7 +62,7 @@ class FooterMenuComponent extends Component
                 $i++;
 
             }
-
+        /** проверим col3 на существование **/
         if (isset($footerMenu->col3) && count($footerMenu->col3) > 0) {
 
                 $column = [];
@@ -81,7 +81,7 @@ class FooterMenuComponent extends Component
                 $i++;
 
             }
-
+        /** проверим col4 на существование **/
         if (isset($footerMenu->col4) && count($footerMenu->col4) > 0) {
 
                 $column = [];
