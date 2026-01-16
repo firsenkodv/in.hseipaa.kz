@@ -101,7 +101,7 @@ class FooterMenuComponent extends Component
 
             }
 
-
+        /** return */
         return $menu;
     }
 
