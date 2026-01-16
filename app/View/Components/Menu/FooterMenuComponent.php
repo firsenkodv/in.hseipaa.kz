@@ -24,7 +24,9 @@ class FooterMenuComponent extends Component
         $footerMenu = MenuViewModel::make()->footerMenu();
         $menu =  [];
         $i = 0;
+        /** проверим col1 на существование **/
         if (isset($footerMenu->col1) && count($footerMenu->col1) > 0) {
+
              $column = [];
 
                 foreach ($footerMenu->col1 as $k => $col) {
