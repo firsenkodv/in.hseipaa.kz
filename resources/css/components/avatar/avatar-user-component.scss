@@ -55,3 +55,26 @@ $colorOrange: #FF732C;
 
     }
 }
+
+@media  (max-width: 468px) {
+    .mw {
+        width: 51px;
+        height: 61px;
+        background-size: 68%;
+        position: relative;
+        background-position: center;
+        background-repeat: no-repeat;
+
+
+        &._woman {
+
+            width: 64px;
+            height: 59px;
+            background-size: 68%;
+            position: relative;
+            background-position: center;
+            background-repeat: no-repeat;
+
+        }
+    }
+}
