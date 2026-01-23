@@ -1,0 +1,104 @@
+.content_content-registry-component {
+  position: relative;
+}
+
+.registry__item {
+  position: relative;
+  width: 100%;
+  background: #f5f5f7;
+  border-radius: 4px;
+  margin-bottom: 20px;
+}
+.registry__item .registry__flex {
+  display: flex;
+  justify-content: start;
+  padding: 24px;
+}
+.registry__item .registry__flex .registry__left {
+  width: 123px;
+  min-width: 123px;
+  min-height: 100px;
+  padding: 0;
+}
+.registry__item .registry__flex .registry__left .registry__avatar {
+  width: 120px;
+  min-width: 120px;
+  height: 120px;
+  background: #F5F5F7;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  border: 1px solid #e0e0e0;
+}
+.registry__item .registry__flex .registry__right {
+  width: 100%;
+  min-height: 100px;
+  padding: 0 0 0 30px;
+}
+.registry__item .registry__flex .registry__right .h3 {
+  padding-bottom: 10px;
+}
+.registry__item .registry__flex .registry__right .h3 a {
+  color: #095C9A;
+  text-decoration: none;
+}
+.registry__item .registry__flex .registry__right .registry__list {
+  padding: 3px 0;
+}
+.registry__item .registry__flex .registry__right .registry__list span {
+  font-weight: 600;
+  position: relative;
+}
+.registry__item .registry__flex .registry__right .registry__list span i {
+  position: relative;
+  top: 1px;
+  font-style: normal;
+}
+.registry__item .registry__flex .registry__right .registry__list a {
+  color: #095C9A;
+  text-decoration: none;
+}
+.registry__item .registry__flex .registry__right .registry__list a:hover {
+  color: #EF533F;
+}
+.registry__item .registry__flex .registry__right .registry__list.__list3 span {
+  font-weight: 400;
+}
+
+.__list3 i {
+  font-style: normal;
+}
+
+@media (max-width: 468px) {
+  .registry__item {
+    position: relative;
+  }
+  .registry__item .registry__flex {
+    padding: 24px 8px 24px 16px;
+  }
+  .registry__item .registry__flex .registry__left {
+    width: 80px;
+    min-width: 80px;
+    min-height: 10px;
+    padding: 0;
+  }
+  .registry__item .registry__flex .registry__left .registry__avatar {
+    width: 70px;
+    min-width: 70px;
+    height: 70px;
+    background-size: cover;
+  }
+  .registry__item .registry__flex .registry__right {
+    padding-left: 10px;
+  }
+  .registry__item .registry__flex .registry__right .__list3 a, .registry__item .registry__flex .registry__right .__list3 span {
+    display: block;
+    padding-bottom: 3px;
+  }
+  .registry__item .registry__flex .registry__right .__list3 i {
+    display: none;
+  }
+}
+
+/*# sourceMappingURL=content-registry-teaser-component.css.map */

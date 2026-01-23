@@ -1,0 +1,12 @@
+.checking-counterparty_checking-counterparty-component {
+  position: relative;
+}
+.checking-counterparty_checking-counterparty-component .search__wrapper {
+  padding: 0 0 10px 0;
+}
+.checking-counterparty_checking-counterparty-component .d-none {
+  border: 1px solid #ccc !important;
+  background: #ccc !important;
+}
+
+/*# sourceMappingURL=checking-counterparty-component.css.map */

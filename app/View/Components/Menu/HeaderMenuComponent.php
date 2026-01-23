@@ -2,6 +2,7 @@
 
 namespace App\View\Components\Menu;
 
+use App\Enums\User\RegistryStatus;
 use Closure;
 use Domain\Company\ViewModel\CompanyViewModel;
 use Domain\Service\ViewModels\ServiceViewModel;
@@ -174,25 +175,41 @@ class HeaderMenuComponent extends Component
         }
         /**  ///Услуги **/
 
+        /**  Реестр **/
+        $menu[$i]['text'] = 'Реестр';
+        $menu[$i]['link'] = route('registry');
+        $menu[$i]['class'] = '';
+        $menu[$i]['class_li'] = false;
+        $menu[$i]['data'] = false;
+        $menu[$i]['parent'] = true;
+
+        $menu[$i]['child'][0]['link'] = route('registry_specialists');
+        $menu[$i]['child'][0]['text'] = RegistryStatus::SPECIALIST->text();
+        $menu[$i]['child'][0]['class'] = false;
+        $menu[$i]['child'][0]['class_li'] = false;
+        $menu[$i]['child'][0]['data'] = false;
+
+        $menu[$i]['child'][1]['link'] = route('registry_experts');
+        $menu[$i]['child'][1]['text'] = RegistryStatus::EXPERT->text();
+        $menu[$i]['child'][1]['class'] = false;
+        $menu[$i]['child'][1]['class_li'] = false;
+        $menu[$i]['child'][1]['data'] = false;
+
+        $menu[$i]['child'][2]['link'] = route('registry_legal_entities');
+        $menu[$i]['child'][2]['text'] = RegistryStatus::LEGALENTITY->text();
+        $menu[$i]['child'][2]['class'] = false;
+        $menu[$i]['child'][2]['class_li'] = false;
+        $menu[$i]['child'][2]['data'] = false;
+        /**  ///Реестр **/
+        $i++;
+        /**  Контакты **/
         $menu[$i]['text'] = 'Контакты';
         $menu[$i]['link'] = route('contacts');
         $menu[$i]['class'] = '';
         $menu[$i]['class_li'] = false;
         $menu[$i]['data'] = false;
         $menu[$i]['parent'] = false;
-        /*        $menu[3]['text'] = 'Услуги';
-                $menu[3]['link'] = '/service-services';
-                $menu[3]['class'] = 'false';
-                $menu[3]['class_li'] = false;
-                $menu[3]['data'] = false;
-                $menu[3]['parent'] = false;
-
-                $menu[4]['text'] = 'Контакты';
-                $menu[4]['link'] = route('contacts');
-                $menu[4]['class'] = '';
-                $menu[4]['class_li'] = false;
-                $menu[4]['data'] = false;
-                $menu[4]['parent'] = false;*/
+        /**  ///Контакты **/
 
         return $menu;
     }

@@ -67,6 +67,9 @@
   color: #FFFFFF;
   text-decoration: none;
 }
+.exchange .sub_m_sb_flex i {
+  font-style: normal;
+}
 
 @media screen and (max-width: 999px) {
   .exchange .mod_search_blue {
@@ -89,6 +92,9 @@
     height: auto;
     line-height: 1.7em;
     max-width: 1000px;
+  }
+  .exchange .sub_m_sb_flex i {
+    display: none;
   }
 }
 @media screen and (max-width: 742px) {

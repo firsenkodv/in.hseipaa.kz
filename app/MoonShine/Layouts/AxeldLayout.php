@@ -71,6 +71,7 @@ use App\MoonShine\Resources\UserResource;
 use App\MoonShine\Resources\MenuResource;
 use App\MoonShine\Resources\UserSpecialistResource;
 use App\MoonShine\Resources\UserLanguageResource;
+use App\MoonShine\Resources\UserProductionResource;
 
 
 final class AxeldLayout extends AppLayout
@@ -91,6 +92,7 @@ final class AxeldLayout extends AppLayout
             MenuGroup::make('Пользователи', [
                 MenuItem::make('Админ', MoonShineUserResource::class, 'user'),
                 MenuItem::make('Города', UserCityResource::class, 'building-office-2'),
+                MenuItem::make('Вид деятельности', UserProductionResource::class, 'rocket-launch'),
                 MenuItem::make('Языки', UserLanguageResource::class, 'language'),
                 MenuItem::make('Специалисты', UserSpecialistResource::class, 'light-bulb'),
                 MenuItem::make('Эксперты', UserExpertResource::class, 'beaker'),
@@ -149,11 +151,6 @@ final class AxeldLayout extends AppLayout
                 MenuItem::make('Контакты', ContactPage::class, 'map-pin'),
             ]),
 
-            MenuGroup::make(static fn() => __('Настройки'), [
-                MenuItem::make('Настройки', SettingPage::class, 'adjustments-vertical'),
-                MenuItem::make('Как пользоваться', AxeldPassportResource::class, 'academic-cap'),
-
-            ]),
             MenuItem::make('Меню', MenuResource::class),
 
             MenuGroup::make(static fn() => __('Формы отправки'), [
@@ -161,6 +158,11 @@ final class AxeldLayout extends AppLayout
 
             ]),
 
+            MenuGroup::make(static fn() => __('Настройки'), [
+                MenuItem::make('Настройки', SettingPage::class, 'adjustments-vertical'),
+                MenuItem::make('Как пользоваться', AxeldPassportResource::class, 'academic-cap'),
+
+            ]),
 
 
 

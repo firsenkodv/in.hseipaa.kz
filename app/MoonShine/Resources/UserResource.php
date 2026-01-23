@@ -162,6 +162,10 @@ class UserResource extends ModelResource
                                         ->valuesQuery(fn(Builder $query, Field $field) => $query->orderBy('sorting', 'DESC'))
                                         ->nullable()->creatable(),
 
+                                    BelongsToMany::make('Вид деятельности', 'UserProduction', 'title', resource: UserProductionResource::class)
+                                        ->valuesQuery(fn(Builder $query, Field $field) => $query->orderBy('sorting', 'DESC'))
+                                        ->nullable()->creatable(),
+
                                     BelongsToMany::make('Квалификации', 'UserFileQualification', 'title', resource: UserFileQualificationResource::class)
                                         ->valuesQuery(fn(Builder $query, Field $field) => $query->orderBy('sorting', 'DESC'))
                                         ->fields([

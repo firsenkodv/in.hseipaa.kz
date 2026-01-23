@@ -1,5 +1,5 @@
 @if(count($menu_rendered))
-    <div class="menu_footer-menu-component">
+    <div class="menu_footer-menu-component menu-site">
 <div class="f_menu__flex">
         @foreach($menu_rendered as $k => $menu)
             <div class="f_menu_{{$k}}">

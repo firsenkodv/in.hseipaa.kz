@@ -1,0 +1,23 @@
+.menu-site {
+  position: relative;
+}
+.menu-site .f_menu__flex {
+  display: flex;
+  gap: 10%;
+}
+.menu-site .f_menu__flex li a {
+  display: block;
+  text-decoration: none;
+  padding: 5px;
+  color: #282828;
+  line-height: 1.3em;
+  transition: 0.2s;
+}
+.menu-site .f_menu__flex li a:hover {
+  color: #EF533F;
+}
+.menu-site .f_menu__flex li.active a {
+  color: #EF533F;
+}
+
+/*# sourceMappingURL=footer-and-hamburger-menu.css.map */

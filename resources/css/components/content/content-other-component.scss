@@ -16,7 +16,8 @@ $maxWidth: 1200;
     font-size: calc(#{$mobSize + px} + #{$addSize} * ((100vw - 320px) / #{$maxWidth}));
 }
 
-.content_content-other-component {
+.content_content-other-component,
+.temp_other{
     width: 100%;
     position: relative;
     padding-bottom: 30px;
@@ -35,28 +36,31 @@ $maxWidth: 1200;
 
         }
 
-        .other_right {
-            width: 100%;
-            padding: 0 0 0 16px;
-            .temp_title {
-                h2 {
-                    color: $color;
-                    font-size: 24px;
-                    font-weight: 500;
-                }
-
-            }
-            .temp_desc {
-
-            }
-            .temp_price {
-                padding:5px 0  10px 0;
-                color: $colorRed;
+    }
+    .other_right {
+        width: 100%;
+        padding: 0 0 0 16px;
+        .temp_title {
+            h2 {
+                color: $color;
                 font-size: 24px;
-                font-weight: 600;
+                font-weight: 500;
             }
+
+        }
+        .temp_desc {
+
+        }
+        .temp_price {
+            padding:5px 0  10px 0;
+            color: $colorRed;
+            font-size: 24px;
+            font-weight: 600;
         }
     }
+}
+.temp_other {
+    padding: 0;
 }
 
 @media screen and (max-width: 999px){

@@ -9,19 +9,26 @@ $colorGreen: #0f6567;
 $colorYellow: #FF931E;
 $colorOrange: #FF732C;
 
-.menu_footer-menu-component {
+.menu-site {
 
+    position: relative;
     .f_menu__flex {
         display: flex;
         gap: 10%;
 
         li {
+
             a {
                 display: block;
                 text-decoration: none;
                 padding: 5px;
                 color: $color;
                 line-height: 1.3em;
+                transition: 0.2s;
+                &:hover {
+                    color: $colorRed;
+
+                }
             }
 
             &.active {

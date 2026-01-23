@@ -1,0 +1,23 @@
+@charset "utf-8";
+$color: #282828;
+$colorRed: #EF533F;
+$colorCCC: #CCCCCC;
+$colorGrey: #667085;
+$colorBlue: #095C9A;
+$colorBlue2: #03a9f4;
+$colorGreen: #0f6567;
+$colorYellow: #FF931E;
+$colorOrange: #FF732C;
+
+.content_content-registry-search-component{
+    position: relative;
+    .r__flex {
+        padding:0 0 20px 0;
+        display: flex;
+        justify-content: end;
+        .r_pad_r_ {
+            margin-right: 16px;
+        }
+
+    }
+}

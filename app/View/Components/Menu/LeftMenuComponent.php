@@ -2,6 +2,7 @@
 
 namespace App\View\Components\Menu;
 
+use App\Enums\User\RegistryStatus;
 use Closure;
 use Domain\Company\ViewModel\CompanyViewModel;
 use Domain\Service\ViewModels\ServiceViewModel;
@@ -31,8 +32,11 @@ class LeftMenuComponent extends Component
             case 'services':
                 $this->services();
                 break;
-           case 'companies':
+            case 'companies':
                 $this->companies();
+                break;
+            case 'registry':
+                $this->registry();
                 break;
         }
 
@@ -44,14 +48,13 @@ class LeftMenuComponent extends Component
         $cat = CompanyViewModel::make()->categories();
 
 
-
         $useful = [];
         foreach ($cat as $k => $category) {
 
             $useful[$k]['category']['section'] = config2('moonshine.company.slug');
-            $useful[$k]['category']['url'] =   $useful[$k]['category']['section']."/".$category->slug;
+            $useful[$k]['category']['url'] = $useful[$k]['category']['section'] . "/" . $category->slug;
             $useful[$k]['category']['id'] = $category->id;
-            $useful[$k]['category']['title'] = ($category->menu)??$category->title;
+            $useful[$k]['category']['title'] = ($category->menu) ?? $category->title;
             $useful[$k]['category']['slug'] = $category->slug;
 
             $useful[$k]['category']['subcategory'] = [];
@@ -67,14 +70,13 @@ class LeftMenuComponent extends Component
         $cat = SiteNewViewModel::make()->categories();
 
 
-
         $useful = [];
         foreach ($cat as $k => $category) {
 
             $useful[$k]['category']['section'] = config2('moonshine.new.slug');
-            $useful[$k]['category']['url'] =   $useful[$k]['category']['section']."/".$category->slug;
+            $useful[$k]['category']['url'] = $useful[$k]['category']['section'] . "/" . $category->slug;
             $useful[$k]['category']['id'] = $category->id;
-            $useful[$k]['category']['title'] = ($category->menu)??$category->title;
+            $useful[$k]['category']['title'] = ($category->menu) ?? $category->title;
             $useful[$k]['category']['slug'] = $category->slug;
 
             $useful[$k]['category']['subcategory'] = [];
@@ -93,20 +95,19 @@ class LeftMenuComponent extends Component
         foreach ($cat as $k => $category) {
 
             $useful[$k]['category']['section'] = 'section-' . $category->useful->slug;
-            $useful[$k]['category']['url'] =   $useful[$k]['category']['section']."/".$category->slug;
+            $useful[$k]['category']['url'] = $useful[$k]['category']['section'] . "/" . $category->slug;
             $useful[$k]['category']['id'] = $category->id;
-            $useful[$k]['category']['title'] = ($category->menu)??$category->title;
+            $useful[$k]['category']['title'] = ($category->menu) ?? $category->title;
             $useful[$k]['category']['slug'] = $category->slug;
 
-            if(count($category->subcategory))
-            {
-                    foreach($category->subcategory as $key => $subcategory) {
+            if (count($category->subcategory)) {
+                foreach ($category->subcategory as $key => $subcategory) {
 
-                        $useful[$k]['category']['subcategory'][$key]['url'] =   $useful[$k]['category']['section']."/".$category->slug."/".$subcategory->slug;
-                        $useful[$k]['category']['subcategory'][$key]['id'] = $subcategory->id;
-                        $useful[$k]['category']['subcategory'][$key]['title'] = ($subcategory->menu)??$subcategory->title;
-                        $useful[$k]['category']['subcategory'][$key]['slug'] = $subcategory->slug;
-                    }
+                    $useful[$k]['category']['subcategory'][$key]['url'] = $useful[$k]['category']['section'] . "/" . $category->slug . "/" . $subcategory->slug;
+                    $useful[$k]['category']['subcategory'][$key]['id'] = $subcategory->id;
+                    $useful[$k]['category']['subcategory'][$key]['title'] = ($subcategory->menu) ?? $subcategory->title;
+                    $useful[$k]['category']['subcategory'][$key]['slug'] = $subcategory->slug;
+                }
 
             } else {
                 $useful[$k]['category']['subcategory'] = [];
@@ -125,15 +126,45 @@ class LeftMenuComponent extends Component
         foreach ($cat as $k => $category) {
 
             $useful[$k]['category']['section'] = 'service-' . $category->service->slug;
-            $useful[$k]['category']['url'] =   $useful[$k]['category']['section']."/".$category->slug;
+            $useful[$k]['category']['url'] = $useful[$k]['category']['section'] . "/" . $category->slug;
             $useful[$k]['category']['id'] = $category->id;
-            $useful[$k]['category']['title'] = ($category->menu)??$category->title;
+            $useful[$k]['category']['title'] = ($category->menu) ?? $category->title;
             $useful[$k]['category']['slug'] = $category->slug;
 
             $useful[$k]['category']['subcategory'] = [];
         }
 
         $this->left_menu = $useful;
+    }
+
+    protected function registry(): void
+    {
+        /**  Реестр **/
+        $useful[0]['category']['section'] = '';
+        $useful[0]['category']['url'] = route('registry_specialists');
+        $useful[0]['category']['id'] = RegistryStatus::SPECIALIST->value;
+        $useful[0]['category']['title'] = RegistryStatus::SPECIALIST->text();
+        $useful[0]['category']['slug'] = '';
+        $useful[0]['category']['subcategory'] = [];
+
+        $useful[1]['category']['section'] = '';
+        $useful[1]['category']['url'] = route('registry_experts');
+        $useful[1]['category']['id'] = RegistryStatus::EXPERT->value;
+        $useful[1]['category']['title'] = RegistryStatus::EXPERT->text();
+        $useful[1]['category']['slug'] = '';
+        $useful[1]['category']['subcategory'] = [];
+
+        $useful[2]['category']['section'] = '';
+        $useful[2]['category']['url'] = route('registry_legal_entities');
+        $useful[2]['category']['id'] = RegistryStatus::LEGALENTITY->value;
+        $useful[2]['category']['title'] = RegistryStatus::LEGALENTITY->text();
+        $useful[2]['category']['slug'] = '';
+        $useful[2]['category']['subcategory'] = [];
+        /**  ///Реестр **/
+
+
+        $this->left_menu = $useful;
+
     }
 
 

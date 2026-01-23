@@ -10,6 +10,7 @@ use Illuminate\View\Component;
 
 class FooterMenuComponent extends Component
 {
+
     public array $menu_rendered;
 
     public function __construct()
@@ -21,15 +22,16 @@ class FooterMenuComponent extends Component
     public function setMenu():array
     {
 
-        $footerMenu = MenuViewModel::make()->footerMenu();
+        /**  Нижнее меню ID - 1 выводится в ручную!  */
+        $mainMenuItems = MenuViewModel::make()->footerMenu();
         $menu =  [];
         $i = 0;
         /** проверим col1 на существование **/
-        if (isset($footerMenu->col1) && count($footerMenu->col1) > 0) {
+        if (isset($mainMenuItems->col1) && count($mainMenuItems->col1) > 0) {
 
              $column = [];
 
-                foreach ($footerMenu->col1 as $k => $col) {
+                foreach ($mainMenuItems->col1 as $k => $col) {
 
                     $column[$k]['text'] = $col['json_text'];
                     $column[$k]['link'] = ($col['json_url'])??'#';
@@ -44,11 +46,11 @@ class FooterMenuComponent extends Component
 
             }
         /** проверим col2 на существование **/
-        if (isset($footerMenu->col2) && count($footerMenu->col2) > 0) {
+        if (isset($mainMenuItems->col2) && count($mainMenuItems->col2) > 0) {
 
                 $column = [];
 
-                foreach ($footerMenu->col2 as $k => $col) {
+                foreach ($mainMenuItems->col2 as $k => $col) {
 
                     $column[$k]['text'] = $col['json_text'];
                     $column[$k]['link'] = ($col['json_url'])??'#';
@@ -63,11 +65,11 @@ class FooterMenuComponent extends Component
 
             }
         /** проверим col3 на существование **/
-        if (isset($footerMenu->col3) && count($footerMenu->col3) > 0) {
+        if (isset($mainMenuItems->col3) && count($mainMenuItems->col3) > 0) {
 
                 $column = [];
 
-                foreach ($footerMenu->col3 as $k => $col) {
+                foreach ($mainMenuItems->col3 as $k => $col) {
 
                     $column[$k]['text'] = $col['json_text'];
                     $column[$k]['link'] = ($col['json_url'])??'#';
@@ -82,11 +84,11 @@ class FooterMenuComponent extends Component
 
             }
         /** проверим col4 на существование **/
-        if (isset($footerMenu->col4) && count($footerMenu->col4) > 0) {
+        if (isset($mainMenuItems->col4) && count($mainMenuItems->col4) > 0) {
 
                 $column = [];
 
-                foreach ($footerMenu->col4 as $k => $col) {
+                foreach ($mainMenuItems->col4 as $k => $col) {
 
                     $column[$k]['text'] = $col['json_text'];
                     $column[$k]['link'] = ($col['json_url'])??'#';

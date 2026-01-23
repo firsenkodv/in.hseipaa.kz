@@ -15,5 +15,10 @@ class MenuViewModel
         return Menu::find(1); // 1 - нижнее меню в админке
 
     }
+    public function hamburgerMenu(): Model|null
+    {
+        return Menu::find(3); // 3 - верхне меню в админке hamburgerMenu
+
+    }
 
 }

@@ -29,6 +29,7 @@
 
                         <x-content.content-component :content="$category" />
 
+                        <x-checking-counterparty.checking-counterparty-component :counterparty="$category->checking_counterparty" />
 
                         <x-content.content-tarif-component :content="$category" />
 
@@ -45,11 +46,7 @@
                     </div>
                 </div>
 
-
-
-
                 <x-content.content-faq-component :content="$category" />
-
 
             </div>
         </section>

@@ -2,6 +2,7 @@
 
 namespace App\View\Components\Avatar;
 
+use App\Enums\User\Status;
 use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
@@ -15,8 +16,8 @@ class AvatarUser extends Component
     {
         $this->user = $user;
         if($user->UserHuman) {
-            $this->man = $this->user->UserHuman->id == 1;
-            $this->woman = $this->user->UserHuman->id == 2;
+            $this->man = $this->user->man == 1;
+            $this->woman = $this->user->woman == 2;
         }
 
     }

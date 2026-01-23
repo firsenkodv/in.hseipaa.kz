@@ -91,6 +91,9 @@
             color: #FFFFFF;
             text-decoration: none;
         }
+        i {
+            font-style: normal;
+        }
 
     }
 }
@@ -122,6 +125,9 @@
             height: auto;
             line-height: 1.7em;
             max-width: 1000px;
+            i {
+                display: none;
+            }
 
 
         }

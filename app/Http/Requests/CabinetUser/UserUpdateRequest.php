@@ -39,6 +39,8 @@ class UserUpdateRequest extends FormRequest
             'instagram' => ['nullable', 'string', 'min:3', 'max:256'],
             'website' => ['nullable', 'string', 'min:3', 'max:256', new   \App\Rules\ValidUrl],
             'about_me' => ['nullable', 'string', 'min:3', 'max:1000'],
+            'date_birthday' => ['date_format:d.m.Y', 'nullable'], // Правило date_format заменено на date_format:d.m.Y
+            'accountant_ticket_date' => ['date_format:d.m.Y', 'nullable'], // Правило date_format заменено на date_format:d.m.Y
 
 
         ];
@@ -55,18 +57,14 @@ class UserUpdateRequest extends FormRequest
                     ->lower()
                     ->value(),
                 'phone' => phone($this->phone),
-                // Конвертируем дату в нужный формат
-                'date_birthday' => ($this->input('date_birthday')) ? Carbon::createFromFormat('d.m.Y', $this->input('date_birthday'))->format('Y-m-d') : null,
-                // Конвертируем дату в нужный формат
-                'accountant_ticket_date' => ($this->input('accountant_ticket_date')) ? Carbon::createFromFormat('d.m.Y', $this->input('accountant_ticket_date'))->format('Y-m-d') : null,
                 'iin' => str(request('iin'))->squish()->lower()->value(),
                 'bin' => str(request('bin'))->squish()->lower()->value(),
                 'accountant_ticket' => trim($this->accountant_ticket),
                 'telegram' => str(request('telegram'))->squish()->lower()->value(),
                 'whatsapp' => str(request('whatsapp'))->squish()->lower()->value(),
                 'instagram' => str(request('instagram'))->squish()->lower()->value(),
-                'about_me' => str(request('about_me'))->stripTags('<br></br></ br><ul><li>')->value(),
-                'experience' => str(request('experience'))->stripTags('<br></br></ br><ul><li>')->value(),
+                'about_me' => str(request('about_me'))->stripTags('<br></ br><ul><li>')->value(),
+                'experience' => str(request('experience'))->stripTags('<br></ br><ul><li>')->value(),
              /*   'website' => str(request('website'))->squish()->lower()->value(),*/
 
 
@@ -105,6 +103,9 @@ class UserUpdateRequest extends FormRequest
             'about_me.max' => 'Длина описания макс. :max.',
             'experience.min' => 'Длина описания минимум :min.',
             'experience.max' => 'Длина описания макс. :max.',
+            'date_birthday.date_format' => 'Не правильный формат даты.',
+            'accountant_ticket_date.date_format' => 'Не правильный формат даты.',
+
 
         ];
     }

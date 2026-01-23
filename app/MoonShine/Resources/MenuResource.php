@@ -128,7 +128,7 @@ class MenuResource extends ModelResource
     protected function activeActions(): ListOf
     {
         return parent::activeActions()
-            ->except(Action::VIEW, Action::MASS_DELETE, Action::DELETE, Action::CREATE)// ->only(Action::VIEW)
+            ->except(Action::VIEW, /*Action::MASS_DELETE, Action::DELETE, Action::CREATE*/)// ->only(Action::VIEW)
             ;
     }
 

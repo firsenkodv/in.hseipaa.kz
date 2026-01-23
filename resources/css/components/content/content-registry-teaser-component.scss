@@ -1,0 +1,134 @@
+@charset "utf-8";
+$color: #282828;
+$colorRed: #EF533F;
+$colorCCC: #CCCCCC;
+$colorGrey: #667085;
+$colorBlue: #095C9A;
+$colorBlue2: #03a9f4;
+$colorGreen: #0f6567;
+$colorYellow: #FF931E;
+$colorOrange: #FF732C;
+
+.content_content-registry-component {
+    position: relative;
+}
+
+.registry__item {
+    position: relative;
+    width: 100%;
+    background: #f5f5f7;
+    border-radius: 4px;
+    margin-bottom: 20px;
+
+    .registry__flex {
+        display: flex;
+        justify-content: start;
+        padding: 24px;
+
+        .registry__left {
+            width: 123px;
+            min-width: 123px;
+            min-height: 100px;
+            padding: 0;
+            .registry__avatar {
+                width: 120px;
+                min-width: 120px;
+                height: 120px;
+                background: #F5F5F7;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                border-radius: 50%;
+                border: 1px solid #e0e0e0;
+
+            }
+
+        }
+
+        .registry__right {
+            width: 100%;
+            min-height: 100px;
+            padding: 0 0 0 30px;
+
+            .h3 {
+                a {
+                    color: $colorBlue;
+                    text-decoration: none;
+                }
+                padding-bottom: 10px;
+            }
+            .registry__list {
+                padding: 3px 0;
+                span {
+                    font-weight: 600;
+                    position: relative;
+                    i {
+                        position: relative;
+                        top: 1px;
+                        font-style:normal ;
+                    }
+                }
+
+                a {
+                    color: $colorBlue;
+                    text-decoration: none;
+                    &:hover {
+                        color: $colorRed;
+                    }
+                }
+                &.__list3 {
+
+                    span {
+                        font-weight: 400;
+                    }
+
+                }
+            }
+        }
+    }
+}
+.__list3 {
+    i {
+        font-style: normal;
+    }
+
+}
+
+@media (max-width: 468px) {
+    .registry__item {
+        position: relative;
+
+        .registry__flex {
+            padding:24px 8px 24px 16px;
+
+
+            .registry__left {
+                width: 80px;
+                min-width: 80px;
+                min-height: 10px;
+                padding: 0;
+
+                .registry__avatar {
+                    width: 70px;
+                    min-width: 70px;
+                    height: 70px;
+                    background-size: cover;
+                }
+
+            }
+            .registry__right {
+                padding-left: 10px;
+                .__list3 {
+                    a, span {
+                        display: block;
+                        padding-bottom: 3px;
+                    }
+                    i {
+                        display: none;
+                    }
+                }
+            }
+        }
+    }
+}
+

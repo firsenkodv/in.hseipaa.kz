@@ -3,11 +3,14 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Enums\User\Status;
+use Carbon\Carbon;
 use Domain\City\ViewModels\CityViewModel;
 use Domain\User\ViewModels\UserFilesViewModel;
 use Domain\UserExpert\ViewModels\UserExpertViewModel;
 use Domain\UserLanguage\ViewModels\UserLanguageViewModel;
 use Domain\UserLecturer\ViewModels\UserLecturerViewModel;
+use Domain\UserProduction\View_Models\UserProductionViewModel;
 use Domain\UserSex\ViewModels\UserSexViewModel;
 use Domain\UserSpecialist\ViewModels\UserSpecialistViewModel;
 use Exception;
@@ -16,6 +19,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Support\Casts\TarifCast;
+use Support\Casts\TelegramCast;
 
 class User extends Authenticatable
 {
@@ -76,6 +81,7 @@ class User extends Authenticatable
         'remember_token',
     ];
 
+/*    protected $with = ['UserSex', 'UserHuman', 'UserCity', 'UserExpert', 'UserLecturer', 'UserSpecialist', 'UserLanguage', 'UserProduction'];*/
     protected function casts(): array
     {
         return [
@@ -92,6 +98,8 @@ class User extends Authenticatable
             'file_legal_regulation' => 'collection',
             'file_legal_first_boss' => 'collection',
             'date_birthday' => 'date', // Кастует к дате без времени
+            'published' => 'integer',
+            'tarif_id' => TarifCast::class,
 
         ];
     }
@@ -139,6 +147,12 @@ class User extends Authenticatable
 
     }
 
+    public function UserProduction(): BelongsToMany
+    {
+        return $this->belongsToMany(UserProduction::class);
+
+    }
+
     public function UserFileQualification(): BelongsToMany
     {
         return $this->belongsToMany(UserFileQualification::class)
@@ -159,7 +173,8 @@ class User extends Authenticatable
     {
 
         if (!is_null($this->user_human_id)) {
-            return $this->user_human_id == 2;
+            // 1 - физ лицо, 2 - юр лицо
+            return $this->user_human_id === Status::LEGALENTITY->value;
         }
         return false;
     }
@@ -171,8 +186,9 @@ class User extends Authenticatable
     public function getIndividualAttribute(): bool
     {
 
+        // 1 - физ лицо, 2 - юр лицо
         if (!is_null($this->user_human_id)) {
-            return $this->user_human_id == 1;
+            return $this->user_human_id === Status::INDIVIDUAL->value;
         }
         return false;
     }
@@ -241,6 +257,70 @@ class User extends Authenticatable
     }
 
     /**
+     * Выводим реальный телеграм
+     */
+    public function getOriginalTelegramAttribute(): ?string
+    {
+        return $this->attributes['telegram'];
+    }
+    public function getTelegramAttribute(): string
+    {
+        if (!$this->attributes['telegram']) {
+            return '';
+        }
+
+        $value = $this->attributes['telegram'];
+
+        // Проверка на наличие символа '@'
+        if (substr($value, 0, 1) === '@') {
+            return 'https://t.me/' . substr($value, 1); // Удаляем первый символ '@' и добавляем полную ссылку
+        }
+
+        // Проверка на наличие строки 't.me/'
+        if (stripos($value, 't.me/') !== false && !preg_match('/^https?:\/\//i', $value)) {
+            return 'https://' . $value; // Добавляем протокол HTTPS
+        }
+
+        // Если ни одна проверка не сработала, возвращаем оригинальное значение
+        return $value;
+    }
+
+     /**
+     * Выводим реальный whatsapp
+     */
+    public function getOriginalWhatsappAttribute(): ?string
+    {
+        return $this->attributes['whatsapp'];
+    }
+    public function getWhatsappAttribute(): string
+    {
+        if (!$this->attributes['whatsapp']) {
+            return '';
+        }
+        $value = $this->attributes['whatsapp'];
+
+        return 'https://wa.me/' . trim(str_replace(" ", "", $value)); // Добавляем протокол HTTPS https://wa.me/
+
+    }
+
+     /**
+     * Выводим реальный instagram
+     */
+    public function getOriginalInstagramAttribute(): ?string
+    {
+        return $this->attributes['instagram'];
+
+    }
+    public function getInstagramAttribute(): string
+    {
+        if (!$this->attributes['instagram']) {
+            return '';
+        }
+        $value = $this->attributes['instagram'];
+        return 'https://instagram.com/' . trim(str_replace(" ", "", $value));
+    }
+
+    /**
      * @return array
      * Получение всех типов экспертности
      */
@@ -296,6 +376,20 @@ class User extends Authenticatable
         return [];
     }
 
+    /**
+     * @return array
+     * Получение всех типов видов деятельности компании
+     */
+    public
+    function getUserProductionsAttribute(): array
+    {
+        $productions = UserProductionViewModel::make()->UserProductions($this->id);
+        if (!is_null($productions)) {
+            return $productions->toArray();
+        }
+        return [];
+    }
+
     /** Кастомный акцессор в модель User **/
     /** get **/
     public
@@ -316,8 +410,48 @@ class User extends Authenticatable
         return \Carbon\Carbon::parse($value)->format('d.m.Y');
     }
 
+    /** Мутация атрибута для изменения формата даты **/
+    public function setDateBirthdayAttribute($value): void
+    {
+        if (!empty($value)) {
+            $this->attributes['date_birthday'] = Carbon::parse($value)->format('Y-m-d');
+        }
+    }
+
+    /** Мутация атрибута для изменения формата даты **/
+    public function setAccountantTicketDateAttribute($value): void
+    {
+        if (!empty($value)) {
+            $this->attributes['accountant_ticket_date'] = Carbon::parse($value)->format('Y-m-d');
+        }
+    }
 
 
+    /**
+     * @return bool
+     * Проверяем является ли пользователь мужчиной
+     */
+    public function getManAttribute(): bool
+    {
+        /** 1 -id в БД */
+        if($this->user_sex_id == 1) {
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * @return bool
+     * Проверяем является ли пользователь женщиной
+     */
+    public function getWomanAttribute(): bool
+    {
+        /** 2 -id в БД */
+        if($this->user_sex_id == 2) {
+            return true;
+        }
+        return false;
+    }
 
     protected static function boot(): void
     {
@@ -325,13 +459,11 @@ class User extends Authenticatable
 
         static::deleted(function () {
             cache_clear();
-
         });
 
         # Выполняем действия после сохранения
         static::saved(function () {
             cache_clear();
-
         });
 
 

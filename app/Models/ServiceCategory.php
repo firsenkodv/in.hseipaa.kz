@@ -38,7 +38,9 @@ class ServiceCategory extends Model
         'show',
         'service_id',
         'faq_title',
-        'faq'
+        'faq',
+        'cabinet_service',
+        'checking_counterparty'
 
     ];
 

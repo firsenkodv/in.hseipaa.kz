@@ -227,6 +227,29 @@ class SettingPage extends Page
 
                             Divider::make('Опции TOP3 (В разработке)'),
 
+                        ]),
+                        Tab::make(__('Реестр'), [
+
+                            Divider::make('Реестр пользователей'),
+                            Text::make('Специалисты', 'specialists')->default((isset($specialists)) ? $specialists : 'Специалисты')->hint(''),
+                            Text::make('Специалист', 'specialist')->default((isset($specialist)) ? $specialist : 'Специалист')->hint(''),
+                            Text::make('Подзаголовок', 'sub_title_specialist')->default((isset($sub_title_specialist)) ? $sub_title_specialist : ''),
+
+                            Text::make('Эксперты', 'experts')->default((isset($experts)) ? $experts : 'Эксперты')->hint(''),
+                            Text::make('Эксперт', 'expert')->default((isset($expert)) ? $expert : 'Эксперт')->hint(''),
+                            Text::make('Подзаголовок', 'sub_title_expert')->default((isset($sub_title_expert)) ? $sub_title_expert : ''),
+
+                            Text::make('Юридические лица', 'legal_entities')->default((isset($legal_entities)) ? $legal_entities : 'Юридические лица')->hint(''),
+                            Text::make('Юридическое лицо', 'legal_entity')->default((isset($legal_entity)) ? $legal_entity : 'Юр. лицо')->hint(''),
+                            Text::make('Подзаголовок', 'sub_title_legal_entities')->default((isset($sub_title_legal_entities)) ? $sub_title_legal_entities : ''),
+
+                        ]),
+                        Tab::make(__('Контрагенты'), [
+
+                            Divider::make('Проверка контрагентов'),
+                            Text::make('ID - ключ', 'counterparty_id')->default((isset($counterparty_id)) ? $counterparty_id : 'b926ee5941fb49a792a7f6dbe5382e4f')->hint('Если  оставить пустым, то нельзя будет вывести форму проверки контрагентов'),
+
+
 
                         ]),
 

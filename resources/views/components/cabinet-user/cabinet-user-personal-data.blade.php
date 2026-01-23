@@ -76,7 +76,7 @@
 
             <div class="cabinet_user_personal__flex">
                 <div class="cabinet_user_personal__left">
-                    <div class="cu__personal_label"><span>Коротко о себе:</span></div>
+                    <div class="cu__personal_label"><span>{{ config('site.constants.about_me') }}:</span></div>
                 </div>
                 <div class="cabinet_user_personal__right">
                     <div class="desc">
@@ -87,7 +87,7 @@
 
             <div class="cabinet_user_personal__flex">
                 <div class="cabinet_user_personal__left">
-                    <div class="cu__personal_label"><span>Опыт работы:</span></div>
+                    <div class="cu__personal_label"><span>{{ config('site.constants.experience') }}:</span></div>
                 </div>
                 <div class="cabinet_user_personal__right">
                     <div class="desc">

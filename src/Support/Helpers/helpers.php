@@ -72,6 +72,9 @@ if (!function_exists('cache_clear ')) {
         Cache::forget('service_sections');
         Cache::forget('service_categories');
         Cache::forget('company_categories');
+        Cache::forget('cities');
+        Cache::forget('user_specialists');
+        Cache::forget('user_experts');
         Cache::forget('tax_items');
         Cache::forget('site_new_categories');
         Cache::forget('site_new_items');

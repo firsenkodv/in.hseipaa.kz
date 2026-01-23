@@ -162,12 +162,13 @@ class ServiceCategoryResource extends ModelResource
 
 
                     ]),
+
                     Tab::make(__('Дополнительно'), [
                         Grid::make([
                             Column::make([
                                 Collapse::make('Шаблон с картинкой', [
 
-                                    Switcher::make('Вывести в ЛК', 'cabinet_service')->default(0)->hint('D Личный кабинет будет выведена информация только из  вкладки "Дополнительно"'),
+                                    Switcher::make('Вывести в ЛК', 'cabinet_service')->default(0)->hint('В Личный кабинет будет выведена информация только из  вкладки "Дополнительно"'),
 
 
                                     Text::make('Заголовок', 'temp_title'),
@@ -190,6 +191,7 @@ class ServiceCategoryResource extends ModelResource
                             ])->columnSpan(6),
                         ]),
                     ]),
+
                     Tab::make(__('FAQ'), [
 
                         Grid::make([
@@ -216,6 +218,19 @@ class ServiceCategoryResource extends ModelResource
                             Column::make([
                                 Collapse::make('Вывод тарифов', [
                                     BelongsToMany::make('Тариф', 'tarif', 'title', resource: TarifResource::class )->selectMode(),
+                                ]),
+                            ])->columnSpan(12),
+                        ]),
+
+                    ]),
+
+                    Tab::make(__('Проверка контрагента'), [
+
+                        Grid::make([
+                            Column::make([
+                                Collapse::make('Вывод поля поиска и результатов', [
+                                    Switcher::make('Вывести на страницу', 'checking_counterparty')->default(0)
+
                                 ]),
                             ])->columnSpan(12),
                         ]),

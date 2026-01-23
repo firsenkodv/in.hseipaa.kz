@@ -53,6 +53,42 @@ Breadcrumbs::for('site_new_item', function ($trail, $category, $item) {
     $trail->push($item->title , route('site_new_item', ['category_slug' => $category->slug, 'item_slug' => $item->slug]));
 });
 
+// Home > RegistrySpecialists
+Breadcrumbs::for('registry_specialists', function ($trail) {
+    $trail->parent('home');
+    $trail->push(\App\Enums\User\RegistryStatus::SPECIALIST->text(), route('registry_specialists'));
+});
+
+// Home > RegistrySpecialists > RegistrySpecialist
+Breadcrumbs::for('registry_specialist', function ($trail, $item) {
+    $trail->parent('registry_specialists');
+    $trail->push($item->username);
+});
+
+// Home > RegistryExperts
+Breadcrumbs::for('registry_experts', function ($trail) {
+    $trail->parent('home');
+    $trail->push(\App\Enums\User\RegistryStatus::EXPERT->text(), route('registry_experts'));
+});
+
+// Home > RegistryExperts > RegistryExpert
+Breadcrumbs::for('registry_expert', function ($trail, $item) {
+    $trail->parent('registry_experts');
+    $trail->push($item->username);
+});
+
+// Home > RegistryLegalEntities
+Breadcrumbs::for('registry_legal_entities', function ($trail) {
+    $trail->parent('home');
+    $trail->push(\App\Enums\User\RegistryStatus::LEGALENTITY->text(), route('registry_legal_entities'));
+});
+
+// Home > RegistryLegalEntities > RegistryLegalEntity
+Breadcrumbs::for('registry_legal_entity', function ($trail, $item) {
+    $trail->parent('registry_legal_entities');
+    $trail->push($item->username);
+});
+
 // Home > Useful
 Breadcrumbs::for('useful_section', function ($trail, $section) {
     $trail->parent('home');

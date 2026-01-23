@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Cabinet\CabinetUser;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CabinetUser\UserUpdateRequest;
+use Domain\Service\ViewModels\ServiceViewModel;
 use Domain\User\ViewModels\UserViewModel;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -48,6 +49,7 @@ class CabinetUserController extends Controller
 
             $user = UserViewModel::make()->User();
 
+          //  dd($user);
             return view('cabinet.cabinet_user.cabinet_user_update', [
                 'user' => $user
             ]);
@@ -122,8 +124,10 @@ class CabinetUserController extends Controller
         try {
 
             $user = UserViewModel::make()->User();
+            $items = ServiceViewModel::make()->cabinetService();
             return view('cabinet.cabinet_user.service.services', [
-                'user' => $user
+                'user' => $user,
+                'items' => ($items)??[]
             ]);
 
         } catch (\Throwable $th) {

@@ -6,6 +6,7 @@ use App\Http\Controllers\Auth\ResetPasswordController;
 use App\Http\Controllers\Auth\SignInController;
 use App\Http\Controllers\Auth\SignUpController;
 use App\Http\Controllers\Axios\AxiosController;
+use App\Http\Controllers\Axios\AxiosCounterPartyController;
 use App\Http\Controllers\Axios\AxiosSendingFromFormController;
 use App\Http\Controllers\Axios\AxiosUploadFilesController;
 use App\Http\Controllers\Axios\AxiosUploadPhotoController;
@@ -17,6 +18,7 @@ use App\Http\Controllers\FancyBox\FancyBoxSendingFromFormController;
 use App\Http\Controllers\Fetch\FetchCityController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Mzp\MzpController;
+use App\Http\Controllers\Registry\RegistryController;
 use App\Http\Controllers\Search\SearchController;
 use App\Http\Controllers\Service\ServiceController;
 use App\Http\Controllers\SiteNew\SiteNewController;
@@ -83,6 +85,11 @@ Route::controller(AxiosController::class)->group(function () {
 /** Отправка самой формы */
 Route::controller(AxiosSendingFromFormController::class)->group(function () {
     Route::post('/call_me_blue', 'axiosCallMeBlue');
+
+});
+/** Проверка контрагента */
+Route::controller(AxiosCounterPartyController::class)->group(function () {
+    Route::post('/check.counter.party', 'checkCounterParty');
 
 });
 
@@ -186,16 +193,40 @@ Route::controller(MzpController::class)->group(function () {
 
 /** ///МЗП **/
 
+/** Реестр **/
+
+Route::controller(RegistryController::class)->group(function () {
+
+    Route::get('/registry', 'registry')->name('registry');
+
+    Route::get('/registry/specialists', 'registrySpecialists')->name('registry_specialists');
+    Route::get('/registry/specialists/specialist/{id}', 'registrySpecialist')->name('registry_specialist');
+
+    Route::get('/registry/experts', 'registryExperts')->name('registry_experts');
+    Route::get('/registry/experts/expert/{id}', 'registryExpert')->name('registry_expert');
+
+    Route::get('/registry/legal-entities', 'registryLegalEntities')->name('registry_legal_entities');
+    Route::get('/registry/legal-entities/legal-entity/{id}', 'registryLegalEntity')->name('registry_legal_entity');
+
+    Route::get('/registry/specialists/search', 'registrySpecialistsSearch')->name('registry_specialists_search');
+    Route::get('/registry/experts/search', 'registryExpertsSearch')->name('registry_experts_search');
+    Route::get('/registry/legal-entities/search', 'registryLegalEntitiesSearch')->name('registry_legal_entities_search');
+
+});
+
+/** ///Реестр **/
+
 /** Поиск **/
 
 Route::controller(SearchController::class)->group(function () {
 
     Route::match(['get', 'post'],'search', 'search')->name('search');
 
-
 });
 
 /** ///Поиск **/
+
+
 
 
 /** Login */

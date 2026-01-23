@@ -41,9 +41,21 @@ class ServiceViewModel
                 ->where('published', 1)
                 ->with('service')
                 ->with('item')
-                ->orderBy('created_at', 'desc')
+                ->orderBy('sorting', 'asc')
                 ->get();
-        });
+              });
+
+    }
+
+    public function cabinetService(): Collection | null
+    {
+            return ServiceCategory::query()
+                ->where('published', 1)
+                ->where('cabinet_service', 1)
+                ->with('service')
+                ->with('item')
+                ->orderBy('sorting', 'asc')
+                ->get();
 
     }
 
