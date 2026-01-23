@@ -20,7 +20,7 @@
                        <x-menu.left-menu-component menu="registry" route=""/>
                     </div>
                     <div class="block_content__right">
-                        <x-content.registry.teaser :item="$item"/>
+                        <x-content.registry.teaser :item="$item" :user="$user" />
                         <x-content.registry.content-registry-user-component :item="$item" :user="$user"  />
                     </div>
                 </div>
