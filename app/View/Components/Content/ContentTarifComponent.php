@@ -12,7 +12,7 @@ class ContentTarifComponent extends Component
 {
     public array $tarifs;
     public int $tarif_id;
-    public object $user;
+    public object | null $user;
 
     public function __construct($content = null)
     {
@@ -36,6 +36,7 @@ class ContentTarifComponent extends Component
             $this->user = $user;
         } else {
             $this->tarif_id = 0;
+            $this->user = null;
         }
     }
 
