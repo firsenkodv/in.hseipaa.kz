@@ -109,7 +109,7 @@ class UserViewModel
     public function User(): Model|null
     {
         if (auth()->check()) {
-            return auth()->user()->load(['UserHuman', 'UserLecturer', 'UserCity', 'UserExpert', 'UserSex', 'UserProduction', 'UserSpecialist', 'UserLanguage']);
+            return auth()->user()->load(['UserHuman', 'UserLecturer', 'UserCity', 'UserExpert', 'UserSex', 'UserProduction', 'UserSpecialist', 'UserLanguage', 'tarif']);
         }
         return null;
     }

@@ -100,6 +100,19 @@
   max-width: 100%;
 }
 
+.alert-danger {
+  color: #842029;
+  background-color: #f8d7da;
+  position: relative;
+  padding: 1rem 1rem;
+  margin-bottom: 1rem;
+  border: 1px solid #f5c2c7;
+  border-radius: 0.25rem;
+}
+.alert-danger a {
+  color: #842029;
+}
+
 ._subtitle {
   color: #667085;
 }

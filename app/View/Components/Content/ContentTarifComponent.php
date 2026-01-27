@@ -48,3 +48,4 @@ class ContentTarifComponent extends Component
         return view('components.content.content-tarif-component');
     }
 }
+

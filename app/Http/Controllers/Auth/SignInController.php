@@ -32,7 +32,7 @@ class SignInController extends Controller
         }
 
         $request->session()->regenerate();
-        return redirect()->intended(route('cabinet_user')); // intended - назад или route
+        return redirect()->back();//route('cabinet_user'); // intended - назад или route route('cabinet_user')
     }
 
 

@@ -157,4 +157,14 @@
   border: 1px solid #EF533F;
 }
 
+@media (max-width: 900px) {
+  .select-box {
+    position: relative;
+  }
+  .select-box .options-container.active {
+    bottom: 0;
+    position: relative;
+  }
+}
+
 /*# sourceMappingURL=form-select-component.css.map */

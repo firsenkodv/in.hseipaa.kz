@@ -228,6 +228,14 @@ class SettingPage extends Page
                             Divider::make('Опции TOP3 (В разработке)'),
 
                         ]),
+
+                        Tab::make(__('Материалы'), [
+
+                            Divider::make('Константы в материалах'),
+                            //
+                            Text::make('Заголовок', 'you_need_subscribe')->default((isset($you_need_subscribe)) ? $you_need_subscribe : 'Для просмотра материала необходимо оформить подписку')->hint(''),
+                        ]),
+
                         Tab::make(__('Реестр'), [
 
                             Divider::make('Реестр пользователей'),

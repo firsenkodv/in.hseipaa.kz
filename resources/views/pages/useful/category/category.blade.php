@@ -25,7 +25,6 @@
 
                         <x-content.content-component :content="$category" />
 
-
                         @if($subcategories->isNotEmpty())
                             <div class="teaser">
                             @foreach($subcategories as $subcategory)
