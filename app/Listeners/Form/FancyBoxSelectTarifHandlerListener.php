@@ -5,7 +5,7 @@ namespace App\Listeners\Form;
 use App\Events\Form\FancyBoxSelectTarifEvent;
 use App\Jobs\Form\FancyBoxSelectTarifJob;
 use App\Jobs\Form\FancyBoxSendingFromFormJob;
-use Domain\Tarif\ViewModels\Tarif;
+use App\Models\Tarif;
 use Support\Traits\CreatorToken;
 use Support\Traits\EmailAddressCollector;
 
@@ -27,24 +27,26 @@ class FancyBoxSelectTarifHandlerListener
      */
     public function handle(FancyBoxSelectTarifEvent $event): void
     {
-        if(isset($event->request['tarif'])) {
-           $tarif =  Tarif::make()->tarif($event->request['tarif'])->toArray();
-
-            $data['Имя пользователя:'] = ($event->request['username'])??' - ';
-            $data['Телефон:'] = ($event->request['phone'])??' - ';
-            $data['Email:'] = ($event->request['email'])??' - ';
-            $data['Выбраны следующие опции'] = '';
-            $data['Тариф:'] = $tarif['title'];
-            $data['Опция:'] = $tarif['subtitle'];
-            $data['Стоимость:'] = price($tarif['price']). ' '. config('currency.currency.KZT');
-
+        if (!isset($event->request['tarif'])) {
+            $data['Ошибка'] = config('site.constants.tarif_error'); // Тариф указан некорректно. Обратитесь в техподдержку
         } else {
-            $data['Ошибка'] = config('site.constants.tarif_error'); //Тариф указан не корректно. Обратитесь в техническую поддержку
+            try {
+                $tarif = Tarif::findOrFail($event->request['tarif']);
+
+                $data = [
+                    'Имя пользователя:'   => $event->request['username'] ?? '-',
+                    'Телефон:'           => $event->request['phone'] ?? '-',
+                    'Email:'              => $event->request['email'] ?? '-',
+                    'Тариф:'             => $tarif->title,
+                    'Опция:'             => $tarif->subtitle,
+                    'Стоимость:'         => price($tarif->price) . ' ' . config('currency.currency.KZT'),
+                ];
+            } catch (\Exception $ex) {
+                logErrors($ex);
+                $data['Ошибка'] = 'Невозможно найти указанный тариф.';
+            }
         }
 
-
-        FancyBoxSelectTarifJob::dispatch($data); // Job
-
-
+        FancyBoxSelectTarifJob::dispatch($data);
     }
 }
