@@ -13,5 +13,6 @@ return [
     'whatsapp' => 'WhatsApp',
     'instagram' => 'Instagram',
     'site' => 'WebSite',
+    'cabinet_edit' => 'Сохранить изменения',
 ];
 

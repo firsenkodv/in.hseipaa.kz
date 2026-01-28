@@ -412,7 +412,7 @@
                     </div>
                 </div>
                 <div class="row_form_800__right">
-                    <button type="submit" class="btn btn-big"><span>Редактировать профиль</span></button>
+                    <button type="submit" class="btn btn-big"><span>{{ config('site.constants.cabinet_edit') }}</span></button>
                 </div>
 
             </x-form.form>
