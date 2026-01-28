@@ -27,20 +27,23 @@ class FancyBoxSelectTarifHandlerListener
      */
     public function handle(FancyBoxSelectTarifEvent $event): void
     {
+        if(isset($event->request['tarif'])) {
+           $tarif =  Tarif::make()->tarif($event->request['tarif'])->toArray();
 
-        $tarif_id = ($event->request['tarif'])??null;
-        if(!is_null($tarif_id)) {
-           $tarif =  Tarif::make()->tarif($tarif_id)->toArray();
-            unset($event->request['tarif']);
-            $event->request['Тариф'] = $tarif['title'];
-            $event->request['Опция'] = $tarif['subtitle'];
-            $event->request['Стоимость'] = price($tarif['price']). ' '. config('currency.currency.KZT');
+            $data['Имя пользователя:'] = ($event->request['username'])??' - ';
+            $data['Телефон:'] = ($event->request['phone'])??' - ';
+            $data['Email:'] = ($event->request['email'])??' - ';
+            $data['Выбраны следующие опции'] = '';
+            $data['Тариф:'] = $tarif['title'];
+            $data['Опция:'] = $tarif['subtitle'];
+            $data['Стоимость:'] = price($tarif['price']). ' '. config('currency.currency.KZT');
+
         } else {
-            $event->request['tarif'] = config('site.constants.tarif_error'); //Тариф указан не корректно. Обратитесь в техническую поддержку
+            $data['Ошибка'] = config('site.constants.tarif_error'); //Тариф указан не корректно. Обратитесь в техническую поддержку
         }
 
 
-        FancyBoxSelectTarifJob::dispatch($event->request); // Job
+        FancyBoxSelectTarifJob::dispatch($data); // Job
 
 
     }

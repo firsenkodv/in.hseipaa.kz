@@ -136,7 +136,6 @@ class SettingPage extends Page
                             ]),
                         ]),
 
-
                         Tab::make(__('МЗП'), [
 
                             Grid::make([

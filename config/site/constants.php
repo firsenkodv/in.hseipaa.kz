@@ -14,5 +14,6 @@ return [
     'instagram' => 'Instagram',
     'site' => 'WebSite',
     'cabinet_edit' => 'Сохранить изменения',
+    'send_request' => 'Отправить заявку',
 ];
 

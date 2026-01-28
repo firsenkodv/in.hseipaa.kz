@@ -49,6 +49,7 @@ async  function openFancyBox(e) {
             },
             body: JSON.stringify(template),
         });
+
         if (!response.ok) {
             console.error(`Error: ${response.status}`);
         }

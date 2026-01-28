@@ -11,6 +11,7 @@ use App\Http\Requests\RequestConsultMeRequest;
 use App\Http\Requests\RequestForTrainingRequest;
 use App\Http\Requests\SendSubscriptionMeRequest;
 use Domain\SavedFormData\ViewModel\SavedFormDataViewModel;
+use Domain\User\ViewModels\UserViewModel;
 use Illuminate\Http\Request;
 use Illuminate\Contracts\View\View;
 
@@ -71,10 +72,17 @@ class FancyBoxSendingFromFormController extends Controller
 
     /** Выбрали тариф  */
     public function fancyboxSelectTarif(Request $request) {
+        if($request->user_id) {
+            $user = UserViewModel::make()->User();
+            // Добавляем данные пользователя в запрос
+            $request->merge([
+                'username' => $user->username,
+                'phone' => ($user->phone)? format_phone($user->phone) : ' - ',
+                'email' => $user->email
+            ]);
+        }
 
-        // "tarif" => "2"
-
-        $data = $request->except('url');
+        $data = $request->except('url', 'user_id');
         FancyBoxSelectTarifEvent::dispatch($data);
 
      return response()->json([
