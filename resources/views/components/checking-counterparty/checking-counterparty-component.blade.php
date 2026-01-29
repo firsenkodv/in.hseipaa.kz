@@ -19,6 +19,9 @@
             </div>
 
             <div class="app_counterparty_result  form_counterparty__result">
+                <div class="contr_wrap_result">
+                    <div class="h3_mod"></div>
+                </div>
 
             </div>
 

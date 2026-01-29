@@ -1,12 +1,12 @@
 @if($content->desc)
-    <div class="content_content-component desc">
+    <div class="content_content-component desc" id="content_content-component_{{$content->id}}">
 
         @if(isset($content->short_desc))
             <div class="_short_desc bl_desc pad_b0_important">{!!  $content->short_desc  !!}</div>
         @endif
-
+{{--@dump($content->show)--}}
         @if($content->show['show_subscription'] == 1 or $tariff_has_been_paid)
-            <hr>
+
             <div class="_desc bl_desc">{!!  $content->desc  !!}</div>
 
             @if($content->img2)
@@ -23,10 +23,11 @@
                 <x-content.download-file-component :files="$content->files"/>
             @endif
 
-            @else
-
+        @else
+                <div class="alert-danger"><a
+                        href="{{ route('cabinet_pricing') }}">{{ config2('moonshine.setting.you_need_subscribe') }}</a></div>
         @endif
-<div class="alert-danger"><a href="{{ route('cabinet_pricing') }}">{{ config2('moonshine.setting.you_need_subscribe') }}</a></div>
+
     </div>
 @endif
 

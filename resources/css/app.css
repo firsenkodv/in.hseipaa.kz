@@ -63,6 +63,7 @@
 @import 'templates/axeld/footer.scss';
 @import 'templates/axeld/content.scss';
 @import 'templates/axeld/search.scss';
+@import 'templates/axeld/chek_counter_party.scss';
 
 @import 'datepicker/datepicker.css';
 

@@ -31,7 +31,13 @@ if(appCounterparty){
 
                     } else {
                         /** если нет ошибок **/
-                        console.log(result.data)
+                        console.log(result.check)
+                        const resultCheck = result.check;
+                        const divResult = appCounterparty.querySelector('.app_counterparty_result');
+                        if(resultCheck){
+                            divResult.querySelector('.h3_mod').innerHTML = resultCheck.nameru
+                        }
+
                         appCpSend.classList.remove('d-none');
                         appCpSend.removeAttribute('disabled'); // удаляем атрибут disabled
 
