@@ -16,6 +16,7 @@ use Makeable;
          */
         $key = config2('moonshine.setting.counterparty_id');
 
+
         //  $bin = '211140006711';
         $url = 'https://data.egov.kz/api/v4/gbd_ul/v1?apiKey='. $key .'&source={"size":1,"query":{"bool":{"must":[{"match":{"bin":"'.$bin.'"}}]}}}';
 

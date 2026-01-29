@@ -4,7 +4,7 @@
         @if(isset($content->short_desc))
             <div class="_short_desc bl_desc pad_b0_important">{!!  $content->short_desc  !!}</div>
         @endif
-{{--@dump($content->show)--}}
+
         @if($content->show['show_subscription'] == 1 or $tariff_has_been_paid)
 
             <div class="_desc bl_desc">{!!  $content->desc  !!}</div>
@@ -24,8 +24,7 @@
             @endif
 
         @else
-                <div class="alert-danger"><a
-                        href="{{ route('cabinet_pricing') }}">{{ config2('moonshine.setting.you_need_subscribe') }}</a></div>
+            <x-message.need-tarif-plan :text="config2('moonshine.setting.you_need_subscribe')" />
         @endif
 
     </div>

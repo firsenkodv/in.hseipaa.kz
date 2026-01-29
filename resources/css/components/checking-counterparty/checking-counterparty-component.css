@@ -2,7 +2,7 @@
   position: relative;
 }
 .checking-counterparty_checking-counterparty-component .search__wrapper {
-  padding: 0 0 10px 0;
+  padding: 10px 5px;
 }
 .checking-counterparty_checking-counterparty-component .d-none {
   border: 1px solid #ccc !important;

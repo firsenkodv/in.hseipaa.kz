@@ -255,6 +255,7 @@ class SettingPage extends Page
 
                             Divider::make('Проверка контрагентов'),
                             Text::make('ID - ключ', 'counterparty_id')->default((isset($counterparty_id)) ? $counterparty_id : 'b926ee5941fb49a792a7f6dbe5382e4f')->hint('Если  оставить пустым, то нельзя будет вывести форму проверки контрагентов'),
+                       Textarea::make('Проверка контрагента', 'need_tarif')->default((isset($need_tarif)) ? $need_tarif : ''),
 
 
 
