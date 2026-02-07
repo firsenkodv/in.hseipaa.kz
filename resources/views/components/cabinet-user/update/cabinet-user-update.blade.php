@@ -1,12 +1,12 @@
 @if(!is_null($user))
-
     <div class="cabinet-user-update_update_cabinet-user-update">
 
         <div class="cabinet_user_personal__flex">
+
             <div class="cabinet_user_personal__left">
                 <x-avatar.avatar-user :user="$user"/>
-
             </div>
+
             <div class="cabinet_user_personal__right">
                 <div class="cu_username">
                     <h1 class="h1">{{ $user->username }}</h1>
@@ -15,6 +15,7 @@
                     @endif
                 </div>
             </div>
+
         </div>
         <div class="cabinet_user_update_handel">
 
@@ -276,7 +277,7 @@
                     type="text"
                     label="Telegram"
                     description="Заполняйте правильно - <span>@hseipaa</span> или <span>t.me/hseipaa</span>"
-                    value="{{ (old('telegram'))?: ($user->original_telegram?:'') }}"
+                    value="{{ (old('telegram'))?: ($user->telegram?:'') }}"
 
                 />
 
@@ -285,7 +286,7 @@
                     type="text"
                     label="WhatsApp"
                     description="Указывайте только номер, без + и пробелов - <span>77075594060</span>"
-                    value="{{ (old('whatsapp'))?: ($user->original_whatsapp?:'') }}"
+                    value="{{ (old('whatsapp'))?: ($user->whatsapp?:'') }}"
                 />
 
                 <x-form.form-input
@@ -293,7 +294,7 @@
                     type="text"
                     label="Instagram"
                     description="Указывайте только ваш аккаунт -  <span>generalre.kz</span>"
-                    value="{{ (old('instagram'))?: ($user->original_instagram?:'') }}"
+                    value="{{ (old('instagram'))?: ($user->instagram?:'') }}"
                 />
 
                 <x-form.form-input

@@ -65,12 +65,11 @@ class CabinetUserController extends Controller
 
     }
 
-    /**
-     * @param Request $request
-     * Метод редактирования User
-     */
-//: RedirectResponse
-    public function cabinetUserUpdateHandel(UserUpdateRequest $request)
+/**
+ * @param UserUpdateRequest $request
+ * @return RedirectResponse
+ */
+    public function cabinetUserUpdateHandel(UserUpdateRequest $request):RedirectResponse
     {
 
        try {

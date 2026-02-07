@@ -1,6 +1,9 @@
 @props([
-    'item' => null
+    'item' => null,
+    'user'
+
 ])
+
 @if(!is_null($item))
     <div class="content-registry-user-component">
         <div class="ru_list">
@@ -27,24 +30,27 @@
                         @endforelse
                 </div>
             </div>
+
+
             @if($item->tarif_id)
                 @if (!empty($user) && $user->tarif_id)
+
                     <div class="my_network">
                         <h2 class="h3 pad_b10 pad_t20">{{ config('site.constants.network_message') }}</h2>
                         <div class="ru_list__option">
                             <div class="ru_l">{{ config('site.constants.telegram') }}:</div>
                             <div class="ru_r"><a target="_blank" rel="nofollow"
-                                                 href="{{ $item->telegram }}">{{ $item->original_telegram }}</a></div>
+                                                 href="{{ $item->corrected_telegram }}">{{ $item->telegram }}</a></div>
                         </div>
                         <div class="ru_list__option">
                             <div class="ru_l">{{ config('site.constants.whatsapp') }}:</div>
                             <div class="ru_r"><a target="_blank" rel="nofollow"
-                                                 href="{{ $item->whatsapp }}">{{ $item->original_whatsapp }}</a></div>
+                                                 href="{{ $item->corrected_whatsapp }}">{{ $item->whatsapp }}</a></div>
                         </div>
                         <div class="ru_list__option">
                             <div class="ru_l">{{ config('site.constants.instagram') }}:</div>
                             <div class="ru_r"><a target="_blank" rel="nofollow"
-                                                 href="{{ $item->instagram }}">{{ $item->original_instagram }}</a></div>
+                                                 href="{{ $item->corrected_instagram }}">{{ $item->instagram }}</a></div>
                         </div>
                         <div class="ru_list__option">
                             <div class="ru_l">{{ config('site.constants.site') }}:</div>

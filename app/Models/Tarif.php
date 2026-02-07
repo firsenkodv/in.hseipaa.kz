@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Tarif extends Model
 {
@@ -30,9 +32,10 @@ class Tarif extends Model
     ];
 
 
-    public function user():BelongsTo
+
+    public function user(): HasMany
     {
-        return $this->belongsTo(User::class);
+        return $this->hasMany(User::class, 'tarif_id');
     }
 
     public function service_category():BelongsTo
@@ -51,8 +54,6 @@ class Tarif extends Model
 
         static::deleted(function () {
             cache_clear();
-
-
         });
 
         # Выполняем действия после сохранения

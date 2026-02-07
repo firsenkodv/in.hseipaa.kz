@@ -9,16 +9,27 @@ use Illuminate\View\Component;
 
 class AvatarUser extends Component
 {
-    public object | null $user;
+    public ?object $user;
     public bool  $woman = false;
     public bool  $man = false;
-    public function __construct($user = null)
+    public string $intervention;
+    public string $managerid='';
+    public string $userid='';
+
+    public string $route = '';
+    public function __construct($user, $route = '', $folder  = 'user', $managerid = '', $userid = '')
     {
         $this->user = $user;
         if($user->UserHuman) {
             $this->man = $this->user->man == 1;
             $this->woman = $this->user->woman == 2;
+        } else {
+            $this->man = true;
         }
+        $this->intervention = $folder . '/' .  $this->user->id . '/avatar/intervention';
+        $this->managerid = $managerid;
+        $this->userid = $userid;
+        $this->route = $route;
 
     }
 

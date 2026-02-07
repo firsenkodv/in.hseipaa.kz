@@ -37,6 +37,7 @@ footer
     }
     .footer_3 {
         border-top: 1px solid #e0e0e0 ;
+        justify-content: space-between;
 
      .footer_3__copy {
          color: $colorGrey;
@@ -46,4 +47,81 @@ footer
      }
 
     }
+    .footer_rop_manager {
+        padding: 12px;
+    }
+
+    /** круглый аватар для менеджеров и РОП **/
+
+    .round_avatar {
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 35px;
+        min-width: 35px;
+        height: 36px;
+        margin: 0 7px 0 0;
+        border-radius: 8px;
+        background-color: #F4F6FF !important;
+        position: relative;
+        z-index: 10;
+        a {
+            text-decoration: none;
+            position: relative;
+        }
+
+        ._l__img_ava_round {
+            background-position: 0 0;
+            width: 20px;
+            min-width: 20px;
+            height: 20px;
+            background-repeat: no-repeat;
+            border-radius: 12px;
+            background-size: cover;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            &.round_M:before {
+                content: 'M';
+                width: 20px;
+                min-width: 20px;
+                height: 20px;
+                background: $colorRed;
+                border-radius: 20px;
+                color: #fff;
+                text-decoration: none;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                font-size: 13px;
+
+
+            }
+            &.round_R:before {
+                content: 'R';
+                width: 20px;
+                min-width: 20px;
+                height: 20px;
+                background: $colorRed;
+                border-radius: 20px;
+                color: #fff;
+                text-decoration: none;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                font-size: 13px;
+
+
+            }
+
+        }
+
+
+    }
+
+    /**  /////////////круглый аватар для менеджеров и РОП**/
+
 }

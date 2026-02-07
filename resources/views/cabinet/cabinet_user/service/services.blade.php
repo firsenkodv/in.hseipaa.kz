@@ -27,8 +27,6 @@
 
                     <div class="block_temp1">
                         @if($items->count())
-
-
                             <div class="block_temp1__flex">
                                 <div class="block_temp1__left">
                                     <div class="menu_left-menu-component">

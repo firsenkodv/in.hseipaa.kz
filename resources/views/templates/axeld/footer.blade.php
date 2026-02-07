@@ -47,6 +47,10 @@
             <div class="footer_3__copy">
                 <span>© 2006 - {{ date("Y") }} {{ config2('moonshine.setting.contact_copy') }}</span>
             </div>
+            <div class="footer_rop_manager">
+                <x-cabinet-rop.login-rop/>
+                <x-cabinet-manager.login-manager/>
+            </div>
         </div>
 
         </div>

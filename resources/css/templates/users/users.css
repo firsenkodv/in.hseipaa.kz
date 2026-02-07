@@ -1,0 +1,71 @@
+@charset "UTF-8";
+.cabinet__users .u_teaser {
+  min-height: 48px;
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  position: relative;
+  color: #282828;
+  text-decoration: none;
+  transition: 0.3s;
+}
+.cabinet__users .u_teaser .username,
+.cabinet__users .u_teaser .phone,
+.cabinet__users .u_teaser .email {
+  position: relative;
+  display: flex;
+  align-items: center;
+  overflow: hidden; /* Скрываем выходящие за пределы элементы */
+  white-space: nowrap; /* Запрещаем перенос строки */
+  text-overflow: ellipsis; /* Добавляем многоточие там, где обрезается текст */
+  transition: max-width 0.3s ease-in-out; /* Анимация изменения ширины */
+  padding: 0 10px;
+}
+.cabinet__users .u_teaser .username .main,
+.cabinet__users .u_teaser .phone .main,
+.cabinet__users .u_teaser .email .main {
+  background: rgb(236, 65, 118);
+  color: #ffffff;
+  border-radius: 6px;
+  padding: 2px 8px;
+}
+.cabinet__users .u_teaser .username {
+  width: 30%;
+}
+.cabinet__users .u_teaser .email {
+  width: 40%;
+}
+.cabinet__users .u_teaser .phone {
+  width: 30%;
+}
+.cabinet__users .u_teaser:nth-child(2n+1) {
+  background-color: #F5F5F7;
+}
+.cabinet__users .u_teaser:hover {
+  background-color: rgba(254, 82, 68, 0.0784313725);
+}
+
+@media (max-width: 1000px) {
+  .username::after,
+  .phone::after,
+  .email::after { /* Применяем эффект постепенного скрытия текста */
+    content: "";
+    width: 1.4em;
+    min-height: 48px;
+    margin-left: 0.5em;
+    background-image: linear-gradient(to left, rgb(255, 255, 255), rgba(255, 255, 255, 0));
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: auto;
+    right: 0;
+  }
+  .u_teaser:nth-child(2n+1) .username::after,
+  .u_teaser:nth-child(2n+1) .phone::after,
+  .u_teaser:nth-child(2n+1) .email::after { /* Применяем эффект постепенного скрытия текста */
+    content: "";
+    background-image: linear-gradient(to left, rgb(245, 245, 247), rgba(255, 255, 255, 0));
+  }
+}
+
+/*# sourceMappingURL=users.css.map */

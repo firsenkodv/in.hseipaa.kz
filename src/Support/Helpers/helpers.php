@@ -90,7 +90,7 @@ if (!function_exists('cache_clear ')) {
  */
 if (!function_exists('cache_clear_by_key ')) {
 
-    function cache_clear_by_key( string $value , string $key): void
+    function cache_clear_by_key(string $value, string $key): void
     {
         $cache = $value . md5($key); // Используем тот же алгоритм, что и при создании ключа
         Cache::forget($cache);
@@ -603,6 +603,41 @@ if (!function_exists('to_object')) {
 
     }
 }
+
+if (!function_exists('checkTelegram')) {
+
+    function checkTelegram($value): string
+    {
+        // Проверка на наличие символа '@'
+        if (substr($value, 0, 1) === '@') {
+            return 'https://t.me/' . substr($value, 1); // Удаляем первый символ '@' и добавляем полную ссылку
+        }
+
+        // Проверка на наличие строки 't.me/'
+        if (stripos($value, 't.me/') !== false && !preg_match('/^https?:\/\//i', $value)) {
+            return 'https://' . $value; // Добавляем протокол HTTPS
+        }
+        return $value;
+
+    }
+}
+if (!function_exists('checkWhatsapp')) {
+
+    function checkWhatsapp($value): string
+    {
+        return 'https://wa.me/' . trim(str_replace(" ", "", $value)); // Добавляем протокол HTTPS https://wa.me/
+
+    }
+}
+if (!function_exists('checkInstagram')) {
+
+    function checkInstagram($value): string
+    {
+        return 'https://instagram.com/' . trim(str_replace(" ", "", $value));
+
+    }
+}
+
 
 if (!function_exists('logErrors')) {
 

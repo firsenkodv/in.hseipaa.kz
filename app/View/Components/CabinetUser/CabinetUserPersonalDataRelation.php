@@ -13,9 +13,7 @@ class CabinetUserPersonalDataRelation extends Component
     {
         $this->user = $user;
 
-
-
-    }
+   }
 
     /**
      * Get the view / contents that represent the component.

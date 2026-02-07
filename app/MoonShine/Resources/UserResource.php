@@ -88,13 +88,7 @@ class UserResource extends ModelResource
                                     Image::make(__('Аватар'), 'avatar')
                                         ->disk('public')
                                         ->onAfterApply(function (Model $data, $file, Image $field) {
-
-                                                    /*           dump($data);
-                                                                 dump($file);
-                                                                 dd($field);   */
-
                                             if ($file !== false) {
-
                                                 $destinationPath = 'users/' . $data->id . '/avatar';
                                                 $file->storeAs($destinationPath, $data->avatar);
                                                 Storage::disk('public')->delete($data->avatar);
@@ -136,7 +130,7 @@ class UserResource extends ModelResource
                                         ->valuesQuery(fn(Builder $query, Field $field) => $query->orderBy('sorting', 'DESC'))
                                         ->nullable()->searchable()->creatable(),
 
-                                    BelongsTo::make('Тариф', 'tarif', 'title', resource: TarifResource::class)->nullable(),
+                                  BelongsTo::make('Тариф', 'Tarif', 'title', resource: TarifResource::class)->nullable(),
 
                                     BelongsTo::make('Физ.лицо/Юл. лицо', 'UserHuman', 'title', resource: UserHumanResource::class)
                                         ->valuesQuery(fn(Builder $query, Field $field) => $query->orderBy('sorting', 'DESC'))
@@ -144,6 +138,7 @@ class UserResource extends ModelResource
 
 
                                     BelongsTo::make('Пол', 'UserSex', 'title', resource: UserSexResource::class)->nullable(),
+
 
                                     BelongsToMany::make('Языки', 'UserLanguage', 'title', resource: UserLanguageResource::class)
                                         ->valuesQuery(fn(Builder $query, Field $field) => $query->orderBy('sorting', 'DESC'))
@@ -166,15 +161,20 @@ class UserResource extends ModelResource
                                         ->valuesQuery(fn(Builder $query, Field $field) => $query->orderBy('sorting', 'DESC'))
                                         ->nullable()->creatable(),
 
-                                    BelongsToMany::make('Квалификации', 'UserFileQualification', 'title', resource: UserFileQualificationResource::class)
+                  /*                  BelongsToMany::make('Тарифы', 'Tarif', 'title', resource: TarifResource::class)
+                                        ->valuesQuery(fn(Builder $query, Field $field) => $query->orderBy('sorting', 'DESC'))
+                                        ->fields([
+                                            Date::make('Дата', 'end_date'),
+                                        ])
+                                        ->nullable()->creatable(),*/
+
+           /*                         BelongsToMany::make('Квалификации', 'UserFileQualification', 'title', resource: UserFileQualificationResource::class)
                                         ->valuesQuery(fn(Builder $query, Field $field) => $query->orderBy('sorting', 'DESC'))
                                         ->fields([
                                             Text::make('Номер', 'custom_documents'),
-                                            /*      Json::make('Инфо', 'custom_documents')->fields([
-                                                      Text::make('Номер', 'number'),
-                                                  ]),*/
+
                                         ])
-                                        ->nullable()
+                                        ->nullable()*/
 
 
                                 ]),

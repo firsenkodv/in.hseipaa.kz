@@ -16,8 +16,10 @@
                         <x-form.form-loader />
                         <div class="window_white__padding">
                             <div class="window_white__title">
-                                <h1 class="h1">Авторизация</h1>
-                                <p class="_subtitle">Для работы в личном кабинете требуется вход</p>
+                                <!--Авторизация-->
+                                <!--Для работы в личном кабинете требуется вход-->
+                                <h1 class="h1">{{ config('site.constants.authorization') }}</h1>
+                                <p class="_subtitle">{{ config('site.constants.authorization_text') }}</p>
                             </div>
                             <x-form action="{{ route('handle_login') }}">
                                 <x-form.form-input

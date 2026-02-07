@@ -30,7 +30,6 @@ class RegistryController extends Controller
     /** Список специалистов */
     public function registrySpecialists(): View
     {
-
         /**     Получаем текущего пользователя */
         $user = UserViewModel::make()->User();
 

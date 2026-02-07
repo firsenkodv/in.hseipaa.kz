@@ -1,0 +1,108 @@
+@charset "UTF-8";
+.cabinet_main-manager {
+  padding: 24px;
+  margin-bottom: 30px;
+  border-radius: 12px;
+  box-shadow: 0 2px 40px rgba(0, 0, 0, 0.0784313725);
+}
+.cabinet_main-manager .u_left {
+  width: 60px;
+  min-width: 60px;
+  display: flex;
+  align-items: center;
+  height: 56px;
+}
+.cabinet_main-manager .u_left .site_avatar {
+  background-position: center !important;
+  background-repeat: no-repeat !important;
+  background-size: cover !important;
+  border-radius: 50%;
+  cursor: pointer;
+}
+.cabinet_main-manager .u_right {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: start;
+  min-height: 56px;
+  position: relative;
+}
+.cabinet_main-manager .u_right ._name {
+  height: 27px;
+  position: relative;
+  padding-bottom: 5px;
+  overflow: hidden; /* Скрываем выходящие за пределы элементы */
+  white-space: nowrap; /* Запрещаем перенос строки */
+  text-overflow: ellipsis; /* Добавляем многоточие там, где обрезается текст */
+  transition: max-width 0.3s ease-in-out; /* Анимация изменения ширины */
+}
+.cabinet_main-manager .u_right ._personal {
+  color: #667085;
+  font-size: 14px;
+}
+.cabinet_main-manager ._line {
+  height: 1px;
+  background: #dddddd;
+  margin: 14px 0;
+  width: 100%;
+}
+.cabinet_main-manager ._bottom_flex {
+  display: flex;
+  justify-content: space-between;
+  padding: 4px 0 8px;
+}
+.cabinet_main-manager ._bottom_flex ._bottom_left {
+  display: flex;
+  width: 70%;
+}
+.cabinet_main-manager ._bottom_flex ._bottom_left._bottom_left_email {
+  width: 100%;
+}
+.cabinet_main-manager ._bottom_flex ._bottom_right {
+  position: relative;
+}
+.cabinet_main-manager ._bottom_flex ._bottom_right a {
+  text-decoration: none;
+}
+.cabinet_main-manager ._bottom_flex ._bottom_right img {
+  margin: 0 0 0 4px;
+}
+.cabinet_main-manager ._bottom_flex ._bottom_icon {
+  width: 36px;
+  min-width: 36px;
+}
+.cabinet_main-manager ._bottom_flex ._bottom_icon_text {
+  position: relative;
+  line-break: anywhere;
+}
+.cabinet_main-manager ._bottom_flex ._bottom_icon_text a {
+  color: #282828;
+  text-decoration: none;
+}
+
+@media (max-width: 468px) {
+  ._name {
+    height: 30px;
+    position: relative;
+    padding-bottom: 5px;
+    overflow: hidden; /* Скрываем выходящие за пределы элементы */
+    white-space: nowrap; /* Запрещаем перенос строки */
+    text-overflow: ellipsis; /* Добавляем многоточие там, где обрезается текст */
+    transition: max-width 0.3s ease-in-out; /* Анимация изменения ширины */
+  }
+  ._name::after { /* Применяем эффект постепенного скрытия текста */
+    content: "";
+    width: 2.4em;
+    min-height: 30px;
+    margin-left: 1.5em;
+    background-image: linear-gradient(to left, rgb(255, 255, 255), rgba(255, 255, 255, 0));
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: auto;
+    right: 0;
+  }
+}
+
+/*# sourceMappingURL=main-manager.css.map */

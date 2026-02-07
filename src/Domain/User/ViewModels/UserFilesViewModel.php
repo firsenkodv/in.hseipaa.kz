@@ -3,7 +3,6 @@
 namespace Domain\User\ViewModels;
 
 use App\Models\User;
-use Domain\User\DTOs\UserUpdateDto;
 use Illuminate\Database\Eloquent\Model;
 use Support\Traits\Makeable;
 

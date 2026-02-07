@@ -10,6 +10,7 @@ use App\Http\Controllers\Axios\AxiosCounterPartyController;
 use App\Http\Controllers\Axios\AxiosSendingFromFormController;
 use App\Http\Controllers\Axios\AxiosUploadFilesController;
 use App\Http\Controllers\Axios\AxiosUploadPhotoController;
+use App\Http\Controllers\Cabinet\CabinetRop\CabinetROPController;
 use App\Http\Controllers\Cabinet\CabinetUser\CabinetUserController;
 use App\Http\Controllers\Company\CompanyController;
 use App\Http\Controllers\ContactController;
@@ -25,6 +26,8 @@ use App\Http\Controllers\SiteNew\SiteNewController;
 use App\Http\Controllers\Tax\TaxController;
 use App\Http\Controllers\TestController;
 use App\Http\Controllers\UseFul\UseFulController;
+use App\Http\Middleware\IsROPAssignedManagerMiddleware;
+use App\Http\Middleware\IsROPMiddleware;
 use App\Http\Middleware\RedirectIfAuthenticated;
 use App\Http\Middleware\UserMiddleware;
 use App\MoonShine\Controllers\MoonshineCompany;
@@ -230,6 +233,8 @@ Route::controller(SearchController::class)->group(function () {
 
 
 /** Login */
+
+
 /**
  * Auth
  */
@@ -325,6 +330,16 @@ Route::controller(CabinetUserController::class)->group(function () {
 Route::controller(AxiosUploadPhotoController::class)->group(function () {
     Route::post('/cabinet.upload.photo', 'uploadPhoto')
         ->middleware(UserMiddleware::class);
+/** РОП меняет свой автар */
+    Route::post('/cabinet.upload.photo.rop', 'uploadROPPhoto')
+        ->name('upload_rop_photo')
+        ->middleware(IsROPMiddleware::class);
+
+    /** РОП меняет автар менеджера */
+    Route::post('/cabinet.upload.photo.rop-manager', 'uploadROPManagerPhoto')
+        ->name('upload_rop-manager_photo')
+        ->middleware(IsROPMiddleware::class);
+
 });
 /** ** аватар  **   **/
 /** ** загрузка файлов  **   **/
@@ -342,4 +357,71 @@ Route::get('/refresh-csrf', function () {
 /** ** новый токен ** **/
 /** ///Cabinet_user */
 
+/**
+ * РОП
+ */
+Route::controller(CabinetROPController::class)->group(function () {
+
+    /** вход  */
+    Route::get('/rop', 'ropLogin')
+        ->middleware(IsROPMiddleware::class)
+        ->name('rop_login');
+
+    Route::post('/rop_login_handle', 'ropLoginHandle')
+        ->name('rop_login_handle');
+
+    /** кабинет  */
+    Route::get('/cabinet-rop', 'cabinetRop')
+        ->middleware(IsROPMiddleware::class)
+        ->name('cabinet_rop');
+
+    Route::post('/logout_rop', 'logoutRop')
+        ->middleware(IsROPMiddleware::class)
+        ->name('logout_rop');
+
+    /** update  */
+    Route::get('/cabinet-rop/update/personal-data', 'cabinetUpdatePersonalDataRop')
+        ->middleware(IsROPMiddleware::class)
+        ->name('cabinet_update_personal_data_rop');
+
+    Route::put('/cabinet_update_post_personal_data_rop', 'cabinetUpdatePostPersonalDataRop')
+        ->middleware(IsROPMiddleware::class)
+        ->name('cabinet_update_post_personal_data_rop');
+    /** ///update  */
+
+    /** Управление менеджерами  */
+    /** список */
+    Route::get('/cabinet-rop/managers', 'ropManagers')
+        ->middleware(IsROPMiddleware::class)
+        ->name('rop_managers');
+    /** добавить */
+    Route::get('/cabinet-rop/managers/add-manager', 'rop_add_manager')
+        ->middleware(IsROPMiddleware::class)
+        ->name('rop_add_manager');
+
+    Route::post('/rop_add_post_manager', 'rop_add_post_manager')
+        ->middleware(IsROPMiddleware::class)
+        ->name('rop_add_post_manager');
+
+    /** редактировать */
+    Route::get('/cabinet-rop/managers/update-manager/{id}', 'ropUpdateManager')
+        ->middleware(IsROPMiddleware::class)
+        ->name('rop_update_manager');
+
+    Route::post('/rop_update_post_manager', 'ropUpdatePostManager')
+        ->middleware(IsROPMiddleware::class)
+        ->middleware(IsROPAssignedManagerMiddleware::class)
+        ->name('rop_update_post_manager');
+
+    /** Управление пользователями  */
+    /** список */
+    Route::get('/cabinet-rop/users', 'ropUsers')
+        ->middleware(IsROPMiddleware::class)
+        ->name('rop_users');
+
+});
+
+/**
+ * ////РОП
+ */
 

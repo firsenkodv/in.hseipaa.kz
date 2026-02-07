@@ -73,6 +73,7 @@ class User extends Authenticatable
         'created_at', // дата создания
         'user_expert_id', // не нужное поле
         'user_lecturer_id', // не нужное поле
+        'manager_id',
     ];
 
 
@@ -100,6 +101,8 @@ class User extends Authenticatable
             'date_birthday' => 'date', // Кастует к дате без времени
             'published' => 'integer',
             'tarif_id' => TarifCast::class,
+            'tarif_expires_at' => 'datetime',
+
 
         ];
     }
@@ -160,7 +163,13 @@ class User extends Authenticatable
 
     }
 
-    public function tarif(): BelongsTo {
+    public function Manager(): BelongsTo
+    {
+        return $this->belongsTo(Manager::class, 'manager_id');
+
+    }
+
+    public function Tarif(): BelongsTo {
         return $this->belongsTo(Tarif::class, 'tarif_id')->where('published', 1);
     }
 
@@ -259,65 +268,30 @@ class User extends Authenticatable
     /**
      * Выводим реальный телеграм
      */
-    public function getOriginalTelegramAttribute(): ?string
+    public function getCorrectedTelegramAttribute(): ?string
     {
-        return $this->attributes['telegram'];
+        return (!$this->attributes['telegram'])? '' : checkTelegram($this->attributes['telegram']);
+
     }
-    public function getTelegramAttribute(): string
+
+
+     /**
+     * Выводим  whatsapp
+     */
+
+    public function getCorrectedWhatsappAttribute(): string
     {
-        if (!$this->attributes['telegram']) {
-            return '';
-        }
-
-        $value = $this->attributes['telegram'];
-
-        // Проверка на наличие символа '@'
-        if (substr($value, 0, 1) === '@') {
-            return 'https://t.me/' . substr($value, 1); // Удаляем первый символ '@' и добавляем полную ссылку
-        }
-
-        // Проверка на наличие строки 't.me/'
-        if (stripos($value, 't.me/') !== false && !preg_match('/^https?:\/\//i', $value)) {
-            return 'https://' . $value; // Добавляем протокол HTTPS
-        }
-
-        // Если ни одна проверка не сработала, возвращаем оригинальное значение
-        return $value;
+        return (!$this->attributes['whatsapp'])? '' : checkWhatsapp($this->attributes['whatsapp']);
     }
 
      /**
-     * Выводим реальный whatsapp
+     * Выводим  instagram
      */
-    public function getOriginalWhatsappAttribute(): ?string
-    {
-        return $this->attributes['whatsapp'];
-    }
-    public function getWhatsappAttribute(): string
-    {
-        if (!$this->attributes['whatsapp']) {
-            return '';
-        }
-        $value = $this->attributes['whatsapp'];
 
-        return 'https://wa.me/' . trim(str_replace(" ", "", $value)); // Добавляем протокол HTTPS https://wa.me/
-
-    }
-
-     /**
-     * Выводим реальный instagram
-     */
-    public function getOriginalInstagramAttribute(): ?string
+    public function getCorrectedInstagramAttribute(): string
     {
-        return $this->attributes['instagram'];
+        return (!$this->attributes['instagram'])? '' : checkInstagram($this->attributes['instagram']);
 
-    }
-    public function getInstagramAttribute(): string
-    {
-        if (!$this->attributes['instagram']) {
-            return '';
-        }
-        $value = $this->attributes['instagram'];
-        return 'https://instagram.com/' . trim(str_replace(" ", "", $value));
     }
 
     /**
@@ -453,20 +427,29 @@ class User extends Authenticatable
         return false;
     }
 
-    protected static function boot(): void
+    protected static function boot()
     {
         parent::boot();
 
-        static::deleted(function () {
-            cache_clear();
+        // Обработка первичного создания пользователя
+        static::creating(function ($user) {
+            if (!is_null($user->tarif_id)) {
+                // Ставим дату истечения срока действия при первом назначении тарифа
+                $user->tarif_expires_at = now()->addYear();
+            }
         });
 
-        # Выполняем действия после сохранения
-        static::saved(function () {
-            cache_clear();
+        // Обработка последующего изменения тарифа
+        static::updating(function ($user) {
+            $oldTarifId = $user->getOriginal('tarif_id');
+            $newTarifId = $user->tarif_id;
+
+            if ($oldTarifId != $newTarifId) {
+                // Если тариф сменился, обновляем дату окончания действия
+                $user->tarif_expires_at = now()->addYear();
+            }
         });
-
-
     }
+
 
 }

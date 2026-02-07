@@ -6,9 +6,9 @@ use Illuminate\Contracts\Database\Eloquent\CastsAttributes;
 
 class TarifCast implements CastsAttributes
 {
-    public function get($model, $key, $value, $attributes):bool
+    public function get($model, $key, $value, $attributes)
     {
-        return !is_null($value);
+        return $value;
 
     }
 

@@ -1,5 +1,8 @@
+@charset "UTF-8";
 footer {
   border-top: 1px solid #e0e0e0;
+  /** круглый аватар для менеджеров и РОП **/
+  /**  /////////////круглый аватар для менеджеров и РОП**/
 }
 footer .footer_1 {
   display: flex;
@@ -14,11 +17,73 @@ footer .footer_2 {
 }
 footer .footer_3 {
   border-top: 1px solid #e0e0e0;
+  justify-content: space-between;
 }
 footer .footer_3 .footer_3__copy {
   color: #667085;
   font-size: 15px;
   padding: 20px 0;
+}
+footer .footer_rop_manager {
+  padding: 12px;
+}
+footer .round_avatar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 35px;
+  min-width: 35px;
+  height: 36px;
+  margin: 0 7px 0 0;
+  border-radius: 8px;
+  background-color: #F4F6FF !important;
+  position: relative;
+  z-index: 10;
+}
+footer .round_avatar a {
+  text-decoration: none;
+  position: relative;
+}
+footer .round_avatar ._l__img_ava_round {
+  background-position: 0 0;
+  width: 20px;
+  min-width: 20px;
+  height: 20px;
+  background-repeat: no-repeat;
+  border-radius: 12px;
+  background-size: cover;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+footer .round_avatar ._l__img_ava_round.round_M:before {
+  content: "M";
+  width: 20px;
+  min-width: 20px;
+  height: 20px;
+  background: #EF533F;
+  border-radius: 20px;
+  color: #fff;
+  text-decoration: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 13px;
+}
+footer .round_avatar ._l__img_ava_round.round_R:before {
+  content: "R";
+  width: 20px;
+  min-width: 20px;
+  height: 20px;
+  background: #EF533F;
+  border-radius: 20px;
+  color: #fff;
+  text-decoration: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 13px;
 }
 
 /*# sourceMappingURL=footer.css.map */

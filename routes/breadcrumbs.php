@@ -163,3 +163,32 @@ Breadcrumbs::for('cabinet_user', function ($trail) {
     $trail->push('Кабинет' , route('cabinet_user'));
 });
 
+// Home > CabinetRop
+Breadcrumbs::for('cabinet_rop', function ($trail) {
+    $trail->parent('home');
+    $trail->push('Кабинет РОП' , route('cabinet_rop'));
+});
+
+// Home > CabinetRop
+Breadcrumbs::for('cabinet_update_personal_data_rop', function ($trail) {
+    $trail->parent('cabinet_rop');
+    $trail->push('Редактирование личных данных РОП' , route('cabinet_update_personal_data_rop'));
+});
+
+// Home > CabinetRop -> Managers
+Breadcrumbs::for('rop_managers', function ($trail) {
+    $trail->parent('cabinet_rop');
+    $trail->push('Ваши менеджеры' , route('rop_managers'));
+});
+
+// Home > CabinetRop -> Managers > Manager
+Breadcrumbs::for('rop_update_manager', function ($trail, $item) {
+    $trail->parent('rop_managers');
+    $trail->push('Менеджер - ' . $item->username  , route('rop_update_manager', $item->id));
+});
+
+// Home > CabinetRop -> Users
+Breadcrumbs::for('rop_users', function ($trail) {
+    $trail->parent('cabinet_rop');
+    $trail->push('Ваши пользователи' , route('rop_users'));
+});

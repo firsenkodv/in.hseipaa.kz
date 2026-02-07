@@ -1,0 +1,109 @@
+@charset "utf-8";
+$color: #282828;
+$colorRed: #EF533F;
+$colorCCC: #CCCCCC;
+$colorGrey: #667085;
+$colorBlue: #095C9A;
+$colorBlue2: #03a9f4;
+$colorGreen: #0f6567;
+$colorYellow: #FF931E;
+$colorOrange: #FF732C;
+
+$maxWidth: 1200;
+@mixin adaptiv-font($pcSize, $mobSize) {
+    $addSize: $pcSize - $mobSize;
+    $maxWidth: $maxWidth - 320;
+    font-size: calc(#{$mobSize + px} + #{$addSize} * ((100vw - 320px) / #{$maxWidth}));
+}
+
+
+@mixin SourceSans3 {
+    font-family: 'Source Sans 3 Variable', sans-serif;
+}
+
+.cabinet__users {
+    .u_teaser {
+        min-height: 48px;
+        display: flex;
+        justify-content: space-between;
+        gap: 20px;
+        position: relative;
+        color: $color;
+        text-decoration: none;
+        transition: 0.3s;
+
+        .username,
+        .phone,
+        .email {
+            position: relative;
+            display: flex;
+            align-items: center;
+            overflow: hidden; /* Скрываем выходящие за пределы элементы */
+            white-space: nowrap; /* Запрещаем перенос строки */
+            text-overflow: ellipsis; /* Добавляем многоточие там, где обрезается текст */
+            transition: max-width 0.3s ease-in-out; /* Анимация изменения ширины */
+            padding: 0 10px;
+            .main {
+                background: rgb(236, 65, 118);
+                color: #ffffff;
+                border-radius: 6px;
+                padding:2px 8px;
+            }
+        }
+
+        .username {
+            width: 30%;
+        }
+
+        .email {
+            width: 40%;
+        }
+
+        .phone {
+
+            width: 30%;
+        }
+        &:nth-child(2n+1) {
+            background-color: #F5F5F7;
+        }
+        &:hover {
+            background-color: #fe524414;
+        }
+
+    }
+
+
+}
+
+
+@media (max-width: 1000px) {
+    .username,
+    .phone,
+    .email {
+
+        &::after { /* Применяем эффект постепенного скрытия текста */
+            content: '';
+            width: 1.4em;
+            min-height: 48px;
+            margin-left: 0.5em;
+            background-image: linear-gradient(to left, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0));
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: auto;
+            right: 0;
+        }
+    }
+
+    .u_teaser:nth-child(2n+1) {
+        .username,
+        .phone,
+        .email {
+            &::after { /* Применяем эффект постепенного скрытия текста */
+                content: '';
+                background-image: linear-gradient(to left, rgba(245, 245, 247, 1), rgba(255, 255, 255, 0));
+
+            }
+        }
+    }
+}
