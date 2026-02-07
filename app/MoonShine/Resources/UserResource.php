@@ -126,9 +126,15 @@ class UserResource extends ModelResource
                                 ]),
                                 Collapse::make('Связи', [
 
+                                    BelongsTo::make('Менеджер', 'Manager', 'username', resource: ManagerResource::class)
+                                        ->valuesQuery(fn(Builder $query, Field $field) => $query->orderBy('created_at', 'DESC'))
+                                        ->nullable()->searchable(),
+
                                     BelongsTo::make('Город', 'UserCity', 'title', resource: UserCityResource::class)
                                         ->valuesQuery(fn(Builder $query, Field $field) => $query->orderBy('sorting', 'DESC'))
                                         ->nullable()->searchable()->creatable(),
+
+
 
                                   BelongsTo::make('Тариф', 'Tarif', 'title', resource: TarifResource::class)->nullable(),
 

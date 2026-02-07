@@ -42,10 +42,10 @@ class Manager extends Model
 
 
 
-    public function user(): HasMany
+/*    public function user(): HasMany
     {
         return $this->hasMany(User::class);
-    }
+    }*/
 
 
 
