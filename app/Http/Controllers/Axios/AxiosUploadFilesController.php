@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Axios;
 
 use App\Http\Controllers\Controller;
+use App\Models\User;
 use Domain\User\ViewModels\UserFilesViewModel;
 use Domain\User\ViewModels\UserViewModel;
 use Exception;
@@ -15,14 +16,15 @@ class AxiosUploadFilesController extends Controller
 {
 
     use Upload;
-    public function uploadFiles(Request $request) {
+    public function uploadFiles(Request $request, User $user) {
         $request->validate([
             'files' => ['required','array'],                     //  Обязательное поле массива
             'files.*' => ['mimes:jpg,jpeg,png,gif,pdf,doc,docx', //  Форматы разрешённых файлов
                 'max:15360'],                                     //  Максимальный размер ~15MB (15360KB)
-            'field_name' => ['required', 'string']                // Имя поля для обновления
-
+            'field_name' => ['required', 'string']               // Имя поля для обновления
         ]);
+
+       // dd($user);
 
         /** Получаем имя поля для обновления **/
         $fieldName = $request->input('field_name');

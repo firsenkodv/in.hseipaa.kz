@@ -53,10 +53,12 @@
 }
 .exchange .sub_m_sb_flex {
   display: flex;
+  align-items: center;
+  justify-content: center;
   color: #fff;
   margin: 4px auto 10px auto;
   font-size: 22px;
-  max-width: 760px;
+  max-width: 960px;
   height: 24px;
   line-height: 24px;
 }
