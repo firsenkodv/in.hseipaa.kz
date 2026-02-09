@@ -10,12 +10,13 @@
             @if(!is_null($route))
                 <a href="{{ route($route, $item->id) }}">
                     @endif
-                    <div class="registry__avatar"
-                         @if($item->avatar)style="background-image: url('{{ asset(intervention('120x120', $item->avatar, 'users/' . $item->id . '/avatar/intervention')) }}')"@endif>
-                         @if(!$item->avatar)
-                            <div class="mw @if($item->woman) _woman  @endif @if($item->man) _man  @endif"></div>
-                        @endif
-                    </div>
+                    <x-avatar.avatar
+                    class="registry__avatar"
+                    :avatar="$item->avatar"
+                    :path="'users/' . $item->id . '/avatar/intervention'"
+                    :woman="$item->woman"
+                    :man="$item->man"
+                    />
                     @if(!is_null($route))
                 </a>
             @endif

@@ -26,6 +26,7 @@ class AvatarUser extends Component
         } else {
             $this->man = true;
         }
+
         $this->intervention = $folder . '/' .  $this->user->id . '/avatar/intervention';
         $this->managerid = $managerid;
         $this->userid = $userid;

@@ -5,9 +5,11 @@ namespace App\Http\Controllers\Cabinet\CabinetRop;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CabinetRop\ManagerUpdateRequest;
 use App\Http\Requests\CabinetRop\RopUpdateRequest;
+use App\Http\Requests\CabinetUser\UserUpdateRequest;
 use Domain\Manager\DTOs\ManagerUpdateDto;
 use Domain\Manager\ViewModels\ManagerViewModel;
 use Domain\ROP\ViewModels\ROPViewModel;
+use Domain\User\ViewModels\UserViewModel;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -142,17 +144,18 @@ class CabinetROPController extends Controller
     public function ropUpdateManager($id):View
     {
         $r = ROPViewModel::make()->r(session()->get('r'));
-        $items = ROPViewModel::make()->ropManagerListPaginate($r);
         $item = ROPViewModel::make()->ropManagerId($id, $r->id);
 
         return view('cabinet.cabinet_rop.managers.item', [
             'r' => $r,
-            'items' => $items,
             'item' => $item,
         ]);
     }
 
-
+    /**
+     * Редактирование менеджера
+     * метод POST
+     */
     public function ropUpdatePostManager(ManagerUpdateRequest $request):RedirectResponse
     {
         try {
@@ -189,5 +192,42 @@ class CabinetROPController extends Controller
         ]);
 
     }
+
+    /**
+     * Редактирование пользователя
+     */
+    public function ropUpdateUser($id)
+    {
+        $r = ROPViewModel::make()->r(session()->get('r'));
+        $user = ROPViewModel::make()->ropUserId($id, $r->id);
+
+        return view('cabinet.cabinet_rop.users.item', [
+            'r' => $r,
+            'user' => $user,
+        ]);
+    }
+
+
+    /**
+     * Редактирование пользователя
+     * метод POST
+     */
+    public function ropUpdatePostUser(UserUpdateRequest $request):RedirectResponse
+    {
+        try {
+            UserViewModel::make()->UserUpdate($request, $request->id);
+            flash()->info(config('message_flash.info.cabinet_user_ok'));
+            return redirect()->back();
+
+        } catch (\Throwable $th) {
+
+            // Обрабатываем исключение
+            logErrors($th);
+            flash()->alert(config('message_flash.alert.cabinet_user_error'));
+            return redirect()->back();
+
+        }
+    }
+
 
 }

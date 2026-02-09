@@ -35,7 +35,7 @@ class Manager extends Model
         ];
     }
 
-    public function rop(): BelongsTo
+    public function Rop(): BelongsTo
     {
         return $this->belongsTo(ROP::class, 'r_o_p_id');
     }

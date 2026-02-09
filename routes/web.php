@@ -340,6 +340,11 @@ Route::controller(AxiosUploadPhotoController::class)->group(function () {
         ->name('upload_rop-manager_photo')
         ->middleware(IsROPMiddleware::class);
 
+    /** РОП меняет автар пользователя */
+    Route::post('/cabinet.upload.photo.rop-user', 'uploadROPUserPhoto')
+        ->name('upload_rop-user_photo')
+        ->middleware(IsROPMiddleware::class);
+
 });
 /** ** аватар  **   **/
 /** ** загрузка файлов  **   **/
@@ -419,6 +424,15 @@ Route::controller(CabinetROPController::class)->group(function () {
         ->middleware(IsROPMiddleware::class)
         ->name('rop_users');
 
+    /** редактировать */
+    Route::get('/cabinet-rop/users/user/{id}', 'ropUpdateUser')
+        ->middleware(IsROPMiddleware::class)
+        ->name('rop_update_user');
+
+    Route::put('/rop_update_post_user', 'ropUpdatePostUser')
+        ->middleware(IsROPMiddleware::class)
+         ->name('rop_update_post_user');
+    //rop_update_post_user
 });
 
 /**

@@ -11,7 +11,8 @@ class AvatarRequest extends FormRequest
 
     public function authorize(): bool
     {
-        return auth()->user()->id;
+
+        return true; //auth()->user()->id;
     }
 
     public function rules(): array

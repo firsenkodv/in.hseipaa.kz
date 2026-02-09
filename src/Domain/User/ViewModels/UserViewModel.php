@@ -100,8 +100,6 @@ class UserViewModel
             throw $exception; // Повторно выбрасываем исключение вверх по стеку
 
         }
-
-
         return true;
 
     }
@@ -109,7 +107,7 @@ class UserViewModel
     public function User(): Model|null
     {
         if (auth()->check()) {
-            return auth()->user()->load(['UserHuman', 'UserLecturer', 'UserCity', 'UserExpert', 'UserSex', 'UserProduction', 'UserSpecialist', 'UserLanguage', 'Tarif']);
+            return auth()->user()->load(['UserHuman', 'UserLecturer', 'UserCity', 'UserExpert', 'UserSex', 'UserProduction', 'UserSpecialist', 'UserLanguage', 'Tarif', 'Manager']);
         }
         return null;
     }
@@ -117,7 +115,6 @@ class UserViewModel
     public function userId($id): Model|null
     {
         return User::query()
-            ->where('published', 1)
             ->where('id', $id)
             ->firstOrFail();
     }

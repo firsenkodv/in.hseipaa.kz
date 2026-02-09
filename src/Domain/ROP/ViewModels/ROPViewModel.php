@@ -96,7 +96,7 @@ class ROPViewModel
 
     }
 
-    public function ropManagerList($r):?Collection
+    public function ropManagerList($r): ?Collection
     {
 
         return Manager::query()->where('r_o_p_id', $r->id)
@@ -106,14 +106,13 @@ class ROPViewModel
     }
 
 
-
     /**
      * @param $id
      * @param $rop_id
      * @return Manager|Model
      * Привязан к определенному РОП и по id
      */
-    public function ropManagerId($id, $rop_id):?Model
+    public function ropManagerId($id, $rop_id): ?Model
     {
         return Manager::query()
             ->where('id', $id)
@@ -126,9 +125,8 @@ class ROPViewModel
      * @param $r
      * @return array|LengthAwarePaginator
      */
-    public function ropUserList($r):array|LengthAwarePaginator
+    public function ropUserList($r): array|LengthAwarePaginator
     {
-
         $ids = Manager::query()
             ->select('id')
             ->where('r_o_p_id', $r->id)
@@ -138,12 +136,32 @@ class ROPViewModel
 
             return User::query()
                 ->whereIn('manager_id', $ids)
+                ->with(['UserHuman', 'UserLecturer', 'UserCity', 'UserExpert', 'UserSex', 'UserProduction', 'UserSpecialist', 'UserLanguage', 'Tarif', 'Manager'])
                 ->orderBy('created_at', 'desc')
                 ->paginate(config('site.constants.paginate'));
 
         }
         return [];
 
+    }
+
+    /**
+     * @param $id
+     * @param $rop_id
+     * @return Model|null
+     * пользователь закреплен за РОП
+     */
+    public function ropUserId($id, $rop_id): ?Model
+    {
+        $user = User::query()
+            ->where('id', $id)
+            ->firstOrFail();
+        $manager = $user->Manager;
+        if ($manager->r_o_p_id != $rop_id) {
+            abort(404);
+        }
+
+        return $user;
 
     }
 

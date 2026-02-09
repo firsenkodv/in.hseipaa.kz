@@ -20,11 +20,11 @@
             <div class="block_content__flex reverse">
 
                 <div class="block_content__left">
-                  {{--  <x-cabinet-rop.cabinet-rop-personal-data-relation :user="$r"/>--}}
+                   <x-cabinet-rop.cabinet-rop-personal-data-relation :user="$r"/>
                 </div>
 
                 <div class="block_content__right">
-                    {{--<x-cabinet-rop.manager.manager-list :items="$items"/>--}}
+                  <x-cabinet-rop.user.user-list :items="$users"/>
                 </div>
 
             </div>

@@ -192,3 +192,9 @@ Breadcrumbs::for('rop_users', function ($trail) {
     $trail->parent('cabinet_rop');
     $trail->push('Ваши пользователи' , route('rop_users'));
 });
+
+// Home > CabinetRop -> Users -> User
+Breadcrumbs::for('rop_update_user', function ($trail, $item) {
+    $trail->parent('rop_users');
+    $trail->push('Пользователь - ' . $item->username  , route('rop_update_user', $item->id));
+});
