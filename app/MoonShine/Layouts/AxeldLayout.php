@@ -93,8 +93,8 @@ final class AxeldLayout extends AppLayout
 
             MenuGroup::make('Пользователи', [
                 MenuItem::make('Админ', MoonShineUserResource::class, 'user'),
-                MenuItem::make('РОПы', ROPResource::class, 'user-plus'),
-                MenuItem::make('Менеджеры', ManagerResource::class, 'users'),
+/*                MenuItem::make('РОПы', ROPResource::class, 'user-plus'),
+                MenuItem::make('Менеджеры', ManagerResource::class, 'users'),*/
                 MenuItem::make('Города', UserCityResource::class, 'building-office-2'),
                 MenuItem::make('Вид деятельности', UserProductionResource::class, 'rocket-launch'),
                 MenuItem::make('Языки', UserLanguageResource::class, 'language'),
