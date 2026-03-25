@@ -21,8 +21,7 @@ class ManagerUpdateRequest extends FormRequest
             'username' => ['required', 'string', 'min:1', 'max:255'],
             'email' => ['required', 'email', 'email:dns',
                 Rule::unique('managers')->ignore($this->input('manager_id'), 'id')],
-
-            'phone' => ['nullable', 'string', 'min:5'],
+            'phone' => ['nullable', 'min:5'],
             'telegram' => ['nullable', 'string', 'min:2', 'max:256'],
             'whatsapp' => ['nullable', 'string', 'min:5', 'max:256'],
             'instagram' => ['nullable', 'string', 'min:3', 'max:256'],
@@ -38,7 +37,7 @@ class ManagerUpdateRequest extends FormRequest
                     ->squish()
                     ->lower()
                     ->value(),
-                'phone' => phone($this->phone),
+                'phone' => str(phone($this->phone)),
                 'telegram' => str(request('telegram'))->squish()->lower()->value(),
                 'whatsapp' => str(request('whatsapp'))->squish()->lower()->value(),
                 'instagram' => str(request('instagram'))->squish()->lower()->value(),

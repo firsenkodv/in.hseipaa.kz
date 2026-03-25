@@ -11,9 +11,10 @@
             <div class="block_content__breadcrumbs">
                 {{ Breadcrumbs::render('rop_managers') }}
             </div>
-            <div class="block_content__title"><h1 class="h1">{{ config('site.constants.head_sales_department') }}</h1>
-                <p class="_subtitle">{{ $r->username }}</p>
-            </div>
+            <x-cabinet.title
+                :title="config('site.constants.head_sales_department')"
+                :subtitle="$r->username"
+            />
 
             <x-cabinet-rop.menu.cabinet-rop-top-menu :user="$r"/>
 
@@ -25,6 +26,13 @@
 
                 <div class="block_content__right">
                     <x-cabinet-rop.manager.manager-list :items="$items"/>
+                        <div class="pad_t30">
+                            <x-buttons.button-component
+                                :href="route('rop_add_manager')"
+                                class="btn btn-middle"
+                            >Создать менеджера</x-buttons.button-component>
+                    </div>
+
                 </div>
 
             </div>

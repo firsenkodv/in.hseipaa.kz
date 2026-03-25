@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\MoonShine\Resources;
 
 use App\Enums\Moonshine\StatusManagerEnum;
+use App\Enums\Moonshine\SuperEditorEnum;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Manager;
 
@@ -62,6 +63,8 @@ class ManagerResource extends ModelResource
             Text::make('Email', 'email')->updateOnPreview(),
             Enum::make('Статус', 'main')
                 ->attach(StatusManagerEnum::class),
+            Enum::make('Редактор', 'super')
+                ->attach(SuperEditorEnum::class),
             Date::make(__('Дата создания'), 'created_at')
                 ->format("d.m.Y")
                 ->default(now()->toDateTimeString())
@@ -135,6 +138,11 @@ class ManagerResource extends ModelResource
                                 ->onValue('MAIN')
                                 ->offValue('MANAGER')
                                 ->default('MANAGER'),
+
+                            Switcher::make('Возможность редактировать', 'super')
+                                ->onValue('SUPEREDITOR')
+                                ->offValue('DEFAULT')
+                                ->default('DEFAULT'),
 
                             Date::make(__('Дата создания'), 'created_at')
                                 ->format("d.m.Y")

@@ -18,7 +18,7 @@ $colorOrange: #FF732C;
     }
 }
 
-.cu_row_50 {
+.cu_row_50, .cu_row {
     display: flex;
     justify-content: space-between;
     position: relative;
@@ -35,8 +35,17 @@ $colorOrange: #FF732C;
     .cu__col:last-child {
         padding: 0 0 0 10px;
     }
-}
 
+    &.cu_row_30 {
+
+        .cu__col {
+            width: 32%;
+            position: relative;
+        }
+
+    }
+
+}
 
 @media screen and (max-width: 999px){
     .cu_row_50 {

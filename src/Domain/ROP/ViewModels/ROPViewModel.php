@@ -6,6 +6,7 @@ namespace Domain\ROP\ViewModels;
 use App\Models\Manager;
 use App\Models\ROP;
 use App\Models\User;
+use Domain\Manager\ViewModels\ManagerViewModel;
 use Domain\ROP\DTOs\RopUpdateDto;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
@@ -105,6 +106,21 @@ class ROPViewModel
 
     }
 
+    public function ropManagerListMap($r): ?array
+    {
+
+        return Manager::query()
+            ->where('r_o_p_id', $r->id)
+            ->get()
+            ->map(function ($item) {
+                return [
+                    'id' => $item['id'],
+                    'title' => $item['username']
+                ];
+
+            })->toArray();
+    }
+
 
     /**
      * @param $id
@@ -147,6 +163,18 @@ class ROPViewModel
 
     /**
      * @param $id
+     * @return null| LengthAwarePaginator
+     */
+    public function ropUserListSearch($id):?LengthAwarePaginator
+    {
+        return User::query()->where('manager_id', $id)
+            ->orderBy('created_at', 'desc')
+            ->paginate(config('site.constants.paginate'));
+
+    }
+
+    /**
+     * @param $id
      * @param $rop_id
      * @return Model|null
      * пользователь закреплен за РОП
@@ -156,8 +184,25 @@ class ROPViewModel
         $user = User::query()
             ->where('id', $id)
             ->firstOrFail();
-        $manager = $user->Manager;
-        if ($manager->r_o_p_id != $rop_id) {
+        // если у пользователя нет менеджера
+        if(is_null($user->Manager)) {
+
+            $manager = ManagerViewModel::make()->mainManager();
+            if (!is_null($manager)){
+                if ($manager->r_o_p_id != $rop_id) {
+                    abort(404);
+                }
+                return $user;
+
+            }
+            //main
+        }
+
+        // у пользователя есть менеджер
+//        dd($user->Manager->r_o_p_id);
+
+        // если менеджер не закреплен за РОП
+        if (!is_null($user->Manager->r_o_p_id) and $user->Manager->r_o_p_id != $rop_id) {
             abort(404);
         }
 

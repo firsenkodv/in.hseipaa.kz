@@ -17,7 +17,7 @@ class AxiosSendingFromFormController extends Controller
     /** перезвоните мне с голубой, горизонтальной, сквозной формы  */
     public function axiosCallMeBlue(RequestCallMeBlueRequest $request) {
 
-       SavedFormDataViewModel::make()->save($request);
+        SavedFormDataViewModel::make()->save($request);
         $data = $request->except('url');
         FancyBoxSendingFromFormEvent::dispatch($data);
 

@@ -25,8 +25,9 @@ class IsROPAssignedManagerMiddleware
 
                 /** @var  $result  / если true, то менеджер принадлежит данному РОПу */
                 $result = ROPViewModel::make()
-                    ->ropManagerId(ROPViewModel::make()->r(session()->get('r'))->id,
-                        $request->manager_id);
+                    ->ropManagerId($request->manager_id, ROPViewModel::make()->r(session()->get('r'))->id);
+
+
 
                 if($result) {
                     return $next($request);

@@ -17,10 +17,8 @@
                 value="{{ old('ФИО')?:'' }}"
                 autofocus="{{ true }}"
                 required="{{ true }}"
-
-
-
             />
+
             <x-form.form-input
                 name="Телефон"
                 type="tel"
@@ -28,9 +26,8 @@
                 class="imask"
                 value="{{ old('Телефон')?:'' }}"
                 required="{{ true }}"
-
-
             />
+
             <x-form.form-input
                 name="Email"
                 type="email"

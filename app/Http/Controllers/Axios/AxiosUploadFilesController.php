@@ -16,7 +16,7 @@ class AxiosUploadFilesController extends Controller
 {
 
     use Upload;
-    public function uploadFiles(Request $request, User $user) {
+    public function uploadFiles(Request $request) {
         $request->validate([
             'files' => ['required','array'],                     //  Обязательное поле массива
             'files.*' => ['mimes:jpg,jpeg,png,gif,pdf,doc,docx', //  Форматы разрешённых файлов
@@ -24,13 +24,11 @@ class AxiosUploadFilesController extends Controller
             'field_name' => ['required', 'string']               // Имя поля для обновления
         ]);
 
-       // dd($user);
 
         /** Получаем имя поля для обновления **/
         $fieldName = $request->input('field_name');
-
-        $user = UserViewModel::make()->User();
-
+        /** должен быть $request->id */
+        $user = UserViewModel::make()->UserId($request->id);
         $filesInfo = [];
         $filesCollections = [];
         foreach ($request->file('files') as $file) {

@@ -1,0 +1,16 @@
+.lab .input-group__input {
+  height: auto !important;
+  min-height: 50px !important;
+}
+.lab .lab__value {
+  min-height: 50px;
+  display: flex;
+  align-items: center;
+  padding-top: 7px;
+  padding-bottom: 7px;
+}
+.lab .lab__value.alert {
+  color: red;
+}
+
+/*# sourceMappingURL=form-label-component.css.map */

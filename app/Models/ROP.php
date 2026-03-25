@@ -20,6 +20,7 @@ class ROP extends Model
         'social',
         'website',
         'params',
+        'super'
     ];
 
 

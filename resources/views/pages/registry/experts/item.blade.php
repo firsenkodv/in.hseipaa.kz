@@ -11,10 +11,13 @@
             <div class="block block_content">
 
                 <div class="block_content__breadcrumbs"> {{ Breadcrumbs::render('registry_expert', $item) }}</div>
-                <div class="block_content__title">
-                    <h1 class="h1">{{ \App\Enums\User\RegistryStatus::EXPERT->text() }}</h1>
-                        <p class="_subtitle">{{ config2('moonshine.setting.sub_title_expert')}}</p>
-                </div>
+
+
+                <x-cabinet.title
+                    :title="\App\Enums\User\RegistryStatus::EXPERT->text()"
+                    :subtitle="config2('moonshine.setting.sub_title_expert')"
+                />
+
                 <div class="block_content__flex">
                     <div class="block_content__left">
                        <x-menu.left-menu-component menu="registry" route=""/>

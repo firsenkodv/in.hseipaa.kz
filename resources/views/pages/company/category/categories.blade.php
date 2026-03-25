@@ -11,11 +11,11 @@
         <section>
             <div class="block block_content">
                 <div class="block_content__breadcrumbs">{{ Breadcrumbs::render('company_categories') }}</div>
-                <div class="block_content__title"><h1 class="h1">{{ config2('moonshine.company.title') }}</h1>
-                    @if(config2('moonshine.company.subtitle'))
-                        <p class="_subtitle">{{ config2('moonshine.company.subtitle')}}</p>
-                    @endif
-                </div>
+
+                <x-cabinet.title
+                    :title="config2('moonshine.company.title')"
+                    :subtitle="config2('moonshine.company.subtitle')"
+                />
                 <div class="block_content__flex">
                     <div class="block_content__left">
                     <x-menu.left-menu-component menu="companies" />

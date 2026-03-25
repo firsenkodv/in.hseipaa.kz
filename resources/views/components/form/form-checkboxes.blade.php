@@ -1,7 +1,8 @@
 @props([
     'checkboxes' => [],
     'class' => '',
-    'name' => ''
+    'name' => '',
+    'disabled' => false
 
 ])
 @if(count($checkboxes))
@@ -13,7 +14,7 @@
                     <div class="checkbox__subtitle">{{ $checkbox['subtitle'] }}</div>
                 </div>
                 <div class="checkbox__right">
-                 <x-form.form-checkbox checked="{{ $checkbox['checked'] }}" name="{{ $name }}" value="{{ $checkbox['id'] }}"/>
+                 <x-form.form-checkbox :disabled="$disabled" checked="{{ $checkbox['checked'] }}" name="{{ $name }}" value="{{ $checkbox['id'] }}"/>
                 </div>
 
             </div>

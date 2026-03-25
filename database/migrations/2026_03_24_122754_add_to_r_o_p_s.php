@@ -1,6 +1,5 @@
 <?php
 
-use App\Models\Manager;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -12,14 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('users', function (Blueprint $table) {
-
-            $table->foreignIdFor(Manager::class)
-                ->nullable()
-                ->constrained()
-                ->cascadeOnDelete()
-                ->cascadeOnUpdate();
-
+        Schema::table('r_o_p_s', function (Blueprint $table) {
+            $table->enum('super', ['SUPEREDITOR', 'DEFAULT'])->default('DEFAULT');
         });
     }
 
@@ -28,7 +21,7 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('users', function (Blueprint $table) {
+        Schema::table('r_o_p_s', function (Blueprint $table) {
             //
         });
     }

@@ -10,12 +10,11 @@
             <div class="block_content__breadcrumbs">
                 {{ Breadcrumbs::render('cabinet_user') }}
             </div>
-            <div class="block_content__title"><h1 class="h1">Мой профиль</h1>
-                @if($user->UserHuman)
-                    <p class="_subtitle">{{ $user->UserHuman->title }}</p>
-                @endif
-            </div>
 
+            <x-cabinet.title
+                title="Мой профиль"
+                :subtitle="(isset($user->UserHuman->title))?$user->UserHuman->title:'' "
+            />
             <x-cabinet-user.menu.cabinet-user-top-menu :user="$user"/>
 
             <div class="block_content__flex reverse">

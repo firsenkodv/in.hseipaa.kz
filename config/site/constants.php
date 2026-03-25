@@ -16,6 +16,7 @@ return [
     'instagram' => 'Instagram',
     'site' => 'WebSite',
     'cabinet_edit' => 'Сохранить изменения',
+    'well_yellow' => 'Создать менеджера',
     'send_request' => 'Отправить заявку',
     'enter_for_rop' => 'Вход для РОП', // Entrance for ROP
     'for_managing_managers' => 'Для управления менеджерами', // For managing managers
@@ -24,6 +25,7 @@ return [
     'authorization_text' => 'Для работы в личном кабинете требуется вход', // To work in your personal account, you need to log in
     'rop_text' => 'Вход для РОП, управление менеджерами', // To work in your personal account, you need to log in
     'head_sales_department' => 'Руководитель отдела продаж', // Head of the sales department.
+    'manager' => 'Менеджер', // manager.
     'you_manager' => 'Ты менеджер',
     'you_head_of_sales_department' => 'Ты РОП (Руководитель отдела продаж)',
     'edit_personal_data' => 'Редактирования личных данных', // Editing personal data

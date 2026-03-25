@@ -14,8 +14,7 @@
             </div>
             <div class="cabinet_user_personal__right">
                 <div class="cu_username">
-                    <h1 class="h1">{{ $item->username }}</h1>
-                    <p class="_subtitle">{{ config('site.constants.head_sales_department') }}</p>
+              Дописать
 
                 </div>
             </div>

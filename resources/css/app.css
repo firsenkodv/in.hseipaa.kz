@@ -38,6 +38,7 @@
 @import 'components/content/content-tarif-component.scss';
 @import 'components/tax/tax-content-component.scss';
 @import 'components/mzp/mzp-content-component.scss';
+@import 'components/form/form-label-component.scss';
 @import 'components/form/form-input-component.scss';
 @import 'components/form/form-blue-component.scss';
 @import 'components/form/form-exclamation.scss';
@@ -67,6 +68,7 @@
 @import 'templates/axeld/chek_counter_party.scss';
 @import 'templates/users/users.scss';
 @import 'templates/users/user.scss';
+@import 'templates/axeld/checkbox.scss';
 
 @import 'datepicker/datepicker.css';
 

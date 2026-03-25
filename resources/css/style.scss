@@ -147,6 +147,8 @@ a:hover {
     position: relative;
 }
 
+
+
 .h1 {
     font-weight: 600;
     font-size: 36px;
@@ -181,7 +183,26 @@ a:hover {
     position: relative;
 }
 
-
+.well_green {
+    padding: 16px;
+    border-radius: 4px;
+    background-color: #43D38B;
+    color: #fff;
+    margin-bottom: 30px;
+    h1,h2,h3,h4,p,div {
+        color: #fff !important;
+    }
+}
+.well_yellow {
+    padding: 16px;
+    border-radius: 4px;
+    background-color: #FF931E;
+    color: #fff;
+    margin-bottom: 30px;
+    h1,h2,h3,h4,p,div {
+        color: #fff !important;
+    }
+}
 
 
 .fancybox__dialog * {

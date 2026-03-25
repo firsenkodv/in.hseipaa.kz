@@ -187,6 +187,12 @@ Breadcrumbs::for('rop_update_manager', function ($trail, $item) {
     $trail->push('Менеджер - ' . $item->username  , route('rop_update_manager', $item->id));
 });
 
+// Home > CabinetRop -> Add manager
+Breadcrumbs::for('rop_add_manager', function ($trail) {
+    $trail->parent('rop_managers');
+    $trail->push('Создать менеджера' , route('rop_add_manager'));
+});
+
 // Home > CabinetRop -> Users
 Breadcrumbs::for('rop_users', function ($trail) {
     $trail->parent('cabinet_rop');

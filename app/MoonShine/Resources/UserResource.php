@@ -60,6 +60,8 @@ class UserResource extends ModelResource
             Text::make(__('ФИО'), 'username'),
             Text::make(__('Email'), 'email'),
             Text::make(__('Телефон'), 'phone'),
+            BelongsTo::make('Менеджер', 'Manager', 'username', resource: ManagerResource::class)->nullable(),
+
             Switcher::make('Публикация', 'published')->updateOnPreview(),
             BelongsTo::make('Вид', 'UserHuman', 'title', resource: UserHumanResource::class)
 

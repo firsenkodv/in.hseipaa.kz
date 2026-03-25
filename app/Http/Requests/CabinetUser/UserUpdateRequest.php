@@ -2,28 +2,37 @@
 
 namespace App\Http\Requests\CabinetUser;
 
-use App\Rules\ValidUrl;
-use Carbon\Carbon;
-use Illuminate\Contracts\Validation\ValidationRule;
+
+use Domain\Manager\ViewModels\ManagerViewModel;
+use Domain\ROP\ViewModels\ROPViewModel;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
-use Illuminate\Validation\Rules\Password;
 
 class UserUpdateRequest extends FormRequest
 {
 
     public function authorize(): bool
     {
-        return auth()->user()->id;
-    }
+        if (auth()->check()) {
+            return true;
+        }
+        if(ROPViewModel::make()->r(session()->get('r'))) {
+            return true;
+        }
+        if(ManagerViewModel::make()->m(session()->get('m'))) {
+            return true;
+        }
 
+        return false;
+
+    }
 
     public function rules(): array
     {
         return [
             'username' => ['required', 'string', 'min:1', 'max:255'],
             'email' => ['required', 'email', 'email:dns',
-                Rule::unique('users')->ignore(auth()->id(), 'id')],
+                Rule::unique('users')->ignore($this->input('id'), 'id')],
 
             'phone' => ['nullable', 'string', 'min:5'],
             'iin' => ['nullable', 'string', 'min:3'],

@@ -12,11 +12,12 @@
             <div class="block block_content">
 
                 <div class="block_content__breadcrumbs"> {{ Breadcrumbs::render('tax_calendar', $item) }}</div>
-                <div class="block_content__title"><h1 class="h1">{{ $item->title }}</h1>
-                    @if($item->subtitle)
-                        <p class="_subtitle">{{ $item->subtitle }}</p>
-                    @endif
-                </div>
+
+                <x-cabinet.title
+                    :title="$item->title"
+                    :subtitle="$item->subtitle"
+                />
+
                 <div class="block_content__flex">
                     <div class="block_content__left">
                        <x-tax.tax-menu-component />

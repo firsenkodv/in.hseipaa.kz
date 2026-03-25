@@ -1,4 +1,5 @@
 @props([
+    'id'=> false,
     'class'=> '',
     'title'=> '',
     'name' => '',
@@ -26,7 +27,7 @@
         </div>
     </div>
 
-    <input type="file" id="fileInput_{{$rand}}" name="{{ $name }}" class="take__save app_take__save" multiple
+    <input type="file" id="fileInput_{{$rand}}" name="{{ $name }}" data-id="{{ ($id)??'' }}" class="take__save app_take__save" multiple
            accept="image/*,.pdf,.docx"/>
 
 </div>

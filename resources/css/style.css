@@ -145,6 +145,28 @@ a:hover {
   position: relative;
 }
 
+.well_green {
+  padding: 16px;
+  border-radius: 4px;
+  background-color: #43D38B;
+  color: #fff;
+  margin-bottom: 30px;
+}
+.well_green h1, .well_green h2, .well_green h3, .well_green h4, .well_green p, .well_green div {
+  color: #fff !important;
+}
+
+.well_yellow {
+  padding: 16px;
+  border-radius: 4px;
+  background-color: #FF931E;
+  color: #fff;
+  margin-bottom: 30px;
+}
+.well_yellow h1, .well_yellow h2, .well_yellow h3, .well_yellow h4, .well_yellow p, .well_yellow div {
+  color: #fff !important;
+}
+
 .fancybox__dialog * {
   user-select: auto !important; /* Включаем выделение текста */
   cursor: default !important; /*Меняем курсор мыши на стандартный */

@@ -330,6 +330,7 @@
 
             <x-form.form-upload-files
                 :value="$user->file_id_card"
+                :id="$user->id"
                 name="file_id_card"
                 class="pad_b10 pad_t20"
                 title="Удостоверение личности"
@@ -337,6 +338,7 @@
 
             <x-form.form-upload-files
                 :value="$user->file_criminal_record"
+                :id="$user->id"
                 name="file_criminal_record"
                 class="pad_b10"
                 title="Справка об отсутствии судимости"
@@ -344,6 +346,7 @@
 
             <x-form.form-upload-files
                 :value="$user->file_dispensary"
+                :id="$user->id"
                 name="file_dispensary"
                 class="pad_b10"
                 title="Справка с псих. диспансера"
@@ -351,6 +354,7 @@
 
             <x-form.form-upload-files
                 :value="$user->file_diploma_education"
+                :id="$user->id"
                 name="file_diploma_education"
                 class="pad_b10"
                 title="Диплом о высшем образовании"
@@ -358,6 +362,7 @@
 
             <x-form.form-upload-files
                 :value="$user->file_accountant_certificate"
+                :id="$user->id"
                 name="file_accountant_certificate"
                 class="pad_b10"
                 title="Сертификат бухгалтера"
@@ -365,6 +370,7 @@
 
             <x-form.form-upload-files
                 :value="$user->file_scientific_degrees"
+                :id="$user->id"
                 name="file_scientific_degrees"
                 class="pad_b10"
                 title="Научные степени"
@@ -374,6 +380,7 @@
             @if($user->legal_entity)
                 <x-form.form-upload-files
                     :value="$user->file_legal_registration"
+                    :id="$user->id"
                     name="file_legal_registration"
                     class="pad_b10"
                     title="Справка о регистрации компании"
@@ -381,6 +388,7 @@
 
                 <x-form.form-upload-files
                     :value="$user->file_legal_regulation"
+                    :id="$user->id"
                     name="file_legal_regulation"
                     class="pad_b10"
                     title="Устав"
@@ -388,6 +396,7 @@
 
                 <x-form.form-upload-files
                     :value="$user->file_legal_first_boss"
+                    :id="$user->id"
                     name="file_legal_first_boss"
                     class="pad_b10"
                     title="Приказ на первого руководителя"

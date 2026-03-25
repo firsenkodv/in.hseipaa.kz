@@ -3,10 +3,11 @@
 namespace App\Http\Controllers\Cabinet\CabinetRop;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\CabinetRop\ManagerAddRequest;
 use App\Http\Requests\CabinetRop\ManagerUpdateRequest;
 use App\Http\Requests\CabinetRop\RopUpdateRequest;
+use App\Http\Requests\CabinetRop\UserAssignRequest;
 use App\Http\Requests\CabinetUser\UserUpdateRequest;
-use Domain\Manager\DTOs\ManagerUpdateDto;
 use Domain\Manager\ViewModels\ManagerViewModel;
 use Domain\ROP\ViewModels\ROPViewModel;
 use Domain\User\ViewModels\UserViewModel;
@@ -159,8 +160,8 @@ class CabinetROPController extends Controller
     public function ropUpdatePostManager(ManagerUpdateRequest $request):RedirectResponse
     {
         try {
-            $r = ROPViewModel::make()->r(session()->get('r'));
-            ManagerViewModel::make()->updatePersonalDataManager($request, $r->id);
+
+            ManagerViewModel::make()->updatePersonalDataManager($request);
             flash()->info(config('message_flash.info.cabinet_user_ok'));
             return redirect()->back();
 
@@ -176,14 +177,50 @@ class CabinetROPController extends Controller
 
 
     /**
+     * Создание менеджера
+     */
+    public function ropAddManager():View
+    {
+        $r = ROPViewModel::make()->r(session()->get('r'));
+        return view('cabinet.cabinet_rop.managers.add.add_manager', [
+            'r' => $r,
+        ]);
+
+    }
+
+    /**
+     * Создание менеджера
+     */
+    public function ropAddPostManager(ManagerAddRequest $request):RedirectResponse
+    {
+        try {
+            $r = ROPViewModel::make()->r(session()->get('r'));
+            $request->merge(['r_o_p_id' => $r->id]);
+            $manager = ManagerViewModel::make()->addPersonalDataManager($request);
+            flash()->info(config('message_flash.info.cabinet_user_ok'));
+            return redirect()->route('rop_update_manager', $manager->id);
+
+        } catch (\Throwable $th) {
+
+            // Обрабатываем исключение
+            logErrors($th);
+            flash()->alert(config('message_flash.alert.cabinet_user_error'));
+            return redirect()->back();
+
+        }
+
+    }
+
+    /**
      * управление клиентами
      * спискок
      */
-    public function ropUsers() {
+    public function ropUsers():View
+    {
 
         $r = ROPViewModel::make()->r(session()->get('r'));
         $users = ROPViewModel::make()->ropUserList($r);
-        $managers = ROPViewModel::make()->ropManagerList($r);
+        $managers = ROPViewModel::make()->ropManagerListMap($r);
 
         return view('cabinet.cabinet_rop.users.items', [
             'r' => $r,
@@ -192,6 +229,46 @@ class CabinetROPController extends Controller
         ]);
 
     }
+
+    /** Поиск пользователей */
+    public function ropUsersSearch(Request $request)
+    {
+
+        $r = ROPViewModel::make()->r(session()->get('r'));
+        $users = ROPViewModel::make()->ropUserListSearch($request->id);
+        $managers = ROPViewModel::make()->ropManagerListMap($r);
+        $manager_selected = ManagerViewModel::make()->managerId($request->id);
+
+
+        return view('cabinet.cabinet_rop.users.items', [
+            'r' => $r,
+            'users' => $users,
+            'managers' => $managers,
+            'manager_selected' => $manager_selected->username,
+            'manager_value' => $manager_selected->id,
+        ]);
+
+    }
+
+    /** Закрепление пользователя за менеджером */
+    public function ropUsersAssign(UserAssignRequest $request)
+    {
+        try {
+       ManagerViewModel::make()->assignUsers($request->id, $request->users);
+        flash()->info(config('message_flash.info.cabinet_user_ok'));
+        return redirect()->route('rop_users');
+        } catch (\Throwable $th) {
+
+            // Обрабатываем исключение
+            logErrors($th);
+            flash()->alert(config('message_flash.alert.cabinet_user_error'));
+            return redirect()->back();
+
+        }
+
+    }
+
+
 
     /**
      * Редактирование пользователя

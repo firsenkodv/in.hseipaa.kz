@@ -8,8 +8,6 @@ export function close_flash() {
         const parentEl = e.target.closest('.flashMassege');
         parentEl.remove();
     }
-/*    $('body').on('click', '.flashClose__js', function (event) {
-        $(this).parents('.flashMassege').slideUp(100);
-    });*/
+
 
 }

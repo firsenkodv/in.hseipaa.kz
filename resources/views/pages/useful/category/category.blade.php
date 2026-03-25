@@ -11,12 +11,12 @@
         <section>
             <div class="block block_content">
  <div class="block_content__breadcrumbs"> {{ Breadcrumbs::render('useful_category', $section, $category) }}</div>
-                <div class="block_content__title"><h1 class="h1">{{ $category->title }}</h1>
 
-                @if($category->subtitle)
-                        <p class="_subtitle">{{ $category->subtitle }}</p>
-                @endif
-                </div>
+                <x-cabinet.title
+                    :title="$category->title"
+                    :subtitle="$category->subtitle"
+                />
+
                 <div class="block_content__flex">
                     <div class="block_content__left">
                         <x-menu.left-menu-component menu="usefuls"/>

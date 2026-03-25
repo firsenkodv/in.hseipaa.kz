@@ -3,9 +3,10 @@
 namespace Domain\Manager\ViewModels;
 
 
+use App\Enums\Moonshine\StatusManagerEnum;
 use App\Models\Manager;
 use App\Models\User;
-use Domain\Manager\DTOs\ManagerUpdateDto;
+use Domain\Manager\DTOs\ManagerDto;
 use Illuminate\Contracts\Pagination\Paginator;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
@@ -23,7 +24,7 @@ class ManagerViewModel
      * @return mixed|null
      * Получим менеджеров из $request
      */
-    public function manager($request):model|null
+    public function manager($request): model|null
     {
         return Manager::query()
             ->where('email', $request->email)
@@ -36,7 +37,7 @@ class ManagerViewModel
      * @return mixed|null
      * Получим менеджера по email
      */
-    public function m($email):model|null
+    public function m($email): model|null
     {
         return Manager::query()
             ->where('email', $email)
@@ -48,7 +49,7 @@ class ManagerViewModel
      * @return Manager|Model
      * менеджер по id
      */
-    public function managerId($id):?Model
+    public function managerId($id): ?Model
     {
         return Manager::query()
             ->where('id', $id)
@@ -57,18 +58,17 @@ class ManagerViewModel
 
     /**
      * @param $request
-     * @param $id
      * @return bool
      * @throws Throwable
      */
 
-    public function updatePersonalDataManager($request, $id): bool
+    public function updatePersonalDataManager($request): bool
     {
 
-        $data = ManagerUpdateDto::formRequest($request);
+        $data = ManagerDto::formRequest($request);
 
         /** Сначала получаем пользователя по указанному ID **/
-        $manager = Manager::query()->where('id', $id)->first();
+        $manager = Manager::query()->where('id', $request->manager_id)->first();
 
         if (!$manager) {
             throw new \Exception("Пользователь с указанным ID не найден.");
@@ -93,4 +93,25 @@ class ManagerViewModel
     }
 
 
+    public function addPersonalDataManager($request): ?Manager
+    {
+        $data = ManagerDto::formRequest($request);
+        return Manager::Create($data->toArray());
+
+    }
+
+    public function mainManager(): ?Manager
+    {
+        return Manager::query()->where('main', StatusManagerEnum::MAIN->value)->first();
+
+    }
+
+
+    public function assignUsers(int $manager_id, array $users):?int
+    {
+       return User::whereIn('id', $users)->update([
+            'manager_id' => $manager_id
+        ]);
+
+    }
 }

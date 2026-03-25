@@ -4,6 +4,10 @@
 .block_content .block_content__title h1 {
   font-size: 40px;
 }
+.block_content .block_content__title ._mini {
+  color: #000;
+  font-weight: 600;
+}
 .block_content .block_content__flex {
   display: flex;
   justify-content: space-between;

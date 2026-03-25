@@ -12,7 +12,7 @@
 
 ])
 @if(count($options))
-    <div class="input-group app_select_group">
+    <div class="input-group app_select_group {{ $class }}">
         @if($title)
             <h4 class="_group_title">{{ $title }}</h4>
         @endif

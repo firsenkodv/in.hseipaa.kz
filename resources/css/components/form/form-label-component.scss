@@ -1,0 +1,35 @@
+@charset "utf-8";
+$color: #282828;
+$colorRed: #EF533F;
+$colorCCC: #CCCCCC;
+$colorGrey: #667085;
+$colorBlue: #095C9A;
+$colorBlue2: #03a9f4;
+$colorGreen: #0f6567;
+$colorYellow: #FF931E;
+$colorOrange: #FF732C;
+
+
+
+// Input
+$input-height: 50px;
+$border-color: #E0E0E0;
+$primary-color: $colorGrey;
+
+.lab {
+    .input-group__input{
+        height: auto !important;
+        min-height: $input-height !important;
+
+    }
+    .lab__value {
+        min-height: $input-height;
+        display: flex;
+        align-items: center;
+        padding-top: 7px;
+        padding-bottom: 7px;
+        &.alert {
+            color: red;
+        }
+    }
+}

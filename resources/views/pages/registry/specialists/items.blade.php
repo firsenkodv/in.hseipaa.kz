@@ -11,13 +11,13 @@
             <div class="block block_content">
 
                 <div class="block_content__breadcrumbs"> {{ Breadcrumbs::render('registry_specialists') }}</div>
-                <div class="block_content__title">
-                    <h1 class="h1">{{ \App\Enums\User\RegistryStatus::SPECIALIST->text() }}</h1>
-                        <p class="_subtitle">{{ config2('moonshine.setting.sub_title_specialist')}}</p>
-                </div>
+                <x-cabinet.title
+                    :title="\App\Enums\User\RegistryStatus::SPECIALIST->text()"
+                    :subtitle="config2('moonshine.setting.sub_title_specialist')"
+                />
                 <div class="block_content__flex">
                     <div class="block_content__left">
-                       <x-menu.left-menu-component menu="registry" route=""/>
+                        <x-menu.left-menu-component menu="registry" route=""/>
                     </div>
                     <div class="block_content__right">
 
@@ -88,11 +88,12 @@
                             </x-form.form>
                         </div>
 
-                        <x-content.registry.content-registry-users-component :items="$items" route="registry_specialist" :user="$user" />
+                        <x-content.registry.content-registry-users-component :items="$items" route="registry_specialist"
+                                                                             :user="$user"/>
                     </div>
                 </div>
 
-               {{-- <x-content.content-faq-component :content="$item" />--}}
+                {{-- <x-content.content-faq-component :content="$item" />--}}
 
             </div>
         </section>

@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Manager;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -13,6 +14,11 @@ return new class extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             $table->timestamp('tarif_expires_at')->nullable()->after('tarif_id');
+            $table->foreignIdFor(Manager::class)
+                ->nullable()
+                ->constrained()
+                ->cascadeOnDelete()
+                ->cascadeOnUpdate();
 
         });
     }

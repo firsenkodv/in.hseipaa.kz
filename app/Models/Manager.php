@@ -2,9 +2,11 @@
 
 namespace App\Models;
 
+use Domain\Manager\ViewModels\ManagerViewModel;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Facades\Log;
 
 class Manager extends Model
 {
@@ -24,7 +26,8 @@ class Manager extends Model
         'website',
         'params',
         'r_o_p_id',
-        'main'
+        'main',
+        'super'
     ];
 
 
@@ -85,6 +88,7 @@ class Manager extends Model
 
         # Выполняем действия во время удаления
         static::deleting(function ($model) {
+
             if($model->main == 'MAIN') {
                 // все ставим MANAGER
                 Manager::query()
@@ -95,14 +99,29 @@ class Manager extends Model
 
         # Выполняем действия после удаления
         static::deleted(function ($model) {
-            $max_id = Manager::query()->max('id');
-            Manager::query()->where('id', $max_id)->update(['main' => 'MAIN']);
+
+            $new_manager = ManagerViewModel::make()->mainManager();
+            if($model->main == 'MAIN') {
+                $max_id = Manager::query()->max('id');
+                $main_manager = Manager::query()->where('id', $max_id)->update(['main' => 'MAIN']);
+
+            }
+            // изменим всех пользователей
+            User::query()
+                ->where('manager_id', $model->id)
+                ->Orwhere('manager_id', null)
+                ->update(['manager_id' => $new_manager->id]);
             cache_clear();
         });
 
 
+        # Проверка данных пользователя перед сохранением
+        static::saving(function($model) {
+
+        });
+
         # Выполняем действия после сохранения
-        static::saved(function($model){
+        static::saved(function($model) {
             if($model->main == 'MAIN') {
                 Manager::query()
                     ->where('main', 'MAIN')

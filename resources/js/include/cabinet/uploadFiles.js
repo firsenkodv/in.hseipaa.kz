@@ -8,6 +8,7 @@ export function uploadFiles() {
         for (let takeSave of takeSaves) {
             takeSave.onchange = async function (e) {
                 const parentEl = e.target.closest(".app_input-file");
+                const id = e.target.dataset.id;
                 /** start spinner **/
                 loadSpinnerStart(parentEl);
 
@@ -48,6 +49,8 @@ export function uploadFiles() {
                 });
 
                 formData.append("field_name", fieldName); // Добавляем имя поля
+                (id !== '') ?  formData.append('id', id) : false; // Добавляем id user-а
+
                 const url = '/cabinet.upload.files';
 
                 axiosLaravel(formData, url)

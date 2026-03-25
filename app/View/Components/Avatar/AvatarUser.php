@@ -17,7 +17,7 @@ class AvatarUser extends Component
     public string $userid='';
 
     public string $route = '';
-    public function __construct($user, $route = '', $folder  = 'user', $managerid = '', $userid = '')
+    public function __construct($user, $route = '', $folder  = 'users', $managerid = '', $userid = '')
     {
         $this->user = $user;
         if($user->UserHuman) {
@@ -33,8 +33,6 @@ class AvatarUser extends Component
         $this->route = $route;
 
     }
-
-
 
     /**
      * Get the view / contents that represent the component.

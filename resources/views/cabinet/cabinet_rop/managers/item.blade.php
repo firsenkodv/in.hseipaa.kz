@@ -11,16 +11,18 @@
             <div class="block_content__breadcrumbs">
                 {{ Breadcrumbs::render('rop_update_manager', $item) }}
             </div>
-            <div class="block_content__title"><h1 class="h1">{{ config('site.constants.head_sales_department') }}</h1>
-                <p class="_subtitle">{{ $r->username }}</p>
-            </div>
+
+
+            <x-cabinet.title
+            :title="config('site.constants.head_sales_department')"
+            :subtitle="$r->username"
+            />
 
             <x-cabinet-rop.menu.cabinet-rop-top-menu :user="$r"/>
 
             <div class="block_content__flex reverse">
 
                 <div class="block_content__left">
-
 
                     <x-cabinet.main-manager :item="$item"/>
                     <x-cabinet-rop.cabinet-rop-personal-data-relation :user="$r"/>
@@ -29,6 +31,7 @@
                 <div class="block_content__right">
 
                     <x-cabinet-rop.manager.update.cabinet-rop-update-manager :item="$item"/>
+
 
                 </div>
 

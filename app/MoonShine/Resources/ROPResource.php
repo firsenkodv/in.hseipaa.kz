@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\MoonShine\Resources;
 
 use App\Enums\Moonshine\StatusManagerEnum;
+use App\Enums\Moonshine\SuperEditorEnum;
 use App\Models\Manager;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\ROP;
@@ -27,6 +28,7 @@ use MoonShine\Contracts\UI\FieldContract;
 use MoonShine\Contracts\UI\ComponentContract;
 use MoonShine\UI\Fields\Image;
 use MoonShine\UI\Fields\Number;
+use MoonShine\UI\Fields\Switcher;
 use MoonShine\UI\Fields\Text;
 
 /**
@@ -59,6 +61,8 @@ class ROPResource extends ModelResource
             Text::make('ФИО', 'username')->updateOnPreview(),
             Number::make('Телефон', 'phone')->updateOnPreview(),
             Text::make('Email', 'email')->updateOnPreview(),
+            Enum::make('Редактор', 'super')
+                ->attach(SuperEditorEnum::class),
             Date::make(__('Дата создания'), 'created_at')
                 ->format("d.m.Y")
                 ->default(now()->toDateTimeString())
@@ -122,7 +126,10 @@ class ROPResource extends ModelResource
                                 ->default(now()->toDateTimeString())
                                 ->sortable(),
 
-
+                            Switcher::make('Возможность редактировать', 'super')
+                                ->onValue('SUPEREDITOR')
+                                ->offValue('DEFAULT')
+                                ->default('DEFAULT'),
                         ]),
                     ])->columnSpan(6),
 

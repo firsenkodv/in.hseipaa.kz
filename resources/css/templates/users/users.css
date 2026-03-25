@@ -1,5 +1,25 @@
 @charset "UTF-8";
+.cabinet__users .dashboardBox__title {
+  min-height: 30px;
+  border-bottom: 1px solid #ddd;
+  color: #667085;
+  margin: 0 0 26px;
+}
+.cabinet__users .c_flex:nth-child(2n) {
+  background-color: #F5F5F7;
+}
+.cabinet__users .c_flex:hover {
+  background-color: rgba(254, 82, 68, 0.0784313725);
+}
+.cabinet__users .__checkbox {
+  min-height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-left: 7px;
+}
 .cabinet__users .u_teaser {
+  width: 100%;
   min-height: 48px;
   display: flex;
   justify-content: start;
@@ -48,6 +68,13 @@
   border-radius: 50%;
   border: 1px solid #e0e0e0;
 }
+.cabinet__users .u_teaser .avatar .rm__avatar .mw {
+  width: 40px;
+  min-width: 40px;
+  height: 40px;
+  background-size: 50%;
+  background-position: center;
+}
 .cabinet__users .u_teaser .username {
   width: 30%;
   color: #16A2E0;
@@ -71,6 +98,9 @@
   justify-content: start;
   align-items: center;
   gap: 10px;
+}
+.cabinet__users .u_teaser_label:hover {
+  background-color: #ffffff;
 }
 
 @media (max-width: 1000px) {

@@ -11,9 +11,10 @@
             <div class="block_content__breadcrumbs">
                 {{ Breadcrumbs::render('rop_users') }}
             </div>
-            <div class="block_content__title"><h1 class="h1">{{ config('site.constants.head_sales_department') }}</h1>
-                <p class="_subtitle">{{ $r->username }}</p>
-            </div>
+            <x-cabinet.title
+                :title="config('site.constants.head_sales_department')"
+                :subtitle="$r->username "
+            />
 
             <x-cabinet-rop.menu.cabinet-rop-top-menu :user="$r"/>
 
@@ -24,7 +25,12 @@
                 </div>
 
                 <div class="block_content__right">
-                  <x-cabinet-rop.user.user-list :items="$users"/>
+                  <x-cabinet-rop.user.user-list
+                      :items="$users"
+                      :managers="$managers"
+                      :selected="(isset($manager_selected))?$manager_selected:''"
+                      :value="(isset($manager_value))?$manager_value:''"
+                  />
                 </div>
 
             </div>

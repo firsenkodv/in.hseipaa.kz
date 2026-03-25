@@ -23,8 +23,6 @@ if (!function_exists('flash')) {
         return app(Flash::class);
     }
 }
-
-
 /**
  * Телефон
  */
@@ -160,7 +158,6 @@ if (!function_exists('rusbirthdate')) {
     }
 }
 
-
 if (!function_exists('rusdate_month')) {
     function rusdate_month($date): string|null
     {
@@ -176,7 +173,6 @@ if (!function_exists('rusdate_month')) {
 
     }
 }
-
 
 if (!function_exists('active_link')) {
     function active_link(string|array $names, string $class = 'active'): string|null
@@ -252,7 +248,6 @@ if (!function_exists('route_name')) {
     }
 }
 
-
 /**
  *  работа с датами
  */
@@ -282,7 +277,6 @@ if (!function_exists('rusdate')) {
     }
 }
 
-
 if (!function_exists('rusdate2')) {
     function rusdate2($date): string|null
     {
@@ -299,7 +293,6 @@ if (!function_exists('rusdate2')) {
 
     }
 }
-
 
 if (!function_exists('rusdate3')) {
     function rusdate3($date): string|null
@@ -338,6 +331,7 @@ if (!function_exists('rusdate4')) {
 
     }
 }
+
 if (!function_exists('rusdate5')) {
     function rusdate5($date): string|null
     {
@@ -433,7 +427,6 @@ if (!function_exists('config2')) {
 
 }
 
-
 if (!function_exists('config2_array')) {
     function config2_array($path = null): array|null
     {
@@ -457,7 +450,6 @@ if (!function_exists('config2_array')) {
     }
 
 }
-
 
 /**
  * url2
@@ -552,7 +544,6 @@ if (!function_exists('textarea')) {
     }
 }
 
-
 if (!function_exists('usortDate')) {
 
 
@@ -570,7 +561,6 @@ if (!function_exists('usortDate')) {
         return $d;
     }
 }
-
 
 if (!function_exists('custom_array_reduce')) {
 
@@ -621,6 +611,7 @@ if (!function_exists('checkTelegram')) {
 
     }
 }
+
 if (!function_exists('checkWhatsapp')) {
 
     function checkWhatsapp($value): string
@@ -629,6 +620,7 @@ if (!function_exists('checkWhatsapp')) {
 
     }
 }
+
 if (!function_exists('checkInstagram')) {
 
     function checkInstagram($value): string
@@ -638,11 +630,9 @@ if (!function_exists('checkInstagram')) {
     }
 }
 
-
 if (!function_exists('logErrors')) {
 
     function logErrors($exception): void
-
     {
         if ($exception) {
             Log::error("Ошибка в методе: {$exception->getFile()} строка: {$exception->getLine()} сообщение: {$exception->getMessage()}");
@@ -650,6 +640,7 @@ if (!function_exists('logErrors')) {
 
     }
 }
+
 
 
 

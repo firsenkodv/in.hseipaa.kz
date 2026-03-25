@@ -1,10 +1,11 @@
 @props([
     'url' => '/',
     'class' => '',
-    'type' => ''
+    'type' => '',
+    'id' => '',
 ])
 @if($type)
-    <input class="btn  {{ $class }}" type="{{ $type }}" value="{{ $slot }}" />
+    <input {{($id)?"id=$id":''}} class="btn  {{ $class }}" type="{{ $type }}" value="{{ $slot }}" />
 @else
     <a href="{{ $url }}" class="btn  {{ $class }}">{{ $slot }}</a>
 @endif

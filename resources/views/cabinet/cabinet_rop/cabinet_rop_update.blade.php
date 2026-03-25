@@ -11,9 +11,11 @@
             <div class="block_content__breadcrumbs">
                 {{ Breadcrumbs::render('cabinet_update_personal_data_rop') }}
             </div>
-            <div class="block_content__title"><h1 class="h1">{{ config('site.constants.edit_personal_data') }}</h1>
-                    <p class="_subtitle">{{ $r->username }}</p>
-            </div>
+
+            <x-cabinet.title
+                :title="config('site.constants.edit_personal_data')"
+                :subtitle="$r->username"
+            />
 
           <x-cabinet-rop.menu.cabinet-rop-top-menu :user="$r"/>
 

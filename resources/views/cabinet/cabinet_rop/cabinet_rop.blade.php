@@ -11,9 +11,11 @@
             <div class="block_content__breadcrumbs">
                 {{ Breadcrumbs::render('cabinet_rop') }}
             </div>
-            <div class="block_content__title"><h1 class="h1">{{ config('site.constants.head_sales_department') }}</h1>
-                <p class="_subtitle">{{ $r->username }}</p>
-            </div>
+
+            <x-cabinet.title
+                :title="config('site.constants.head_sales_department')"
+                :subtitle="$r->username"
+            />
 
             <x-cabinet-rop.menu.cabinet-rop-top-menu :user="$r"/>
 

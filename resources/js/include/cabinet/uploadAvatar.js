@@ -4,9 +4,12 @@ import {axiosLaravel} from '../axios/axiosLaravel.js'
 export function uploadAvatar() {
     const cuAvatar = document.querySelector('.app_cu__avatar');
     const photoInput = document.getElementById('photoInput');
-    let url = cuAvatar.dataset.url;
-    let managerId = cuAvatar.dataset.managerid;
-    let userId = cuAvatar.dataset.userid;
+
+    if(cuAvatar) {
+        let url = cuAvatar.dataset.url;
+        let managerId = cuAvatar.dataset.managerid;
+        let userId = cuAvatar.dataset.userid;
+    }
 
     if (photoInput) {
         photoInput.onchange = async function (e) {
@@ -24,7 +27,9 @@ export function uploadAvatar() {
                 (userId !== '') ?  formData.append('user_id', userId) : false;
 
                 /** Выполняем запрос и ждем результата **/
-                url = (url !== '') ? url : '/cabinet.upload.photo';
+       /*         url = (url !== '') ? url : '/cabinet.upload.photo';*/
+                // Проверка: если url ложное (undefined, null, пустая строка), используем дефолт
+                url = url || '/cabinet.upload.photo';
 
                 axiosLaravel(formData, url)
                     .then((result) => {

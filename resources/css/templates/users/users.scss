@@ -22,7 +22,32 @@ $maxWidth: 1200;
 }
 
 .cabinet__users {
+    .dashboardBox__title {
+        min-height: 30px;
+        border-bottom: 1px solid #ddd;
+        color: #667085;
+        margin: 0 0 26px;
+    }
+    .c_flex {
+        &:nth-child(2n) {
+            background-color: #F5F5F7;
+        }
+        &:hover {
+            background-color: #fe524414;
+
+        }
+    }
+
+    .__checkbox {
+        min-height: 48px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding-left: 7px;
+    }
+
     .u_teaser {
+        width: 100%;
         min-height: 48px;
         display: flex;
         justify-content: start;
@@ -68,6 +93,13 @@ $maxWidth: 1200;
                 align-items: center;
                 border-radius: 50%;
                 border: 1px solid #e0e0e0;
+                .mw {
+                    width: 40px;
+                    min-width: 40px;
+                    height: 40px;
+                    background-size: 50%;
+                    background-position: center;
+                }
             }
         }
         .username {
@@ -97,6 +129,12 @@ $maxWidth: 1200;
             justify-content: start;
             align-items: center;
             gap: 10px;
+        }
+
+    }
+    .u_teaser_label {
+        &:hover {
+            background-color: #ffffff;
         }
 
     }

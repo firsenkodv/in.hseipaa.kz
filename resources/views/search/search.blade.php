@@ -9,7 +9,10 @@
     <section>
         <div class="block relative block_content">
             <div class="block_content__breadcrumbs">{{ Breadcrumbs::render('search') }}</div>
-            <div class="block_content__title"><h1 class="h1">Результаты поиска</h1></div>
+            <x-cabinet.title
+                title="Результаты поиска"
+            />
+
             <div class="search__wrapper">
                 <div class="m_sb_middle">
                     <div class="border_2_E0E0E0">

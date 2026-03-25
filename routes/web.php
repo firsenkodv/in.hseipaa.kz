@@ -295,6 +295,7 @@ Route::controller(LogoutController::class)->group(function () {
 /**
  *  ///Auth
  */
+
 /** Cabinet_user */
 Route::controller(CabinetUserController::class)->group(function () {
 
@@ -325,12 +326,13 @@ Route::controller(CabinetUserController::class)->group(function () {
 
 });
 
-
 /** ** аватар  **   **/
 Route::controller(AxiosUploadPhotoController::class)->group(function () {
+
     Route::post('/cabinet.upload.photo', 'uploadPhoto')
         ->middleware(UserMiddleware::class);
-/** РОП меняет свой автар */
+
+    /** РОП меняет свой автар */
     Route::post('/cabinet.upload.photo.rop', 'uploadROPPhoto')
         ->name('upload_rop_photo')
         ->middleware(IsROPMiddleware::class);
@@ -399,12 +401,13 @@ Route::controller(CabinetROPController::class)->group(function () {
     Route::get('/cabinet-rop/managers', 'ropManagers')
         ->middleware(IsROPMiddleware::class)
         ->name('rop_managers');
-    /** добавить */
-    Route::get('/cabinet-rop/managers/add-manager', 'rop_add_manager')
+
+    /** добавить - создать */
+    Route::get('/cabinet-rop/managers/add-manager', 'ropAddManager')
         ->middleware(IsROPMiddleware::class)
         ->name('rop_add_manager');
 
-    Route::post('/rop_add_post_manager', 'rop_add_post_manager')
+    Route::post('/rop_add_post_manager', 'ropAddPostManager')
         ->middleware(IsROPMiddleware::class)
         ->name('rop_add_post_manager');
 
@@ -423,6 +426,16 @@ Route::controller(CabinetROPController::class)->group(function () {
     Route::get('/cabinet-rop/users', 'ropUsers')
         ->middleware(IsROPMiddleware::class)
         ->name('rop_users');
+
+    /** поиск пользователей */
+    Route::post('/cabinet-rop/users/search', 'ropUsersSearch')
+        ->middleware(IsROPMiddleware::class)
+        ->name('rop_users_search');
+
+    /** назначить, закрепить за менеджером  */
+    Route::post('/cabinet-rop/users/assign', 'ropUsersAssign')
+        ->middleware(IsROPMiddleware::class)
+        ->name('rop_users_assign');
 
     /** редактировать */
     Route::get('/cabinet-rop/users/user/{id}', 'ropUpdateUser')
