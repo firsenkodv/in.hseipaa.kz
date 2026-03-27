@@ -13,13 +13,27 @@
 
             </div>
             <div class="cabinet_user_personal__right">
-                <div class="cu_username">
-              Дописать
+                <div class="flex in-edit">
+                    <div class="cu_username left">
+                        <h1 class="h1">{{ $item->username }}</h1>
+                        <p class="_subtitle">
+                            {{ (isset($item->UserCity->title))? $item->UserCity->title : 'Город не указан' }}
+                        </p>
+                        <p class="{{ \App\Enums\User\PublishedUserEnum::fromValue($item->published)->class() }}">
+                            {{ $item->published_user }}
+                        </p>
+                    </div>
+                    <div class="right">
 
+
+                   <x-cabinet.message.to-user :item="$item"  />
+
+
+                    </div>
                 </div>
             </div>
-        </div>
 
+        </div>
 
         <div class="cabinet_user_update_handel">
             <x-cabinet.update-user :user="$item" :route="route('rop_update_post_user')"/>

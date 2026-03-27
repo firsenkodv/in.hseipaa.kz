@@ -5,7 +5,7 @@
 @import '@fontsource-variable/source-sans-3';
 @import 'loader_map.css';
 
-
+@import 'trix/trix.scss';
 @import 'contacts/contacts.scss';
 @import 'components/checking-counterparty/checking-counterparty-component.scss';
 @import 'components/home/output-category-component.scss';
@@ -21,10 +21,12 @@
 @import 'components/language/header-language-component.scss';
 @import 'components/menu/footer-and-hamburger-menu.scss';
 @import 'components/menu/header-menu-component.scss';
+@import 'components/menu/cabinet-left-menu.scss';
 @import 'components/menu/hamburger-component.scss';
 @import 'components/menu/left-menu-component.scss';
 @import 'components/search/exchange.scss';
 @import 'components/buttons/buttons.scss';
+@import 'components/cabinet/message/to-user.scss';
 @import 'components/content/content-registry-search-component.scss';
 @import 'components/content/content-registry-teaser-component.scss';
 @import 'components/content/content-registry-user-component.scss';
@@ -69,7 +71,6 @@
 @import 'templates/users/users.scss';
 @import 'templates/users/user.scss';
 @import 'templates/axeld/checkbox.scss';
-
 @import 'datepicker/datepicker.css';
 
 @import 'components/mobile/mobile-menu-component.scss';

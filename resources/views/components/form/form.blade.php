@@ -5,7 +5,7 @@
     'put' => false
 ])
 
-<form action="{{ $action }}" method="{{ $method }}" class="row_form_800" :class="{{ $class }}">
+<form action="{{ $action }}" method="{{ $method }}" class="row_form_800 {{ $class }} ">
     @csrf
     @if($put)
        @method('PUT')

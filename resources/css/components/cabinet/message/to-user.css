@@ -1,0 +1,32 @@
+.to-user {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.to-user svg {
+  width: 32px;
+  min-width: 32px;
+  height: 32px;
+}
+.to-user .to_user_message_and_published svg {
+  color: #667085;
+}
+.to-user .to_user_message_and_published.active svg {
+  color: #43D38B;
+}
+.to-user .to_user_message_and_blocked svg {
+  color: #667085;
+}
+.to-user .to_user_message_and_blocked.active svg {
+  color: #EF533F;
+}
+.to-user.horizontal {
+  padding: 16px;
+  display: flex;
+  flex-direction: row;
+  justify-content: end;
+  gap: 10px;
+}
+
+/*# sourceMappingURL=to-user.css.map */

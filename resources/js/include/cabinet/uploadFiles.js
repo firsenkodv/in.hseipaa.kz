@@ -43,18 +43,27 @@ export function uploadFiles() {
                     return false;
                 }
 
+
+
                 let formData = new FormData();
                 Array.from(selectedFiles).forEach((file, index) => {
                     formData.append(`files[${index}]`, file);
                 });
+
+
+
 
                 formData.append("field_name", fieldName); // Добавляем имя поля
                 (id !== '') ?  formData.append('id', id) : false; // Добавляем id user-а
 
                 const url = '/cabinet.upload.files';
 
+
+
+
                 axiosLaravel(formData, url)
                     .then((response) => {
+
 
                         if (response.success) {
                             /** Обрабатываем результат
@@ -89,7 +98,6 @@ export function uploadFiles() {
 
                             /** получение и удаление файлов, в том числе и только что загруженные **/
                             gettingAndDeletingFiles()
-
 
                         }
 
@@ -145,7 +153,9 @@ export function uploadFiles() {
 
                         let formData = new FormData();
                         const token = scrf();
+                        const id = parentEl.querySelector('.app_take__save').dataset.id;
                         formData.append("_token", token); // Добавляем токен сюда
+                        formData.append("id", id); // Добавляем id пользователя
                         formData.append("field_name", fieldName); // Добавляем имя поля
                         formData.append("field_value", strFile); // Добавляем элемент массива для удаления
                         const urlDel = '/cabinet.delete.files';

@@ -77,7 +77,15 @@
 }
 .cabinet__users .u_teaser .username {
   width: 30%;
+}
+.cabinet__users .u_teaser .username span.blue {
   color: #16A2E0;
+}
+.cabinet__users .u_teaser .username span.red {
+  color: #EF533F;
+}
+.cabinet__users .u_teaser .username span.green {
+  color: #43D38B;
 }
 .cabinet__users .u_teaser .email {
   width: 40%;
@@ -101,6 +109,20 @@
 }
 .cabinet__users .u_teaser_label:hover {
   background-color: #ffffff;
+}
+
+.icon_delete button {
+  position: relative;
+  width: 20px;
+  min-width: 20px;
+  height: 20px;
+  margin: 20px;
+}
+.icon_delete button svg {
+  transition: 0.2s;
+}
+.icon_delete button:hover svg {
+  color: #EF533F;
 }
 
 @media (max-width: 1000px) {

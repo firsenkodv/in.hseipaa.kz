@@ -33,6 +33,8 @@ class FancyBoxController extends Controller
             return view('fancybox.forms.cabinet_user_social_description');
         }
 
+
+
         if($request->template == 'select_tarif') {
 
             $tarif = Tarif::make()->tarif(json_decode($request->data)->tarif_id);
@@ -42,6 +44,18 @@ class FancyBoxController extends Controller
                 'user' => $user,
             ]);
         }
+
+
+        if($request->template == 'to_user_message') {
+            $data   = json_decode($request->data);
+            $userId = $data->user_id;
+            $action = $data->action ?? 'message';
+            return view('fancybox.forms.cabinet.to_user_message', [
+                'user_id' => $userId,
+                'action'  => $action,
+            ]);
+        }
+
 
         return view('fancybox.forms.error.error_form');
 

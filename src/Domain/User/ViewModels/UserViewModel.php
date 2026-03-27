@@ -2,6 +2,7 @@
 
 namespace Domain\User\ViewModels;
 
+use App\Enums\User\PublishedUserEnum;
 use App\Enums\User\RegistryStatus;
 use App\Enums\User\Status;
 use App\Models\User;
@@ -213,5 +214,19 @@ class UserViewModel
             ->paginate(config('site.constants.paginate'));
 
 
+    }
+
+    public function userSetPublished(int $userId): bool
+    {
+        $user = User::findOrFail($userId);
+        $user->published = PublishedUserEnum::PUBLISHED->value;
+        return $user->save();
+    }
+
+    public function userSetBlocked(int $userId): bool
+    {
+        $user = User::findOrFail($userId);
+        $user->published = PublishedUserEnum::BLOCKED->value;
+        return $user->save();
     }
 }

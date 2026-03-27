@@ -30,6 +30,7 @@
                       :managers="$managers"
                       :selected="(isset($manager_selected))?$manager_selected:''"
                       :value="(isset($manager_value))?$manager_value:''"
+                      :markDelete="isset($markDelete) ? $markDelete : false"
                   />
                 </div>
 

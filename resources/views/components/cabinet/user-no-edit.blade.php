@@ -2,8 +2,42 @@
     ['user']
 )
 <div class="cabinet_user-no-edit">
-    <x-content.registry.teaser :item="$user"/>
+  {{--  <x-content.registry.teaser :item="$user"/>--}}
 
+    <div class="cabinet_user_personal__flex">
+        <div class="cabinet_user_personal__left">
+            <x-avatar.avatar-user :user="$user"
+                                  :route="route('upload_rop-user_photo')"
+                                  folder="users"
+                                  :userid="$user->id"
+                                  :readonly="true"
+            />
+
+        </div>
+        <div class="cabinet_user_personal__right">
+            <div class="flex in-edit">
+                <div class="cu_username left">
+                    <h1 class="h1">{{ $user->username }}</h1>
+                    <p class="_subtitle">
+                        {{ (isset($user->UserCity->title))? $user->UserCity->title : 'Город не указан' }}
+                    </p>
+                    <p class="{{ \App\Enums\User\PublishedUserEnum::fromValue($user->published)->class() }}">
+                        {{ $user->published_user }}
+                    </p>
+                </div>
+                <div class="right">
+
+
+                    <x-cabinet.message.to-user :item="$user"  />
+
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+<div class="pad_t40">
     <h2 class="h2 pad_b32">Личные данные</h2>
     <div class="cu_row_50">
         <div class="cu__col">
@@ -348,4 +382,4 @@
 
 
 </div>
-
+</div>

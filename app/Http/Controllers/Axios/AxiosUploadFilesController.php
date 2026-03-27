@@ -17,6 +17,7 @@ class AxiosUploadFilesController extends Controller
 
     use Upload;
     public function uploadFiles(Request $request) {
+
         $request->validate([
             'files' => ['required','array'],                     //  Обязательное поле массива
             'files.*' => ['mimes:jpg,jpeg,png,gif,pdf,doc,docx', //  Форматы разрешённых файлов
@@ -66,7 +67,10 @@ class AxiosUploadFilesController extends Controller
             ];
 
             $filesCollections[] = [
-                'json_file' => $fullPath,      //  относительный путь
+                'url'        => asset(Storage::url($fullPath)),
+                'extension'  => $fileExt,
+                'icon_class' => $iconClass,
+                'json_file'  => $fullPath,
             ];
 
         }
@@ -102,7 +106,7 @@ class AxiosUploadFilesController extends Controller
                 $strFile = $request->input('field_value'); // Название удаляемого файла
 
                 /** Проверяем существование пользователя **/
-                $user = UserViewModel::make()->User();
+                $user = UserViewModel::make()->UserId($request->id);
 
                 /** Приводим файл к массиву (если это коллекция) **/
                 $filesArray = $user->$fieldName ?? []; // Если поле undefined, получаем пустой массив

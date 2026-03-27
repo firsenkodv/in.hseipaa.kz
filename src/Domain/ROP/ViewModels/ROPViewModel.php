@@ -3,6 +3,7 @@
 namespace Domain\ROP\ViewModels;
 
 
+use App\Enums\User\MarkedDeleteEnum;
 use App\Models\Manager;
 use App\Models\ROP;
 use App\Models\User;
@@ -139,9 +140,10 @@ class ROPViewModel
 
     /**
      * @param $r
+     * @param string $locked
      * @return array|LengthAwarePaginator
      */
-    public function ropUserList($r): array|LengthAwarePaginator
+    public function ropUserList($r, string $locked =  ''): array|LengthAwarePaginator
     {
         $ids = Manager::query()
             ->select('id')
@@ -150,16 +152,53 @@ class ROPViewModel
 
         if (count($ids)) {
 
-            return User::query()
-                ->whereIn('manager_id', $ids)
-                ->with(['UserHuman', 'UserLecturer', 'UserCity', 'UserExpert', 'UserSex', 'UserProduction', 'UserSpecialist', 'UserLanguage', 'Tarif', 'Manager'])
-                ->orderBy('created_at', 'desc')
+            $q =  User::query();
+                $q->whereIn('manager_id', $ids)
+                ->with(['UserHuman', 'UserLecturer', 'UserCity', 'UserExpert', 'UserSex', 'UserProduction', 'UserSpecialist', 'UserLanguage', 'Tarif', 'Manager']);
+                if ($locked === 'deleted') {
+                    $q->where('marked_delete', MarkedDeleteEnum::MARKED->value);
+                } elseif ($locked) {
+                    $q->where('published', 0)
+                      ->where('marked_delete', '!=', MarkedDeleteEnum::MARKED->value);
+                }
+               return $q->orderBy('updated_at', 'desc')
                 ->paginate(config('site.constants.paginate'));
+
 
         }
         return [];
 
     }
+
+    /**
+     * @param $r
+     * @param string $locked
+     * @return ?Collection
+     */
+    public function ropUserListCount($r, string $locked =  ''): ?Collection
+    {
+        $ids = Manager::query()
+            ->select('id')
+            ->where('r_o_p_id', $r->id)
+            ->pluck('id');
+
+        if (count($ids)) {
+
+            $q =  User::query();
+                $q->whereIn('manager_id', $ids)
+                ->with(['UserHuman', 'UserLecturer', 'UserCity', 'UserExpert', 'UserSex', 'UserProduction', 'UserSpecialist', 'UserLanguage', 'Tarif', 'Manager']);
+                if($locked) {
+                    $q->where('published', 0);
+                }
+               return $q->get();
+
+
+
+        }
+        return null;
+
+    }
+
 
     /**
      * @param $id

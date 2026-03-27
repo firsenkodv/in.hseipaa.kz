@@ -12,6 +12,7 @@ use App\Http\Controllers\Axios\AxiosUploadFilesController;
 use App\Http\Controllers\Axios\AxiosUploadPhotoController;
 use App\Http\Controllers\Cabinet\CabinetRop\CabinetROPController;
 use App\Http\Controllers\Cabinet\CabinetUser\CabinetUserController;
+use App\Http\Controllers\Cabinet\Message\ToUser;
 use App\Http\Controllers\Company\CompanyController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\FancyBox\FancyBoxController;
@@ -27,9 +28,11 @@ use App\Http\Controllers\Tax\TaxController;
 use App\Http\Controllers\TestController;
 use App\Http\Controllers\UseFul\UseFulController;
 use App\Http\Middleware\IsROPAssignedManagerMiddleware;
+use App\Http\Middleware\IsROPIsManagerMiddleware;
 use App\Http\Middleware\IsROPMiddleware;
 use App\Http\Middleware\RedirectIfAuthenticated;
 use App\Http\Middleware\UserMiddleware;
+use App\Http\Middleware\AuthAnyMiddleware;
 use App\MoonShine\Controllers\MoonshineCompany;
 use App\MoonShine\Controllers\MoonshineContact;
 use App\MoonShine\Controllers\MoonshineHome;
@@ -257,7 +260,8 @@ Route::controller(SignUpController::class)->group(function () {
             ->middleware(RedirectIfAuthenticated::class)
            ->name('sign_up');
 
-        Route::post('/sign-up', 'handleSignUp')->middleware(ProtectAgainstSpam::class)
+        Route::post('/sign-up', 'handleSignUp')
+            ->middleware(ProtectAgainstSpam::class)
             ->name('handle_sign_up');
 
 });
@@ -352,9 +356,9 @@ Route::controller(AxiosUploadPhotoController::class)->group(function () {
 /** ** загрузка файлов  **   **/
 Route::controller(AxiosUploadFilesController::class)->group(function () {
     Route::post('/cabinet.upload.files', 'uploadFiles')
-        ->middleware(UserMiddleware::class);
+        ->middleware(AuthAnyMiddleware::class);
     Route::post('/cabinet.delete.files', 'deleteFiles')
-        ->middleware(UserMiddleware::class);
+        ->middleware(AuthAnyMiddleware::class);
 });
 /** ** загрузка файлов  **   **/
 /** ** новый токен ** **/
@@ -427,6 +431,21 @@ Route::controller(CabinetROPController::class)->group(function () {
         ->middleware(IsROPMiddleware::class)
         ->name('rop_users');
 
+    /** список на модерации*/
+    Route::get('/cabinet-rop/users/locked', 'ropNoPublishedUsers')
+        ->middleware(IsROPMiddleware::class)
+        ->name('rop_no_published_users');
+
+    /** список на удаление */
+    Route::get('/cabinet-rop/users/deleted', 'ropDeletedUsers')
+        ->middleware(IsROPMiddleware::class)
+        ->name('rop_deleted_users');
+
+    /** отметить пользователя на удаление */
+    Route::post('/cabinet-rop/users/{id}/mark-delete', 'ropMarkUserForDelete')
+        ->middleware(IsROPMiddleware::class)
+        ->name('rop_mark_user_delete');
+
     /** поиск пользователей */
     Route::post('/cabinet-rop/users/search', 'ropUsersSearch')
         ->middleware(IsROPMiddleware::class)
@@ -450,5 +469,23 @@ Route::controller(CabinetROPController::class)->group(function () {
 
 /**
  * ////РОП
+ */
+
+/**
+ * Общий для РОМ м менеджером
+ */
+
+Route::controller(ToUser::class)->group(function () {
+    Route::post('/cabinet/to_user_message', 'toUser')
+      /*  ->middleware(IsROPIsManagerMiddleware::class)*/
+        ->name('to_user_message');
+});
+
+
+
+//to_user_message
+
+/**
+ * ////Общий для РОМ м менеджером
  */
 

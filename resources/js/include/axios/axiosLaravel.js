@@ -4,12 +4,13 @@ export async function axiosLaravel(resultArray, url) {
     /** Устанавливаем токен CSRF по умолчанию для всех запросов Axios **/
     const token = scrf();
         try {
+
+
             /** Отправляем POST-запрос с помощью Axios **/
             const response = await  axios.post(url,
                 resultArray,
                 { headers: {
-                         'X-CSRF-TOKEN':token ,
-                         'Content-Type': 'multipart/form-data'}
+                         'X-CSRF-TOKEN':token}
                 });
 
 
@@ -25,10 +26,10 @@ export async function axiosLaravel(resultArray, url) {
                 // повторяем запрос с новым токеном
                 const response = await axios.post(url, resultArray, {
                     headers: {
-                        'X-CSRF-TOKEN': freshToken,
-                        'Content-Type': 'multipart/form-data'
+                        'X-CSRF-TOKEN': freshToken
                     }
                 });
+                return response.data;
             }
 
 

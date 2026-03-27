@@ -1,0 +1,46 @@
+@charset "UTF-8";
+/** Для менеджера левое меню /**/
+.cabinet_rop-menu_left-menu {
+  margin-bottom: 26px;
+}
+
+._left_m li {
+  border-left: 3px solid #F5F5F7;
+  padding: 0 10px 0 0;
+  position: relative;
+}
+._left_m li a {
+  position: relative;
+  color: #282828;
+  font-size: 17px;
+  height: 50px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  text-decoration: none;
+  box-sizing: border-box;
+  transition: 0.3s;
+  border-bottom: 1px solid #e0e0e0;
+  padding-left: 10px;
+}
+._left_m li a ._int {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  right: 10px;
+  top: 16px;
+}
+._left_m li:hover a {
+  background: #F5F5F7;
+}
+._left_m li.active {
+  border-left: 3px solid #43D38B;
+}
+._left_m li.active a {
+  background: #F5F5F7;
+}
+
+/** //////////////  Для менеджера левое меню/**/
+
+/*# sourceMappingURL=cabinet-left-menu.css.map */

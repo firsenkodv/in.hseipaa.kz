@@ -28,10 +28,12 @@ $maxWidth: 1200;
         color: #667085;
         margin: 0 0 26px;
     }
+
     .c_flex {
         &:nth-child(2n) {
             background-color: #F5F5F7;
         }
+
         &:hover {
             background-color: #fe524414;
 
@@ -68,21 +70,23 @@ $maxWidth: 1200;
             text-overflow: ellipsis; /* Добавляем многоточие там, где обрезается текст */
             transition: max-width 0.3s ease-in-out; /* Анимация изменения ширины */
             padding: 0 10px;
+
             .main {
                 background: rgb(236, 65, 118);
                 color: #ffffff;
                 border-radius: 6px;
-                padding:2px 8px;
+                padding: 2px 8px;
             }
         }
 
         .avatar {
-            width:  60px;
+            width: 60px;
             height: 48px;
-            padding:0 10px;
+            padding: 0 10px;
             display: flex;
             justify-content: center;
             align-items: center;
+
             .rm__avatar {
                 width: 40px;
                 min-width: 40px;
@@ -93,6 +97,7 @@ $maxWidth: 1200;
                 align-items: center;
                 border-radius: 50%;
                 border: 1px solid #e0e0e0;
+
                 .mw {
                     width: 40px;
                     min-width: 40px;
@@ -102,22 +107,37 @@ $maxWidth: 1200;
                 }
             }
         }
+
         .username {
             width: 30%;
-            color: #16A2E0;
+
+            span.blue {
+                color: #16A2E0;
+            }
+
+            span.red {
+                color: $colorRed;
+            }
+
+            span.green {
+                color: #43D38B;
+            }
+
         }
 
         .email {
             width: 40%;
         }
 
-        .phone{
+        .phone {
 
             width: 30%;
         }
+
         &:nth-child(2n+1) {
             background-color: #F5F5F7;
         }
+
         &:hover {
             background-color: #fe524414;
         }
@@ -132,6 +152,7 @@ $maxWidth: 1200;
         }
 
     }
+
     .u_teaser_label {
         &:hover {
             background-color: #ffffff;
@@ -142,6 +163,26 @@ $maxWidth: 1200;
 
 }
 
+
+.icon_delete {
+    button {
+        position: relative;
+        width: 20px;
+        min-width: 20px;
+        height: 20px;
+        margin: 20px;
+        svg {
+            transition: 0.2s ;
+        }
+
+        &:hover {
+            svg {
+
+                color: $colorRed;
+            }
+        }
+    }
+}
 
 @media (max-width: 1000px) {
     .username,
@@ -165,7 +206,7 @@ $maxWidth: 1200;
     .u_teaser:nth-child(2n+1) {
         .username,
         .phone,
-        .email{
+        .email {
             &::after { /* Применяем эффект постепенного скрытия текста */
                 content: '';
                 background-image: linear-gradient(to left, rgba(245, 245, 247, 1), rgba(255, 255, 255, 0));

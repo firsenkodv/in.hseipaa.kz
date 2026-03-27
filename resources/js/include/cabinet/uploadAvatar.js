@@ -5,20 +5,22 @@ export function uploadAvatar() {
     const cuAvatar = document.querySelector('.app_cu__avatar');
     const photoInput = document.getElementById('photoInput');
 
+let url, managerId, userId;
     if(cuAvatar) {
-        let url = cuAvatar.dataset.url;
-        let managerId = cuAvatar.dataset.managerid;
-        let userId = cuAvatar.dataset.userid;
+    console.log('cuAvatar')
+         url = cuAvatar.dataset.url;
+         managerId = cuAvatar.dataset.managerid;
+         userId = cuAvatar.dataset.userid;
     }
 
     if (photoInput) {
         photoInput.onchange = async function (e) {
+            console.log('photoInput')
             const file = e.target.files[0];  // Получаем выбранный файл
-
             // Проверяем наличие выбранного файла
             if (!file) return alert("Выберите файл!");
 
-            try {
+        try {
                 const formData = new FormData();  // Формируем объект FormData
 
                 // Добавляем файл в FormData
@@ -27,9 +29,9 @@ export function uploadAvatar() {
                 (userId !== '') ?  formData.append('user_id', userId) : false;
 
                 /** Выполняем запрос и ждем результата **/
-       /*         url = (url !== '') ? url : '/cabinet.upload.photo';*/
+            url = (url !== '') ? url : '/cabinet.upload.photo';
                 // Проверка: если url ложное (undefined, null, пустая строка), используем дефолт
-                url = url || '/cabinet.upload.photo';
+             //   url = url || '/cabinet.upload.photo';
 
                 axiosLaravel(formData, url)
                     .then((result) => {
@@ -54,7 +56,7 @@ export function uploadAvatar() {
 
                     })
                     .catch((error) => { console.error(error); });
-            } catch (err) {
+           } catch (err) {
                 console.error(err.response.data || err.message);
             }
         };

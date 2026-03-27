@@ -1,0 +1,53 @@
+@charset "utf-8";
+$color: #282828;
+$colorRed: #EF533F;
+$colorCCC: #CCCCCC;
+$colorGrey: #667085;
+$colorBlue: #095C9A;
+$colorBlue2: #03a9f4;
+$colorGreen: #43D38B;
+$colorYellow: #FF931E;
+$colorOrange: #FF732C;
+
+.to-user {
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+
+    svg {
+        width: 32px;
+        min-width: 32px;
+        height: 32px;
+    }
+
+    .to_user_message_and_published {
+        svg {
+            color: $colorGrey;
+        }
+        &.active {
+            svg {
+                color: $colorGreen;
+            }
+        }
+    }
+
+    .to_user_message_and_blocked {
+        svg {
+            color: $colorGrey;
+        }
+        &.active {
+            svg {
+                color: $colorRed;
+            }
+        }
+    }
+
+    &.horizontal {
+        padding: 16px;
+        display: flex;
+        flex-direction: row;
+        justify-content: end;
+        gap: 10px;
+    }
+}

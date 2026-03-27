@@ -145,6 +145,24 @@ a:hover {
   position: relative;
 }
 
+.well {
+  padding: 10px;
+  margin-bottom: 20px;
+  border-radius: 12px;
+  box-shadow: 0 2px 40px rgba(0, 0, 0, 0.0784313725);
+}
+.well.green {
+  color: #43D38B;
+}
+.well.red {
+  color: #EF533F;
+}
+.well.right {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
 .well_green {
   padding: 16px;
   border-radius: 4px;
@@ -165,6 +183,13 @@ a:hover {
 }
 .well_yellow h1, .well_yellow h2, .well_yellow h3, .well_yellow h4, .well_yellow p, .well_yellow div {
   color: #fff !important;
+}
+
+.cabinet_radius12_fff {
+  padding: 24px;
+  border-radius: 12px;
+  box-shadow: 0 2px 40px rgba(0, 0, 0, 0.0784313725);
+  background: #fff;
 }
 
 .fancybox__dialog * {
@@ -215,6 +240,9 @@ a:hover {
     max-width: 96%;
     overflow: hidden;
     margin-bottom: 55px;
+  }
+  .cabinet_radius12_fff {
+    padding: 16px;
   }
 }
 /** временно **/

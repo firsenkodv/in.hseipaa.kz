@@ -8,6 +8,7 @@
     "require": {
         "php": "^8.3",
         "ext-curl": "*",
+        "cleantalk/laravel-antispam": "^3.0",
         "diglactic/laravel-breadcrumbs": "^10.0",
         "intervention/image": "^3.11",
         "intervention/image-laravel": "^1.5",

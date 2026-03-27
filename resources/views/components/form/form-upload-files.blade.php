@@ -8,7 +8,7 @@
 ])
 
 <div class="input-file app_input-file {{ $class }}"
-     data-initialfiles='{{ json_encode($value) }}'>
+     data-initialfiles='{{ json_encode($value ?? []) }}'>
     <div class="input-file__flex">
         <div class="input-file__left">
             <div class="input-file__title">{{ $title }}</div>
@@ -18,7 +18,7 @@
             <div class="load_spinner">
                 <i class="fa fa-spinner fa-spin"></i>
             </div>
-            <div class="uploadedFiles">@if(count($value))
+            <div class="uploadedFiles">@if($value && count($value))
                     @foreach($value as $file)
                         <p data-strfile="{{$file['json_file']}}"><a href="{{ $file['url'] }}" download="" target="_blank"><i class="fa {{ $file['icon_class'] }}"></i></a><i class="delete_cross app_delete_cross" ></i></p>
                     @endforeach

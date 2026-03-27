@@ -124,6 +124,7 @@ class AxiosUploadPhotoController extends Controller
     /** загрузка аватара ROP-ом для пользователей */
     public function uploadROPUserPhoto(AvatarRequest $request)
     {
+
         try {
             // Сохранение файла в хранилище
             $users = UserViewModel::make()->UserId($request->user_id);

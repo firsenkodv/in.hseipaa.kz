@@ -24,10 +24,7 @@
                 class="imask"
                 value="{{ old('Телефон')?:'' }}"
                 required="{{ true }}"
-
-
             />
-
 
         </div>
         <div class="input-button ">

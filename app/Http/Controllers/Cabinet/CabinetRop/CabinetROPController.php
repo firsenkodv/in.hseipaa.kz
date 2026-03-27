@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers\Cabinet\CabinetRop;
 
+use App\Enums\User\MarkedDeleteEnum;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CabinetRop\ManagerAddRequest;
 use App\Http\Requests\CabinetRop\ManagerUpdateRequest;
 use App\Http\Requests\CabinetRop\RopUpdateRequest;
 use App\Http\Requests\CabinetRop\UserAssignRequest;
 use App\Http\Requests\CabinetUser\UserUpdateRequest;
+use App\Models\User;
 use Domain\Manager\ViewModels\ManagerViewModel;
 use Domain\ROP\ViewModels\ROPViewModel;
 use Domain\User\ViewModels\UserViewModel;
@@ -37,7 +39,6 @@ class CabinetROPController extends Controller
 
         if (is_null($ROP)) {
             flash()->alert(config('message_flash.alert.__enter_error'));
-
             /** запустим сессию***/
             session(['r_email' => $request->email, 'r_password' => $request->password]); // запустим сессию
             return redirect(route('rop_login'));
@@ -228,6 +229,54 @@ class CabinetROPController extends Controller
             'managers' => $managers,
         ]);
 
+    }
+
+    /**
+     * управление клиентами
+     * спискок заблокированных
+     */
+    public function ropNoPublishedUsers():View
+    {
+
+        $r = ROPViewModel::make()->r(session()->get('r'));
+        $users = ROPViewModel::make()->ropUserList($r, 'locked');
+        $managers = ROPViewModel::make()->ropManagerListMap($r);
+
+        return view('cabinet.cabinet_rop.users.items', [
+            'r'          => $r,
+            'users'      => $users,
+            'managers'   => $managers,
+            'markDelete' => true,
+        ]);
+
+    }
+
+    /**
+     * Список пользователей, отмеченных на удаление
+     */
+    public function ropDeletedUsers(): View
+    {
+        $r = ROPViewModel::make()->r(session()->get('r'));
+        $users = ROPViewModel::make()->ropUserList($r, 'deleted');
+        $managers = ROPViewModel::make()->ropManagerListMap($r);
+
+        return view('cabinet.cabinet_rop.users.items', [
+            'r'        => $r,
+            'users'    => $users,
+            'managers' => $managers,
+        ]);
+    }
+
+    /**
+     * Отметить пользователя на удаление
+     */
+    public function ropMarkUserForDelete(int $id): RedirectResponse
+    {
+        $user = User::findOrFail($id);
+        $user->marked_delete = MarkedDeleteEnum::MARKED->value;
+        $user->save();
+
+        return redirect()->back();
     }
 
     /** Поиск пользователей */

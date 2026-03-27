@@ -40,6 +40,19 @@
   padding-top: 0;
 }
 
+.in-edit {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+.in-edit .left {
+  position: relative;
+}
+.in-edit .right {
+  position: relative;
+  width: auto;
+}
+
 .cu_username {
   max-width: 400px;
   height: 100%;
@@ -47,6 +60,20 @@
   justify-content: center;
   align-items: start;
   flex-direction: column;
+}
+.cu_username .red {
+  margin: 4px 0;
+  background: #EF533F;
+  color: #fff;
+  padding: 0 10px;
+  border-radius: 3px;
+}
+.cu_username .green {
+  margin: 4px 0;
+  background: #43D38B;
+  color: #fff;
+  padding: 0 10px;
+  border-radius: 3px;
 }
 
 .cu__personal_wrap {

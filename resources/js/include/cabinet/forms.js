@@ -1,31 +1,33 @@
 export function searchUser() {
 
     const search = document.getElementById("app_show_users");
-    search.addEventListener("click", () => {
-        const el = document.querySelector('.app_select .option.active label');
-        const dataId = el ? el.dataset.id : false;
-        if(dataId) {
-            const form = document.createElement("form");
-            form.method = "POST";
-            form.action = "/cabinet-rop/users/search";
-            // Тестовые данные
-            const data = {
-                _token: document.querySelector('meta[name="csrf-token"]').getAttribute("content"),
-                id: dataId,
-            };
-            for (const [key, value] of Object.entries(data)) {
-                const input = document.createElement("input");
-                input.type = "hidden";
-                input.name = key;
-                input.value = value;
-                form.appendChild(input);
+    if (!search) return;
+        search.addEventListener("click", () => {
+            const el = document.querySelector('.app_select .option.active label');
+            const dataId = el ? el.dataset.id : false;
+            if (dataId) {
+                const form = document.createElement("form");
+                form.method = "POST";
+                form.action = "/cabinet-rop/users/search";
+                // Тестовые данные
+                const data = {
+                    _token: document.querySelector('meta[name="csrf-token"]').getAttribute("content"),
+                    id: dataId,
+                };
+                for (const [key, value] of Object.entries(data)) {
+                    const input = document.createElement("input");
+                    input.type = "hidden";
+                    input.name = key;
+                    input.value = value;
+                    form.appendChild(input);
+                }
+                document.body.appendChild(form);
+                form.submit(); // имитация отправки
+            } else {
+                alert('Выбрать менеджера')
             }
-            document.body.appendChild(form);
-            form.submit(); // имитация отправки
-        } else {
-            alert('Выбрать менеджера')
-        }
-    });
+        });
+
 
 }
 export function assignUser() {

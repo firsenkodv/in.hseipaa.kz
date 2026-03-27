@@ -29,14 +29,15 @@
 
 
                     @if($r->super == \App\Enums\Moonshine\SuperEditorEnum::SUPEREDITOR->value)
-                        <div class="well_green">
-                            <h3 class="h2">{{\App\Enums\Moonshine\SuperEditorEnum::fromValue($r->super)->toString(true)}}</h3>
+                        <div class="well green right">
+                            <div class="well__text">{{\App\Enums\Moonshine\SuperEditorEnum::fromValue($r->super)->toString(true)}}</div>
                         </div>
+                        <br>
                         <x-cabinet-rop.user.update.cabinet-rop-update-user :item="$user"/>
                     @else
-                        <div class="well_yellow">
-                            <h3 class="h2">{{\App\Enums\Moonshine\SuperEditorEnum::fromValue($r->super)->toString(true)}}</h3>
+                        <div class="well red right"><div class="well__text">{{\App\Enums\Moonshine\SuperEditorEnum::fromValue($r->super)->toString(true)}}</div>
                         </div>
+                        <br>
                         <x-cabinet.user-no-edit :user="$user"/>
                     @endif
                 </div>

@@ -5,6 +5,8 @@
 
     <x-cabinet-rop.cabinet-rop-info />
 
+   <x-cabinet-rop.menu.left-menu />
+
     <div class="block_exit">
         <x-form action="{{ route('logout_rop') }}">
             <x-form.form-button

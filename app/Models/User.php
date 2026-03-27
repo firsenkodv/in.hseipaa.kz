@@ -3,6 +3,8 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Enums\User\MarkedDeleteEnum;
+use App\Enums\User\PublishedUserEnum;
 use App\Enums\User\Status;
 use Carbon\Carbon;
 use Domain\City\ViewModels\CityViewModel;
@@ -54,6 +56,7 @@ class User extends Authenticatable
         'company', // Компания
         'position_boss', // ФИО первого руководителя
         'account_delete', // Удалим аккаунт
+        'marked_delete',  // На удаление (РОП)
 
         'file_id_card', // Удостоверение личности
         'file_criminal_record', // Справка об отсутствии судимости
@@ -99,7 +102,8 @@ class User extends Authenticatable
             'file_legal_regulation' => 'collection',
             'file_legal_first_boss' => 'collection',
             'date_birthday' => 'date', // Кастует к дате без времени
-            'published' => 'integer',
+            'published'      => 'integer',
+            'marked_delete'  => MarkedDeleteEnum::class,
             'tarif_id' => TarifCast::class,
             'tarif_expires_at' => 'datetime',
 
@@ -231,6 +235,7 @@ class User extends Authenticatable
     /**
      * @return string
      * Для русскоязычных доменов
+     * @throws Exception
      */
     public function getSiteUtf8Attribute(): string
     {
@@ -263,6 +268,19 @@ class User extends Authenticatable
 
         }
         return '';
+    }
+
+    /**
+     * Выводим статус публикации
+     */
+    public function getPublishedUserAttribute(): ?string
+    {
+        if($this->published == PublishedUserEnum::PUBLISHED->value) {
+
+            return PublishedUserEnum::PUBLISHED->toString();
+        }
+        return PublishedUserEnum::BLOCKED->toString();
+
     }
 
     /**
