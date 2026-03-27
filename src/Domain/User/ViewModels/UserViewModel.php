@@ -219,14 +219,16 @@ class UserViewModel
     public function userSetPublished(int $userId): bool
     {
         $user = User::findOrFail($userId);
-        $user->published = PublishedUserEnum::PUBLISHED->value;
+        $user->published     = PublishedUserEnum::PUBLISHED->value;
+        $user->marked_delete = \App\Enums\User\MarkedDeleteEnum::NONE->value;
         return $user->save();
     }
 
     public function userSetBlocked(int $userId): bool
     {
         $user = User::findOrFail($userId);
-        $user->published = PublishedUserEnum::BLOCKED->value;
+        $user->published     = PublishedUserEnum::BLOCKED->value;
+        $user->marked_delete = \App\Enums\User\MarkedDeleteEnum::NONE->value;
         return $user->save();
     }
 }
