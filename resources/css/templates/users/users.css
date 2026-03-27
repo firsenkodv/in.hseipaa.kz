@@ -77,6 +77,7 @@
 }
 .cabinet__users .u_teaser .username {
   width: 30%;
+  max-width: 212px;
 }
 .cabinet__users .u_teaser .username span.blue {
   color: #16A2E0;
