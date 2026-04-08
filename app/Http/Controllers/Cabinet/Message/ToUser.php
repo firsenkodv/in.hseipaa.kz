@@ -30,7 +30,7 @@ class ToUser extends Controller
             $role = session('active_role', '');
             [$staff, $staffClass] = $this->resolveStaff($role);
 
-            dump($staffClass, $staff->username);
+            //dump($staffClass, $staff->username);
 
             if ($staff && $request->filled('body')) {
 
