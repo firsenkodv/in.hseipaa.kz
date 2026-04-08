@@ -1,6 +1,7 @@
 import { Fancybox } from "@fancyapps/ui/dist/fancybox/";
 import "@fancyapps/ui/dist/fancybox/fancybox.css";
 import {asyncExecution} from "../form_async/async_execution";
+import {scrollCabinetMessages} from "./cabinet_message";
 
 
 /*Fancybox.bind('[data-fancybox]', {
@@ -63,12 +64,13 @@ async  function openFancyBox(e) {
             {
             dragToClose: false,       // Перетаскивание не закроет модалку
             closeButton: true,         // Крестик закрытия включен
-            backdropClick: false      // нельзя закрыть нажатием в свободную область
+            backdropClick: 'close'    // закрыть нажатием в свободную область
         },
             );
 
 
-        asyncExecution() // соберем эту форму
+        asyncExecution();       // соберем эту форму
+        scrollCabinetMessages(); // скроллим до последнего сообщения
 
     } catch (err) {
         console.error('Ошибка AJAX:', err.message);

@@ -29,4 +29,18 @@
   gap: 10px;
 }
 
+.msg-badge {
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  background: #EF533F;
+  color: #fff;
+  font-size: 10px;
+  font-weight: 700;
+  line-height: 1;
+  padding: 2px 4px;
+  border-radius: 10px;
+  pointer-events: none;
+}
+
 /*# sourceMappingURL=to-user.css.map */

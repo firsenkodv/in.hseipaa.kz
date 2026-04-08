@@ -17,7 +17,7 @@
 @if($description)
     <div class="input_group__description">{!! $description !!}</div>
 @endif
-<div class="input-group app_input_group {{ ($disabled)?'display_none':'' }}">
+<div class="input-group app_input_group {{ ($disabled)?'display_none':'' }}" @if($type == "hidden") style='margin: 0;' @endif()>
 
     <input  class="input-group__input app_input_name {{ $class }}      @error(($error)?:$name) _error @enderror" type="{{ $type }}" placeholder="" name="{{ $name }}" id="{{  $name . $rand }}" value="{{ $value }}" autocomplete="{{ $autocomplete }}" {{ ($autofocus)? 'autofocus' : '' }}/>
     <label class="input-group__label" for="{{  $name . $rand  }}">{{ $label }} {!! ($required) ?'<span>*</span>':'' !!}</label>

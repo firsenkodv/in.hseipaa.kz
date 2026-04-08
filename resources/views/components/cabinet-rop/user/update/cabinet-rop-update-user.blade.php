@@ -26,7 +26,7 @@
                     <div class="right">
 
 
-                   <x-cabinet.message.to-user :item="$item"  />
+                   <x-cabinet.message.to-user :item="$item" role="rop" />
 
 
                     </div>

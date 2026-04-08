@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Cabinet\CabinetUser;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CabinetUser\UserUpdateRequest;
+use App\Models\User;
+use Domain\CabinetMessage\ViewModels\CabinetMessageViewModel;
 use Domain\Service\ViewModels\ServiceViewModel;
 use Domain\User\ViewModels\UserViewModel;
 use Illuminate\Http\RedirectResponse;
@@ -127,6 +129,36 @@ class CabinetUserController extends Controller
             return view('cabinet.cabinet_user.service.services', [
                 'user' => $user,
                 'items' => ($items)??[]
+            ]);
+
+        } catch (\Throwable $th) {
+
+            // Обрабатываем исключение
+            logErrors($th);
+            abort(404);
+
+        }
+
+    }
+
+    /**
+     * @return View
+     * Страница с сообщениями
+     */
+    public function cabinetUserMessages(): View
+    {
+        try {
+
+            /** @var User $user */
+            $user = UserViewModel::make()->User();
+
+            $messages = CabinetMessageViewModel::make()->allMessagesForUser($user->id, 'desc');
+
+            CabinetMessageViewModel::make()->markReadByUser($user->id);
+
+            return view('cabinet.cabinet_user.cabinet_user_messages', [
+                'user'     => $user,
+                'messages' => $messages,
             ]);
 
         } catch (\Throwable $th) {

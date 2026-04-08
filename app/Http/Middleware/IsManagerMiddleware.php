@@ -24,6 +24,7 @@ class IsManagerMiddleware
         }
 
         if(session()->get('m')) {
+            session(['active_role' => 'manager']);
             return $next($request);
         }
 

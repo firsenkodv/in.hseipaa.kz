@@ -19,6 +19,8 @@ use Exception;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Support\Casts\TarifCast;
@@ -171,6 +173,22 @@ class User extends Authenticatable
     {
         return $this->belongsTo(Manager::class, 'manager_id');
 
+    }
+
+    /**
+     * Переписки пользователя (кабинет)
+     */
+    public function cabinetConversations(): HasMany
+    {
+        return $this->hasMany(CabinetConversation::class);
+    }
+
+    /**
+     * Все сообщения, отправленные пользователем (кабинет)
+     */
+    public function sentCabinetMessages(): MorphMany
+    {
+        return $this->morphMany(CabinetMessage::class, 'sender');
     }
 
     public function Tarif(): BelongsTo {

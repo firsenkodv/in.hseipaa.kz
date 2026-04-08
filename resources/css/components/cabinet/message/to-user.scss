@@ -43,6 +43,8 @@ $colorOrange: #FF732C;
         }
     }
 
+
+
     &.horizontal {
         padding: 16px;
         display: flex;
@@ -50,4 +52,17 @@ $colorOrange: #FF732C;
         justify-content: end;
         gap: 10px;
     }
+}
+.msg-badge {
+    position: absolute;
+    top: -4px;
+    right: -4px;
+    background: $colorRed;
+    color: #fff;
+    font-size: 10px;
+    font-weight: 700;
+    line-height: 1;
+    padding: 2px 4px;
+    border-radius: 10px;
+    pointer-events: none;
 }

@@ -19,11 +19,14 @@ return [
     'well_yellow' => 'Создать менеджера',
     'send_request' => 'Отправить заявку',
     'enter_for_rop' => 'Вход для РОП', // Entrance for ROP
+    'enter_for_manager' => 'Вход для Менеджера', // Entrance for ROP
     'for_managing_managers' => 'Для управления менеджерами', // For managing managers
+    'for_managing_users' => 'Для управления пользователями', //
     'enter' => 'Вход', // Enter
     'authorization' => 'Авторизация', // authorization
     'authorization_text' => 'Для работы в личном кабинете требуется вход', // To work in your personal account, you need to log in
     'rop_text' => 'Вход для РОП, управление менеджерами', // To work in your personal account, you need to log in
+    'manager_text' => 'Вход для Менеджера, управление пользователями',
     'head_sales_department' => 'Руководитель отдела продаж', // Head of the sales department.
     'manager' => 'Менеджер', // manager.
     'you_manager' => 'Ты менеджер',

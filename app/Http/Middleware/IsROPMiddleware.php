@@ -23,7 +23,7 @@ class IsROPMiddleware
         }
 
         if(session()->get('r')) {
-
+            session(['active_role' => 'rop']);
             return $next($request);
         }
 

@@ -94,6 +94,7 @@ class AxiosUploadPhotoController extends Controller
 
     }
 
+
     /** загрузка аватара ROP-ом для менеджеров */
     public function uploadROPManagerPhoto(AvatarRequest $request)
     {
@@ -148,6 +149,55 @@ class AxiosUploadPhotoController extends Controller
 
     }
 
+    /** загрузка аватара Менеджером для пользователей */
+    public function uploadManagerUserPhoto(AvatarRequest $request)
+    {
+        try {
+            $users = UserViewModel::make()->UserId($request->user_id);
+            $destinationPath = 'users/'.$users->id.'/avatar';
+            $result = $this->uploadFile($destinationPath, $request);
+
+            $users->avatar = $result['avatar'];
+            $users->save();
+
+        } catch (\Throwable $th) {
+            logErrors($th);
+        }
+
+        return response()->json([
+            'response'     => $request->all(),
+            'avatar'       => (isset($result['avatar'])) ? $result['avatar'] : null,
+            'intervention' => (isset($result['intervention'])) ? $result['intervention'] : null,
+        ], 200);
+    }
+
+    /** загрузка аватара для Менеджера */
+    public function uploadManagerPhoto(AvatarRequest $request)
+    {
+
+        try {
+
+            // Сохранение файла в хранилище
+            $user = ManagerViewModel::make()->m(session()->get('m'));
+            $destinationPath = 'managers/'.$user->id.'/avatar';
+            $result = $this->uploadFile($destinationPath, $request);
+
+            /** Сохраняем  */
+            $user->avatar = $result['avatar'];
+            $user->save();
+
+        } catch (\Throwable $th) {
+            // Обрабатываем исключение
+            logErrors($th);
+        }
+
+        return response()->json([
+            'response' => $request->all(),
+            'avatar' => (isset($result['avatar'])) ? $result['avatar'] : null,
+            'intervention' => (isset($result['intervention'])) ? $result['intervention'] : null,
+        ], 200);
+
+    }
 
 
 }

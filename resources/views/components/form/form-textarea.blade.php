@@ -18,8 +18,8 @@
 
     <div class="editor-trix">
 
-        <input id="x" value="" type="hidden" name="about_me" />
-        <trix-editor input="x"  placeholder="{{ $label }}"></trix-editor>
+        <input id="trix_{{ $name }}" value="{{ $value }}" type="hidden" name="{{ $name }}" />
+        <trix-editor input="trix_{{ $name }}" placeholder="{{ $label }}"></trix-editor>
 
     </div>
 

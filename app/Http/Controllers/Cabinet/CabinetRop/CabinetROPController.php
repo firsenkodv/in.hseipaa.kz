@@ -22,7 +22,7 @@ class CabinetROPController extends Controller
 {
     use Upload;
 
-    public function ropLogin()
+    public function ropLogin():View
     {
 
         return view('cabinet.cabinet_rop.auth.login_rop');
@@ -44,6 +44,7 @@ class CabinetROPController extends Controller
             return redirect(route('rop_login'));
         } else {
 
+            session()->forget('m');
             session(['r' => $request->email]); // запустим сессию
             return redirect(route('cabinet_rop'));
         }

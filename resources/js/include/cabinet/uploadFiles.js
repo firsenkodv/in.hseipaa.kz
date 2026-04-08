@@ -22,6 +22,23 @@ export function uploadFiles() {
                 // Получаем выбранные файлы
                 let selectedFiles = e.target.files;
 
+                // Разрешённые MIME-типы (совпадают с серверными mimes)
+                const allowedTypes = [
+                    'image/jpeg', 'image/jpg', 'image/png', 'image/gif',
+                    'application/pdf',
+                    'application/msword',
+                    'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+                ];
+
+                // Проверка формата файла
+                for (let i = 0; i < selectedFiles.length; i++) {
+                    if (!allowedTypes.includes(selectedFiles[i].type)) {
+                        alert(`Недопустимый формат файла "${selectedFiles[i].name}". Разрешены: JPG, PNG, GIF, PDF, DOC, DOCX.`);
+                        loadSpinnerFinish(parentEl);
+                        return false;
+                    }
+                }
+
                 // Проверка максимального размера файла (15MB ≈ 15728640 bytes)
                 for (let i = 0; i < selectedFiles.length; i++) {
                     if (selectedFiles[i].size > 15728640) {

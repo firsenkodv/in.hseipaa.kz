@@ -26,6 +26,7 @@ footer .footer_3 .footer_3__copy {
 }
 footer .footer_rop_manager {
   padding: 12px;
+  display: flex;
 }
 footer .round_avatar {
   display: flex;

@@ -6,6 +6,7 @@ use Domain\Manager\ViewModels\ManagerViewModel;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Support\Facades\Log;
 
 class Manager extends Model
@@ -41,6 +42,22 @@ class Manager extends Model
     public function Rop(): BelongsTo
     {
         return $this->belongsTo(ROP::class, 'r_o_p_id');
+    }
+
+    /**
+     * Переписки Manager с пользователями (кабинет)
+     */
+    public function cabinetConversations(): MorphMany
+    {
+        return $this->morphMany(CabinetConversation::class, 'staff');
+    }
+
+    /**
+     * Все сообщения, отправленные Manager (кабинет)
+     */
+    public function sentCabinetMessages(): MorphMany
+    {
+        return $this->morphMany(CabinetMessage::class, 'sender');
     }
 
 

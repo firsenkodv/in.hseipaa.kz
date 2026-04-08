@@ -1,6 +1,7 @@
-@props(
-    ['user']
-)
+@props([
+    'user',
+    'role' => '',
+])
 <div class="cabinet_user-no-edit">
   {{--  <x-content.registry.teaser :item="$user"/>--}}
 
@@ -28,7 +29,7 @@
                 <div class="right">
 
 
-                    <x-cabinet.message.to-user :item="$user"  />
+                    <x-cabinet.message.to-user :item="$user" :role="$role" />
 
 
                 </div>

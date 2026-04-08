@@ -25,6 +25,11 @@ $colorOrange: #FF732C;
         width: 600px;
     }
 
+    &.middle {
+        max-width: 100%;
+        width: 100%;
+    }
+
     .modal_padding {
         padding: 24px;
     }
@@ -50,6 +55,57 @@ $colorOrange: #FF732C;
         }
 
     }
+/** message_body **/
+    .cabinet-msg-item {
+        margin-bottom: 16px;
+
+        &:last-child {
+            margin-bottom: 30px;
+        }
+
+        .username {
+            color: $colorGrey;
+        }
+
+        .date_minute {
+            padding: 0 10px;
+            color: #fff;
+            border-radius: 3px;
+        }
+
+        &.message_from_user {
+            small {
+                .date_minute {
+                    background: #43D38B;
+                }
+
+            }
+        }
+
+        &.message_from_rop {
+            small {
+                .date_minute {
+                    background: $colorRed;
+                }
+
+            }
+        }
+
+        &.message_from_manager {
+            small {
+                .date_minute {
+                    background: $colorBlue;
+
+                }
+
+            }
+        }
+        .message_body {
+padding: 10px 0 0 0;
+        }
+    }
+
+    /** message_body **/
 }
 
 
@@ -60,14 +116,12 @@ $colorOrange: #FF732C;
     .modal-form-container {
         position: relative;
         width: 100%;
-
-
     }
 }
 
 @media screen and (max-width: 742px) {
     .f-html {
-     width: 96%;
+        width: 96%;
     }
 
     .modal-form-container {

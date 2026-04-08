@@ -10,8 +10,10 @@ use App\Http\Controllers\Axios\AxiosCounterPartyController;
 use App\Http\Controllers\Axios\AxiosSendingFromFormController;
 use App\Http\Controllers\Axios\AxiosUploadFilesController;
 use App\Http\Controllers\Axios\AxiosUploadPhotoController;
+use App\Http\Controllers\Cabinet\CabinetManager\CabinetManagerController;
 use App\Http\Controllers\Cabinet\CabinetRop\CabinetROPController;
 use App\Http\Controllers\Cabinet\CabinetUser\CabinetUserController;
+use App\Http\Controllers\Cabinet\Message\ToManager;
 use App\Http\Controllers\Cabinet\Message\ToUser;
 use App\Http\Controllers\Company\CompanyController;
 use App\Http\Controllers\ContactController;
@@ -27,6 +29,7 @@ use App\Http\Controllers\SiteNew\SiteNewController;
 use App\Http\Controllers\Tax\TaxController;
 use App\Http\Controllers\TestController;
 use App\Http\Controllers\UseFul\UseFulController;
+use App\Http\Middleware\IsManagerMiddleware;
 use App\Http\Middleware\IsROPAssignedManagerMiddleware;
 use App\Http\Middleware\IsROPIsManagerMiddleware;
 use App\Http\Middleware\IsROPMiddleware;
@@ -313,6 +316,7 @@ Route::controller(CabinetUserController::class)->group(function () {
         ->name('cabinet_user_update')
         ->middleware(UserMiddleware::class);
 
+
     /** кабинет метод обновления  */
     Route::put('/cabinet/setting/update', 'cabinetUserUpdateHandel')
         ->name('cabinet_user_update_handel')
@@ -326,6 +330,11 @@ Route::controller(CabinetUserController::class)->group(function () {
     /** услуги  */
     Route::get('/cabinet/service', 'cabinetService')
         ->name('cabinet_service')
+        ->middleware(UserMiddleware::class);
+
+    /** кабинет страница с сообщениями */
+    Route::get('/cabinet/setting/messages', 'cabinetUserMessages')
+        ->name('cabinet_user_messages')
         ->middleware(UserMiddleware::class);
 
 });
@@ -349,6 +358,16 @@ Route::controller(AxiosUploadPhotoController::class)->group(function () {
     /** РОП меняет автар пользователя */
     Route::post('/cabinet.upload.photo.rop-user', 'uploadROPUserPhoto')
         ->name('upload_rop-user_photo')
+        ->middleware(IsROPMiddleware::class);
+
+    /** Manager меняет автар пользователя */
+    Route::post('/cabinet.upload.photo.manager-user', 'uploadManagerUserPhoto')
+        ->name('upload_manager-user_photo')
+        ->middleware(IsManagerMiddleware::class);
+
+    /** Manager меняет свой автар */
+    Route::post('/cabinet.upload.photo.manager', 'uploadManagerPhoto')
+        ->name('upload_manager_photo')
         ->middleware(IsROPMiddleware::class);
 
 });
@@ -471,6 +490,82 @@ Route::controller(CabinetROPController::class)->group(function () {
  * ////РОП
  */
 
+
+/**
+ * Manager
+ */
+Route::controller(CabinetManagerController::class)->group(function () {
+    /** вход  */
+    Route::get('/manager', 'managerLogin')
+        ->middleware(IsManagerMiddleware::class)
+        ->name('manager_login');
+
+    Route::post('/manager_login_handle', 'managerLoginHandle')
+        ->name('manager_login_handle');
+
+    /** кабинет  */
+    Route::get('/cabinet-manager', 'cabinetManager')
+        ->middleware(IsManagerMiddleware::class)
+        ->name('cabinet_manager');
+
+    /** update  */
+    Route::get('/cabinet-manager/update/personal-data', 'cabinetUpdatePersonalDataManager')
+        ->middleware(IsManagerMiddleware::class)
+        ->name('cabinet_update_personal_data_manager');
+
+    Route::put('/cabinet_update_post_personal_data_manager', 'cabinetUpdatePostPersonalDataManager')
+        ->middleware(IsManagerMiddleware::class)
+        ->name('cabinet_update_post_personal_data_manager');
+    /** ///update  */
+
+    /** Управление пользователями  */
+    /** список */
+    Route::get('/cabinet-manager/users', 'managerUsers')
+        ->middleware(IsManagerMiddleware::class)
+        ->name('manager_users');
+
+    /** список на модерации*/
+    Route::get('/cabinet-manager/users/locked', 'managerNoPublishedUsers')
+        ->middleware(IsManagerMiddleware::class)
+        ->name('manager_no_published_users');
+
+    /** список на удаление */
+    Route::get('/cabinet-manager/users/deleted', 'managerDeletedUsers')
+        ->middleware(IsManagerMiddleware::class)
+        ->name('manager_deleted_users');
+
+    /** отметить пользователя на удаление */
+    Route::post('/cabinet-manager/users/{id}/mark-delete', 'managerMarkUserForDelete')
+        ->middleware(IsManagerMiddleware::class)
+        ->name('manager_mark_user_delete');
+
+    /** поиск пользователей */
+    Route::post('/cabinet-manager/users/search', 'managerUsersSearch')
+        ->middleware(IsManagerMiddleware::class)
+        ->name('manager_users_search');
+
+
+    /** редактировать */
+    Route::get('/cabinet-manager/users/user/{id}', 'managerUpdateUser')
+        ->middleware(IsManagerMiddleware::class)
+        ->name('manager_update_user');
+
+    Route::put('/manager_update_post_user', 'managerUpdatePostUser')
+        ->middleware(IsManagerMiddleware::class)
+        ->name('manager_update_post_user');
+
+
+    /** logout */
+    Route::post('/logout_manager', 'logoutManager')
+        ->middleware(IsManagerMiddleware::class)
+        ->name('logout_manager');
+
+});
+
+/**
+ * ////Manager
+ */
+
 /**
  * Общий для РОМ м менеджером
  */
@@ -479,11 +574,30 @@ Route::controller(ToUser::class)->group(function () {
     Route::post('/cabinet/to_user_message', 'toUser')
       /*  ->middleware(IsROPIsManagerMiddleware::class)*/
         ->name('to_user_message');
+    Route::post('/cabinet/cabinet-message/delete', 'cabinetMessageDelete')
+        ->name('cabinet_message_delete');
 });
 
+//
 
+/**
+ * ////Общий для РОМ м менеджером
+ */
 
-//to_user_message
+/**
+ * Общий для РОМ м менеджером
+ */
+
+Route::controller(ToManager::class)->group(function () {
+    Route::post('/cabinet/to_manager_message', 'toManager')
+        ->middleware(UserMiddleware::class)
+    ->name('to_manager_message');
+
+    Route::post('/cabinet/cabinet-user-message/delete', 'cabinetMessageDelete')
+        ->middleware(UserMiddleware::class)
+    ->name('cabinet_user_message_delete');
+});
+
 
 /**
  * ////Общий для РОМ м менеджером

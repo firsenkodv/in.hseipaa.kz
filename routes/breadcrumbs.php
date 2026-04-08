@@ -163,6 +163,12 @@ Breadcrumbs::for('cabinet_user', function ($trail) {
     $trail->push('Кабинет' , route('cabinet_user'));
 });
 
+// Home > CabinetUserMessages
+Breadcrumbs::for('cabinet_user_messages', function ($trail) {
+    $trail->parent('home');
+    $trail->push('Кабинет' , route('cabinet_user_messages'));
+});
+
 // Home > CabinetRop
 Breadcrumbs::for('cabinet_rop', function ($trail) {
     $trail->parent('home');
@@ -203,4 +209,25 @@ Breadcrumbs::for('rop_users', function ($trail) {
 Breadcrumbs::for('rop_update_user', function ($trail, $item) {
     $trail->parent('rop_users');
     $trail->push('Пользователь - ' . $item->username  , route('rop_update_user', $item->id));
+});
+
+
+
+// Home > CabinetRop -> Users -> User
+Breadcrumbs::for('cabinet_manager', function ($trail) {
+    $trail->parent('home');
+    $trail->push('Кабинет менеджера' , route('cabinet_manager'));
+});
+
+// Home > CabinetManager -> Users
+Breadcrumbs::for('manager_users', function ($trail) {
+    $trail->parent('cabinet_manager');
+    $trail->push('Ваши пользователи' , route('manager_users'));
+});
+
+
+// Home > CabinetManager -> Users -> User
+Breadcrumbs::for('manager_update_user', function ($trail, $item) {
+    $trail->parent('manager_users');
+    $trail->push('Пользователь - ' . $item->username  , route('manager_update_user', $item->id));
 });

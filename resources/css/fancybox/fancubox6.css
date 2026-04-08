@@ -7,10 +7,16 @@
   position: relative;
   max-width: 900px;
   width: 900px;
+  /** message_body **/
+  /** message_body **/
 }
 .modal-form-container.mini {
   max-width: 600px;
   width: 600px;
+}
+.modal-form-container.middle {
+  max-width: 100%;
+  width: 100%;
 }
 .modal-form-container .modal_padding {
   padding: 24px;
@@ -31,6 +37,32 @@
   font-size: 16px;
   line-height: 1.2em;
   padding: 0 0 5px 0;
+}
+.modal-form-container .cabinet-msg-item {
+  margin-bottom: 16px;
+}
+.modal-form-container .cabinet-msg-item:last-child {
+  margin-bottom: 30px;
+}
+.modal-form-container .cabinet-msg-item .username {
+  color: #667085;
+}
+.modal-form-container .cabinet-msg-item .date_minute {
+  padding: 0 10px;
+  color: #fff;
+  border-radius: 3px;
+}
+.modal-form-container .cabinet-msg-item.message_from_user small .date_minute {
+  background: #43D38B;
+}
+.modal-form-container .cabinet-msg-item.message_from_rop small .date_minute {
+  background: #EF533F;
+}
+.modal-form-container .cabinet-msg-item.message_from_manager small .date_minute {
+  background: #095C9A;
+}
+.modal-form-container .cabinet-msg-item .message_body {
+  padding: 10px 0 0 0;
 }
 
 @media screen and (max-width: 968px) {

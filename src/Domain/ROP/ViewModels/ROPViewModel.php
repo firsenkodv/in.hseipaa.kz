@@ -161,8 +161,16 @@ class ROPViewModel
                     $q->where('published', 0)
                       ->where('marked_delete', '!=', MarkedDeleteEnum::MARKED->value);
                 }
-               return $q->orderBy('updated_at', 'desc')
-                ->paginate(config('site.constants.paginate'));
+               return $q->orderByDesc(function ($query) {
+                        $query->selectRaw('COUNT(*)')
+                            ->from('cabinet_messages')
+                            ->join('cabinet_conversations', 'cabinet_messages.cabinet_conversation_id', '=', 'cabinet_conversations.id')
+                            ->whereColumn('cabinet_conversations.user_id', 'users.id')
+                            ->where('cabinet_messages.sender_type', \App\Models\User::class)
+                            ->whereNull('cabinet_messages.read_at');
+                    })
+                    ->orderBy('updated_at', 'desc')
+                    ->paginate(config('site.constants.paginate'));
 
 
         }

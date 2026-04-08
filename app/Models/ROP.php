@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 
 class ROP extends Model
 {
@@ -34,6 +35,22 @@ class ROP extends Model
     public function manager(): HasMany
     {
         return $this->hasMany(Manager::class,);
+    }
+
+    /**
+     * Переписки ROP с пользователями (кабинет)
+     */
+    public function cabinetConversations(): MorphMany
+    {
+        return $this->morphMany(CabinetConversation::class, 'staff');
+    }
+
+    /**
+     * Все сообщения, отправленные ROP (кабинет)
+     */
+    public function sentCabinetMessages(): MorphMany
+    {
+        return $this->morphMany(CabinetMessage::class, 'sender');
     }
 
 

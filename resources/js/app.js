@@ -14,5 +14,7 @@ import 'swiper/css/bundle';
 import './script';
 import './include/fancybox/fancybox';
 import './include/form_async/async';
+import {cabinetMessageDeleteInit} from './include/fancybox/cabinet_message';
+cabinetMessageDeleteInit();
 
 
