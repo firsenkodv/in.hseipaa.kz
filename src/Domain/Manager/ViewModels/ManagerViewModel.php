@@ -70,7 +70,7 @@ class ManagerViewModel
         $data = ManagerDto::formRequest($request);
 
         /** Сначала получаем пользователя по указанному ID **/
-        $manager = Manager::query()->where('id', $request->manager_id)->first();
+        $manager = ManagerViewModel::make()->m(session()->get('m'));
 
         if (!$manager) {
             throw new \Exception("Пользователь с указанным ID не найден.");

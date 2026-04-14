@@ -2,7 +2,7 @@
     'items',
     'markDelete' => false,
 ])
-<div class="cabinet__users_scroll">
+<div class="cabinet_manager_users cabinet__users_scroll">
     <div class="user_user-list cabinet__users">
         <div class="dashboardBox__title">
             <div class="flex">
@@ -18,7 +18,6 @@
                     </div>
                     <div class="options">
                         Опции
-
                     </div>
                 </div>
 

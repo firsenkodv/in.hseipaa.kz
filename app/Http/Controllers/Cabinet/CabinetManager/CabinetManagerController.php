@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Cabinet\CabinetManager;
 
 use App\Enums\User\MarkedDeleteEnum;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\CabinetManager\ManagerUpdateRequest;
 use App\Http\Requests\CabinetUser\UserUpdateRequest;
 use App\Models\User;
 use Domain\Manager\ViewModels\ManagerViewModel;
@@ -75,16 +76,16 @@ class CabinetManagerController extends Controller
     }
 
     /**
-     * @param RopUpdateRequest $request
+     * @param ManagerUpdateRequest $request
      * @return RedirectResponse
-     * DTO - Data Transfer Object внутри ROPViewModel
+     * DTO - Data Transfer Object внутри ManagerViewModel
      */
 
-    public function cabinetUpdatePostPersonalDataManager(RopUpdateRequest $request):RedirectResponse
+    public function cabinetUpdatePostPersonalDataManager(ManagerUpdateRequest $request):RedirectResponse
     {
+
         try {
-            $m = ManagerViewModel::make()->m(session()->get('m'));
-            ROPViewModel::make()->updatePersonalDataRop($request, $m->id);
+            ManagerViewModel::make()->updatePersonalDataManager($request);
             flash()->info(config('message_flash.info.cabinet_user_ok'));
             return redirect()->back();
 

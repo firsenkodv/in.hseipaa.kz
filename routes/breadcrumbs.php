@@ -231,3 +231,9 @@ Breadcrumbs::for('manager_update_user', function ($trail, $item) {
     $trail->parent('manager_users');
     $trail->push('Пользователь - ' . $item->username  , route('manager_update_user', $item->id));
 });
+
+// Home > CabinetRop
+Breadcrumbs::for('cabinet_update_personal_data_manager', function ($trail) {
+    $trail->parent('cabinet_manager');
+    $trail->push('Редактирование личных данных менеджера' , route('cabinet_update_personal_data_manager'));
+});

@@ -9,7 +9,7 @@
     <section>
         <div class="block block_content cabinet_user">
             <div class="block_content__breadcrumbs">
-              {{--  {{ Breadcrumbs::render('cabinet_update_personal_data_rop') }}--}}
+               {{ Breadcrumbs::render('cabinet_update_personal_data_manager') }}
             </div>
 
             <x-cabinet.title
@@ -26,7 +26,7 @@
                 </div>
 
                 <div class="block_content__right">
-                    <x-cabinet-manager.cabinet-manager-personal-data :user="$m"/>
+                    <x-cabinet-manager.update.cabinet-manager-update :user="$m" />
                 </div>
 
             </div>

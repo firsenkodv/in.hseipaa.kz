@@ -112,6 +112,10 @@
   background-color: #ffffff;
 }
 
+.cabinet_manager_users .u_teaser {
+  background: none !important;
+}
+
 .icon_delete button {
   position: relative;
   width: 20px;

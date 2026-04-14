@@ -3,9 +3,9 @@
 ])
 <div class="cabinet-user_cabinet-user-personal-data-relation">
 
-{{--    <x-cabinet-rop.cabinet-rop-info />
+   <x-cabinet-manager.cabinet-manager-info />
 
-   <x-cabinet-rop.menu.left-menu />--}}
+   <x-cabinet-manager.menu.left-menu />
 
     <div class="block_exit">
         <x-form action="{{ route('logout_manager') }}">

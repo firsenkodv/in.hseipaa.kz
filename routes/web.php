@@ -555,6 +555,7 @@ Route::controller(CabinetManagerController::class)->group(function () {
         ->name('manager_update_post_user');
 
 
+
     /** logout */
     Route::post('/logout_manager', 'logoutManager')
         ->middleware(IsManagerMiddleware::class)

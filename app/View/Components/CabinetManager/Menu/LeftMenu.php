@@ -4,7 +4,7 @@ namespace App\View\Components\CabinetManager\Menu;
 
 use App\Enums\User\MarkedDeleteEnum;
 use Closure;
-use Domain\ROP\ViewModels\ROPViewModel;
+use Domain\Manager\ViewModels\ManagerViewModel;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
@@ -16,8 +16,8 @@ class LeftMenu extends Component
     public  int $countDeletedUsers = 0;
     public function __construct()
     {
-        $r = ROPViewModel::make()->r(session()->get('r'));
-        $this->users = ROPViewModel::make()->ropUserListCount($r);
+        $m = ManagerViewModel::make()->m(session()->get('m'));
+        $this->users = ManagerViewModel::make()->managerUserList($m);
         $this->countUsers        = (!is_null($this->users)) ? $this->users->count() : 0;
         $this->countLockedUsers  = (!is_null($this->users)) ? $this->users->where('published', 0)->where('marked_delete', MarkedDeleteEnum::NONE->value)->count() : 0;
         $this->countDeletedUsers = (!is_null($this->users)) ? $this->users->where('marked_delete', MarkedDeleteEnum::MARKED->value)->count() : 0;
