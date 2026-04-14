@@ -466,7 +466,7 @@ Route::controller(CabinetROPController::class)->group(function () {
         ->name('rop_mark_user_delete');
 
     /** поиск пользователей */
-    Route::post('/cabinet-rop/users/search', 'ropUsersSearch')
+    Route::any('/cabinet-rop/users/search', 'ropUsersSearch')
         ->middleware(IsROPMiddleware::class)
         ->name('rop_users_search');
 

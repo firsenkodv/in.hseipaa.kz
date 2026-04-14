@@ -284,6 +284,8 @@ class CabinetROPController extends Controller
     public function ropUsersSearch(Request $request)
     {
 
+        //dd($request->all());
+
         $r = ROPViewModel::make()->r(session()->get('r'));
         $users = ROPViewModel::make()->ropUserListSearch($request->id);
         $managers = ROPViewModel::make()->ropManagerListMap($r);

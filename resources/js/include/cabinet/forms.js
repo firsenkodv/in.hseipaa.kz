@@ -7,20 +7,13 @@ export function searchUser() {
             const dataId = el ? el.dataset.id : false;
             if (dataId) {
                 const form = document.createElement("form");
-                form.method = "POST";
+                form.method = "GET";
                 form.action = "/cabinet-rop/users/search";
-                // Тестовые данные
-                const data = {
-                    _token: document.querySelector('meta[name="csrf-token"]').getAttribute("content"),
-                    id: dataId,
-                };
-                for (const [key, value] of Object.entries(data)) {
-                    const input = document.createElement("input");
-                    input.type = "hidden";
-                    input.name = key;
-                    input.value = value;
-                    form.appendChild(input);
-                }
+                const input = document.createElement("input");
+                input.type = "hidden";
+                input.name = "id";
+                input.value = dataId;
+                form.appendChild(input);
                 document.body.appendChild(form);
                 form.submit(); // имитация отправки
             } else {
