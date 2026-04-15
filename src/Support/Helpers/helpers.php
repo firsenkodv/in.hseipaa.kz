@@ -74,7 +74,6 @@ if (!function_exists('cache_clear ')) {
         Cache::forget('user_specialists');
         Cache::forget('user_experts');
         Cache::forget('tax_items');
-        Cache::forget('site_new_categories');
         Cache::forget('site_new_items');
         Cache::forget('site_new_modules');
         Cache::forget('mzp_items');
