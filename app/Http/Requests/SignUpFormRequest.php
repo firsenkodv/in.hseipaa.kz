@@ -19,6 +19,7 @@ class SignUpFormRequest extends FormRequest
     {
         return [
             'username' => ['required', 'string' , 'min:1'],
+            'company' => ['nullable', 'string' , 'min:1', 'max:256'],
             'email' => ['required', 'email', 'email:dns', 'unique:users'],
             'password' => ['required', 'confirmed', Password::defaults()],
         ];
@@ -43,6 +44,8 @@ class SignUpFormRequest extends FormRequest
             'username.required' => 'Необходимо ввести имя.',
             'username.min' => 'Длина имени мин. :min.',
             'username.max' => 'Длина имени макс. :max.',
+            'company.min' => 'Длина названия мин. :min.',
+            'company.max' => 'Длина названия макс. :max.',
             'password.required' => 'Пароль обязателен.',
             'password.min' => 'Длина пароля мин. :min.',
             'password.max' => 'Длина пароля макс. :max.',

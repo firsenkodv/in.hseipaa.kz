@@ -18,11 +18,11 @@ import {datepicker_accountant_ticket_date, datepicker_date_birthday} from "./inc
 import {checkCounterparty} from "./include/counterparty/check_counterparty";
 import {searchUser, assignUser, checkAll} from "./include/cabinet/forms";
 import {trix} from "./include/editor/trix";
+import {toggleSignUpUserType} from "./include/auth/toggle_sign_up_user_type";
 
 
 
 document.addEventListener('DOMContentLoaded', function () {
-
 
     imask() // маска на поле input input[name="phone"]
     close_flash() // закрытие flash
@@ -48,4 +48,5 @@ document.addEventListener('DOMContentLoaded', function () {
     assignUser() // закрепить пользователя за менеджером из РОП
     checkAll() // отметить все чекбоксы
     trix() //редактор
+    toggleSignUpUserType() // переключение при регистрации
 });

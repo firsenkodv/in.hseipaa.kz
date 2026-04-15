@@ -8,15 +8,8 @@
     <main class="auth sign_up app_form_loader">
 
         <section>
-            <div class="block block_content ">
+            <div class="block block_content">
 
-                {{--
-                     Вариант для выноса заголовков
-                     <div class="block_content__title">
-                               <h1 class="h1">Регистрация</h1>
-                               <p class="_subtitle">Для работы в личном кабинете требуется регистрация</p>
-                           </div>
-                           --}}
                 <div class="window_white_wrap">
                     <div class="window_white">
                         <x-form.form-loader/>
@@ -30,6 +23,15 @@
 
                                 <x-form.form-radio2-component/>
 
+
+                                <div class="company_sigh_up display_none">
+                                <x-form.form-input
+                                    name="company"
+                                    type="text"
+                                    label="Компания"
+                                    value="{{ old('company')?:'' }}"
+                                />
+                                </div>
                                 <x-form.form-input
                                     name="username"
                                     type="text"
