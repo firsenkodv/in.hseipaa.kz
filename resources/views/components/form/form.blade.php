@@ -6,10 +6,10 @@
 ])
 
 <form action="{{ $action }}" method="{{ $method }}" class="row_form_800 {{ $class }} ">
-    @csrf
+    @if(strtoupper($method) != "GET") @csrf    @honeypot @endif
     @if($put)
        @method('PUT')
     @endif
-    @honeypot
+
     {{ $slot }}
 </form>

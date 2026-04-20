@@ -2,16 +2,18 @@
   position: relative;
   padding: 10px 0;
 }
-.cabinet-user_cabinet-user-personal .cu__personal_label {
+
+.cu__personal_label {
   color: #667085;
   text-align: end;
   padding: 10px 20px 10px 10px;
 }
-.cabinet-user_cabinet-user-personal .cu__personal_option {
+
+.cu__personal_option {
   color: #095C9A;
   padding: 10px 10px 10px 0;
 }
-.cabinet-user_cabinet-user-personal .cu__personal_option h2 {
+.cu__personal_option h2 {
   padding: 10px 0 0 0;
   color: #282828;
 }

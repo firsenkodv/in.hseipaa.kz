@@ -1,12 +1,13 @@
 .content_content-registry-search-component {
   position: relative;
 }
-.content_content-registry-search-component .r__flex {
+
+.r__flex {
   padding: 0 0 20px 0;
   display: flex;
   justify-content: end;
 }
-.content_content-registry-search-component .r__flex .r_pad_r_ {
+.r__flex .r_pad_r_ {
   margin-right: 16px;
 }
 

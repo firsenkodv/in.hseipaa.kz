@@ -1,0 +1,237 @@
+@charset "utf-8";
+$color: #282828;
+$colorRed: #EF533F;
+$colorCCC: #CCCCCC;
+$colorGrey: #667085;
+$colorBlue: #095C9A;
+$colorBlue2: #03a9f4;
+$colorGreen: #0f6567;
+$colorYellow: #FF931E;
+$colorOrange: #FF732C;
+
+
+.hh {
+    .teaser {
+        padding: 24px;
+        margin-bottom: 20px;
+        background: rgba(245, 245, 247, 1);
+        position: relative;
+        width: 100%;
+
+        h2 {
+            font-size: 24px;
+            font-weight: 600;
+            padding: 0 0 10px 0;
+            line-height: normal;
+
+            a {
+                color: rgba(22, 162, 224, 1);
+                text-decoration: none;
+                line-height: 1.3em;
+
+                &:hover {
+                    color: $colorRed;
+                }
+
+            }
+        }
+        .subtitle {
+            font-weight: 400;
+            color: $colorGrey;
+            font-size: 16px;
+            line-height: 1.2em;
+            padding-bottom: 7px;
+            position: relative;
+            top: -10px;
+        }
+        .price {
+            font-weight: 600;
+            font-size: 18px;
+            line-height: 1.3em;
+            padding-bottom: 12px;
+        }
+
+        .company {
+            font-weight: 400;
+            font-size: 18px;
+            color: $colorGrey;
+            line-height: 1.3em;
+            padding-bottom: 12px;
+        }
+    }
+
+    .teaser__flex {
+        position: relative;
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+
+        .left {
+            width: 100%;
+            padding: 0 10px 0 0;
+        }
+
+        .right {
+            min-width: 90px;
+            width: 90px;
+
+            img {
+                border-radius: 8px;
+            }
+
+            a {
+                text-decoration: none;
+            }
+        }
+
+        .r_left {
+            width: 106px;
+            min-width: 106px;
+            position: relative;
+            img {
+                position: relative;
+                border-radius: 50%;
+            }
+
+        }
+        .r_center {
+            width: 100%;
+            position: relative;
+            padding-right: 16px;
+        }
+        .r_right {
+            width: 90px;
+            min-width: 90px;
+            position: relative;
+        }
+
+    }
+
+    .teaser_button {
+        position: relative;
+        width: 100%;
+    }
+    .cu_username {
+        height: auto;
+        min-height: 160px;
+    }
+
+    .cu__personal_label {
+        text-align: left;
+        padding-left: 0;
+    }
+
+}
+
+.Not_yet {
+    padding: 24px;
+    border-radius: 12px;
+    color: $color;
+    font-size: 18px;
+    font-weight: 600;
+    box-shadow: 0 0 5px #0000001c;
+}
+.hh_menu {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 26px;
+    a {
+        transition: 0.3s;
+        display: flex;
+        justify-content: center;
+        padding: 0 18px;
+        min-height: 40px;
+        align-items: center;
+        background: #F5F5F7;
+        color: #282828;
+        text-decoration: none;
+        border-radius: 4px;
+        &.active, &:hover {
+            color: $colorRed;
+            background: rgba(254, 82, 68, 0.08);
+        }
+    }
+}
+
+
+
+.r_price {
+padding: 6px 0 0 0;
+    font-weight: 600;
+    font-size: 20px;
+}
+
+
+/** полная страница **/
+
+.hh_item {
+    width: 100%;
+    position: relative;
+
+    .hh__flex {
+        display: flex;
+        gap: 30px;
+        position: relative;
+
+        .avatar {
+            position: relative;
+            min-width: 186px;
+            width: 186px;
+            img{
+                border-radius: 12px;
+            }
+        }
+
+        .content {
+            width: 100%;
+            position: relative;
+            .h1 {
+                padding-bottom: 6px;
+            }
+            .subtitle {
+                font-weight: 400;
+                color: $colorGrey;
+                font-size: 16px;
+                line-height: 1.2em;
+                padding-bottom: 7px;
+            }
+            .price {
+                font-weight: 600;
+                font-size: 30px;
+                line-height: 1.3em;
+                padding-bottom: 7px;
+            }
+
+            .company {
+                font-weight: 400;
+                font-size: 18px;
+                color: $colorGrey;
+                line-height: 1.3em;
+                padding-bottom: 12px;
+            }
+
+        }
+    }
+}
+
+.hh_box {
+    padding: 10px 0;
+    color: $color;
+    .hh__text {
+        color: $color !important;
+    }
+
+}
+
+/** ///полная страница **/
+
+/** Моли вакансии **/
+
+.user-vacancy-selection {
+
+    margin:0 0 20px 0;
+
+}
+
+
+/** ///Моли вакансии **/

@@ -20,6 +20,9 @@ use App\Http\Controllers\ContactController;
 use App\Http\Controllers\FancyBox\FancyBoxController;
 use App\Http\Controllers\FancyBox\FancyBoxSendingFromFormController;
 use App\Http\Controllers\Fetch\FetchCityController;
+use App\Http\Controllers\HeadHunter\HunterResume\HunterResumeController;
+use App\Http\Controllers\HeadHunter\HunterVacancy\HunterVacancyController;
+use App\Http\Controllers\HeadHunter\HunterVacancy\UserVacancyController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Mzp\MzpController;
 use App\Http\Controllers\Registry\RegistryController;
@@ -604,3 +607,60 @@ Route::controller(ToManager::class)->group(function () {
  * ////Общий для РОМ м менеджером
  */
 
+
+/**
+ * HunterVacancy
+ */
+Route::controller(HunterVacancyController::class)->group(function () {
+
+    Route::get('/hh/vacancies', 'index')
+        ->middleware(UserMiddleware::class)
+        ->name('vacancies');
+
+    Route::get('/hh/vacancies/vacancy/{id}', 'show')
+        ->middleware(UserMiddleware::class)
+        ->name('vacancy');
+
+    Route::get('/hh/vacancies/search', 'search')
+        ->middleware(UserMiddleware::class)
+        ->name('vacancy_search');
+
+});
+
+Route::controller(UserVacancyController::class)->group(function () {
+
+    Route::get('/hh/my-vacancies', 'index')
+        ->middleware(UserMiddleware::class)
+        ->name('my_vacancies');
+
+    Route::get('/hh/my-vacancies/vacancy/{id}', 'show')
+        ->middleware(UserMiddleware::class)
+        ->name('my_vacancy');
+
+
+});
+
+/**
+ * ///HunterVacancy
+ *//**
+ * HunterResume
+ */
+Route::controller(HunterResumeController::class)->group(function () {
+
+    Route::get('/hh/resumes', 'index')
+        ->middleware(UserMiddleware::class)
+        ->name('resumes');
+
+    Route::get('/hh/resumes/resume/{id}', 'show')
+        ->middleware(UserMiddleware::class)
+        ->name('resume');
+
+    Route::get('/hh/resumes/search', 'search')
+        ->middleware(UserMiddleware::class)
+        ->name('resume_search');
+
+});
+
+/**
+ * ///HunterResume
+ */

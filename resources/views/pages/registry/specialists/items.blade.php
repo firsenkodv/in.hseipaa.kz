@@ -56,6 +56,7 @@
                                     value="{{  (old('search')) ?: ($fields['search'])??'' }}"
 
                                 />
+
                                 <x-form.form-input
                                     name="route"
                                     type="text"
@@ -65,7 +66,6 @@
                                     class="display_none"
 
                                 />
-
                                 <div class="cu_row_50">
                                     <div class="cu__col"></div>
                                     <div class="cu__col">
@@ -88,8 +88,7 @@
                             </x-form.form>
                         </div>
 
-                        <x-content.registry.content-registry-users-component :items="$items" route="registry_specialist"
-                                                                             :user="$user"/>
+                        <x-content.registry.content-registry-users-component :items="$items" route="registry_specialist" :user="$user"/>
                     </div>
                 </div>
 

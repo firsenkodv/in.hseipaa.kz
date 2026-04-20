@@ -9,7 +9,7 @@ $colorGreen: #0f6567;
 $colorYellow: #FF931E;
 $colorOrange: #FF732C;
 
-.cabinet_main-manager {
+.cabinet_info__data {
     padding: 24px;
     margin-bottom: 30px;
     border-radius: 12px;
@@ -37,6 +37,7 @@ $colorOrange: #FF732C;
         align-items: start;
         min-height: 56px;
         position: relative;
+        overflow: hidden;
         ._name {
             height: 27px;
             position: relative;
@@ -97,8 +98,8 @@ $colorOrange: #FF732C;
     }
 }
 
-@media (max-width: 468px) {
     ._name {
+        width: 100%;
         height: 30px;
         position: relative;
         padding-bottom: 5px;
@@ -120,4 +121,4 @@ $colorOrange: #FF732C;
         }
 
     }
-}
+

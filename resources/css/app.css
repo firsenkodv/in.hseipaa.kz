@@ -58,6 +58,7 @@
 @import 'components/avatar/avatar-user-component.scss';
 @import 'auth/auth.scss';
 @import 'message/flach_message.scss';
+@import 'hh/all.scss';
 @import 'font-awesome/css/font-awesome.css';
 
 @import 'templates/axeld/swiper.scss';

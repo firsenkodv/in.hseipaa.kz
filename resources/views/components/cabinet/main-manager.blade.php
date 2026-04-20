@@ -1,7 +1,7 @@
 @props([
     'item'
     ])
-<div class="cabinet_main-manager">
+<div class="cabinet_info__data">
     <div>
         <div class="flex">
             <div class="u_left">

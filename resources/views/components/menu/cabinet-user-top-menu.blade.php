@@ -6,6 +6,9 @@
     <li class="{{ active_linkMenu(asset(route('cabinet_pricing'), 'find'))  }}">
         <a href="{{ route('cabinet_pricing') }}">Мой тариф</a>
     </li>
+    <li class="{{ active_linkMenu(asset(route('my_vacancies'), 'find'))  }}">
+        <a href="{{ route('my_vacancies') }}">Мои вакансии</a>
+    </li>
     <li class="{{ active_linkMenu(asset(route('cabinet_service'), 'find'))  }}">
         <a href="{{ route('cabinet_service') }}">Услуги</a>
     </li>
@@ -19,6 +22,12 @@
                 <span class="msg-badge">{{ $unread }}</span>
             @endif
         </a>
+    </li>
+    <li class="{{ active_linkMenu(asset(route('vacancies')), 'find')  }}">
+        <a href="{{ route('vacancies') }}">Вакансии</a>
+    </li>
+    <li class="{{ active_linkMenu(asset(route('resumes')), 'find')  }}">
+        <a href="{{ route('resumes') }}">Резюме</a>
     </li>
 </ul>
 </div>

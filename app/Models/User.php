@@ -452,6 +452,17 @@ class User extends Authenticatable
 
     /**
      * @return bool
+     * Проверяет, есть ли у пользователя активный тариф
+     */
+    public function getHasTarifAttribute(): bool
+    {
+        return (bool) ($this->tarif_id
+            && $this->Tarif !== null
+            && ($this->tarif_expires_at?->isFuture() ?? false));
+    }
+
+    /**
+     * @return bool
      * Проверяем является ли пользователь женщиной
      */
     public function getWomanAttribute(): bool

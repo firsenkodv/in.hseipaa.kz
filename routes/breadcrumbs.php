@@ -237,3 +237,27 @@ Breadcrumbs::for('cabinet_update_personal_data_manager', function ($trail) {
     $trail->parent('cabinet_manager');
     $trail->push('Редактирование личных данных менеджера' , route('cabinet_update_personal_data_manager'));
 });
+
+// Home > vacancies
+Breadcrumbs::for('vacancies', function ($trail) {
+    $trail->parent('home');
+    $trail->push('Вакансии' , route('vacancies'));
+});
+
+// Home > vacancies -> vacancy
+Breadcrumbs::for('vacancy', function ($trail,  $item) {
+    $trail->parent('vacancies');
+    $trail->push($item->title , route('vacancy', $item->id));
+});
+
+// Home > resumes
+Breadcrumbs::for('resumes', function ($trail) {
+    $trail->parent('home');
+    $trail->push('Резюме' , route('resumes'));
+});
+
+// Home > resumes -> resume
+Breadcrumbs::for('resume', function ($trail,  $item) {
+    $trail->parent('resumes');
+    $trail->push($item->title , route('resume', $item->id));
+});

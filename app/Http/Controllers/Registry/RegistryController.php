@@ -34,10 +34,10 @@ class RegistryController extends Controller
         $user = UserViewModel::make()->User();
 
         /**     Получаем всех специалистов для select-а */
-        $specialists = $this->select(UserSpecialistViewModel::make()->Specialists());
+        $specialists = select(UserSpecialistViewModel::make()->Specialists());
 
         /**     Получаем все города для select-а */
-        $cities = $this->select(CityViewModel::make()->Cities());
+        $cities = select(CityViewModel::make()->Cities());
 
         /**     Получаем все пользователей которое являются специалистами */
         $items = UserViewModel::make()->registryUsers(RegistryStatus::SPECIALIST->relation());
@@ -77,10 +77,10 @@ class RegistryController extends Controller
         $user = UserViewModel::make()->User();
 
         /**     Получаем всех экспертов для select-а */
-        $experts = $this->select(UserExpertViewModel::make()->Experts());
+        $experts = select(UserExpertViewModel::make()->Experts());
 
         /**     Получаем все города для select-а */
-        $cities = $this->select(CityViewModel::make()->Cities());
+        $cities = select(CityViewModel::make()->Cities());
 
         /**     Получаем все пользователей которое являются экспертами */
         $items = UserViewModel::make()->registryUsers(RegistryStatus::EXPERT->relation());
@@ -120,7 +120,7 @@ class RegistryController extends Controller
         $user = UserViewModel::make()->User();
 
         /**     Получаем все города для select-а */
-        $cities = $this->select(CityViewModel::make()->Cities());
+        $cities = select(CityViewModel::make()->Cities());
 
         /**     Получаем все пользователей которое являются экспертами */
         $items = UserViewModel::make()->registryLegalEntityUsers();
@@ -159,10 +159,10 @@ class RegistryController extends Controller
         $user = UserViewModel::make()->User();
 
         /**     Получаем всех специалистов для select-а */
-        $specialists = $this->select(UserSpecialistViewModel::make()->Specialists());
+        $specialists = select(UserSpecialistViewModel::make()->Specialists());
 
         /**     Получаем все города для select-а */
-        $cities = $this->select(CityViewModel::make()->Cities());
+        $cities = select(CityViewModel::make()->Cities());
 
         $cityId = ($request->city == 0) ? null : $request->city;
         $specialistId = ($request->specialist == 0) ? null : $request->specialist;
@@ -194,10 +194,10 @@ class RegistryController extends Controller
         $user = UserViewModel::make()->User();
 
         /**     Получаем всех специалистов для select-а */
-        $experts = $this->select(UserExpertViewModel::make()->Experts());
+        $experts = select(UserExpertViewModel::make()->Experts());
 
         /**     Получаем все города для select-а */
-        $cities = $this->select(CityViewModel::make()->Cities());
+        $cities = select(CityViewModel::make()->Cities());
 
         $cityId = ($request->city == 0) ? null : $request->city;
         $expertId = ($request->expert == 0) ? null : $request->expert;
@@ -229,7 +229,7 @@ class RegistryController extends Controller
         $user = UserViewModel::make()->User();
 
         /**     Получаем все города для select-а */
-        $cities = $this->select(CityViewModel::make()->Cities());
+        $cities = select(CityViewModel::make()->Cities());
 
         $cityId = ($request->city == 0) ? null : $request->city;
         $search = $request->search;
@@ -255,15 +255,7 @@ class RegistryController extends Controller
     public function select($items)
     {
         $arrItems = [];
-        /**     Получаем всех специалистов для select-а */
-        if (!$items->isEmpty()) { // Проверяем, пуста ли коллекция
-            // Преобразуем коллекцию в массив
-            $arrItems = $items->toArray();
-
-            // Добавляем элемент в начало массива
-            array_unshift($arrItems, ['id' => '0', 'title' => 'Все']);
-        }
-        return $arrItems;
+        // Перенес функции из контроллера
 
     }
 

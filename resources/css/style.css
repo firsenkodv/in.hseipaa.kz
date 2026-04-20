@@ -163,6 +163,10 @@ a:hover {
   align-items: center;
 }
 
+.grey {
+  color: #667085;
+}
+
 .well_green {
   padding: 16px;
   border-radius: 4px;

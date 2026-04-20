@@ -615,8 +615,13 @@ if (!function_exists('checkWhatsapp')) {
 
     function checkWhatsapp($value): string
     {
-        return 'https://wa.me/' . trim(str_replace(" ", "", $value)); // Добавляем протокол HTTPS https://wa.me/
+        $value = trim(str_replace(" ", "", $value));
 
+        if (preg_match('/^https?:\/\//i', $value)) {
+            return $value;
+        }
+
+        return 'https://wa.me/' . $value;
     }
 }
 
@@ -626,6 +631,25 @@ if (!function_exists('checkInstagram')) {
     {
         return 'https://instagram.com/' . trim(str_replace(" ", "", $value));
 
+    }
+}
+
+
+
+if (!function_exists('select')) {
+    /** получаем select-ы */
+    function select($items): array
+    {
+        $arrItems = [];
+        /**     Получаем всех специалистов для select-а */
+        if (!$items->isEmpty()) { // Проверяем, пуста ли коллекция
+            // Преобразуем коллекцию в массив
+            $arrItems = $items->toArray();
+
+            // Добавляем элемент в начало массива
+            array_unshift($arrItems, ['id' => '0', 'title' => 'Все']);
+        }
+        return $arrItems;
     }
 }
 

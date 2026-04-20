@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace App\MoonShine\Layouts;
 
 
+use App\Models\HunterCategory;
+use App\Models\HunterExperience;
 use App\MoonShine\Pages\CompanyPage;
 use App\MoonShine\Pages\ContactPage;
 use App\MoonShine\Pages\HomePage;
@@ -13,6 +15,10 @@ use App\MoonShine\Pages\ServiceModulePage;
 use App\MoonShine\Pages\SettingPage;
 
 use App\MoonShine\Pages\UsefulModulePage;
+use App\MoonShine\Resources\HunterCategoryResource;
+use App\MoonShine\Resources\HunterExperienceResource;
+use App\MoonShine\Resources\HunterResumeItemResource;
+use App\MoonShine\Resources\HunterVacancyItemResource;
 use App\MoonShine\Resources\MoonShineUserResource;
 
 use MoonShine\Laravel\Layouts\AppLayout;
@@ -130,7 +136,6 @@ final class AxeldLayout extends AppLayout
                 MenuItem::make('Подкатегория', UsefulSubcategoryResource::class, 'folder-plus'),
                 MenuItem::make('Материалы', UsefulItemResource::class, 'folder-arrow-down'),
                 MenuItem::make('Модуль', UsefulModulePage::class, 'rectangle-group'),
-
             ]),
 
 
@@ -139,7 +144,13 @@ final class AxeldLayout extends AppLayout
                 MenuItem::make('Категория', ServiceCategoryResource::class, 'folder-plus'),
                 MenuItem::make('Материалы', ServiceItemResource::class, 'folder-arrow-down'),
                 MenuItem::make('Модуль', ServiceModulePage::class, 'rectangle-group'),
+            ]),
 
+            MenuGroup::make(static fn() => __('HeadHunter'), [
+                MenuItem::make('Опыт', HunterExperienceResource::class, 'folder'),
+                MenuItem::make('Категория', HunterCategoryResource::class, 'folder-plus'),
+                MenuItem::make('Вакансии', HunterVacancyItemResource::class, 'folder-arrow-down'),
+                MenuItem::make('Резюме', HunterResumeItemResource::class, 'folder-arrow-down'),
             ]),
 
             MenuGroup::make(static fn() => __('Налоги/МЗП'), [
