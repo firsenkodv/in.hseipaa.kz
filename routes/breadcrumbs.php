@@ -244,6 +244,24 @@ Breadcrumbs::for('vacancies', function ($trail) {
     $trail->push('Вакансии' , route('vacancies'));
 });
 
+// Home > my_vacancies
+Breadcrumbs::for('my_vacancies', function ($trail) {
+    $trail->parent('home');
+    $trail->push('Мои вакансии', route('my_vacancies'));
+});
+
+// Home > my_vacancies > my_vacancy_create
+Breadcrumbs::for('my_vacancy_create', function ($trail) {
+    $trail->parent('my_vacancies');
+    $trail->push('Создать вакансию', route('my_vacancy_create'));
+});
+
+// Home > my_vacancies > my_vacancy
+Breadcrumbs::for('my_vacancy', function ($trail, $item) {
+    $trail->parent('my_vacancies');
+    $trail->push($item->title, route('my_vacancy', $item->id));
+});
+
 // Home > vacancies -> vacancy
 Breadcrumbs::for('vacancy', function ($trail,  $item) {
     $trail->parent('vacancies');
@@ -254,6 +272,24 @@ Breadcrumbs::for('vacancy', function ($trail,  $item) {
 Breadcrumbs::for('resumes', function ($trail) {
     $trail->parent('home');
     $trail->push('Резюме' , route('resumes'));
+});
+
+// Home > my_resumes
+Breadcrumbs::for('my_resumes', function ($trail) {
+    $trail->parent('home');
+    $trail->push('Мои резюме', route('my_resumes'));
+});
+
+// Home > my_resumes > my_resume_create
+Breadcrumbs::for('my_resume_create', function ($trail) {
+    $trail->parent('my_resumes');
+    $trail->push('Создать резюме', route('my_resume_create'));
+});
+
+// Home > my_resumes > my_resume
+Breadcrumbs::for('my_resume', function ($trail, $item) {
+    $trail->parent('my_resumes');
+    $trail->push($item->title, route('my_resume', $item->id));
 });
 
 // Home > resumes -> resume

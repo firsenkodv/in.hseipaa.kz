@@ -1,0 +1,118 @@
+@charset "utf-8";
+$colorRed:  #EF533F;
+$colorGrey: #667085;
+$border-color: #E0E0E0;
+
+.form-image-upload {
+    margin-bottom: 20px;
+    position: relative;
+
+    &__input {
+        display: none;
+    }
+
+    &__area {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        min-height: 140px;
+        border: 1.5px dashed $border-color;
+        border-radius: 6px;
+        cursor: pointer;
+        transition: border-color 0.2s, background-color 0.2s;
+        padding: 20px;
+        position: relative;
+        overflow: hidden;
+        background: #fafafa;
+
+        &:hover {
+            border-color: $colorRed;
+            background: #fff5f4;
+
+            svg {
+                stroke: $colorRed;
+            }
+
+            .form-image-upload__label {
+                color: $colorRed;
+            }
+        }
+
+        &.has-file {
+            border-color: $colorRed;
+            border-style: solid;
+            background: #fff;
+        }
+    }
+
+    &__placeholder {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 8px;
+
+        svg {
+            stroke: $colorGrey;
+            transition: stroke 0.2s;
+        }
+    }
+
+    &__label {
+        font-size: 15px;
+        font-weight: 600;
+        color: $colorGrey;
+        transition: color 0.2s;
+    }
+
+    &__hint {
+        font-size: 13px;
+        color: lighten($colorGrey, 20%);
+    }
+
+    &__preview {
+        width: 100%;
+        text-align: center;
+        margin-bottom: 10px;
+
+        img {
+            max-height: 120px;
+            max-width: 100%;
+            border-radius: 4px;
+            object-fit: contain;
+        }
+    }
+
+    &__filename {
+        font-size: 13px;
+        color: $colorGrey;
+        margin-top: 6px;
+        text-align: center;
+        word-break: break-all;
+    }
+
+    &__remove {
+        display: none;
+        align-items: center;
+        justify-content: center;
+        position: absolute;
+        top: 8px;
+        right: 8px;
+        width: 26px;
+        height: 26px;
+        border-radius: 50%;
+        border: none;
+        background: $colorRed;
+        color: #fff;
+        font-size: 18px;
+        line-height: 1;
+        cursor: pointer;
+        transition: background 0.2s, transform 0.15s;
+        z-index: 2;
+
+        &:hover {
+            background: darken($colorRed, 10%);
+            transform: scale(1.1);
+        }
+    }
+}

@@ -50,6 +50,7 @@
 @import 'components/form/form-radio2-component.scss';
 @import 'components/form/form-checkbox3-component.scss';
 @import 'components/form/form-upload-files-component.scss';
+@import 'components/form/form-image-upload-component.scss';
 @import 'components/cabinet-user/cabinet-user-top-menu-component.scss';
 @import 'components/cabinet-user/cabinet-user-personal-component.scss';
 @import 'components/cabinet-user/cabinet-user-personal-data-relation-component.scss';

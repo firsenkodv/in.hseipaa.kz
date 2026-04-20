@@ -1,13 +1,13 @@
 <?php
 
-namespace App\View\Components\HH\Vacancy;
+namespace App\View\Components\HH\Resume;
 
 use Closure;
-use Domain\HH\Vacancy\ViewModel\VacancyViewModel;
+use Domain\HH\Resume\ViewModel\ResumeViewModel;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
-class UserVacancySelectionComponent extends Component
+class UserResumeSelectionComponent extends Component
 {
     /**
      * Create a new component instance.
@@ -20,13 +20,13 @@ class UserVacancySelectionComponent extends Component
     {
         $hasTarif = $this->user && $this->user->hasTarif;
 
-        $vacancyCount = $this->user
-            ? VacancyViewModel::make()->countByUser($this->user->id)
+        $resumeCount = $this->user
+            ? ResumeViewModel::make()->countByUser($this->user->id)
             : 0;
 
-        return view('components.h-h.vacancy.user-vacancy-selection-component', [
+        return view('components.h-h.resume.user-resume-selection-component', [
             'hasTarif' => $hasTarif,
-            'vacancyCount' => $vacancyCount,
+            'resumeCount' => $resumeCount,
         ]);
     }
 

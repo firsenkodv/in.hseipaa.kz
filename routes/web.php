@@ -21,6 +21,7 @@ use App\Http\Controllers\FancyBox\FancyBoxController;
 use App\Http\Controllers\FancyBox\FancyBoxSendingFromFormController;
 use App\Http\Controllers\Fetch\FetchCityController;
 use App\Http\Controllers\HeadHunter\HunterResume\HunterResumeController;
+use App\Http\Controllers\HeadHunter\HunterResume\UserResumeController;
 use App\Http\Controllers\HeadHunter\HunterVacancy\HunterVacancyController;
 use App\Http\Controllers\HeadHunter\HunterVacancy\UserVacancyController;
 use App\Http\Controllers\HomeController;
@@ -637,6 +638,13 @@ Route::controller(UserVacancyController::class)->group(function () {
         ->middleware(UserMiddleware::class)
         ->name('my_vacancy');
 
+    Route::get('/hh/my-vacancies/create', 'store')
+        ->middleware(UserMiddleware::class)
+        ->name('my_vacancy_create');
+
+    Route::post('/hh/my-vacancies/create', 'save')
+        ->middleware(UserMiddleware::class)
+        ->name('my_vacancy_store');
 
 });
 
@@ -658,6 +666,27 @@ Route::controller(HunterResumeController::class)->group(function () {
     Route::get('/hh/resumes/search', 'search')
         ->middleware(UserMiddleware::class)
         ->name('resume_search');
+
+});
+
+
+Route::controller(UserResumeController::class)->group(function () {
+
+    Route::get('/hh/my-resumes', 'index')
+        ->middleware(UserMiddleware::class)
+        ->name('my_resumes');
+
+    Route::get('/hh/my-resumes/resume/{id}', 'show')
+        ->middleware(UserMiddleware::class)
+        ->name('my_resume');
+
+    Route::get('/hh/my-resumes/create', 'store')
+        ->middleware(UserMiddleware::class)
+        ->name('my_resume_create');
+
+    Route::post('/hh/my-resumes/create', 'save')
+        ->middleware(UserMiddleware::class)
+        ->name('my_resume_store');
 
 });
 

@@ -15,12 +15,15 @@
                 title="Мой профиль"
                 :subtitle="(isset($user->UserHuman->title))?$user->UserHuman->title:'' "
             />
+
             <x-cabinet-user.menu.cabinet-user-top-menu :user="$user"/>
 
             <div class="block_content__flex">
 
                 <div class="block_content__left">
                     <x-menu.hh-menu-component/>
+                    <x-h-h.resume.user-resume-selection-component :user="$user"  />
+
                 </div>
 
                 <div class="block_content__right">

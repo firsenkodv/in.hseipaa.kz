@@ -36,6 +36,7 @@
     {{--  <script src="//translate.google.com/translate_a/element.js?cb=TranslateInit"></script>
           <script src="/js/language/google-translate.js"></script>
           <script src="/js/language/script.js"></script>  --}}
+    @stack('scripts')
 </body>
 </html>
 

@@ -6,7 +6,7 @@
     <li class="{{ active_linkMenu(asset(route('cabinet_pricing'), 'find'))  }}">
         <a href="{{ route('cabinet_pricing') }}">Мой тариф</a>
     </li>
-    <li class="{{ active_linkMenu(asset(route('my_vacancies'), 'find'))  }}">
+    <li class="{{ active_linkMenu(asset(route('my_vacancies')), 'find')  }}">
         <a href="{{ route('my_vacancies') }}">Мои вакансии</a>
     </li>
     <li class="{{ active_linkMenu(asset(route('cabinet_service'), 'find'))  }}">

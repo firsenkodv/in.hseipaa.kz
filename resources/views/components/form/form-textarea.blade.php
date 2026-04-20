@@ -18,7 +18,8 @@
 
     <div class="editor-trix">
 
-        <input id="trix_{{ $name }}" value="{{ $value }}" type="hidden" name="{{ $name }}" />
+        <input id="trix_{{ $name }}" type="hidden" name="{{ $name }}"
+               value="{!! htmlspecialchars($value, ENT_QUOTES, 'UTF-8', false) !!}" />
         <trix-editor input="trix_{{ $name }}" placeholder="{{ $label }}"></trix-editor>
 
     </div>

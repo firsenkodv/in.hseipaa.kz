@@ -83,6 +83,30 @@ $primary-color: $colorGrey;
 
 
 }
+.input-group-currency {
+    position: relative;
+    margin-bottom: 20px;
+
+    .input-group {
+        margin-bottom: 0;
+
+        .input-group__input {
+            padding-right: 36px;
+        }
+    }
+
+    &__symbol {
+        position: absolute;
+        right: 12px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: $colorGrey;
+        font-size: 16px;
+        pointer-events: none;
+        line-height: 1;
+    }
+}
+
 .input-button {
     padding:7px 0 10px 0;
     position: relative;

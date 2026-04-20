@@ -1,0 +1,100 @@
+.form-image-upload {
+  margin-bottom: 20px;
+  position: relative;
+}
+.form-image-upload__input {
+  display: none;
+}
+.form-image-upload__area {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 140px;
+  border: 1.5px dashed #E0E0E0;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: border-color 0.2s, background-color 0.2s;
+  padding: 20px;
+  position: relative;
+  overflow: hidden;
+  background: #fafafa;
+}
+.form-image-upload__area:hover {
+  border-color: #EF533F;
+  background: #fff5f4;
+}
+.form-image-upload__area:hover svg {
+  stroke: #EF533F;
+}
+.form-image-upload__area:hover .form-image-upload__label {
+  color: #EF533F;
+}
+.form-image-upload__area.has-file {
+  border-color: #EF533F;
+  border-style: solid;
+  background: #fff;
+}
+.form-image-upload__placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+.form-image-upload__placeholder svg {
+  stroke: #667085;
+  transition: stroke 0.2s;
+}
+.form-image-upload__label {
+  font-size: 15px;
+  font-weight: 600;
+  color: #667085;
+  transition: color 0.2s;
+}
+.form-image-upload__hint {
+  font-size: 13px;
+  color: rgb(157.0893617021, 164.4510638298, 179.9106382979);
+}
+.form-image-upload__preview {
+  width: 100%;
+  text-align: center;
+  margin-bottom: 10px;
+}
+.form-image-upload__preview img {
+  max-height: 120px;
+  max-width: 100%;
+  border-radius: 4px;
+  object-fit: contain;
+}
+.form-image-upload__filename {
+  font-size: 13px;
+  color: #667085;
+  margin-top: 6px;
+  text-align: center;
+  word-break: break-all;
+}
+.form-image-upload__remove {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  border: none;
+  background: #EF533F;
+  color: #fff;
+  font-size: 18px;
+  line-height: 1;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.15s;
+  z-index: 2;
+}
+.form-image-upload__remove:hover {
+  background: rgb(231.6923076923, 43.4423076923, 19.3076923077);
+  transform: scale(1.1);
+}
+
+/*# sourceMappingURL=form-image-upload-component.css.map */

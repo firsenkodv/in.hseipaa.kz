@@ -1,15 +1,14 @@
+@props(['vacancyCount' => 0])
+
 <div class="pad_t10 cabinet_rop-menu_left-menu">
     <ul class="_left_m nav">
-        <li class="{{ active_linkMenu(route('rop_users'))  }}"><a href="{{ route('rop_users') }}">Пользователи
-                <span class="_int">9</span>
+        <li class="{{ active_linkMenu(route('my_vacancies'))  }}"><a href="{{ route('my_vacancies') }}">Вакансии
+                <span class="_int">{{ $vacancyCount }}</span>
             </a>
         </li>
-        <li class="{{ active_linkMenu(route('rop_no_published_users'))  }}"><a href="{{ route('rop_no_published_users') }}">На модерации
-                <span class="_int">4</span>
-            </a>
-        </li>
-        <li class="{{ active_linkMenu(route('rop_deleted_users'))  }}"><a href="{{ route('rop_deleted_users') }}">На удаление
-                <span class="_int">3</span>
+        <li class="{{ active_linkMenu(route('my_vacancy_create')) }}"><a href="{{ route('my_vacancy_create') }}">Создать вакансию</a></li>
+        <li class=""><a href="#">Архив
+                <span class="_int">0</span>
             </a>
         </li>
     </ul>
