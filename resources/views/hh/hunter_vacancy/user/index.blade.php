@@ -35,6 +35,9 @@
                                         @if($item->subtitle)
                                             <div class="subtitle">{{ $item->subtitle }}</div>
                                         @endif
+                                        @if(!$item->published)
+                                            <div class="hh__not_published">Не опубликована</div>
+                                        @endif
                                         <div class="price">{{ price($item->price) }} {{ config('currency.currency.KZT') }}</div>
                                         @if($item->company)
                                             <div class="company">{{ $item->company }}</div>

@@ -31,8 +31,12 @@ class UserResumeController extends Controller
     public function show($id): View
     {
         try {
-            $item = ResumeViewModel::make()->resume($id);
             $user = UserViewModel::make()->User();
+            $item = ResumeViewModel::make()->userResume((int) $id, $user->id);
+
+            if (!$item) {
+                abort(404);
+            }
 
             return view('hh.hunter_resume.user.show', compact('item', 'user'));
 

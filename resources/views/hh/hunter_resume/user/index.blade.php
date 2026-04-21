@@ -47,6 +47,9 @@
                                         @else
                                             <div class="subtitle">&mdash;</div>
                                         @endif
+                                        @if(!$item->published)
+                                            <div class="hh__not_published">Не опубликовано</div>
+                                        @endif
                                         @if($item->experience)
                                             <div class="hh__text desc">Опыт работы &mdash; {{ $item->experience->title }}</div>
                                         @endif

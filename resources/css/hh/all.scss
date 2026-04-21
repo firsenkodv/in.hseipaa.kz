@@ -11,6 +11,18 @@ $colorOrange: #FF732C;
 
 
 .hh {
+    .hh__not_published {
+        display: inline-block;
+        font-size: 12px;
+        font-weight: 600;
+        color: #fff;
+        background: $colorOrange;
+        border-radius: 4px;
+        padding: 2px 10px;
+        margin-bottom: 8px;
+        position: relative;
+        top: -8px;
+    }
     .teaser {
         padding: 24px;
         margin-bottom: 20px;
@@ -167,7 +179,10 @@ padding: 6px 0 0 0;
 .hh_item {
     width: 100%;
     position: relative;
-
+    .hh__not_published {
+        top: 0;
+        margin-bottom: 20px;
+    }
     .hh__flex {
         display: flex;
         gap: 30px;

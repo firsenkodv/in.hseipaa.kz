@@ -6,6 +6,8 @@
 />
 @section('content')
     <section>
+
+
         <div class="block block_content cabinet_user hh">
             <div class="block_content__breadcrumbs">
                 {{ Breadcrumbs::render('my_vacancy', $item) }}
@@ -41,6 +43,9 @@
                                 <h1 class="h1">{{ $item->title }}</h1>
                                 @if($item->subtitle)
                                     <div class="subtitle">{{ $item->subtitle }}</div>
+                                @endif
+                                @if(!$item->published)
+                                    <div class="hh__not_published">Не опубликована</div>
                                 @endif
 
                                 <div class="price">{{ price($item->price) }} {{ config('currency.currency.KZT') }}</div>

@@ -47,6 +47,12 @@
 
                                 <div class="cu_username">
                                     <h1 class="h1">{{ $item->title }}</h1>
+                                    @if($item->subtitle)
+                                        <div class="subtitle">{{ $item->subtitle }}</div>
+                                    @endif
+                                    @if(!$item->published)
+                                        <div class="hh__not_published">Не опубликовано</div>
+                                    @endif
 
                                     @if($user->date_birthday)
                                         <p class="_subtitle">{{ birthdate($user->date_birthday) }}</p>

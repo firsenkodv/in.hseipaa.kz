@@ -83,13 +83,24 @@ class VacancyViewModel
     }
 
     /**
-     * Одна вакансия по ID
+     * Одна вакансия по ID (только опубликованные — публичная страница)
      */
     public function vacancy(?int $id): ?Model
     {
         return HunterVacancyItem::query()
             ->where('published', 1)
             ->where('id', $id)
+            ->first();
+    }
+
+    /**
+     * Вакансия пользователя по ID (без фильтра по published — для личного кабинета)
+     */
+    public function userVacancy(int $id, int $userId): ?Model
+    {
+        return HunterVacancyItem::query()
+            ->where('id', $id)
+            ->where('user_id', $userId)
             ->first();
     }
 

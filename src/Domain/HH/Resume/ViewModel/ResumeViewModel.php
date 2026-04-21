@@ -81,13 +81,24 @@ class ResumeViewModel
     }
 
     /**
-     * Одна резюме по ID
+     * Одна резюме по ID (только опубликованные — публичная страница)
      */
     public function resume(?int $id): ?Model
     {
         return HunterResumeItem::query()
             ->where('published', 1)
             ->where('id', $id)
+            ->first();
+    }
+
+    /**
+     * Резюме пользователя по ID (без фильтра по published — для личного кабинета)
+     */
+    public function userResume(int $id, int $userId): ?Model
+    {
+        return HunterResumeItem::query()
+            ->where('id', $id)
+            ->where('user_id', $userId)
             ->first();
     }
 

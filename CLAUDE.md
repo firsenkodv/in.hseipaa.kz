@@ -75,6 +75,34 @@ BelongsTo::make('Пользователь', 'user',
 ->asyncSearch('title', formatted: fn($item, $field) => $item->id . ' | ' . $item->title)
 ```
 
+## Flash-сообщения
+
+Системные сообщения выводятся через хелпер `flash()`. Тексты хранятся в `config/message_flash/`:
+
+- `config/message_flash/info.php` — положительные сообщения
+- `config/message_flash/alert.php` — сообщения об ошибках
+
+**Использование в контроллере:**
+
+```php
+// Успех
+flash()->info(config('message_flash.info.vacancy_create_ok'));
+
+// Ошибка
+flash()->alert(config('message_flash.alert.vacancy_create_error'));
+```
+
+**Добавление нового сообщения:**
+
+1. Добавить ключ в `config/message_flash/info.php` или `alert.php`:
+```php
+'vacancy_create_ok' => '<p>Ваша вакансия успешно добавлена. Она будет опубликована после проверки.</p>',
+```
+
+2. Вызвать в контроллере через `config('message_flash.info.ключ')`.
+
+Компоненты `<x-message.message/>` и `<x-message.message_error/>` подключены в `layouts/layout.blade.php` и отображаются автоматически.
+
 ## Environment
 
 - Local dev via OSPanel (Windows)

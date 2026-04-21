@@ -30,13 +30,15 @@ class UserVacancyController extends Controller
 
     public function show($id): View
     {
-
         try {
+            $user = UserViewModel::make()->User();
+            $item = VacancyViewModel::make()->userVacancy((int) $id, $user->id);
 
-            $item     = VacancyViewModel::make()->vacancy($id);
-            $user      = UserViewModel::make()->User();
+            if (!$item) {
+                abort(404);
+            }
 
-            return view('hh.hunter_vacancy.user.show', compact('user','item'));
+            return view('hh.hunter_vacancy.user.show', compact('user', 'item'));
 
         } catch (\Throwable $th) {
             logErrors($th);
