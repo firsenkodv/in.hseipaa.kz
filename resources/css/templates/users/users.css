@@ -108,8 +108,14 @@
   align-items: center;
   gap: 10px;
 }
+.cabinet__users .u_teaser_label {
+  background-color: #ffffff;
+}
 .cabinet__users .u_teaser_label:hover {
   background-color: #ffffff;
+}
+.cabinet__users .dashboardBox__title .u_teaser {
+  background-color: #ffffff !important;
 }
 
 .cabinet_manager_users .u_teaser {

@@ -4,6 +4,8 @@ namespace Domain\ROP\ViewModels;
 
 
 use App\Enums\User\MarkedDeleteEnum;
+use App\Models\HunterResumeItem;
+use App\Models\HunterVacancyItem;
 use App\Models\Manager;
 use App\Models\ROP;
 use App\Models\User;
@@ -12,6 +14,7 @@ use Domain\ROP\DTOs\RopUpdateDto;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Collection as SupportCollection;
 use Support\Traits\Makeable;
 use Support\Traits\Upload;
 use Throwable;
@@ -218,6 +221,165 @@ class ROPViewModel
             ->orderBy('created_at', 'desc')
             ->paginate(config('site.constants.paginate'));
 
+    }
+
+    /**
+     * Все ID пользователей, принадлежащих менеджерам данного РОП
+     */
+    public function ropUserIds($r): SupportCollection
+    {
+        $managerIds = Manager::query()
+            ->select('id')
+            ->where('r_o_p_id', $r->id)
+            ->pluck('id');
+
+        if ($managerIds->isEmpty()) {
+            return collect();
+        }
+
+        return User::query()
+            ->whereIn('manager_id', $managerIds)
+            ->pluck('id');
+    }
+
+    /**
+     * Количество всех вакансий пользователей РОП
+     */
+    public function ropVacancyCount($r): int
+    {
+        $userIds = $this->ropUserIds($r);
+        if ($userIds->isEmpty()) return 0;
+        return HunterVacancyItem::whereIn('user_id', $userIds)->count();
+    }
+
+    /**
+     * Количество неопубликованных вакансий пользователей РОП
+     */
+    public function ropVacancyUnpublishedCount($r): int
+    {
+        $userIds = $this->ropUserIds($r);
+        if ($userIds->isEmpty()) return 0;
+        return HunterVacancyItem::whereIn('user_id', $userIds)->where('published', 0)->count();
+    }
+
+    /**
+     * Количество всех резюме пользователей РОП
+     */
+    public function ropResumeCount($r): int
+    {
+        $userIds = $this->ropUserIds($r);
+        if ($userIds->isEmpty()) return 0;
+        return HunterResumeItem::whereIn('user_id', $userIds)->count();
+    }
+
+    /**
+     * Количество неопубликованных резюме пользователей РОП
+     */
+    public function ropResumeUnpublishedCount($r): int
+    {
+        $userIds = $this->ropUserIds($r);
+        if ($userIds->isEmpty()) return 0;
+        return HunterResumeItem::whereIn('user_id', $userIds)->where('published', 0)->count();
+    }
+
+    /**
+     * Города, которые фактически используются в вакансиях пользователей РОП
+     */
+    public function ropVacancyCities($r, bool $moderation = false): array
+    {
+        $userIds = $this->ropUserIds($r);
+        if ($userIds->isEmpty()) return [];
+
+        $q = HunterVacancyItem::query()
+            ->with('city')
+            ->whereIn('user_id', $userIds)
+            ->whereNotNull('user_city_id');
+
+        if ($moderation) {
+            $q->where('published', 0);
+        }
+
+        return $q->get()
+            ->pluck('city')
+            ->filter()
+            ->unique('id')
+            ->map(fn($city) => ['id' => $city->id, 'title' => $city->title])
+            ->values()
+            ->toArray();
+    }
+
+    /**
+     * Города, которые фактически используются в резюме пользователей РОП
+     */
+    public function ropResumeCities($r, bool $moderation = false): array
+    {
+        $userIds = $this->ropUserIds($r);
+        if ($userIds->isEmpty()) return [];
+
+        $q = HunterResumeItem::query()
+            ->with('city')
+            ->whereIn('user_id', $userIds)
+            ->whereNotNull('user_city_id');
+
+        if ($moderation) {
+            $q->where('published', 0);
+        }
+
+        return $q->get()
+            ->pluck('city')
+            ->filter()
+            ->unique('id')
+            ->map(fn($city) => ['id' => $city->id, 'title' => $city->title])
+            ->values()
+            ->toArray();
+    }
+
+    /**
+     * Список вакансий пользователей РОП (все или только неопубликованные).
+     * Опционально фильтрация по городу и категории.
+     */
+    public function ropVacancyList($r, bool $moderation = false, ?int $cityId = null, ?int $categoryId = null): LengthAwarePaginator|array
+    {
+        $userIds = $this->ropUserIds($r);
+        if ($userIds->isEmpty()) return [];
+
+        $q = HunterVacancyItem::query()
+            ->with(['user', 'category', 'city'])
+            ->whereIn('user_id', $userIds);
+
+        if ($moderation) {
+            $q->where('published', 0);
+        }
+
+        $q->when($cityId, fn($q) => $q->where('user_city_id', $cityId))
+          ->when($categoryId, fn($q) => $q->where('hunter_category_id', $categoryId));
+
+        return $q->orderBy('sorting', 'desc')
+            ->paginate(config('site.constants.paginate'));
+    }
+
+    /**
+     * Список резюме пользователей РОП (все или только неопубликованные).
+     * Опционально фильтрация по городу и категории.
+     */
+    public function ropResumeList($r, bool $moderation = false, ?int $cityId = null, ?int $categoryId = null): LengthAwarePaginator|array
+    {
+        $userIds = $this->ropUserIds($r);
+        if ($userIds->isEmpty()) return [];
+
+        $q = HunterResumeItem::query()
+            ->with(['user', 'category', 'city'])
+            ->whereIn('user_id', $userIds);
+
+        if ($moderation) {
+            $q->where('published', 0);
+        }
+
+        $q->when($cityId, fn($q) => $q->where('user_city_id', $cityId))
+          ->when($categoryId, fn($q) => $q->where('hunter_category_id', $categoryId));
+
+        return $q->orderBy('sorting', 'desc')
+            ->paginate(config('site.constants.paginate'));
     }
 
     /**

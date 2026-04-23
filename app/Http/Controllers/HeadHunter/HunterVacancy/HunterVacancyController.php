@@ -4,7 +4,6 @@ namespace App\Http\Controllers\HeadHunter\HunterVacancy;
 
 use App\Enums\HH\VacancyArchiveEnum;
 use App\Http\Controllers\Controller;
-use Domain\City\ViewModels\CityViewModel;
 use Domain\HH\Vacancy\ViewModel\VacancyViewModel;
 use Domain\User\ViewModels\UserViewModel;
 use Illuminate\Contracts\View\View;
@@ -21,7 +20,7 @@ class HunterVacancyController extends Controller
     public function index(): View
     {
         try {
-            $cities    = select(CityViewModel::make()->Cities());
+            $cities    = VacancyViewModel::make()->cities();
             $categories = select(VacancyViewModel::make()->categories());
             $items     = VacancyViewModel::make()->vacancies();
             $user      = UserViewModel::make()->User();
@@ -46,7 +45,7 @@ class HunterVacancyController extends Controller
             $cityId     = (int) $request->input('city')    ?: null;
             $categoryId = (int) $request->input('category') ?: null;
 
-            $cities    = select(CityViewModel::make()->Cities());
+            $cities    = VacancyViewModel::make()->cities();
             $categories = select(VacancyViewModel::make()->categories());
             $items     = VacancyViewModel::make()->search($cityId, $categoryId)->appends($request->query());
             $user      = UserViewModel::make()->User();

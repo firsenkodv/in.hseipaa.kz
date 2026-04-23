@@ -213,6 +213,54 @@ Breadcrumbs::for('rop_update_user', function ($trail, $item) {
 
 
 
+// Home > CabinetRop -> HH -> Vacancies
+Breadcrumbs::for('rop_hh_vacancies', function ($trail) {
+    $trail->parent('cabinet_rop');
+    $trail->push('Вакансии', route('rop_hh_vacancies'));
+});
+
+// Home > CabinetRop -> HH -> Vacancies -> Vacancy
+Breadcrumbs::for('rop_hh_vacancy', function ($trail, $item) {
+    $trail->parent('rop_hh_vacancies');
+    $trail->push($item->title, route('rop_hh_vacancy', $item->id));
+});
+
+// Home > CabinetRop -> HH -> Vacancies moderation -> Vacancy
+Breadcrumbs::for('rop_hh_vacancy_moder', function ($trail, $item) {
+    $trail->parent('rop_hh_vacancies_moder');
+    $trail->push($item->title, route('rop_hh_vacancy_moder', $item->id));
+});
+
+// Home > CabinetRop -> HH -> Resumes -> Resume
+Breadcrumbs::for('rop_hh_resume', function ($trail, $item) {
+    $trail->parent('rop_hh_resumes');
+    $trail->push($item->title, route('rop_hh_resume', $item->id));
+});
+
+// Home > CabinetRop -> HH -> Resumes moderation -> Resume
+Breadcrumbs::for('rop_hh_resume_moder', function ($trail, $item) {
+    $trail->parent('rop_hh_resumes_moder');
+    $trail->push($item->title, route('rop_hh_resume_moder', $item->id));
+});
+
+// Home > CabinetRop -> HH -> Vacancies (moderation)
+Breadcrumbs::for('rop_hh_vacancies_moder', function ($trail) {
+    $trail->parent('cabinet_rop');
+    $trail->push('Вакансии на модерации', route('rop_hh_vacancies_moder'));
+});
+
+// Home > CabinetRop -> HH -> Resumes
+Breadcrumbs::for('rop_hh_resumes', function ($trail) {
+    $trail->parent('cabinet_rop');
+    $trail->push('Резюме', route('rop_hh_resumes'));
+});
+
+// Home > CabinetRop -> HH -> Resumes (moderation)
+Breadcrumbs::for('rop_hh_resumes_moder', function ($trail) {
+    $trail->parent('cabinet_rop');
+    $trail->push('Резюме на модерации', route('rop_hh_resumes_moder'));
+});
+
 // Home > CabinetRop -> Users -> User
 Breadcrumbs::for('cabinet_manager', function ($trail) {
     $trail->parent('home');

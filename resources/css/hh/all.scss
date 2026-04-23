@@ -45,6 +45,9 @@ $colorOrange: #FF732C;
         margin-bottom: 8px;
         position: relative;
         top: -8px;
+        &.hh__published {
+            background: #43D38B;
+        }
     }
     .teaser {
         padding: 24px;

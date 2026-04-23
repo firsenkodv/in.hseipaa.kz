@@ -4,7 +4,6 @@ namespace App\Http\Controllers\HeadHunter\HunterResume;
 
 use App\Enums\HH\ResumeArchiveEnum;
 use App\Http\Controllers\Controller;
-use Domain\City\ViewModels\CityViewModel;
 use Domain\HH\Resume\ViewModel\ResumeViewModel;
 use Domain\User\ViewModels\UserViewModel;
 use Illuminate\Contracts\View\View;
@@ -21,7 +20,7 @@ class HunterResumeController extends Controller
     public function index(): View
     {
         try {
-            $cities    = select(CityViewModel::make()->Cities());
+            $cities    = ResumeViewModel::make()->cities();
             $categories = select(ResumeViewModel::make()->categories());
             $items     = ResumeViewModel::make()->resumes();
             $user      = UserViewModel::make()->User();
@@ -46,7 +45,7 @@ class HunterResumeController extends Controller
             $cityId     = (int) $request->input('city')    ?: null;
             $categoryId = (int) $request->input('category') ?: null;
 
-            $cities    = select(CityViewModel::make()->Cities());
+            $cities    = ResumeViewModel::make()->cities();
             $categories = select(ResumeViewModel::make()->categories());
             $items     = ResumeViewModel::make()->search($cityId, $categoryId)->appends($request->query());
             $user      = UserViewModel::make()->User();

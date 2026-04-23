@@ -42,6 +42,25 @@ class VacancyViewModel
     }
 
     /**
+     * Города, которые фактически используются в опубликованных вакансиях
+     */
+    public function cities(): array
+    {
+        return HunterVacancyItem::query()
+            ->with('city')
+            ->where('published', 1)
+            ->where('archive', VacancyArchiveEnum::NOTARCHIVED->value)
+            ->whereNotNull('user_city_id')
+            ->get()
+            ->pluck('city')
+            ->filter()
+            ->unique('id')
+            ->map(fn($city) => ['id' => $city->id, 'title' => $city->title])
+            ->values()
+            ->toArray();
+    }
+
+    /**
      * Все опубликованные вакансии с пагинацией
      */
     public function vacancies(): LengthAwarePaginator

@@ -71,35 +71,45 @@
                                         </div>
                                         <div class="cabinet_user_personal__right">
                                             <div class="cu__personal_option">
-                                                {{ isset($user->UserSex)?$user->UserSex->title:'—' }}
+                                                {{ isset($user->UserSex) ? $user->UserSex->title : '—' }}
                                             </div>
                                         </div>
                                     </div>
 
-                                    @if($user->hasTarif)
-
+                                    @if($item->post)
                                         <div class="cabinet_user_personal__flex">
                                             <div class="cabinet_user_personal__left">
-                                                <div class="cu__personal_label"><span>Электронная почта:</span></div>
+                                                <div class="cu__personal_label"><span>Должность:</span></div>
                                             </div>
                                             <div class="cabinet_user_personal__right">
-                                                <div class="cu__personal_option">
-                                                    {{ ($user->email)??'—' }}
-                                                </div>
+                                                <div class="cu__personal_option">{{ $item->post }}</div>
                                             </div>
                                         </div>
+                                    @endif
 
+                                    @php
+                                        $displayCity = $item->city->title ?? $user->UserCity?->title ?? null;
+                                    @endphp
+                                    @if($displayCity)
                                         <div class="cabinet_user_personal__flex">
                                             <div class="cabinet_user_personal__left">
-                                                <div class="cu__personal_label"><span>Телефон:</span></div>
+                                                <div class="cu__personal_label"><span>Город:</span></div>
                                             </div>
                                             <div class="cabinet_user_personal__right">
-                                                <div class="cu__personal_option">
-                                                    {{ ($user->phone)?phone($user->phone):'—' }}
-                                                </div>
+                                                <div class="cu__personal_option">{{ $displayCity }}</div>
                                             </div>
                                         </div>
+                                    @endif
 
+                                    @if($item->category)
+                                        <div class="cabinet_user_personal__flex">
+                                            <div class="cabinet_user_personal__left">
+                                                <div class="cu__personal_label"><span>Категория:</span></div>
+                                            </div>
+                                            <div class="cabinet_user_personal__right">
+                                                <div class="cu__personal_option">{{ $item->category->title }}</div>
+                                            </div>
+                                        </div>
                                     @endif
 
                                     <div class="cabinet_user_personal__flex">
@@ -108,28 +118,98 @@
                                         </div>
                                         <div class="cabinet_user_personal__right">
                                             <div class="cu__personal_option">
-                                                {{ ($item->experience)?$item->experience->title:'—' }}
+                                                {{ $item->experience ? $item->experience->title : '—' }}
                                             </div>
                                         </div>
                                     </div>
+
+                                    @if($item->price)
+                                        <div class="cabinet_user_personal__flex">
+                                            <div class="cabinet_user_personal__left">
+                                                <div class="cu__personal_label"><span>Желаемая зарплата:</span></div>
+                                            </div>
+                                            <div class="cabinet_user_personal__right">
+                                                <div class="cu__personal_option">{{ number_format($item->price, 0, '.', ' ') }} {{ config('currency.currency.KZT') }}</div>
+                                            </div>
+                                        </div>
+                                    @endif
+
+                                    @if($user->hasTarif)
+
+                                        @php
+                                            $displayEmail = $item->email ?: ($user->email ?: null);
+                                            $displayPhone = $item->phone ?: ($user->phone ?: null);
+                                        @endphp
+
+                                        @if($displayEmail)
+                                            <div class="cabinet_user_personal__flex">
+                                                <div class="cabinet_user_personal__left">
+                                                    <div class="cu__personal_label"><span>Электронная почта:</span></div>
+                                                </div>
+                                                <div class="cabinet_user_personal__right">
+                                                    <div class="cu__personal_option">{{ $displayEmail }}</div>
+                                                </div>
+                                            </div>
+                                        @endif
+
+                                        @if($displayPhone)
+                                            <div class="cabinet_user_personal__flex">
+                                                <div class="cabinet_user_personal__left">
+                                                    <div class="cu__personal_label"><span>Телефон:</span></div>
+                                                </div>
+                                                <div class="cabinet_user_personal__right">
+                                                    <div class="cu__personal_option">{{ phone($displayPhone) }}</div>
+                                                </div>
+                                            </div>
+                                        @endif
+
+                                    @endif
+
+                                    @php
+                                        $displayTelegram = $item->telegram ?: ($user->telegram ?? null);
+                                        $displayWhatsapp = $item->whatsapp ?: ($user->whatsapp ?? null);
+                                    @endphp
+
+                                    @if($displayTelegram)
+                                        <div class="cabinet_user_personal__flex">
+                                            <div class="cabinet_user_personal__left">
+                                                <div class="cu__personal_label"><span>Telegram:</span></div>
+                                            </div>
+                                            <div class="cabinet_user_personal__right">
+                                                <div class="cu__personal_option">{{ $displayTelegram }}</div>
+                                            </div>
+                                        </div>
+                                    @endif
+
+                                    @if($displayWhatsapp)
+                                        <div class="cabinet_user_personal__flex">
+                                            <div class="cabinet_user_personal__left">
+                                                <div class="cu__personal_label"><span>WhatsApp:</span></div>
+                                            </div>
+                                            <div class="cabinet_user_personal__right">
+                                                <div class="cu__personal_option">{{ $displayWhatsapp }}</div>
+                                            </div>
+                                        </div>
+                                    @endif
+
 
                                 </div>
 
                                 <br>
                                 <div class="hh_box">
-                                    <h2 class="h2">Описание</h2>
+                                    <h2 class="h2">О себе</h2>
                                     <div class="hh__text desc">
                                         {!! $item->desc !!}
                                     </div>
                                 </div>
                                 <div class="hh_box">
-                                    <h2 class="h2">Навыки и требования</h2>
+                                    <h2 class="h2">Навыки</h2>
                                     <div class="hh__text desc">
                                         {!! $item->must !!}
                                     </div>
                                 </div>
                                 <div class="hh_box">
-                                    <h2 class="h2">Условия</h2>
+                                    <h2 class="h2">Пожелания</h2>
                                     <div class="hh__text desc">
                                         {!! $item->conditions !!}
                                     </div>

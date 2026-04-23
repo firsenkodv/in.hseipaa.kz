@@ -155,10 +155,18 @@ $maxWidth: 1200;
     }
 
     .u_teaser_label {
+        background-color: #ffffff;
+
         &:hover {
             background-color: #ffffff;
         }
 
+    }
+
+    .dashboardBox__title {
+        .u_teaser {
+            background-color: #ffffff !important;
+        }
     }
 
 

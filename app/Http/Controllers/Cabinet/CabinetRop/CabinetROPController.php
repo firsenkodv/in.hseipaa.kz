@@ -10,6 +10,8 @@ use App\Http\Requests\CabinetRop\RopUpdateRequest;
 use App\Http\Requests\CabinetRop\UserAssignRequest;
 use App\Http\Requests\CabinetUser\UserUpdateRequest;
 use App\Models\User;
+use Domain\HH\Resume\ViewModel\ResumeViewModel;
+use Domain\HH\Vacancy\ViewModel\VacancyViewModel;
 use Domain\Manager\ViewModels\ManagerViewModel;
 use Domain\ROP\ViewModels\ROPViewModel;
 use Domain\User\ViewModels\UserViewModel;
@@ -321,6 +323,246 @@ class CabinetROPController extends Controller
     }
 
 
+
+    /**
+     * Опубликовать вакансию (published = 1).
+     */
+    public function ropHhVacancyPublish(int $id): RedirectResponse
+    {
+        $r       = ROPViewModel::make()->r(session()->get('r'));
+        $userIds = ROPViewModel::make()->ropUserIds($r);
+
+        $item = \App\Models\HunterVacancyItem::query()
+            ->whereIn('user_id', $userIds)
+            ->findOrFail($id);
+
+        $item->published = 1;
+        $item->save();
+
+        return redirect()->route('rop_hh_vacancy', $id);
+    }
+
+    /**
+     * Заблокировать вакансию (published = 0).
+     */
+    public function ropHhVacancyUnpublish(int $id): RedirectResponse
+    {
+        $r       = ROPViewModel::make()->r(session()->get('r'));
+        $userIds = ROPViewModel::make()->ropUserIds($r);
+
+        $item = \App\Models\HunterVacancyItem::query()
+            ->whereIn('user_id', $userIds)
+            ->findOrFail($id);
+
+        $item->published = 0;
+        $item->save();
+
+        return redirect()->route('rop_hh_vacancy_moder', $id);
+    }
+
+    /**
+     * Страница просмотра вакансии из общего списка.
+     */
+    public function ropHhVacancy(int $id): View
+    {
+        $r       = ROPViewModel::make()->r(session()->get('r'));
+        $userIds = ROPViewModel::make()->ropUserIds($r);
+
+        $item = \App\Models\HunterVacancyItem::query()
+            ->with(['user', 'category', 'city', 'experience'])
+            ->whereIn('user_id', $userIds)
+            ->findOrFail($id);
+
+        return view('cabinet.cabinet_rop.hh.vacancy', [
+            'r'          => $r,
+            'item'       => $item,
+            'breadcrumb' => 'rop_hh_vacancy',
+        ]);
+    }
+
+    /**
+     * Страница просмотра вакансии из списка на модерации.
+     */
+    public function ropHhVacancyModer(int $id): View
+    {
+        $r       = ROPViewModel::make()->r(session()->get('r'));
+        $userIds = ROPViewModel::make()->ropUserIds($r);
+
+        $item = \App\Models\HunterVacancyItem::query()
+            ->with(['user', 'category', 'city', 'experience'])
+            ->whereIn('user_id', $userIds)
+            ->findOrFail($id);
+
+        return view('cabinet.cabinet_rop.hh.vacancy', [
+            'r'          => $r,
+            'item'       => $item,
+            'breadcrumb' => 'rop_hh_vacancy_moder',
+        ]);
+    }
+
+    /**
+     * Список всех вакансий пользователей РОП с фильтрацией по городу и категории.
+     * Иерархия: РОП → менеджеры → пользователи → вакансии.
+     */
+    public function ropHhVacancies(Request $request): View
+    {
+        $r          = ROPViewModel::make()->r(session()->get('r'));
+        $cityId     = (int) $request->input('city')     ?: null;
+        $categoryId = (int) $request->input('category') ?: null;
+        $cities     = ROPViewModel::make()->ropVacancyCities($r);
+        $categories = select(VacancyViewModel::make()->categories());
+        $items      = ROPViewModel::make()->ropVacancyList($r, false, $cityId, $categoryId);
+        $fields     = $this->buildVacancyFields($cityId, $categoryId, $cities, $categories);
+
+        return view('cabinet.cabinet_rop.hh.vacancies', compact('r', 'items', 'cities', 'categories', 'fields'));
+    }
+
+    /**
+     * Список неопубликованных вакансий пользователей РОП (на модерации) с фильтрами.
+     */
+    public function ropHhVacanciesModer(Request $request): View
+    {
+        $r          = ROPViewModel::make()->r(session()->get('r'));
+        $cityId     = (int) $request->input('city')     ?: null;
+        $categoryId = (int) $request->input('category') ?: null;
+        $cities     = ROPViewModel::make()->ropVacancyCities($r, true);
+        $categories = select(VacancyViewModel::make()->categories());
+        $items      = ROPViewModel::make()->ropVacancyList($r, true, $cityId, $categoryId);
+        $fields     = $this->buildVacancyFields($cityId, $categoryId, $cities, $categories);
+
+        return view('cabinet.cabinet_rop.hh.vacancies', compact('r', 'items', 'cities', 'categories', 'fields'));
+    }
+
+    /**
+     * Формирует массив полей фильтра для передачи в шаблон вакансий.
+     */
+    private function buildVacancyFields(?int $cityId, ?int $categoryId, array $cities, array $categories): array
+    {
+        return [
+            'city'     => $cityId     ? ['id' => $cityId,     'title' => collect($cities)->firstWhere('id', $cityId)['title']         ?? ''] : null,
+            'category' => $categoryId ? ['id' => $categoryId, 'title' => collect($categories)->firstWhere('id', $categoryId)['title']  ?? ''] : null,
+        ];
+    }
+
+    /**
+     * Опубликовать резюме (published = 1).
+     */
+    public function ropHhResumePublish(int $id): RedirectResponse
+    {
+        $r       = ROPViewModel::make()->r(session()->get('r'));
+        $userIds = ROPViewModel::make()->ropUserIds($r);
+
+        $item = \App\Models\HunterResumeItem::query()
+            ->whereIn('user_id', $userIds)
+            ->findOrFail($id);
+
+        $item->published = 1;
+        $item->save();
+
+        return redirect()->route('rop_hh_resume', $id);
+    }
+
+    /**
+     * Заблокировать резюме (published = 0).
+     */
+    public function ropHhResumeUnpublish(int $id): RedirectResponse
+    {
+        $r       = ROPViewModel::make()->r(session()->get('r'));
+        $userIds = ROPViewModel::make()->ropUserIds($r);
+
+        $item = \App\Models\HunterResumeItem::query()
+            ->whereIn('user_id', $userIds)
+            ->findOrFail($id);
+
+        $item->published = 0;
+        $item->save();
+
+        return redirect()->route('rop_hh_resume_moder', $id);
+    }
+
+    /**
+     * Страница просмотра резюме из общего списка.
+     */
+    public function ropHhResume(int $id): View
+    {
+        $r       = ROPViewModel::make()->r(session()->get('r'));
+        $userIds = ROPViewModel::make()->ropUserIds($r);
+
+        $item = \App\Models\HunterResumeItem::query()
+            ->with(['user', 'category', 'city', 'experience'])
+            ->whereIn('user_id', $userIds)
+            ->findOrFail($id);
+
+        return view('cabinet.cabinet_rop.hh.resume', [
+            'r'          => $r,
+            'item'       => $item,
+            'breadcrumb' => 'rop_hh_resume',
+        ]);
+    }
+
+    /**
+     * Страница просмотра резюме из списка на модерации.
+     */
+    public function ropHhResumeModer(int $id): View
+    {
+        $r       = ROPViewModel::make()->r(session()->get('r'));
+        $userIds = ROPViewModel::make()->ropUserIds($r);
+
+        $item = \App\Models\HunterResumeItem::query()
+            ->with(['user', 'category', 'city', 'experience'])
+            ->whereIn('user_id', $userIds)
+            ->findOrFail($id);
+
+        return view('cabinet.cabinet_rop.hh.resume', [
+            'r'          => $r,
+            'item'       => $item,
+            'breadcrumb' => 'rop_hh_resume_moder',
+        ]);
+    }
+
+    /**
+     * Список всех резюме пользователей РОП с фильтрацией по городу и категории.
+     * Иерархия: РОП → менеджеры → пользователи → резюме.
+     */
+    public function ropHhResumes(Request $request): View
+    {
+        $r          = ROPViewModel::make()->r(session()->get('r'));
+        $cityId     = (int) $request->input('city')     ?: null;
+        $categoryId = (int) $request->input('category') ?: null;
+        $cities     = ROPViewModel::make()->ropResumeCities($r);
+        $categories = select(ResumeViewModel::make()->categories());
+        $items      = ROPViewModel::make()->ropResumeList($r, false, $cityId, $categoryId);
+        $fields     = $this->buildResumeFields($cityId, $categoryId, $cities, $categories);
+
+        return view('cabinet.cabinet_rop.hh.resumes', compact('r', 'items', 'cities', 'categories', 'fields'));
+    }
+
+    /**
+     * Список неопубликованных резюме пользователей РОП (на модерации) с фильтрами.
+     */
+    public function ropHhResumesModer(Request $request): View
+    {
+        $r          = ROPViewModel::make()->r(session()->get('r'));
+        $cityId     = (int) $request->input('city')     ?: null;
+        $categoryId = (int) $request->input('category') ?: null;
+        $cities     = ROPViewModel::make()->ropResumeCities($r, true);
+        $categories = select(ResumeViewModel::make()->categories());
+        $items      = ROPViewModel::make()->ropResumeList($r, true, $cityId, $categoryId);
+        $fields     = $this->buildResumeFields($cityId, $categoryId, $cities, $categories);
+
+        return view('cabinet.cabinet_rop.hh.resumes', compact('r', 'items', 'cities', 'categories', 'fields'));
+    }
+
+    /**
+     * Формирует массив полей фильтра для передачи в шаблон резюме.
+     */
+    private function buildResumeFields(?int $cityId, ?int $categoryId, array $cities, array $categories): array
+    {
+        return [
+            'city'     => $cityId     ? ['id' => $cityId,     'title' => collect($cities)->firstWhere('id', $cityId)['title']         ?? ''] : null,
+            'category' => $categoryId ? ['id' => $categoryId, 'title' => collect($categories)->firstWhere('id', $categoryId)['title']  ?? ''] : null,
+        ];
+    }
 
     /**
      * Редактирование пользователя

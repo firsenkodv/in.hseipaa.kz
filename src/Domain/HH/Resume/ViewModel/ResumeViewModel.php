@@ -30,6 +30,25 @@ class ResumeViewModel
     }
 
     /**
+     * Города, которые фактически используются в опубликованных резюме
+     */
+    public function cities(): array
+    {
+        return HunterResumeItem::query()
+            ->with('city')
+            ->where('published', 1)
+            ->where('archive', ResumeArchiveEnum::NOTARCHIVED->value)
+            ->whereNotNull('user_city_id')
+            ->get()
+            ->pluck('city')
+            ->filter()
+            ->unique('id')
+            ->map(fn($city) => ['id' => $city->id, 'title' => $city->title])
+            ->values()
+            ->toArray();
+    }
+
+    /**
      * Все опубликованные резюме с пагинацией
      */
     public function resumes(): LengthAwarePaginator

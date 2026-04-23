@@ -95,6 +95,13 @@
   border: 1px solid #EF533F;
 }
 
+.btn:disabled,
+.btn[disabled] {
+  opacity: 0.4;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
 .btn.btn-indigo {
   background: #575EEF;
   border: 1px solid #575EEF;

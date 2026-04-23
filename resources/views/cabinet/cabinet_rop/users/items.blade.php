@@ -22,6 +22,7 @@
 
                 <div class="block_content__left">
                    <x-cabinet-rop.cabinet-rop-personal-data-relation :user="$r"/>
+
                 </div>
 
                 <div class="block_content__right">

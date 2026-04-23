@@ -9,6 +9,9 @@
     <li class="{{ active_linkMenu(asset(route('my_vacancies')), 'find')  }}">
         <a href="{{ route('my_vacancies') }}">Мои вакансии</a>
     </li>
+    <li class="{{ active_linkMenu(asset(route('my_resumes')), 'find')  }}">
+        <a href="{{ route('my_resumes') }}">Мои резюме</a>
+    </li>
     <li class="{{ active_linkMenu(asset(route('cabinet_service'), 'find'))  }}">
         <a href="{{ route('cabinet_service') }}">Услуги</a>
     </li>

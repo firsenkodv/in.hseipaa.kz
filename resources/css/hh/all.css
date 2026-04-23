@@ -34,6 +34,9 @@
   position: relative;
   top: -8px;
 }
+.hh .hh__not_published.hh__published {
+  background: #43D38B;
+}
 .hh .teaser {
   padding: 24px;
   margin-bottom: 20px;

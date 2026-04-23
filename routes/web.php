@@ -484,6 +484,60 @@ Route::controller(CabinetROPController::class)->group(function () {
         ->middleware(IsROPMiddleware::class)
         ->name('rop_update_user');
 
+    /** HH — вакансии */
+    Route::get('/cabinet-rop/hh/vacancies', 'ropHhVacancies')
+        ->middleware(IsROPMiddleware::class)
+        ->name('rop_hh_vacancies');
+
+    Route::get('/cabinet-rop/hh/vacancies/{id}', 'ropHhVacancy')
+        ->middleware(IsROPMiddleware::class)
+        ->name('rop_hh_vacancy');
+
+    /** HH — публикация / блокировка вакансии */
+    Route::post('/cabinet-rop/hh/vacancy/{id}/publish', 'ropHhVacancyPublish')
+        ->middleware(IsROPMiddleware::class)
+        ->name('rop_hh_vacancy_publish');
+
+    Route::post('/cabinet-rop/hh/vacancy/{id}/unpublish', 'ropHhVacancyUnpublish')
+        ->middleware(IsROPMiddleware::class)
+        ->name('rop_hh_vacancy_unpublish');
+
+    /** HH — вакансии на модерации */
+    Route::get('/cabinet-rop/hh/vacancy-moderation', 'ropHhVacanciesModer')
+        ->middleware(IsROPMiddleware::class)
+        ->name('rop_hh_vacancies_moder');
+
+    Route::get('/cabinet-rop/hh/vacancy-moderation/{id}', 'ropHhVacancyModer')
+        ->middleware(IsROPMiddleware::class)
+        ->name('rop_hh_vacancy_moder');
+
+    /** HH — резюме */
+    Route::get('/cabinet-rop/hh/resumes', 'ropHhResumes')
+        ->middleware(IsROPMiddleware::class)
+        ->name('rop_hh_resumes');
+
+    Route::get('/cabinet-rop/hh/resumes/{id}', 'ropHhResume')
+        ->middleware(IsROPMiddleware::class)
+        ->name('rop_hh_resume');
+
+    /** HH — публикация / блокировка резюме */
+    Route::post('/cabinet-rop/hh/resume/{id}/publish', 'ropHhResumePublish')
+        ->middleware(IsROPMiddleware::class)
+        ->name('rop_hh_resume_publish');
+
+    Route::post('/cabinet-rop/hh/resume/{id}/unpublish', 'ropHhResumeUnpublish')
+        ->middleware(IsROPMiddleware::class)
+        ->name('rop_hh_resume_unpublish');
+
+    /** HH — резюме на модерации */
+    Route::get('/cabinet-rop/hh/resume-moderation', 'ropHhResumesModer')
+        ->middleware(IsROPMiddleware::class)
+        ->name('rop_hh_resumes_moder');
+
+    Route::get('/cabinet-rop/hh/resume-moderation/{id}', 'ropHhResumeModer')
+        ->middleware(IsROPMiddleware::class)
+        ->name('rop_hh_resume_moder');
+
     Route::put('/rop_update_post_user', 'ropUpdatePostUser')
         ->middleware(IsROPMiddleware::class)
          ->name('rop_update_post_user');

@@ -100,6 +100,12 @@ background: #FFFFFF;
         border: 1px solid $colorRed;
     }
 }
+.btn:disabled,
+.btn[disabled] {
+    opacity: 0.4;
+    cursor: not-allowed;
+    pointer-events: none;
+}
 .btn.btn-indigo {
     background: $colorIndigo;
     border: 1px solid $colorIndigo;
