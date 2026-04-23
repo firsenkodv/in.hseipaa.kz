@@ -24,9 +24,14 @@ class UserResumeSelectionComponent extends Component
             ? ResumeViewModel::make()->countByUser($this->user->id)
             : 0;
 
+        $archiveCount = $this->user
+            ? ResumeViewModel::make()->countArchiveByUser($this->user->id)
+            : 0;
+
         return view('components.h-h.resume.user-resume-selection-component', [
-            'hasTarif' => $hasTarif,
+            'hasTarif'    => $hasTarif,
             'resumeCount' => $resumeCount,
+            'archiveCount' => $archiveCount,
         ]);
     }
 

@@ -646,6 +646,34 @@ Route::controller(UserVacancyController::class)->group(function () {
         ->middleware(UserMiddleware::class)
         ->name('my_vacancy_store');
 
+    Route::get('/hh/my-vacancies/archive', 'archive')
+        ->middleware(UserMiddleware::class)
+        ->name('my_vacancy_archive');
+
+    Route::get('/hh/my-vacancies/archive/vacancy/{id}', 'archiveShow')
+        ->middleware(UserMiddleware::class)
+        ->name('my_vacancy_archive_show');
+
+    Route::get('/hh/my-vacancies/vacancy/{id}/edit', 'update')
+        ->middleware(UserMiddleware::class)
+        ->name('my_vacancy_edit');
+
+    Route::put('/hh/my-vacancies/vacancy/{id}/edit', 'updateSave')
+        ->middleware(UserMiddleware::class)
+        ->name('my_vacancy_update');
+
+    Route::post('/hh/my-vacancies/vacancy/{id}/archive', 'archive_move')
+        ->middleware(UserMiddleware::class)
+        ->name('my_vacancy_archive_move');
+
+    Route::post('/hh/my-vacancies/archive/vacancy/{id}/restore', 'restore')
+        ->middleware(UserMiddleware::class)
+        ->name('my_vacancy_restore');
+
+    Route::delete('/hh/my-vacancies/vacancy/{id}', 'destroy')
+        ->middleware(UserMiddleware::class)
+        ->name('my_vacancy_delete');
+
 });
 
 /**
@@ -687,6 +715,34 @@ Route::controller(UserResumeController::class)->group(function () {
     Route::post('/hh/my-resumes/create', 'save')
         ->middleware(UserMiddleware::class)
         ->name('my_resume_store');
+
+    Route::get('/hh/my-resumes/archive', 'archive')
+        ->middleware(UserMiddleware::class)
+        ->name('my_resume_archive');
+
+    Route::get('/hh/my-resumes/archive/resume/{id}', 'archiveShow')
+        ->middleware(UserMiddleware::class)
+        ->name('my_resume_archive_show');
+
+    Route::get('/hh/my-resumes/resume/{id}/edit', 'update')
+        ->middleware(UserMiddleware::class)
+        ->name('my_resume_edit');
+
+    Route::put('/hh/my-resumes/resume/{id}/edit', 'updateSave')
+        ->middleware(UserMiddleware::class)
+        ->name('my_resume_update');
+
+    Route::post('/hh/my-resumes/resume/{id}/archive', 'archive_move')
+        ->middleware(UserMiddleware::class)
+        ->name('my_resume_archive_move');
+
+    Route::post('/hh/my-resumes/archive/resume/{id}/restore', 'restore')
+        ->middleware(UserMiddleware::class)
+        ->name('my_resume_restore');
+
+    Route::delete('/hh/my-resumes/resume/{id}', 'destroy')
+        ->middleware(UserMiddleware::class)
+        ->name('my_resume_delete');
 
 });
 

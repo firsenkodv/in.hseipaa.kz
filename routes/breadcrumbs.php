@@ -262,6 +262,24 @@ Breadcrumbs::for('my_vacancy', function ($trail, $item) {
     $trail->push($item->title, route('my_vacancy', $item->id));
 });
 
+// Home > my_vacancies > my_vacancy > edit
+Breadcrumbs::for('my_vacancy_edit', function ($trail, $item) {
+    $trail->parent('my_vacancy', $item);
+    $trail->push('Редактировать', route('my_vacancy_edit', $item->id));
+});
+
+// Home > my_vacancies > archive
+Breadcrumbs::for('my_vacancy_archive', function ($trail) {
+    $trail->parent('my_vacancies');
+    $trail->push('Архив', route('my_vacancy_archive'));
+});
+
+// Home > my_vacancies > archive > vacancy
+Breadcrumbs::for('my_vacancy_archive_show', function ($trail, $item) {
+    $trail->parent('my_vacancy_archive');
+    $trail->push($item->title, route('my_vacancy_archive_show', $item->id));
+});
+
 // Home > vacancies -> vacancy
 Breadcrumbs::for('vacancy', function ($trail,  $item) {
     $trail->parent('vacancies');
@@ -290,6 +308,24 @@ Breadcrumbs::for('my_resume_create', function ($trail) {
 Breadcrumbs::for('my_resume', function ($trail, $item) {
     $trail->parent('my_resumes');
     $trail->push($item->title, route('my_resume', $item->id));
+});
+
+// Home > my_resumes > my_resume > edit
+Breadcrumbs::for('my_resume_edit', function ($trail, $item) {
+    $trail->parent('my_resume', $item);
+    $trail->push('Редактировать', route('my_resume_edit', $item->id));
+});
+
+// Home > my_resumes > archive
+Breadcrumbs::for('my_resume_archive', function ($trail) {
+    $trail->parent('my_resumes');
+    $trail->push('Архив', route('my_resume_archive'));
+});
+
+// Home > my_resumes > archive > resume
+Breadcrumbs::for('my_resume_archive_show', function ($trail, $item) {
+    $trail->parent('my_resume_archive');
+    $trail->push($item->title, route('my_resume_archive_show', $item->id));
 });
 
 // Home > resumes -> resume

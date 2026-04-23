@@ -1,20 +1,20 @@
 @extends('layouts.layout')
 <x-seo.meta
-    title="Мои резюме"
-    description="Мои резюме"
-    keywords="Мои резюме"
+    title="Архив резюме"
+    description="Архив резюме"
+    keywords="Архив резюме"
 />
 @section('content')
     <section>
         <div class="block block_content cabinet_user hh">
             <div class="block_content__breadcrumbs">
-                {{ Breadcrumbs::render('my_resumes') }}
+                {{ Breadcrumbs::render('my_resume_archive') }}
             </div>
 
             <x-cabinet.title
                 title="Мой профиль"
                 :subtitle="(isset($user->UserHuman->title))?$user->UserHuman->title:'' "
-                mini="Мои резюме"
+                mini="Архив резюме"
             />
             <x-cabinet-user.menu.cabinet-user-top-menu :user="$user"/>
 
@@ -22,7 +22,7 @@
 
                 <div class="block_content__left">
                     <x-menu.hh-menu-component :my="true"/>
-                    <x-h-h.resume.user-resume-selection-component :user="$user"  />
+                    <x-h-h.resume.user-resume-selection-component :user="$user"/>
                 </div>
 
                 <div class="block_content__right">
@@ -35,23 +35,19 @@
                                             $img = ($user->avatar)?:($item->img??($item->logo?:''));
                                         @endphp
                                         @if($img)
-                                            <a href="{{ route('my_resume', $item->id) }}"><img
+                                            <a href="{{ route('my_resume_archive_show', $item->id) }}"><img
                                                     src="{{ asset(intervention('80x80', $img, 'hh/intervention')) }}"
                                                     alt="{{ $item->title }}"/></a>
                                         @endif
                                     </div>
                                     <div class="r_center">
-                                        <h2><a href="{{ route('my_resume', $item->id) }}">{{ $item->title }}</a></h2>
+                                        <h2><a href="{{ route('my_resume_archive_show', $item->id) }}">{{ $item->title }}</a></h2>
                                         @if($item->subtitle)
                                             <div class="subtitle">{{ $item->subtitle }}</div>
                                         @else
                                             <div class="subtitle">&mdash;</div>
                                         @endif
-                                        @if($item->archive === \App\Enums\HH\ResumeArchiveEnum::ARCHIVE->value)
-                                            <div class="hh__not_published">В архиве · Не опубликовано</div>
-                                        @elseif(!$item->published)
-                                            <div class="hh__not_published">Не опубликовано</div>
-                                        @endif
+                                        <div class="hh__not_published">В архиве · Не опубликовано</div>
                                         @if($item->experience)
                                             <div class="hh__text desc">Опыт работы &mdash; {{ $item->experience->title }}</div>
                                         @endif
@@ -62,7 +58,7 @@
                                 </div>
                             </div>
                         @empty
-                            <div class="Not_yet">Резюме не найдены</div>
+                            <div class="Not_yet">Архив пуст</div>
                         @endforelse
                     </div>
 

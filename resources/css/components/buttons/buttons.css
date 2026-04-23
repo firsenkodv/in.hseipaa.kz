@@ -73,4 +73,37 @@
   font-size: 18px;
 }
 
+.btn.btn-green {
+  background: #2F6E4D;
+  border: 1px solid #2F6E4D;
+  color: #fff;
+}
+.btn.btn-green:hover {
+  background: #fff;
+  color: #2F6E4D;
+  border: 1px solid #2F6E4D;
+}
+
+.btn.btn-red {
+  background: #EF533F;
+  border: 1px solid #EF533F;
+  color: #fff;
+}
+.btn.btn-red:hover {
+  background: #fff;
+  color: #EF533F;
+  border: 1px solid #EF533F;
+}
+
+.btn.btn-indigo {
+  background: #575EEF;
+  border: 1px solid #575EEF;
+  color: #fff;
+}
+.btn.btn-indigo:hover {
+  background: #fff;
+  color: #575EEF;
+  border: 1px solid #575EEF;
+}
+
 /*# sourceMappingURL=buttons.css.map */

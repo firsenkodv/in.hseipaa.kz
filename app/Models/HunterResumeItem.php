@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\HH\ResumeArchiveEnum;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use App\Models\User;
@@ -34,6 +35,8 @@ class HunterResumeItem extends Model
         'telegram',             // Telegram
         'whatsapp',             // WhatsApp
         'params',               // Дополнительные параметры
+        'expired_at',           // Дата истечения
+        'archive',              // Архив
     ];
 
     protected $casts = [
@@ -73,6 +76,12 @@ class HunterResumeItem extends Model
     protected static function boot(): void
     {
         parent::boot();
+
+        static::saving(function ($model) {
+            if ($model->archive === ResumeArchiveEnum::ARCHIVE->value) {
+                $model->published = 0;
+            }
+        });
 
         static::deleted(function ($model) {
             cache_clear();

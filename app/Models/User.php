@@ -8,6 +8,7 @@ use App\Enums\User\PublishedUserEnum;
 use App\Enums\User\Status;
 use Carbon\Carbon;
 use Domain\City\ViewModels\CityViewModel;
+use Domain\Manager\ViewModels\ManagerViewModel;
 use Domain\User\ViewModels\UserFilesViewModel;
 use Domain\UserExpert\ViewModels\UserExpertViewModel;
 use Domain\UserLanguage\ViewModels\UserLanguageViewModel;
@@ -483,6 +484,14 @@ class User extends Authenticatable
             if (!is_null($user->tarif_id)) {
                 // Ставим дату истечения срока действия при первом назначении тарифа
                 $user->tarif_expires_at = now()->addYear();
+            }
+
+            // Назначаем менеджера по умолчанию (main = 'MAIN')
+            if (is_null($user->manager_id)) {
+                $mainManager = ManagerViewModel::make()->mainManager();
+                if ($mainManager) {
+                    $user->manager_id = $mainManager->id;
+                }
             }
         });
 

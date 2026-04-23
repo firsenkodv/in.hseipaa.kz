@@ -8,6 +8,7 @@ $colorBlue2: #03a9f4;
 $colorGreen: #0f6567;
 $colorYellow: #FF931E;
 $colorOrange: #FF732C;
+$colorIndigo: #575EEF;
 
 .btn,
 .btn_danger{
@@ -78,4 +79,34 @@ background: #FFFFFF;
     padding: 10px 20px;
     height: auto;
     font-size: 18px;
+}
+.btn.btn-green {
+    background: #2F6E4D;
+    border: 1px solid #2F6E4D;
+    color: #fff;
+    &:hover {
+        background: #fff;
+        color: #2F6E4D;
+        border: 1px solid #2F6E4D;
+    }
+}
+.btn.btn-red {
+    background: $colorRed;
+    border: 1px solid $colorRed;
+    color: #fff;
+    &:hover {
+        background: #fff;
+        color: $colorRed;
+        border: 1px solid $colorRed;
+    }
+}
+.btn.btn-indigo {
+    background: $colorIndigo;
+    border: 1px solid $colorIndigo;
+    color: #fff;
+    &:hover {
+        background: #fff;
+        color: $colorIndigo;
+        border: 1px solid $colorIndigo;
+    }
 }

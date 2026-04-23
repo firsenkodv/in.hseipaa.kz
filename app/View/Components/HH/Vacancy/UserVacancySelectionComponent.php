@@ -24,9 +24,14 @@ class UserVacancySelectionComponent extends Component
             ? VacancyViewModel::make()->countByUser($this->user->id)
             : 0;
 
+        $archiveCount = $this->user
+            ? VacancyViewModel::make()->countArchiveByUser($this->user->id)
+            : 0;
+
         return view('components.h-h.vacancy.user-vacancy-selection-component', [
-            'hasTarif' => $hasTarif,
+            'hasTarif'     => $hasTarif,
             'vacancyCount' => $vacancyCount,
+            'archiveCount' => $archiveCount,
         ]);
     }
 

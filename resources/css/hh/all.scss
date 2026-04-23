@@ -10,6 +10,29 @@ $colorYellow: #FF931E;
 $colorOrange: #FF732C;
 
 
+.btn__icon {
+    display: inline-block;
+    vertical-align: middle;
+    width: 18px;
+    height: 18px;
+    margin-right: 6px;
+    position: relative;
+    top: -1px;
+}
+
+.hh__actions {
+    padding-top: 20px;
+    .btn {
+        width: 100%;
+    }
+    form {
+        width: 100%;
+        button {
+            width: 100%;
+        }
+    }
+}
+
 .hh {
     .hh__not_published {
         display: inline-block;
@@ -234,6 +257,15 @@ padding: 6px 0 0 0;
     color: $color;
     .hh__text {
         color: $color !important;
+    }
+    .hh__text.desc {
+        div {
+            width: 100%;
+            position: relative;
+            padding: 10px 0;
+            line-height: 1.6rem;
+            font-size: 16px;
+        }
     }
 
 }

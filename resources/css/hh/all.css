@@ -1,4 +1,27 @@
 @charset "UTF-8";
+.btn__icon {
+  display: inline-block;
+  vertical-align: middle;
+  width: 18px;
+  height: 18px;
+  margin-right: 6px;
+  position: relative;
+  top: -1px;
+}
+
+.hh__actions {
+  padding-top: 20px;
+}
+.hh__actions .btn {
+  width: 100%;
+}
+.hh__actions form {
+  width: 100%;
+}
+.hh__actions form button {
+  width: 100%;
+}
+
 .hh .hh__not_published {
   display: inline-block;
   font-size: 12px;
@@ -199,6 +222,13 @@
 }
 .hh_box .hh__text {
   color: #282828 !important;
+}
+.hh_box .hh__text.desc div {
+  width: 100%;
+  position: relative;
+  padding: 10px 0;
+  line-height: 1.6rem;
+  font-size: 16px;
 }
 
 /** ///полная страница **/

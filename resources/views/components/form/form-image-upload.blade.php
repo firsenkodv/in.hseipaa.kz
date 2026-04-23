@@ -1,16 +1,22 @@
 @props([
-    'name'   => 'image',
-    'label'  => 'Изображение',
-    'rand'   => rand(100, 10000),
-    'accept' => 'image/*',
+    'name'    => 'image',
+    'label'   => 'Изображение',
+    'rand'    => rand(100, 10000),
+    'accept'  => 'image/*',
+    'current' => null,
 ])
 
+@php
+    $hasCurrent = !empty($current);
+    $currentUrl = $hasCurrent ? asset('storage/' . $current) : '';
+@endphp
+
 <div class="form-image-upload" id="upload_wrap_{{ $rand }}">
-    <label for="upload_input_{{ $rand }}" class="form-image-upload__area" id="upload_area_{{ $rand }}">
-        <div class="form-image-upload__preview" id="upload_preview_{{ $rand }}" style="display:none">
-            <img id="upload_img_{{ $rand }}" src="" alt="{{ $label }}"/>
+    <label for="upload_input_{{ $rand }}" class="form-image-upload__area {{ $hasCurrent ? 'has-file' : '' }}" id="upload_area_{{ $rand }}">
+        <div class="form-image-upload__preview" id="upload_preview_{{ $rand }}" style="{{ $hasCurrent ? 'display:block' : 'display:none' }}">
+            <img id="upload_img_{{ $rand }}" src="{{ $currentUrl }}" alt="{{ $label }}"/>
         </div>
-        <div class="form-image-upload__placeholder" id="upload_placeholder_{{ $rand }}">
+        <div class="form-image-upload__placeholder" id="upload_placeholder_{{ $rand }}" style="{{ $hasCurrent ? 'display:none' : '' }}">
             <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
                 <polyline points="17 8 12 3 7 8"/>
@@ -26,7 +32,7 @@
         type="button"
         class="form-image-upload__remove"
         id="upload_remove_{{ $rand }}"
-        style="display:none"
+        style="{{ $hasCurrent ? 'display:flex' : 'display:none' }}"
         title="Удалить файл"
     >&times;</button>
 
@@ -36,6 +42,12 @@
         name="{{ $name }}"
         accept="{{ $accept }}"
         class="form-image-upload__input"
+    >
+    <input
+        type="hidden"
+        id="upload_remove_flag_{{ $rand }}"
+        name="remove_{{ $name }}"
+        value="0"
     >
 </div>
 
@@ -48,6 +60,7 @@
         var placeholder = document.getElementById('upload_placeholder_{{ $rand }}');
         var filename    = document.getElementById('upload_name_{{ $rand }}');
         var removeBtn   = document.getElementById('upload_remove_{{ $rand }}');
+        var removeFlag  = document.getElementById('upload_remove_flag_{{ $rand }}');
 
         input.addEventListener('change', function () {
             var file = this.files[0];
@@ -77,6 +90,13 @@
             placeholder.style.display = 'flex';
             area.classList.remove('has-file');
             removeBtn.style.display = 'none';
+            removeFlag.value = '1';
+        });
+
+        input.addEventListener('change', function () {
+            if (this.files[0]) {
+                removeFlag.value = '0';
+            }
         });
     })();
 </script>

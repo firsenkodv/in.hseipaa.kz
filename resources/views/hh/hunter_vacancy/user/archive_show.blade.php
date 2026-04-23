@@ -1,22 +1,21 @@
 @extends('layouts.layout')
 <x-seo.meta
-    title="Мои вакансии"
-    description="Мои вакансии"
-    keywords="Мои вакансии"
+    title="Архив вакансий"
+    description="Архив вакансий"
+    keywords="Архив вакансий"
 />
 @section('content')
     <section>
 
-
         <div class="block block_content cabinet_user hh">
             <div class="block_content__breadcrumbs">
-                {{ Breadcrumbs::render('my_vacancy', $item) }}
+                {{ Breadcrumbs::render('my_vacancy_archive_show', $item) }}
             </div>
 
             <x-cabinet.title
                 title="Мой профиль"
                 :subtitle="(isset($user->UserHuman->title))?$user->UserHuman->title:'' "
-                mini="Мои вакансии"
+                mini="Архив вакансий"
             />
             <x-cabinet-user.menu.cabinet-user-top-menu :user="$user"/>
 
@@ -44,11 +43,7 @@
                                 @if($item->subtitle)
                                     <div class="subtitle">{{ $item->subtitle }}</div>
                                 @endif
-                                @if($item->archive === \App\Enums\HH\VacancyArchiveEnum::ARCHIVE->value)
-                                    <div class="hh__not_published">В архиве · Не опубликована</div>
-                                @elseif(!$item->published)
-                                    <div class="hh__not_published">Не опубликована</div>
-                                @endif
+                                <div class="hh__not_published">В архиве · Не опубликована</div>
 
                                 <div class="price">{{ price($item->price) }} {{ config('currency.currency.KZT') }}</div>
                                 @if($item->company)
@@ -97,14 +92,11 @@
                                     @endif
                                 </div>
 
-                                <div class="cu_row_30 cu_row hh__actions">
+                                <div class="cu_row_50 hh__actions">
                                     <div class="cu__col">
-                                        <a href="{{ route('my_vacancy_edit', $item->id) }}" class="btn btn-big btn-green"><svg class="btn__icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" /></svg>Редактировать</a>
-                                    </div>
-                                    <div class="cu__col">
-                                        <form action="{{ route('my_vacancy_archive_move', $item->id) }}" method="POST" id="archive-vacancy-form">
+                                        <form action="{{ route('my_vacancy_restore', $item->id) }}" method="POST" id="restore-vacancy-form">
                                             @csrf
-                                            <button type="submit" class="btn btn-big btn-indigo"><svg class="btn__icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 9.776c.112-.017.227-.026.344-.026h15.812c.117 0 .232.009.344.026m-16.5 0a2.25 2.25 0 0 0-1.883 2.542l.857 6a2.25 2.25 0 0 0 2.227 1.932H19.05a2.25 2.25 0 0 0 2.227-1.932l.857-6a2.25 2.25 0 0 0-1.883-2.542m-16.5 0V6A2.25 2.25 0 0 1 6 3.75h3.879a1.5 1.5 0 0 1 1.06.44l2.122 2.12a1.5 1.5 0 0 0 1.06.44H18A2.25 2.25 0 0 1 20.25 9v.776M12 12.75l3 3m0 0-3 3m3-3H9" /></svg>В архив</button>
+                                            <button type="submit" class="btn btn-big btn-green"><svg class="btn__icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M9 15 3 9m0 0 6-6M3 9h12a6 6 0 0 1 0 12h-3" /></svg>Восстановить</button>
                                         </form>
                                     </div>
                                     <div class="cu__col">
@@ -128,21 +120,18 @@
 
 @push('scripts')
 <script>
+    document.getElementById('restore-vacancy-form').addEventListener('submit', function (e) {
+        e.preventDefault();
+        if (confirm('Восстановить вакансию из архива?')) {
+            this.submit();
+        }
+    });
+
     document.getElementById('delete-vacancy-form').addEventListener('submit', function (e) {
         e.preventDefault();
         if (confirm('Вы уверены, что хотите удалить эту вакансию? Это действие необратимо.')) {
             this.submit();
         }
     });
-
-    var archiveForm = document.getElementById('archive-vacancy-form');
-    if (archiveForm) {
-        archiveForm.addEventListener('submit', function (e) {
-            e.preventDefault();
-            if (confirm('Переместить вакансию в архив?')) {
-                this.submit();
-            }
-        });
-    }
 </script>
 @endpush
