@@ -82,4 +82,28 @@
   padding: 20px 0 0 0;
 }
 
+@media (max-width: 468px) {
+  .cabinet_user_personal__flex {
+    position: relative;
+    width: 100%;
+    display: block;
+  }
+  .cabinet_user_personal__flex .cabinet_user_personal__left {
+    width: 100%;
+    min-width: 1px;
+    position: relative;
+  }
+  .cabinet_user_personal__flex .cabinet_user_personal__left .cu__personal_label {
+    text-align: left;
+    padding: 10px 0 5px 0;
+  }
+  .cabinet_user_personal__flex .cabinet_user_personal__right {
+    width: 100%;
+    position: relative;
+  }
+  .cabinet_user_personal__flex .cabinet_user_personal__right .cu__personal_option {
+    padding: 0 0 10px 0;
+  }
+}
+
 /*# sourceMappingURL=cabinet-user-personal-component.css.map */

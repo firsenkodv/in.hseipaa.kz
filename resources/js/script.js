@@ -16,7 +16,8 @@ import {uploadAvatar} from "./include/cabinet/uploadAvatar";
 import {uploadFiles} from "./include/cabinet/uploadFiles";
 import {datepicker_accountant_ticket_date, datepicker_date_birthday} from "./include/datepicker/datepicker";
 import {checkCounterparty} from "./include/counterparty/check_counterparty";
-import {searchUser, assignUser, checkAll} from "./include/cabinet/forms";
+import {searchUser, assignUser, checkAll, managerUserToggle, managerSetTarifConfirm, managerRoleFilterAutoSubmit} from "./include/cabinet/forms";
+import {tarifCardToggle} from "./include/fancybox/tarifCardToggle";
 import {trix} from "./include/editor/trix";
 import {toggleSignUpUserType} from "./include/auth/toggle_sign_up_user_type";
 
@@ -47,6 +48,10 @@ document.addEventListener('DOMContentLoaded', function () {
     searchUser() // поиск пользователя из РОП и менеджера
     assignUser() // закрепить пользователя за менеджером из РОП
     checkAll() // отметить все чекбоксы
+    managerUserToggle()       // раскрытие деталей пользователя (телефон, тариф)
+    managerSetTarifConfirm()        // confirm при выборе тарифа на странице пользователя
+    managerRoleFilterAutoSubmit()   // авто-сабмит поиска при переключении роли
+    tarifCardToggle()  // переключение карточек тарифа в модальном окне менеджера
     trix() //редактор
     toggleSignUpUserType() // переключение при регистрации
 });

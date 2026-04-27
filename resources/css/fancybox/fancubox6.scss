@@ -109,6 +109,95 @@ padding: 10px 0 0 0;
 }
 
 
+/** manager_set_tarif modal **/
+.ms_tarif_list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 4px 0 20px;
+}
+
+.fancybox__dialog .ms_tarif_card,
+.fancybox__dialog .ms_tarif_card * {
+    cursor: pointer !important;
+}
+
+.ms_tarif_card {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 14px 16px;
+    border: 2px solid #e8e8e8;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: border-color 0.2s, background 0.2s;
+    background: #fff;
+
+    &:hover {
+        border-color: #bbb;
+    }
+
+    &.is-selected {
+        border-color: $colorRed;
+        background: #fff5f4;
+
+        .ms_tarif_card__radio::after {
+            opacity: 1;
+        }
+    }
+
+    &--none {
+        border-style: dashed;
+    }
+
+    &__radio {
+        flex-shrink: 0;
+        width: 20px;
+        height: 20px;
+        border: 2px solid #ccc;
+        border-radius: 50%;
+        position: relative;
+        transition: border-color 0.2s;
+
+        &::after {
+            content: '';
+            position: absolute;
+            inset: 3px;
+            background: $colorRed;
+            border-radius: 50%;
+            opacity: 0;
+            transition: opacity 0.2s;
+        }
+    }
+
+    &.is-selected &__radio {
+        border-color: $colorRed;
+    }
+
+    &__body {
+        flex: 1;
+    }
+
+    &__title {
+        font-size: 18px;
+        font-weight: 600;
+        color: $color;
+    }
+
+    &__sub {
+        font-size: 14px;
+        color: $colorGrey;
+        margin-top: 2px;
+    }
+
+    &__price {
+        font-size: 18px;
+        font-weight: 700;
+        color: $color;
+        white-space: nowrap;
+    }
+}
+
 @media screen and (max-width: 968px) {
     .f-html {
     }

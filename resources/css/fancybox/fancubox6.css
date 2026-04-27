@@ -65,6 +65,84 @@
   padding: 10px 0 0 0;
 }
 
+/** manager_set_tarif modal **/
+.ms_tarif_list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 4px 0 20px;
+}
+
+.fancybox__dialog .ms_tarif_card,
+.fancybox__dialog .ms_tarif_card * {
+  cursor: pointer !important;
+}
+
+.ms_tarif_card {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 16px;
+  border: 2px solid #e8e8e8;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: border-color 0.2s, background 0.2s;
+  background: #fff;
+}
+.ms_tarif_card:hover {
+  border-color: #bbb;
+}
+.ms_tarif_card.is-selected {
+  border-color: #EF533F;
+  background: #fff5f4;
+}
+.ms_tarif_card.is-selected .ms_tarif_card__radio::after {
+  opacity: 1;
+}
+.ms_tarif_card--none {
+  border-style: dashed;
+}
+.ms_tarif_card__radio {
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+  border: 2px solid #ccc;
+  border-radius: 50%;
+  position: relative;
+  transition: border-color 0.2s;
+}
+.ms_tarif_card__radio::after {
+  content: "";
+  position: absolute;
+  inset: 3px;
+  background: #EF533F;
+  border-radius: 50%;
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+.ms_tarif_card.is-selected .ms_tarif_card__radio {
+  border-color: #EF533F;
+}
+.ms_tarif_card__body {
+  flex: 1;
+}
+.ms_tarif_card__title {
+  font-size: 18px;
+  font-weight: 600;
+  color: #282828;
+}
+.ms_tarif_card__sub {
+  font-size: 14px;
+  color: #667085;
+  margin-top: 2px;
+}
+.ms_tarif_card__price {
+  font-size: 18px;
+  font-weight: 700;
+  color: #282828;
+  white-space: nowrap;
+}
+
 @media screen and (max-width: 968px) {
   .modal-form-container {
     position: relative;

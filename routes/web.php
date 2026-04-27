@@ -598,9 +598,14 @@ Route::controller(CabinetManagerController::class)->group(function () {
         ->name('manager_mark_user_delete');
 
     /** поиск пользователей */
-    Route::post('/cabinet-manager/users/search', 'managerUsersSearch')
+    Route::get('/cabinet-manager/users/search', 'managerUsersSearch')
         ->middleware(IsManagerMiddleware::class)
         ->name('manager_users_search');
+
+    /** установить тариф пользователю */
+    Route::post('/cabinet-manager/set-tarif', 'managerSetUserTarif')
+        ->middleware(IsManagerMiddleware::class)
+        ->name('manager_set_user_tarif');
 
 
     /** редактировать */

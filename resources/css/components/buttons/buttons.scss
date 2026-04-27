@@ -59,6 +59,19 @@ $colorIndigo: #575EEF;
     color: #43D38B;
 
 }
+.btn.btn_grey {
+    background: #9e9e9e;
+    border: 1px solid #9e9e9e;
+    color: #ffffff;
+    transition: 0.3s;
+    text-decoration: none !important;
+}
+.btn.btn_grey:hover {
+    background: #ffffff;
+    border: 1px solid #9e9e9e;
+    color: #9e9e9e;
+}
+
 .btn.over,
 .btn:hover {
 background: #FFFFFF;

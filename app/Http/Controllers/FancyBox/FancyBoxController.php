@@ -51,6 +51,17 @@ class FancyBoxController extends Controller
         }
 
 
+        if($request->template == 'manager_set_tarif') {
+            $data   = json_decode($request->data);
+            $userId = (int) $data->user_id;
+            $user   = User::findOrFail($userId);
+            $tarifs = Tarif::make()->tarifs();
+            return view('fancybox.forms.manager_set_tarif', [
+                'user'   => $user,
+                'tarifs' => $tarifs,
+            ]);
+        }
+
         if($request->template == 'to_user_message') {
 
             $data   = json_decode($request->data);

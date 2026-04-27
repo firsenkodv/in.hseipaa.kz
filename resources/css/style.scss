@@ -85,10 +85,12 @@ a:hover {
     text-decoration: none;
 }
 
-.color_red {
+.color_red, .red {
     color: $colorRed;
 }
-
+.black {
+    color: #000 !important;
+}
 .background_f7f7f7 {
     background: #f7f7f7;
 }

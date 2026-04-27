@@ -71,6 +71,67 @@ export function assignUser() {
     });
 }
 
+export function managerRoleFilterAutoSubmit() {
+    const form = document.querySelector('.manager_search_form');
+    if (!form) return;
+
+    form.querySelectorAll('input[name="roles[]"]').forEach(checkbox => {
+        checkbox.addEventListener('change', () => form.submit());
+    });
+}
+
+export function managerSetTarifConfirm() {
+    const forms = document.querySelectorAll('.js-manager-set-tarif-form');
+    if (!forms.length) return;
+
+    forms.forEach(form => {
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const title = form.querySelector('[data-tarif-title]').dataset.tarifTitle;
+            if (confirm(`Подключить тариф «${title}» для данного пользователя?`)) {
+                form.submit();
+            }
+        });
+    });
+}
+
+export function managerUserToggle() {
+    const buttons = document.querySelectorAll('.js-user-details-toggle');
+    const toggleAll = document.querySelector('.js-user-details-toggle-all');
+
+    if (!buttons.length) return;
+
+    buttons.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const wrap = btn.closest('.u_teaser_wrap');
+            const details = wrap.querySelector('.u_teaser_details');
+            const isOpen = details.style.display !== 'none';
+
+            details.style.display = isOpen ? 'none' : 'flex';
+            btn.classList.toggle('is-open', !isOpen);
+            btn.title = isOpen ? 'Подробнее' : 'Свернуть';
+        });
+    });
+
+    if (!toggleAll) return;
+
+    toggleAll.addEventListener('click', () => {
+        const allOpen = toggleAll.classList.contains('is-open');
+
+        buttons.forEach(btn => {
+            const wrap = btn.closest('.u_teaser_wrap');
+            const details = wrap.querySelector('.u_teaser_details');
+
+            details.style.display = allOpen ? 'none' : 'flex';
+            btn.classList.toggle('is-open', !allOpen);
+            btn.title = allOpen ? 'Подробнее' : 'Свернуть';
+        });
+
+        toggleAll.classList.toggle('is-open', !allOpen);
+        toggleAll.title = allOpen ? 'Раскрыть все' : 'Свернуть все';
+    });
+}
+
 export function checkAll() {
     const checkAll = document.getElementById("check_all");
     if (!checkAll) return;

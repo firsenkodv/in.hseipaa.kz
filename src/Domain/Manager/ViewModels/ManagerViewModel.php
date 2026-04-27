@@ -120,7 +120,7 @@ class ManagerViewModel
     /**
      * Список пользователей данного менеджера
      */
-    public function managerUserList($m, string $locked = ''): array|LengthAwarePaginator
+    public function managerUserList($m, string $locked = '', string $search = '', array $roles = []): array|LengthAwarePaginator
     {
         $q = User::query();
         $q->where('manager_id', $m->id)
@@ -131,6 +131,23 @@ class ManagerViewModel
         } elseif ($locked) {
             $q->where('published', 0)
               ->where('marked_delete', '!=', MarkedDeleteEnum::MARKED->value);
+        }
+
+        if ($search) {
+            $q->where(function ($query) use ($search) {
+                $query->where('username', 'like', '%' . $search . '%')
+                      ->orWhere('email', 'like', '%' . $search . '%');
+            });
+        }
+
+        if (in_array('specialist', $roles)) {
+            $q->whereHas('UserSpecialist');
+        }
+        if (in_array('lecturer', $roles)) {
+            $q->whereHas('UserLecturer');
+        }
+        if (in_array('expert', $roles)) {
+            $q->whereHas('UserExpert');
         }
 
         return $q->orderByDesc(function ($query) {

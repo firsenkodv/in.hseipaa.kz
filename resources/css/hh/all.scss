@@ -22,11 +22,14 @@ $colorOrange: #FF732C;
 
 .hh__actions {
     padding-top: 20px;
+
     .btn {
         width: 100%;
     }
+
     form {
         width: 100%;
+
         button {
             width: 100%;
         }
@@ -45,10 +48,12 @@ $colorOrange: #FF732C;
         margin-bottom: 8px;
         position: relative;
         top: -8px;
+
         &.hh__published {
             background: #43D38B;
         }
     }
+
     .teaser {
         padding: 24px;
         margin-bottom: 20px;
@@ -66,6 +71,7 @@ $colorOrange: #FF732C;
                 color: rgba(22, 162, 224, 1);
                 text-decoration: none;
                 line-height: 1.3em;
+                display: block;
 
                 &:hover {
                     color: $colorRed;
@@ -73,6 +79,7 @@ $colorOrange: #FF732C;
 
             }
         }
+
         .subtitle {
             font-weight: 400;
             color: $colorGrey;
@@ -82,11 +89,13 @@ $colorOrange: #FF732C;
             position: relative;
             top: -10px;
         }
+
         .price {
             font-weight: 600;
+            padding-top: 5px;
+            padding-bottom: 12px;
             font-size: 18px;
             line-height: 1.3em;
-            padding-bottom: 12px;
         }
 
         .company {
@@ -126,17 +135,20 @@ $colorOrange: #FF732C;
             width: 106px;
             min-width: 106px;
             position: relative;
+
             img {
                 position: relative;
                 border-radius: 50%;
             }
 
         }
+
         .r_center {
             width: 100%;
             position: relative;
             padding-right: 16px;
         }
+
         .r_right {
             width: 90px;
             min-width: 90px;
@@ -149,6 +161,7 @@ $colorOrange: #FF732C;
         position: relative;
         width: 100%;
     }
+
     .cu_username {
         height: auto;
         min-height: 160px;
@@ -169,10 +182,12 @@ $colorOrange: #FF732C;
     font-weight: 600;
     box-shadow: 0 0 5px #0000001c;
 }
+
 .hh_menu {
     display: flex;
     gap: 10px;
     margin-bottom: 26px;
+
     a {
         transition: 0.3s;
         display: flex;
@@ -184,6 +199,7 @@ $colorOrange: #FF732C;
         color: #282828;
         text-decoration: none;
         border-radius: 4px;
+
         &.active, &:hover {
             color: $colorRed;
             background: rgba(254, 82, 68, 0.08);
@@ -192,9 +208,8 @@ $colorOrange: #FF732C;
 }
 
 
-
 .r_price {
-padding: 6px 0 0 0;
+    padding: 6px 0 0 0;
     font-weight: 600;
     font-size: 20px;
 }
@@ -205,10 +220,12 @@ padding: 6px 0 0 0;
 .hh_item {
     width: 100%;
     position: relative;
+
     .hh__not_published {
         top: 0;
         margin-bottom: 20px;
     }
+
     .hh__flex {
         display: flex;
         gap: 30px;
@@ -218,7 +235,8 @@ padding: 6px 0 0 0;
             position: relative;
             min-width: 186px;
             width: 186px;
-            img{
+
+            img {
                 border-radius: 12px;
             }
         }
@@ -226,9 +244,11 @@ padding: 6px 0 0 0;
         .content {
             width: 100%;
             position: relative;
+
             .h1 {
                 padding-bottom: 6px;
             }
+
             .subtitle {
                 font-weight: 400;
                 color: $colorGrey;
@@ -236,6 +256,7 @@ padding: 6px 0 0 0;
                 line-height: 1.2em;
                 padding-bottom: 7px;
             }
+
             .price {
                 font-weight: 600;
                 font-size: 30px;
@@ -258,9 +279,11 @@ padding: 6px 0 0 0;
 .hh_box {
     padding: 10px 0;
     color: $color;
+
     .hh__text {
         color: $color !important;
     }
+
     .hh__text.desc {
         div {
             width: 100%;
@@ -279,9 +302,66 @@ padding: 6px 0 0 0;
 
 .hh_left {
 
-    margin:0 0 20px 0;
+    margin: 0 0 20px 0;
 
 }
 
 
 /** ///Моли вакансии(резюме) **/
+
+
+@media (max-width: 668px) {
+
+    .hh_item {
+        .hh__flex {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            position: relative;
+        }
+    }
+
+}
+@media (max-width: 468px) {
+
+    .hh {
+        .teaser__flex {
+            flex-direction: column-reverse;
+
+            .left {
+                width: 100%;
+                padding: 0 0 10px 0;
+            }
+
+            .right {
+                width: 100%;
+                padding: 0 0 10px 0;
+            }
+
+            .r_left {
+                width: 100%;
+                order: 3;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+
+            .r_right {
+                width: 100%;
+                order: 2;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                padding-bottom: 10px;
+                .price {
+                    font-size: 24px;
+                }
+            }
+
+            .r_center {
+                order: 1;
+            }
+        }
+    }
+
+}

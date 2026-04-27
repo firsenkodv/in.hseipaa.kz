@@ -29,6 +29,8 @@
                     <x-cabinet-manager.user.user-list
                         :items="$users"
                         :markDelete="isset($markDelete) ? $markDelete : false"
+                        :search="isset($search) ? $search : ''"
+                        :roles="isset($roles) ? $roles : []"
                     />
                 </div>
 

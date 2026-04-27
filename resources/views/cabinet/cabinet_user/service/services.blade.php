@@ -28,40 +28,30 @@
                     <div class="block_temp1">
                         @if($items->count())
                             <div class="block_temp1__flex">
-                                <div class="block_temp1__left">
-                                    <div class="menu_left-menu-component">
-                                        <div class="left_menu">
-                                            <ul class="left_menu__ul">
-                                                <li class=" ">
-                                                    <a href=""><span>х з</span></a>
-                                                </li>
-                                            </ul>
-                                        </div>
 
-                                    </div>
+                                <div class="block_temp1__right temp_other pad_l0_important">
 
-                                </div>
-                                <div class="block_temp1__right temp_other">
                                     @foreach($items as $item)
-                                    <div class="other_right desc">
-                                        <div class="temp_title">
-                                            <h2>{{ $item->temp_title }}</h2>
+                                        <div class="other_right desc">
+                                            <div class="temp_title">
+                                                <h2>{{ $item->temp_title }}</h2>
+                                            </div>
+                                            <div class="temp_desc">
+                                                {!!  $item->temp_desc !!}
+                                            </div>
+                                            <div class="temp_price">
+                                                {{ $item->temp_price }}
+                                            </div>
+                                            <div class="temp_button pad_b40">
+                                                <a href="#" class="btn btn-middle open-fancybox" data-form="subscription_me">Заказать услугу</a>
+                                            </div>
                                         </div>
-                                        <div class="temp_desc">
-                                            {!!  $item->temp_desc !!}
-                                        </div>
-                                        <div class="temp_price">
-                                            {{ $item->temp_price }}
-                                        </div>
-                                        <div class="temp_button pad_b40">
-                                            <a href="#" class="btn btn-middle open-fancybox" data-form="subscription_me">Заказать услугу</a>
-                                        </div>
-                                    </div>
                                     @endforeach
-
 
                                 </div>
                             </div>
+
+
                         @endif
                     </div>
 

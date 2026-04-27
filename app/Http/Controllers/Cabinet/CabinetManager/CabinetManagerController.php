@@ -139,6 +139,21 @@ class CabinetManagerController extends Controller
         ]);
     }
 
+    public function managerSetUserTarif(Request $request): \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
+    {
+        $user = User::findOrFail((int) $request->user_id);
+        $tarifId = (int) $request->tarif_id ?: null;
+        $user->tarif_id = $tarifId;
+        $user->save();
+
+        if ($request->expectsJson()) {
+            return response()->json(['response' => ['tarif_id' => $tarifId]], 200);
+        }
+
+        flash()->info(config('message_flash.info.cabinet_user_ok'));
+        return redirect()->back();
+    }
+
     public function managerMarkUserForDelete(int $id): RedirectResponse
     {
         $user = User::findOrFail($id);
@@ -150,12 +165,16 @@ class CabinetManagerController extends Controller
 
     public function managerUsersSearch(Request $request): View
     {
-        $m = ManagerViewModel::make()->m(session()->get('m'));
-        $users = ManagerViewModel::make()->managerUserList($m);
+        $m      = ManagerViewModel::make()->m(session()->get('m'));
+        $search = trim($request->input('search', ''));
+        $roles  = $request->input('roles', []);
+        $users  = ManagerViewModel::make()->managerUserList($m, '', $search, $roles);
 
         return view('cabinet.cabinet_manager.users.items', [
-            'm'     => $m,
-            'users' => $users,
+            'm'      => $m,
+            'users'  => $users,
+            'search' => $search,
+            'roles'  => $roles,
         ]);
     }
 

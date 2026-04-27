@@ -55,8 +55,12 @@ a:hover {
   text-decoration: none;
 }
 
-.color_red {
+.color_red, .red {
   color: #EF533F;
+}
+
+.black {
+  color: #000 !important;
 }
 
 .background_f7f7f7 {
