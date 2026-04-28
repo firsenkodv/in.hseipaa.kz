@@ -15,6 +15,11 @@ return [
     'resume_delete_error'   => '<p>Ошибка при удалении резюме. Попробуйте ещё раз.</p>',
     'resume_archive_error'  => '<p>Ошибка при архивировании резюме. Попробуйте ещё раз.</p>',
     'resume_restore_error'  => '<p>Ошибка при восстановлении резюме. Попробуйте ещё раз.</p>',
+    'user_not_found' => '<p>Пользователь с таким email не найден.</p>',
+    'password_reset_no_email' => '<p>Email не передан. Попробуйте снова.</p>',
+    'password_reset_no_correct_email' => '<p>Некорректный email. Попробуйте снова.</p>',
+    'password_reset_no_user' => '<p>Пользователь с таким email не найден.</p>',
+    'password_reset_error' => '<p>Ссылка для сброса пароля недействительна или устарела.</p>',
 
 
 ];

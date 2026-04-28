@@ -287,13 +287,13 @@ Route::controller(ForgotPasswordController::class)->group(function () {
 
 Route::controller(ResetPasswordController::class)->group(function () {
 
-    /*    Route::get('/reset-password/{token}','page')
-            ->name('password.reset')
-            ->middleware(RedirectIfAuthenticated::class);
+    Route::get('/reset-password/{token}', 'page')
+        ->name('password.reset')
+        ->middleware(RedirectIfAuthenticated::class);
 
-        Route::post('/reset-password', 'handle')
-            ->name('password.handle')
-            ->middleware(RedirectIfAuthenticated::class);*/
+    Route::post('/reset-password', 'handle')
+        ->name('password_handle')
+        ->middleware(RedirectIfAuthenticated::class);
 
 });
 

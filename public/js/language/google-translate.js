@@ -6,7 +6,7 @@
 
 const googleTranslateConfig = {
     /* Original language */
-    lang: "en",
+    lang: "ru",
     /* The language we translate into on the first visit*/
     /* Язык, на который переводим при первом посещении */
     // langFirstVisit: 'en',

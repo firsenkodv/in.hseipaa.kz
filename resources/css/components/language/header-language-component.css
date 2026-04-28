@@ -1,11 +1,32 @@
+body {
+  top: 0 !important;
+}
+
+.skiptranslate {
+  display: none !important;
+  height: 0;
+}
+
 .language_header-language-component {
   width: 140px;
   height: 52px;
-  background: #eeeeee;
   display: flex;
   justify-content: end;
   align-items: center;
   padding: 0 10px;
+  gap: 6px;
+}
+.language_header-language-component .language__img {
+  cursor: pointer;
+  color: #6F7893;
+  font-size: 14px;
+}
+.language_header-language-component .language__img.language__img_active {
+  color: #EF533F;
+  font-weight: 600;
+}
+.language_header-language-component .language__img:hover {
+  color: #EF533F;
 }
 
 /*# sourceMappingURL=header-language-component.css.map */

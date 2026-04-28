@@ -33,9 +33,9 @@
  @include('templates.axeld.footer')
 <x-mobile.mobile-menu />
     {{--  @include('include.connect.connect')  --}}
-    {{--  <script src="//translate.google.com/translate_a/element.js?cb=TranslateInit"></script>
-          <script src="/js/language/google-translate.js"></script>
-          <script src="/js/language/script.js"></script>  --}}
+    <script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
+    <script src="//translate.google.com/translate_a/element.js?cb=TranslateInit"></script>
+    <script src="/js/language/google-translate.js"></script>
     @stack('scripts')
 </body>
 </html>

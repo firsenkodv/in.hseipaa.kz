@@ -19,6 +19,7 @@
                         <x-form.form
                             method="POST"
                             :action="route('search')"
+                            class="row_form_800"
                         >
                             <div class="row_form_800__left">
                                 <input id="input_text" placeholder="Поиск..." name="search"  type="text"  maxlength="50">
