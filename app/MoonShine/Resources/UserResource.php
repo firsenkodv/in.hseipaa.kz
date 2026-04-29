@@ -440,4 +440,9 @@ class UserResource extends ModelResource
             ->except(Action::VIEW /*Action::MASS_DELETE, Action::DELETE, Action::CREATE*/)// ->only(Action::VIEW)
             ;
     }
+
+    protected function search(): array
+    {
+        return ['username', 'email', 'phone'];
+    }
 }
