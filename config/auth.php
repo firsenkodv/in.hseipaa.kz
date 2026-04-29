@@ -61,8 +61,8 @@ return [
 
     'providers' => [
         'users' => [
-            'driver' => 'joomla',   /* - см. docs/joomla-migration.html  */
-         /* 'driver' => 'eloquent', */
+            'driver' => 'eloquent',
+         /* 'driver' => 'joomla', */ /* - см. docs/joomla-migration.html  */
             'model' => env('AUTH_MODEL', App\Models\User::class),
         ],
 

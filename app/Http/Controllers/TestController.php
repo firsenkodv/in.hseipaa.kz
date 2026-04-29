@@ -32,7 +32,7 @@ class TestController extends Controller
     public function updateFromMediatorreg()
     {
 
-        dd('stop');
+       // dd('stop');
         // Предзагружаем справочники, чтобы не делать N+1 запросов
         $cities    = DB::table('user_cities')->pluck('id', 'title');    // ['Алматы' => 1, ...]
         $sexes     = DB::table('user_sexes')->pluck('id', 'title');     // ['Мужчина' => 1, ...]
@@ -143,7 +143,7 @@ class TestController extends Controller
     public function copyJoomlaUsers()
     {
 
-        dd('stop');
+      //  dd('stop');
         $defaultManagerId = ManagerViewModel::make()->mainManager()?->id;
         $now = now();
         $inserted = 0;
