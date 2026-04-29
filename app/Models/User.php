@@ -80,6 +80,7 @@ class User extends Authenticatable
         'user_expert_id', // не нужное поле
         'user_lecturer_id', // не нужное поле
         'manager_id',
+        'joomla_id',
     ];
 
 

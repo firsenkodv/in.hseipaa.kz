@@ -2,8 +2,10 @@
 
 namespace App\Providers;
 
+use App\Auth\JoomlaUserProvider;
 use App\Models\User;
 use App\Observers\UserObserver;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Validation\Rules\Password;
 
@@ -22,6 +24,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        Auth::provider('joomla', function ($app, array $config) {
+            return new JoomlaUserProvider($app['hash'], $config['model']);
+        });
 
         User::observe(UserObserver::class);
         Password::defaults(function () {

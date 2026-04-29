@@ -113,6 +113,9 @@ Route::controller(AxiosCounterPartyController::class)->group(function () {
 
 Route::controller(TestController::class)->group(function () {
     Route::get('/test', 'test')->name("test");
+    Route::get('/test/copy-joomla-users', 'copyJoomlaUsers')->name("test.copy-joomla-users");
+    Route::get('/test/mediatorreg', 'mediatorreg')->name("test.mediatorreg");
+    Route::get('/test/update-from-mediatorreg', 'updateFromMediatorreg')->name("test.update-from-mediatorreg");
 });
 
 /** Контакты **/

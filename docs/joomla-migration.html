@@ -1,0 +1,983 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Документация: Миграция пользователей с Joomla на Laravel</title>
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            font-size: 15px;
+            line-height: 1.7;
+            color: #1e293b;
+            background: #f8fafc;
+        }
+
+        /* Боковая навигация */
+        nav {
+            position: fixed;
+            top: 0; left: 0; bottom: 0;
+            width: 260px;
+            background: #1e293b;
+            color: #94a3b8;
+            overflow-y: auto;
+            padding: 24px 0;
+            z-index: 100;
+        }
+
+        nav .nav-title {
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: #475569;
+            padding: 0 20px 12px;
+        }
+
+        nav a {
+            display: block;
+            padding: 7px 20px;
+            color: #94a3b8;
+            text-decoration: none;
+            font-size: 13.5px;
+            border-left: 3px solid transparent;
+            transition: all 0.15s;
+        }
+
+        nav a:hover {
+            color: #e2e8f0;
+            background: rgba(255,255,255,0.05);
+            border-left-color: #3b82f6;
+        }
+
+        nav .nav-section {
+            margin-top: 20px;
+        }
+
+        /* Основной контент */
+        main {
+            margin-left: 260px;
+            padding: 48px 56px 80px;
+            max-width: 900px;
+        }
+
+        /* Типографика */
+        h1 {
+            font-size: 28px;
+            font-weight: 700;
+            color: #0f172a;
+            margin-bottom: 8px;
+            line-height: 1.3;
+        }
+
+        .subtitle {
+            font-size: 16px;
+            color: #64748b;
+            margin-bottom: 40px;
+        }
+
+        h2 {
+            font-size: 20px;
+            font-weight: 700;
+            color: #0f172a;
+            margin: 48px 0 16px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid #e2e8f0;
+        }
+
+        h3 {
+            font-size: 16px;
+            font-weight: 600;
+            color: #1e293b;
+            margin: 28px 0 10px;
+        }
+
+        p { margin-bottom: 14px; }
+
+        /* Блоки кода */
+        pre {
+            background: #0f172a;
+            color: #e2e8f0;
+            border-radius: 8px;
+            padding: 20px 24px;
+            overflow-x: auto;
+            margin: 16px 0 24px;
+            font-size: 13px;
+            line-height: 1.6;
+            border: 1px solid #1e293b;
+        }
+
+        code {
+            font-family: 'Cascadia Code', 'Fira Code', 'Consolas', monospace;
+        }
+
+        p code, li code {
+            background: #e2e8f0;
+            color: #0f172a;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 13px;
+        }
+
+        /* Подсветка синтаксиса — вручную через span */
+        .kw { color: #c084fc; }   /* ключевые слова */
+        .fn { color: #60a5fa; }   /* функции/методы */
+        .str { color: #86efac; }  /* строки */
+        .cm { color: #475569; font-style: italic; } /* комментарии */
+        .cl { color: #fbbf24; }   /* классы */
+        .op { color: #94a3b8; }   /* операторы */
+        .nu { color: #f97316; }   /* числа */
+        .var { color: #e2e8f0; }  /* переменные */
+
+        /* Callout-блоки */
+        .callout {
+            border-radius: 8px;
+            padding: 16px 20px;
+            margin: 20px 0;
+            display: flex;
+            gap: 14px;
+        }
+
+        .callout-icon { font-size: 20px; flex-shrink: 0; line-height: 1.5; }
+        .callout-body { flex: 1; }
+        .callout-body p:last-child { margin-bottom: 0; }
+
+        .callout.info { background: #eff6ff; border-left: 4px solid #3b82f6; }
+        .callout.warning { background: #fffbeb; border-left: 4px solid #f59e0b; }
+        .callout.success { background: #f0fdf4; border-left: 4px solid #22c55e; }
+        .callout.danger { background: #fef2f2; border-left: 4px solid #ef4444; }
+
+        /* Таблицы */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 16px 0 24px;
+            font-size: 14px;
+        }
+
+        th {
+            background: #1e293b;
+            color: #e2e8f0;
+            text-align: left;
+            padding: 10px 14px;
+            font-weight: 600;
+        }
+
+        td { padding: 9px 14px; border-bottom: 1px solid #e2e8f0; }
+        tr:nth-child(even) td { background: #f1f5f9; }
+
+        /* Список шагов */
+        .steps { list-style: none; counter-reset: step; }
+
+        .steps li {
+            counter-increment: step;
+            position: relative;
+            padding: 14px 16px 14px 56px;
+            margin-bottom: 12px;
+            background: #fff;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+        }
+
+        .steps li::before {
+            content: counter(step);
+            position: absolute;
+            left: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 26px; height: 26px;
+            background: #3b82f6;
+            color: #fff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 13px;
+        }
+
+        /* Схема-диаграмма */
+        .diagram {
+            background: #fff;
+            border: 1px solid #e2e8f0;
+            border-radius: 10px;
+            padding: 24px;
+            margin: 20px 0;
+            font-size: 13.5px;
+        }
+
+        .diagram-row {
+            display: flex;
+            align-items: center;
+            gap: 0;
+            margin: 6px 0;
+        }
+
+        .box {
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 13px;
+            white-space: nowrap;
+        }
+
+        .box-blue { background: #dbeafe; color: #1d4ed8; border: 1px solid #93c5fd; }
+        .box-green { background: #dcfce7; color: #15803d; border: 1px solid #86efac; }
+        .box-red { background: #fee2e2; color: #b91c1c; border: 1px solid #fca5a5; }
+        .box-yellow { background: #fef9c3; color: #854d0e; border: 1px solid #fde047; }
+        .box-gray { background: #f1f5f9; color: #475569; border: 1px solid #cbd5e1; }
+        .box-purple { background: #f3e8ff; color: #7e22ce; border: 1px solid #d8b4fe; }
+
+        .arrow {
+            color: #94a3b8;
+            font-size: 18px;
+            padding: 0 8px;
+        }
+
+        .arrow-down {
+            display: block;
+            text-align: center;
+            color: #94a3b8;
+            font-size: 20px;
+            line-height: 1;
+            margin: 2px 0 2px 24px;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .badge-blue { background: #dbeafe; color: #1d4ed8; }
+        .badge-green { background: #dcfce7; color: #15803d; }
+        .badge-red { background: #fee2e2; color: #b91c1c; }
+
+        ul, ol { padding-left: 22px; margin-bottom: 14px; }
+        li { margin-bottom: 5px; }
+
+        /* Горизонтальная линия */
+        hr { border: none; border-top: 1px solid #e2e8f0; margin: 40px 0; }
+
+        /* Файловый путь */
+        .filepath {
+            display: inline-block;
+            background: #1e293b;
+            color: #7dd3fc;
+            padding: 3px 10px;
+            border-radius: 4px;
+            font-family: monospace;
+            font-size: 13px;
+        }
+
+        .file-header {
+            background: #1e293b;
+            color: #7dd3fc;
+            padding: 8px 24px;
+            border-radius: 8px 8px 0 0;
+            font-family: monospace;
+            font-size: 13px;
+            margin-bottom: -8px;
+        }
+
+        .file-header + pre {
+            border-radius: 0 0 8px 8px;
+            margin-top: 0;
+        }
+
+        .toc-divider {
+            border-top: 1px solid #334155;
+            margin: 12px 0;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Боковое меню -->
+<nav>
+    <div class="nav-title">Содержание</div>
+
+    <div class="nav-section">
+        <a href="#overview">Обзор задачи</a>
+        <a href="#problem">Проблема хэшей паролей</a>
+        <a href="#architecture">Архитектура решения</a>
+    </div>
+
+    <div class="toc-divider"></div>
+
+    <div class="nav-title">Файлы</div>
+    <div class="nav-section">
+        <a href="#file-provider">JoomlaUserProvider.php</a>
+        <a href="#file-service-provider">AppServiceProvider.php</a>
+        <a href="#file-auth-config">config/auth.php</a>
+    </div>
+
+    <div class="toc-divider"></div>
+
+    <div class="nav-title">Детали</div>
+    <div class="nav-section">
+        <a href="#flow">Полный поток логина</a>
+        <a href="#retrieve">retrieveByCredentials()</a>
+        <a href="#validate">validateCredentials()</a>
+        <a href="#hashes">Типы хэшей</a>
+        <a href="#mapping">Маппинг полей</a>
+        <a href="#monitoring">Мониторинг миграции</a>
+    </div>
+</nav>
+
+<!-- Основной контент -->
+<main>
+
+    <h1>Миграция пользователей с Joomla на Laravel</h1>
+    <p class="subtitle">Документация по кастомному UserProvider для плавной миграции учётных записей</p>
+
+    <!-- Обзор -->
+    <section id="overview">
+        <h2>Обзор задачи</h2>
+
+        <p>
+            Сайт переехал с <strong>Joomla</strong> на <strong>Laravel 12</strong>. В базе данных осталась
+            старая таблица <code>pc0ec_users</code> со всеми учётными записями пользователей из Joomla.
+            Стандартная Laravel-авторизация работает с таблицей <code>users</code>, которая изначально пуста.
+        </p>
+
+        <p>
+            <strong>Цель:</strong> Реализовать «плавную» миграцию — пользователи продолжают логиниться
+            со своими старыми паролями. При первом успешном входе запись автоматически переносится
+            из <code>pc0ec_users</code> в <code>users</code>, а исходная запись удаляется.
+            Таким образом, в <code>pc0ec_users</code> в любой момент видно, кто ещё не зашёл на новый сайт.
+        </p>
+
+        <div class="callout success">
+            <div class="callout-icon">✅</div>
+            <div class="callout-body">
+                <p>Пользователь <strong>не замечает миграции</strong> — он просто вводит свой старый пароль
+                и оказывается залогинен. Никакого сброса паролей и писем не требуется.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Проблема хэшей -->
+    <section id="problem">
+        <h2>Проблема хэшей паролей</h2>
+
+        <p>
+            Laravel хранит пароли в формате <strong>bcrypt</strong> (строки вида <code>$2y$10$...</code>).
+            Joomla исторически использовала несколько форматов — в зависимости от версии:
+        </p>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Формат</th>
+                    <th>Пример</th>
+                    <th>Встречается в</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Чистый MD5</td>
+                    <td><code>7c83664d540b0424afd3a25e5ecdbf0f</code></td>
+                    <td>Joomla 1.x — 2.x</td>
+                </tr>
+                <tr>
+                    <td>bcrypt</td>
+                    <td><code>$2y$10$9hB.erUcl7udOzSq7MvjGe...</code></td>
+                    <td>Joomla 3.2+</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <p>
+            В данном проекте в таблице <code>pc0ec_users</code> обнаружены оба формата —
+            сайт Joomla обновлялся, поэтому старые пользователи остались с MD5,
+            а новые получили bcrypt.
+        </p>
+
+        <div class="callout warning">
+            <div class="callout-icon">⚠️</div>
+            <div class="callout-body">
+                <p><strong>Почему нельзя просто перенести хэши?</strong><br>
+                Хэширование — необратимая операция. Нельзя взять MD5-хэш и превратить его
+                в bcrypt-хэш того же пароля, не зная исходного пароля.
+                Единственный момент, когда исходный пароль доступен — это момент входа пользователя.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Архитектура -->
+    <section id="architecture">
+        <h2>Архитектура решения</h2>
+
+        <p>
+            Laravel использует концепцию <strong>UserProvider</strong> — объекта, который отвечает
+            за поиск пользователя в хранилище и проверку его пароля.
+            Стандартный провайдер — <code>EloquentUserProvider</code> — работает только с одной таблицей
+            и только с bcrypt. Мы создаём свой провайдер, расширяя стандартный.
+        </p>
+
+        <h3>Задействованные файлы</h3>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Файл</th>
+                    <th>Роль</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><span class="filepath">app/Auth/JoomlaUserProvider.php</span></td>
+                    <td>Основная логика: поиск в двух таблицах, проверка MD5/bcrypt, миграция</td>
+                </tr>
+                <tr>
+                    <td><span class="filepath">app/Providers/AppServiceProvider.php</span></td>
+                    <td>Регистрация нового провайдера в Laravel под именем <code>joomla</code></td>
+                </tr>
+                <tr>
+                    <td><span class="filepath">config/auth.php</span></td>
+                    <td>Подключение провайдера <code>joomla</code> вместо стандартного <code>eloquent</code></td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+
+    <hr>
+
+    <!-- Файл 1: JoomlaUserProvider -->
+    <section id="file-provider">
+        <h2>Файл 1 — JoomlaUserProvider.php</h2>
+
+        <p>Расположен по пути <span class="filepath">app/Auth/JoomlaUserProvider.php</span>.</p>
+        <p>
+            Это центральный файл всей логики. Класс наследует
+            <code>Illuminate\Auth\EloquentUserProvider</code> и переопределяет два метода:
+            <code>retrieveByCredentials()</code> и <code>validateCredentials()</code>.
+        </p>
+
+        <div class="file-header">app/Auth/JoomlaUserProvider.php</div>
+        <pre><code><span class="kw">namespace</span> <span class="cl">App\Auth</span>;
+
+<span class="kw">use</span> <span class="cl">App\Models\User</span>;
+<span class="kw">use</span> <span class="cl">Illuminate\Auth\EloquentUserProvider</span>;
+<span class="kw">use</span> <span class="cl">Illuminate\Contracts\Auth\Authenticatable</span>;
+<span class="kw">use</span> <span class="cl">Illuminate\Support\Facades\DB</span>;
+<span class="kw">use</span> <span class="cl">Illuminate\Support\Facades\Hash</span>;
+
+<span class="kw">class</span> <span class="cl">JoomlaUserProvider</span> <span class="kw">extends</span> <span class="cl">EloquentUserProvider</span>
+{
+    <span class="kw">private</span> <span class="op">?</span><span class="kw">object</span> <span class="var">$pendingJoomlaUser</span> <span class="op">=</span> <span class="kw">null</span>;
+
+    <span class="kw">public function</span> <span class="fn">retrieveByCredentials</span>(<span class="kw">array</span> <span class="var">$credentials</span>): <span class="op">?</span><span class="cl">Authenticatable</span>
+    {
+        <span class="var">$user</span> <span class="op">=</span> <span class="kw">parent</span>::<span class="fn">retrieveByCredentials</span>(<span class="var">$credentials</span>);
+
+        <span class="kw">if</span> (<span class="var">$user</span>) {
+            <span class="var">$this</span><span class="op">-></span><span class="var">pendingJoomlaUser</span> <span class="op">=</span> <span class="kw">null</span>;
+            <span class="kw">return</span> <span class="var">$user</span>;
+        }
+
+        <span class="var">$email</span> <span class="op">=</span> <span class="var">$credentials</span>[<span class="str">'email'</span>] <span class="op">??</span> <span class="kw">null</span>;
+        <span class="kw">if</span> (<span class="op">!</span><span class="var">$email</span>) {
+            <span class="kw">return</span> <span class="kw">null</span>;
+        }
+
+        <span class="var">$joomlaUser</span> <span class="op">=</span> <span class="cl">DB</span>::<span class="fn">table</span>(<span class="str">'pc0ec_users'</span>)<span class="op">-></span><span class="fn">where</span>(<span class="str">'email'</span>, <span class="var">$email</span>)<span class="op">-></span><span class="fn">first</span>();
+        <span class="kw">if</span> (<span class="op">!</span><span class="var">$joomlaUser</span>) {
+            <span class="kw">return</span> <span class="kw">null</span>;
+        }
+
+        <span class="var">$this</span><span class="op">-></span><span class="var">pendingJoomlaUser</span> <span class="op">=</span> <span class="var">$joomlaUser</span>;
+
+        <span class="var">$placeholder</span> <span class="op">=</span> <span class="kw">new</span> <span class="cl">User</span>();
+        <span class="var">$placeholder</span><span class="op">-></span><span class="fn">forceFill</span>([
+            <span class="str">'email'</span>    <span class="op">=></span> <span class="var">$joomlaUser</span><span class="op">-></span><span class="var">email</span>,
+            <span class="str">'username'</span> <span class="op">=></span> <span class="var">$joomlaUser</span><span class="op">-></span><span class="var">username</span> <span class="op">??</span> <span class="var">$joomlaUser</span><span class="op">-></span><span class="var">name</span>,
+        ]);
+
+        <span class="kw">return</span> <span class="var">$placeholder</span>;
+    }
+
+    <span class="kw">public function</span> <span class="fn">validateCredentials</span>(<span class="cl">Authenticatable</span> <span class="var">$user</span>, <span class="kw">array</span> <span class="var">$credentials</span>): <span class="kw">bool</span>
+    {
+        <span class="kw">if</span> (<span class="var">$this</span><span class="op">-></span><span class="var">pendingJoomlaUser</span> <span class="op">===</span> <span class="kw">null</span>) {
+            <span class="kw">return</span> <span class="kw">parent</span>::<span class="fn">validateCredentials</span>(<span class="var">$user</span>, <span class="var">$credentials</span>);
+        }
+
+        <span class="var">$joomla</span>        <span class="op">=</span> <span class="var">$this</span><span class="op">-></span><span class="var">pendingJoomlaUser</span>;
+        <span class="var">$plainPassword</span> <span class="op">=</span> <span class="var">$credentials</span>[<span class="str">'password'</span>];
+        <span class="var">$hash</span>          <span class="op">=</span> <span class="var">$joomla</span><span class="op">-></span><span class="var">password</span>;
+
+        <span class="kw">if</span> (<span class="fn">str_starts_with</span>(<span class="var">$hash</span>, <span class="str">'$2y$'</span>)) {
+            <span class="var">$valid</span> <span class="op">=</span> <span class="cl">Hash</span>::<span class="fn">check</span>(<span class="var">$plainPassword</span>, <span class="var">$hash</span>);
+        } <span class="kw">else</span> {
+            <span class="var">$valid</span> <span class="op">=</span> <span class="fn">hash_equals</span>(<span class="fn">md5</span>(<span class="var">$plainPassword</span>), <span class="var">$hash</span>);
+        }
+
+        <span class="var">$this</span><span class="op">-></span><span class="var">pendingJoomlaUser</span> <span class="op">=</span> <span class="kw">null</span>;
+
+        <span class="kw">if</span> (<span class="op">!</span><span class="var">$valid</span>) {
+            <span class="kw">return</span> <span class="kw">false</span>;
+        }
+
+        <span class="var">$newUser</span> <span class="op">=</span> <span class="cl">User</span>::<span class="fn">create</span>([
+            <span class="str">'email'</span>      <span class="op">=></span> <span class="var">$joomla</span><span class="op">-></span><span class="var">email</span>,
+            <span class="str">'username'</span>   <span class="op">=></span> <span class="var">$joomla</span><span class="op">-></span><span class="var">username</span> <span class="op">??</span> <span class="var">$joomla</span><span class="op">-></span><span class="var">name</span>,
+            <span class="str">'password'</span>   <span class="op">=></span> <span class="var">$plainPassword</span>,
+            <span class="str">'published'</span>  <span class="op">=></span> <span class="var">$joomla</span><span class="op">-></span><span class="var">block</span> <span class="op">?</span> <span class="nu">0</span> <span class="op">:</span> <span class="nu">1</span>,
+            <span class="str">'created_at'</span> <span class="op">=></span> <span class="var">$joomla</span><span class="op">-></span><span class="var">registerDate</span> <span class="op">?:</span> <span class="fn">now</span>(),
+        ]);
+
+        <span class="cl">DB</span>::<span class="fn">table</span>(<span class="str">'pc0ec_users'</span>)<span class="op">-></span><span class="fn">where</span>(<span class="str">'id'</span>, <span class="var">$joomla</span><span class="op">-></span><span class="var">id</span>)<span class="op">-></span><span class="fn">delete</span>();
+
+        <span class="var">$user</span><span class="op">-></span><span class="fn">setRawAttributes</span>(<span class="var">$newUser</span><span class="op">-></span><span class="fn">getAttributes</span>());
+        <span class="var">$user</span><span class="op">-></span><span class="var">exists</span> <span class="op">=</span> <span class="kw">true</span>;
+
+        <span class="kw">return</span> <span class="kw">true</span>;
+    }
+}</code></pre>
+
+        <h3>Свойство <code>$pendingJoomlaUser</code></h3>
+        <p>
+            Приватное свойство провайдера, которое хранит объект пользователя из таблицы
+            <code>pc0ec_users</code> между вызовами двух методов.
+        </p>
+        <p>
+            Это необходимо, потому что Laravel вызывает <code>retrieveByCredentials()</code>
+            и <code>validateCredentials()</code> по очереди — и оба они нужны для полной картины.
+            В первом методе у нас есть email, во втором — пароль.
+            Свойство «передаёт» найденного Joomla-пользователя между ними.
+        </p>
+    </section>
+
+    <!-- Раздел: retrieveByCredentials -->
+    <section id="retrieve">
+        <h2>Метод retrieveByCredentials()</h2>
+
+        <p>
+            Этот метод вызывается Laravel первым при каждом вызове <code>auth()->attempt()</code>.
+            Его задача — <strong>найти пользователя по реквизитам</strong> (email),
+            но <em>без</em> проверки пароля.
+        </p>
+
+        <h3>Алгоритм работы</h3>
+
+        <ol class="steps">
+            <li>
+                Вызываем <code>parent::retrieveByCredentials($credentials)</code> — это стандартный
+                поиск в таблице <code>users</code> по email.
+            </li>
+            <li>
+                Если пользователь найден в <code>users</code> — сбрасываем <code>$pendingJoomlaUser</code>
+                в <code>null</code> и возвращаем модель. Всё идёт стандартным путём.
+            </li>
+            <li>
+                Если в <code>users</code> не найден — берём email из массива credentials и ищем
+                в <code>pc0ec_users</code> через <code>DB::table()</code>.
+            </li>
+            <li>
+                Если и там не найден — возвращаем <code>null</code>.
+                Laravel поймёт, что пользователь не существует, и вернёт ошибку.
+            </li>
+            <li>
+                Если найден в <code>pc0ec_users</code> — сохраняем всю запись в
+                <code>$pendingJoomlaUser</code> и создаём <strong>заглушку</strong>:
+                новый несохранённый объект <code>User</code> с заполненными <code>email</code>
+                и <code>username</code>.
+            </li>
+        </ol>
+
+        <h3>Зачем нужна «заглушка»?</h3>
+
+        <p>
+            Laravel ожидает, что <code>retrieveByCredentials()</code> вернёт объект,
+            реализующий интерфейс <code>Authenticatable</code>. Именно этот объект передаётся
+            дальше в <code>validateCredentials()</code> и, при успехе, используется для создания
+            сессии. Мы создаём пустой несохранённый <code>User</code>, чтобы удовлетворить
+            ожидание Laravel — а позже, в <code>validateCredentials()</code>,
+            подменим его атрибуты реальными данными нового пользователя.
+        </p>
+
+        <div class="callout info">
+            <div class="callout-icon">ℹ️</div>
+            <div class="callout-body">
+                <p>
+                    Поиск в <code>pc0ec_users</code> выполняется без модели Eloquent — через
+                    <code>DB::table()</code>. Это сделано намеренно: у Joomla-таблицы нет
+                    Laravel-модели, а создавать её нет смысла — таблица временная и со временем
+                    опустеет.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Раздел: validateCredentials -->
+    <section id="validate">
+        <h2>Метод validateCredentials()</h2>
+
+        <p>
+            Вызывается вторым. Получает объект пользователя (заглушку) и полный массив credentials,
+            включая введённый пароль. Должен вернуть <code>true</code> или <code>false</code>.
+        </p>
+
+        <h3>Алгоритм работы</h3>
+
+        <ol class="steps">
+            <li>
+                Проверяем <code>$pendingJoomlaUser</code>. Если <code>null</code> — значит,
+                пользователь нашёлся в стандартной таблице <code>users</code>, и мы делегируем
+                проверку родительскому методу (стандартный bcrypt).
+            </li>
+            <li>
+                Если <code>$pendingJoomlaUser</code> установлен — извлекаем из него хэш пароля
+                и получаем введённый пользователем пароль из credentials.
+            </li>
+            <li>
+                <strong>Определяем тип хэша</strong> и проверяем пароль (подробнее в разделе
+                «Типы хэшей»).
+            </li>
+            <li>
+                Сбрасываем <code>$pendingJoomlaUser = null</code>, чтобы не оставалось «мусора»
+                в памяти провайдера.
+            </li>
+            <li>
+                Если пароль <strong>не совпал</strong> — возвращаем <code>false</code>.
+                Laravel покажет ошибку логина. Пользователь остаётся в <code>pc0ec_users</code>.
+            </li>
+            <li>
+                Если пароль <strong>совпал</strong> — создаём запись в <code>users</code>
+                через <code>User::create()</code> с rehash-ом пароля в bcrypt.
+            </li>
+            <li>
+                Удаляем запись из <code>pc0ec_users</code> по её <code>id</code>.
+            </li>
+            <li>
+                Вызываем <code>$user->setRawAttributes($newUser->getAttributes())</code> и
+                <code>$user->exists = true</code> — это подменяет атрибуты заглушки реальными
+                данными только что созданного пользователя, включая его <code>id</code>.
+                Laravel запишет этот ID в сессию и пользователь окажется залогинен корректно.
+            </li>
+        </ol>
+
+        <h3>Почему важна подмена атрибутов?</h3>
+
+        <p>
+            После того как <code>validateCredentials()</code> вернул <code>true</code>, Laravel
+            вызывает <code>auth()->login($user)</code>, где <code>$user</code> — тот самый объект,
+            который вернул <code>retrieveByCredentials()</code>. Он записывает в сессию значение
+            <code>$user->getAuthIdentifier()</code>, то есть <code>$user->id</code>.
+        </p>
+        <p>
+            Если бы мы не подменили атрибуты, заглушка не имела бы <code>id</code> (он <code>null</code>),
+            и сессия оказалась бы сломана. Поэтому мы принудительно копируем все атрибуты
+            нового пользователя через <code>setRawAttributes()</code>, минуя кастеры модели.
+        </p>
+
+        <div class="callout warning">
+            <div class="callout-icon">⚠️</div>
+            <div class="callout-body">
+                <p>
+                    <code>setRawAttributes()</code> используется специально, а не <code>forceFill()</code>,
+                    чтобы не прогонять значения через кастеры Eloquent. Например, поле
+                    <code>password</code> имеет каст <code>'hashed'</code> — при записи через
+                    <code>setAttribute()</code> оно было бы захэшировано повторно.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Раздел: типы хэшей -->
+    <section id="hashes">
+        <h2>Проверка типов хэшей</h2>
+
+        <p>
+            В методе <code>validateCredentials()</code> определение типа хэша происходит
+            по первым символам строки:
+        </p>
+
+        <div class="file-header">Фрагмент из validateCredentials()</div>
+        <pre><code><span class="kw">if</span> (<span class="fn">str_starts_with</span>(<span class="var">$hash</span>, <span class="str">'$2y$'</span>)) {
+    <span class="cm">// bcrypt — проверяем через встроенный фасад Hash</span>
+    <span class="var">$valid</span> <span class="op">=</span> <span class="cl">Hash</span>::<span class="fn">check</span>(<span class="var">$plainPassword</span>, <span class="var">$hash</span>);
+} <span class="kw">else</span> {
+    <span class="cm">// MD5 без соли — вычисляем md5 от пароля и сравниваем</span>
+    <span class="var">$valid</span> <span class="op">=</span> <span class="fn">hash_equals</span>(<span class="fn">md5</span>(<span class="var">$plainPassword</span>), <span class="var">$hash</span>);
+}</code></pre>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Хэш начинается с</th>
+                    <th>Алгоритм проверки</th>
+                    <th>Функция PHP</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><code>$2y$</code></td>
+                    <td>bcrypt</td>
+                    <td><code>Hash::check($password, $hash)</code></td>
+                </tr>
+                <tr>
+                    <td>всё остальное (32 hex-символа)</td>
+                    <td>MD5</td>
+                    <td><code>hash_equals(md5($password), $hash)</code></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>Почему <code>hash_equals</code>, а не <code>===</code>?</h3>
+        <p>
+            Функция <code>hash_equals()</code> сравнивает строки за постоянное время,
+            независимо от длины совпадающего префикса. Это защита от <strong>timing attack</strong> —
+            атаки по времени, при которой злоумышленник может угадать хэш по разнице
+            в скорости ответа сервера. При использовании обычного <code>===</code> такая
+            атака теоретически возможна.
+        </p>
+    </section>
+
+    <!-- Файл 2: AppServiceProvider -->
+    <section id="file-service-provider">
+        <h2>Файл 2 — AppServiceProvider.php</h2>
+
+        <p>Расположен по пути <span class="filepath">app/Providers/AppServiceProvider.php</span>.</p>
+
+        <p>
+            В метод <code>boot()</code> добавлена регистрация нового провайдера под именем
+            <code>'joomla'</code>:
+        </p>
+
+        <div class="file-header">app/Providers/AppServiceProvider.php — метод boot()</div>
+        <pre><code><span class="cl">Auth</span>::<span class="fn">provider</span>(<span class="str">'joomla'</span>, <span class="kw">function</span> (<span class="var">$app</span>, <span class="kw">array</span> <span class="var">$config</span>) {
+    <span class="kw">return new</span> <span class="cl">JoomlaUserProvider</span>(<span class="var">$app</span>[<span class="str">'hash'</span>], <span class="var">$config</span>[<span class="str">'model'</span>]);
+});</code></pre>
+
+        <p>
+            <code>Auth::provider()</code> — это метод Laravel, который регистрирует фабрику
+            для создания провайдера с указанным именем. Когда Laravel видит в конфиге
+            <code>'driver' => 'joomla'</code>, он вызывает эту функцию и получает готовый
+            экземпляр <code>JoomlaUserProvider</code>.
+        </p>
+
+        <p>Конструктор <code>JoomlaUserProvider</code> принимает два аргумента:</p>
+        <ul>
+            <li><code>$app['hash']</code> — сервис хэширования Laravel (нужен родительскому классу для bcrypt)</li>
+            <li><code>$config['model']</code> — класс модели пользователя, указанный в <code>auth.php</code></li>
+        </ul>
+    </section>
+
+    <!-- Файл 3: auth.php -->
+    <section id="file-auth-config">
+        <h2>Файл 3 — config/auth.php</h2>
+
+        <p>Расположен по пути <span class="filepath">config/auth.php</span>.</p>
+
+        <p>
+            Единственное изменение — в секции <code>providers</code> значение <code>driver</code>
+            изменено с <code>'eloquent'</code> на <code>'joomla'</code>:
+        </p>
+
+        <div class="file-header">config/auth.php — секция providers</div>
+        <pre><code><span class="str">'providers'</span> <span class="op">=></span> [
+    <span class="str">'users'</span> <span class="op">=></span> [
+        <span class="str">'driver'</span> <span class="op">=></span> <span class="str">'joomla'</span>,  <span class="cm">// было: 'eloquent'</span>
+        <span class="str">'model'</span>  <span class="op">=></span> <span class="fn">env</span>(<span class="str">'AUTH_MODEL'</span>, <span class="cl">App\Models\User</span>::<span class="kw">class</span>),
+    ],
+],</code></pre>
+
+        <p>
+            Это единственная точка конфигурации. Всё остальное — guards, passwords — остаётся
+            без изменений. Наш провайдер прозрачно заменяет стандартный.
+        </p>
+    </section>
+
+    <hr>
+
+    <!-- Полный поток -->
+    <section id="flow">
+        <h2>Полный поток логина</h2>
+
+        <p>
+            Ниже показано, что происходит с момента нажатия кнопки «Войти»
+            до появления пользователя в системе.
+        </p>
+
+        <div class="diagram">
+            <div class="diagram-row">
+                <div class="box box-blue">Пользователь вводит email + пароль</div>
+            </div>
+            <div class="arrow-down">↓</div>
+            <div class="diagram-row">
+                <div class="box box-gray">SignInController::handleLogin() вызывает auth()->attempt()</div>
+            </div>
+            <div class="arrow-down">↓</div>
+            <div class="diagram-row">
+                <div class="box box-purple">JoomlaUserProvider::retrieveByCredentials()</div>
+            </div>
+            <div class="arrow-down">↓</div>
+            <div class="diagram-row">
+                <div class="box box-blue">Поиск в таблице users</div>
+                <div class="arrow">→</div>
+                <div class="box box-green">Найден → возвращаем User</div>
+            </div>
+            <div class="arrow-down">↓ не найден</div>
+            <div class="diagram-row">
+                <div class="box box-blue">Поиск в таблице pc0ec_users</div>
+                <div class="arrow">→</div>
+                <div class="box box-red">Не найден → null → ошибка</div>
+            </div>
+            <div class="arrow-down">↓ найден</div>
+            <div class="diagram-row">
+                <div class="box box-yellow">Сохраняем в $pendingJoomlaUser, возвращаем заглушку User</div>
+            </div>
+            <div class="arrow-down">↓</div>
+            <div class="diagram-row">
+                <div class="box box-purple">JoomlaUserProvider::validateCredentials()</div>
+            </div>
+            <div class="arrow-down">↓</div>
+            <div class="diagram-row">
+                <div class="box box-blue">Определяем тип хэша ($2y$ или MD5)</div>
+            </div>
+            <div class="arrow-down">↓</div>
+            <div class="diagram-row">
+                <div class="box box-blue">Проверяем пароль</div>
+                <div class="arrow">→</div>
+                <div class="box box-red">Не совпало → false → ошибка</div>
+            </div>
+            <div class="arrow-down">↓ совпало</div>
+            <div class="diagram-row">
+                <div class="box box-green">User::create() — создаём запись в users с bcrypt-паролем</div>
+            </div>
+            <div class="arrow-down">↓</div>
+            <div class="diagram-row">
+                <div class="box box-red">DB::delete() — удаляем запись из pc0ec_users</div>
+            </div>
+            <div class="arrow-down">↓</div>
+            <div class="diagram-row">
+                <div class="box box-yellow">setRawAttributes() — подменяем атрибуты заглушки реальным ID</div>
+            </div>
+            <div class="arrow-down">↓</div>
+            <div class="diagram-row">
+                <div class="box box-green">Пользователь залогинен, сессия создана с правильным ID</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Маппинг полей -->
+    <section id="mapping">
+        <h2>Маппинг полей при миграции</h2>
+
+        <p>
+            При переносе пользователя в таблицу <code>users</code> переносятся только
+            те поля, которые имеют прямой аналог. Остальные поля останутся пустыми —
+            пользователь может заполнить их сам в личном кабинете.
+        </p>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Поле в pc0ec_users (Joomla)</th>
+                    <th>Поле в users (Laravel)</th>
+                    <th>Преобразование</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><code>email</code></td>
+                    <td><code>email</code></td>
+                    <td>Без изменений</td>
+                </tr>
+                <tr>
+                    <td><code>username</code> / <code>name</code></td>
+                    <td><code>username</code></td>
+                    <td>username, если есть; иначе name</td>
+                </tr>
+                <tr>
+                    <td>пароль (MD5 или bcrypt)</td>
+                    <td><code>password</code></td>
+                    <td>Перехэшируется в bcrypt через каст <code>'hashed'</code></td>
+                </tr>
+                <tr>
+                    <td><code>block</code> (0/1)</td>
+                    <td><code>published</code> (1/0)</td>
+                    <td>Инвертируется: block=0 → published=1</td>
+                </tr>
+                <tr>
+                    <td><code>registerDate</code></td>
+                    <td><code>created_at</code></td>
+                    <td>Если пусто — подставляется текущее время</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="callout info">
+            <div class="callout-icon">ℹ️</div>
+            <div class="callout-body">
+                <p>
+                    Каст <code>'password' => 'hashed'</code> в модели <code>User</code>
+                    автоматически применяет <code>Hash::make()</code> при записи через <code>setAttribute()</code>.
+                    Поэтому мы передаём в <code>User::create()</code> открытый пароль, а не хэш —
+                    Eloquent сам сделает bcrypt.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Мониторинг -->
+    <section id="monitoring">
+        <h2>Мониторинг миграции</h2>
+
+        <p>
+            Поскольку каждый вошедший пользователь удаляется из <code>pc0ec_users</code>,
+            в любой момент можно видеть, кто ещё не перешёл на новый сайт.
+        </p>
+
+        <h3>Просмотр через браузер</h3>
+        <p>
+            Страница <code>/test</code> выводит все оставшиеся записи из <code>pc0ec_users</code>
+            в виде таблицы. Количество строк = количество пользователей, не заходивших на новый сайт.
+        </p>
+
+        <h3>SQL-запросы для статистики</h3>
+        <pre><code><span class="cm">-- Сколько пользователей ещё не мигрировали</span>
+<span class="kw">SELECT</span> <span class="fn">COUNT</span>(<span class="op">*</span>) <span class="kw">AS</span> remaining <span class="kw">FROM</span> pc0ec_users;
+
+<span class="cm">-- Сколько уже мигрировало</span>
+<span class="kw">SELECT</span> <span class="fn">COUNT</span>(<span class="op">*</span>) <span class="kw">AS</span> migrated <span class="kw">FROM</span> users;
+
+<span class="cm">-- Список не мигрировавших с датой регистрации</span>
+<span class="kw">SELECT</span> email, username, registerDate
+<span class="kw">FROM</span> pc0ec_users
+<span class="kw">ORDER BY</span> registerDate <span class="kw">DESC</span>;</code></pre>
+
+        <div class="callout success">
+            <div class="callout-icon">✅</div>
+            <div class="callout-body">
+                <p>
+                    Когда таблица <code>pc0ec_users</code> опустеет — миграция завершена.
+                    На этом этапе можно вернуть в <code>config/auth.php</code> стандартный
+                    <code>'driver' => 'eloquent'</code> и удалить файл
+                    <code>app/Auth/JoomlaUserProvider.php</code> как более не нужный.
+                </p>
+            </div>
+        </div>
+
+        <h3>Когда миграция завершена — как отключить провайдер</h3>
+
+        <ol>
+            <li>В <code>config/auth.php</code> вернуть <code>'driver' => 'eloquent'</code></li>
+            <li>Удалить строку <code>Auth::provider('joomla', ...)</code> из <code>AppServiceProvider</code></li>
+            <li>Удалить файл <code>app/Auth/JoomlaUserProvider.php</code></li>
+            <li>Удалить таблицу <code>pc0ec_users</code> из базы данных (убедившись, что она пуста)</li>
+            <li>Выполнить <code>php artisan config:clear</code></li>
+        </ol>
+    </section>
+
+</main>
+
+</body>
+</html>
