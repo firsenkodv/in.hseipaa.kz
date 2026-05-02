@@ -265,7 +265,7 @@ final class AxeldLayout extends AppLayout
                             Footer::make()
                                 ->copyright(static fn(): string => sprintf(
                                     <<<'HTML'
-                                        &copy; %d  ❤️  <a href="/" target="_blank">Портал Бухгалтеров  Казахстана</a>
+                                        &copy; %d  ❤️  <a href="/" target="_blank">Портал Бухгалтеров Казахстана</a>
                                         HTML,
                                     now()->year,
                                 ))
