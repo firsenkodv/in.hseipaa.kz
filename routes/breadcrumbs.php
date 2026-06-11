@@ -163,6 +163,12 @@ Breadcrumbs::for('cabinet_user', function ($trail) {
     $trail->push('Кабинет' , route('cabinet_user'));
 });
 
+// Home > CabinetUser > Contracts
+Breadcrumbs::for('cabinet_contracts', function ($trail) {
+    $trail->parent('cabinet_user');
+    $trail->push('Договоры', route('cabinet_contracts'));
+});
+
 // Home > CabinetUserMessages
 Breadcrumbs::for('cabinet_user_messages', function ($trail) {
     $trail->parent('home');
@@ -380,4 +386,46 @@ Breadcrumbs::for('my_resume_archive_show', function ($trail, $item) {
 Breadcrumbs::for('resume', function ($trail,  $item) {
     $trail->parent('resumes');
     $trail->push($item->title , route('resume', $item->id));
+});
+
+// Home > Admin
+Breadcrumbs::for('cabinet_admin', function ($trail) {
+    $trail->parent('home');
+    $trail->push('Кабинет админа' , route('cabinet_admin'));
+});
+
+// Home > Admin > Update
+Breadcrumbs::for('cabinet_update_personal_data_admin', function ($trail) {
+    $trail->parent('cabinet_admin');
+    $trail->push('Редактирование личных данных администратора', route('cabinet_update_personal_data_admin'));
+});
+
+// Home > Admin > Users
+Breadcrumbs::for('admin_users', function ($trail) {
+    $trail->parent('cabinet_admin');
+    $trail->push('Пользователи сайта', route('admin_users'));
+});
+
+// Home > Admin > Users > Create
+Breadcrumbs::for('admin_user_create', function ($trail) {
+    $trail->parent('admin_users');
+    $trail->push('Создать пользователя', route('admin_user_create'));
+});
+
+// Home > Admin > Trainings
+Breadcrumbs::for('admin_trainings', function ($trail) {
+    $trail->parent('cabinet_admin');
+    $trail->push('Дисциплины', route('admin_trainings'));
+});
+
+// Home > Admin > Contracts
+Breadcrumbs::for('admin_contracts', function ($trail) {
+    $trail->parent('cabinet_admin');
+    $trail->push('Договоры', route('admin_contracts'));
+});
+
+// Home > Admin > Users > User
+Breadcrumbs::for('admin_user', function ($trail, $user) {
+    $trail->parent('admin_users');
+    $trail->push($user->username, route('admin_user', $user->id));
 });

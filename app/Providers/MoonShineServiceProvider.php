@@ -47,11 +47,14 @@ use App\MoonShine\Resources\UserSpecialistResource;
 use App\MoonShine\Resources\UserLanguageResource;
 use App\MoonShine\Resources\UserProductionResource;
 use App\MoonShine\Resources\ROPResource;
+use App\MoonShine\Resources\AdminResource;
 use App\MoonShine\Resources\ManagerResource;
 use App\MoonShine\Resources\HunterExperienceResource;
 use App\MoonShine\Resources\HunterCategoryResource;
 use App\MoonShine\Resources\HunterVacancyItemResource;
 use App\MoonShine\Resources\HunterResumeItemResource;
+use App\MoonShine\Resources\ContractResource;
+use App\MoonShine\Resources\TrainingResource;
 
 class MoonShineServiceProvider extends ServiceProvider
 {
@@ -95,11 +98,14 @@ class MoonShineServiceProvider extends ServiceProvider
                 UserLanguageResource::class,
                 UserProductionResource::class,
                 ROPResource::class,
+                AdminResource::class,
                 ManagerResource::class,
                 HunterExperienceResource::class,
                 HunterCategoryResource::class,
                 HunterVacancyItemResource::class,
                 HunterResumeItemResource::class,
+                ContractResource::class,
+                TrainingResource::class,
             ])
             ->pages([
                 ...$config->getPages(),

@@ -2,7 +2,7 @@ import {axiosLaravel} from '../axios/axiosLaravel.js'
 import {fieldErrors} from '../fancybox/form/fieldErrors.js'
 import {removeErrors} from "../fancybox/form/removeErrors.js";
 import {select} from "../select/select.js";
-import {imask} from "../imask.js";
+import {imask, imask_price, imask_hours} from "../imask.js";
 
 export function asyncExecution() {
 
@@ -11,6 +11,8 @@ export function asyncExecution() {
     select()
     /** подключим маски **/
     imask()
+    imask_price()
+    imask_hours()
 
 
     const appFormButtons = Array.from(document.querySelectorAll('.app_form_button'))
@@ -123,6 +125,9 @@ export function asyncExecution() {
 
                            /** Удаляем это окно после включения ответа и выключения loader **/
                            modal.remove();
+
+                           /** Оповещаем об успехе с данными ответа **/
+                           document.dispatchEvent(new CustomEvent('form:success', { detail: result.response }));
                        }
 
 
@@ -140,4 +145,3 @@ export function asyncExecution() {
        }
    }
 }
-

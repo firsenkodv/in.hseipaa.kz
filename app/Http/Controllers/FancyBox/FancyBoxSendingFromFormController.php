@@ -5,15 +5,30 @@ namespace App\Http\Controllers\FancyBox;
 use App\Events\Form\FancyBoxSelectTarifEvent;
 use App\Events\Form\FancyBoxSendingFromFormEvent;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Cabinet\ContractSignRequest;
+use App\Http\Requests\CabinetAdmin\AdminContractCreateRequest;
+use App\Http\Requests\CabinetAdmin\AdminContractUpdateRequest;
+use App\Http\Requests\CabinetAdmin\AdminTrainingUpdateRequest;
+use App\Http\Requests\CabinetAdmin\AdminUserCreateRequest;
 use App\Http\Requests\RequestCallMeBlueRequest;
+use App\Mail\Contract\ContractCreatedMail;
+use App\Mail\Contract\ContractSignedMail;
+use App\Models\Contract;
+use App\Models\Training;
+use App\Models\User;
+use Carbon\Carbon;
+use Illuminate\Support\Str;
 use App\Http\Requests\RequestCallMeRequest;
 use App\Http\Requests\RequestConsultMeRequest;
 use App\Http\Requests\RequestForTrainingRequest;
 use App\Http\Requests\SendSubscriptionMeRequest;
+use App\Mail\Auth\AdminNewUserNotificationMail;
+use App\Mail\Auth\UserRegisteredMail;
 use Domain\SavedFormData\ViewModel\SavedFormDataViewModel;
 use Domain\User\ViewModels\UserViewModel;
 use Illuminate\Http\Request;
 use Illuminate\Contracts\View\View;
+use Illuminate\Support\Facades\Mail;
 
 
 class FancyBoxSendingFromFormController extends Controller
@@ -89,6 +104,144 @@ class FancyBoxSendingFromFormController extends Controller
             'response' => $request->all(),
         ], 200);
 
+    }
+
+    /** подписание договора пользователем */
+    public function fancyboxContractSign(ContractSignRequest $request): \Illuminate\Http\JsonResponse
+    {
+        $contract = Contract::with('user.Manager')->findOrFail($request->integer('contract_id'));
+        $contract->update(['is_signed' => true]);
+
+        if ($contract->email) {
+            Mail::to($contract->email)->queue(new ContractSignedMail($contract, $request->ip()));
+        }
+
+        return response()->json([
+            'response' => [
+                'contract_id' => $contract->id,
+                'signed'      => true,
+            ],
+        ], 200);
+    }
+
+    /** создание договора администратором */
+    public function fancyboxAdminContractCreate(AdminContractCreateRequest $request): \Illuminate\Http\JsonResponse
+    {
+        $token = Str::random(64);
+
+        $lastSeq = Contract::whereYear('created_at', now()->year)
+            ->whereNotNull('contract_number')
+            ->get()
+            ->map(fn($c) => (int) explode('/', $c->contract_number)[0])
+            ->max() ?? 0;
+
+        $contractNumber = sprintf('%02d/%s/%s', $lastSeq + 1, now()->format('m'), now()->format('y'));
+
+        Contract::create([
+            'user_id'         => $request->integer('user_id'),
+            'contract_number' => $contractNumber,
+            'full_name'       => $request->input('fio'),
+            'email'           => $request->input('email'),
+            'phone'           => $request->input('phone'),
+            'discipline'      => $request->input('training_id'),
+            'date_start'      => Carbon::createFromFormat('d.m.Y', $request->input('date_from')),
+            'date_end'        => Carbon::createFromFormat('d.m.Y', $request->input('date_to')),
+            'price'           => $request->input('price'),
+            'currency'        => $request->input('currency'),
+            'hours'           => $request->integer('hours'),
+            'public_token'    => $token,
+            'organizations'   => \App\Enums\OrganizationEnum::fromLabel($request->input('organization'))?->value,
+        ]);
+
+        $user    = User::with('Manager')->find($request->integer('user_id'));
+        $manager = $user?->Manager;
+
+        $publicUrl = route('contract.public', $token);
+
+        $orgEnum = \App\Enums\OrganizationEnum::fromLabel($request->input('organization'));
+
+        $contractData = array_merge(
+            $request->only(['fio', 'email', 'phone', 'training_id', 'date_from', 'date_to', 'price', 'currency', 'hours']),
+            [
+                'contract_number'    => $contractNumber,
+                'organization_label' => $request->input('organization'),
+                'organization_logo'  => $orgEnum ? asset($orgEnum->logo()) : null,
+                'organization_logo_size' => $orgEnum ? $orgEnum->logoSize() : null,
+                'manager_name'       => $manager?->username,
+                'manager_email'      => $manager?->email,
+                'manager_phone'      => $manager?->phone ? format_phone($manager->phone) : null,
+                'public_url'         => $publicUrl,
+            ]
+        );
+
+        Mail::to($request->input('email'))->queue(new ContractCreatedMail($contractData));
+
+        return response()->json(['response' => [
+            'public_url'        => $publicUrl,
+            'user_id'           => $request->integer('user_id'),
+            'contract_created'  => true,
+        ]], 200);
+    }
+
+    /** создание пользователя администратором */
+    public function fancyboxAdminUserCreate(AdminUserCreateRequest $request): \Illuminate\Http\JsonResponse
+    {
+        $plainPassword = $request->input('password');
+
+        $user = UserViewModel::make()->UserCreate($request->all());
+
+        $userData = [
+            'username' => $user->username,
+            'email'    => $user->email,
+            'company'  => $user->company,
+            'password' => $plainPassword,
+        ];
+
+        Mail::to($user->email)->queue(new UserRegisteredMail($userData));
+        Mail::to(config('app.mail_admin'))->queue(new AdminNewUserNotificationMail($userData));
+
+        return response()->json(['response' => $request->all()], 200);
+    }
+
+    /** обновление договора администратором */
+    public function fancyboxAdminContractUpdate(AdminContractUpdateRequest $request): \Illuminate\Http\JsonResponse
+    {
+        $contract = Contract::findOrFail($request->integer('contract_id'));
+
+        $contract->update([
+            'full_name'  => $request->input('fio'),
+            'email'      => $request->input('email'),
+            'phone'      => $request->input('phone'),
+            'discipline' => $request->input('training_id'),
+            'date_start' => Carbon::createFromFormat('d.m.Y', $request->input('date_from')),
+            'date_end'   => Carbon::createFromFormat('d.m.Y', $request->input('date_to')),
+            'price'      => $request->input('price'),
+            'currency'   => $request->input('currency'),
+            'hours'      => $request->integer('hours'),
+        ]);
+
+        $currencies = config('currency.currency');
+
+        return response()->json([
+            'response' => [
+                'contract_id' => $contract->id,
+                'discipline'  => $contract->discipline,
+                'date_start'  => $contract->date_start->format('d.m.Y'),
+                'date_end'    => $contract->date_end->format('d.m.Y'),
+                'price'       => number_format((float) $contract->price, 0, '.', ' '),
+                'currency'    => $currencies[$contract->currency] ?? $contract->currency,
+                'hours'       => $contract->hours,
+            ],
+        ], 200);
+    }
+
+    /** обновление дисциплины администратором */
+    public function fancyboxAdminTrainingUpdate(AdminTrainingUpdateRequest $request): \Illuminate\Http\JsonResponse
+    {
+        $training = Training::findOrFail($request->integer('training_id'));
+        $training->update(['title' => $request->input('title')]);
+
+        return response()->json(['response' => $request->all()], 200);
     }
 
     /** перезвоните мне с голубой, горизонтальной, сквозной формы  */

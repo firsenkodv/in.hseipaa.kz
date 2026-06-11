@@ -6,7 +6,6 @@ window.IMask = IMask;
 
 
 
-
 // import styles bundle
 import 'swiper/css/bundle';
 

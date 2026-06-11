@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Cabinet\CabinetUser;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CabinetUser\UserUpdateRequest;
+use App\Models\Contract;
 use App\Models\User;
 use Domain\CabinetMessage\ViewModels\CabinetMessageViewModel;
 use Domain\Service\ViewModels\ServiceViewModel;
@@ -139,6 +140,34 @@ class CabinetUserController extends Controller
 
         }
 
+    }
+
+    /**
+     * @return View
+     * Страница с договорами
+     */
+    public function cabinetContracts(): View
+    {
+        try {
+
+            /** @var User $user */
+            $user = UserViewModel::make()->User();
+
+            $contracts = Contract::where('user_id', $user->id)
+                ->orderBy('created_at', 'desc')
+                ->get();
+
+            return view('cabinet.cabinet_user.cabinet_contracts', [
+                'user'      => $user,
+                'contracts' => $contracts,
+            ]);
+
+        } catch (\Throwable $th) {
+
+            logErrors($th);
+            abort(404);
+
+        }
     }
 
     /**

@@ -66,6 +66,13 @@
   padding-bottom: 24px;
 }
 
+.block_action {
+  padding: 30px 0;
+}
+.block_action .btn {
+  width: 100%;
+}
+
 .block_exit .btn {
   width: 100%;
 }

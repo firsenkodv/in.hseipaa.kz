@@ -5,6 +5,7 @@ return [
     'published_off' =>'<h3 class="h3">Ваш профиль на модерации</h3><p>В ближайшее время вы сможете полноценно пользоваться сервисом</p>',
     'rop_info' =>'<h3 class="h3">Руководитель отдела продаж</h3><p>У вас есть право управлять менеджерами и их профилями. </p>',
     'manager_info' =>'<h3 class="h3">Менеджер проекта</h3><p>У вас есть право управлять менеджерами и их профилями.</p>',
+    'admin_info'   =>'<h3 class="h3">Вы администрируете договоры</h3><p>У вас есть право создавать договоры.</p>',
 
     'tarif_error' =>'Тариф указан не корректно. Обратитесь в техническую поддержку',
     'search_registry_empty' => 'Нет пользователей, удовлетворяющих условиям поиска. Попробуйте изменить условия поиска.',
@@ -20,15 +21,19 @@ return [
     'well_yellow' => 'Создать менеджера',
     'send_request' => 'Отправить заявку',
     'enter_for_rop' => 'Вход для РОП', // Entrance for ROP
+    'enter_for_admin' => 'Вход для Админа', // Entrance for Admin
     'enter_for_manager' => 'Вход для Менеджера', // Entrance for ROP
     'for_managing_managers' => 'Для управления менеджерами', // For managing managers
+    'for_managing_docs' => 'Для управления договорами',
     'for_managing_users' => 'Для управления пользователями', //
     'enter' => 'Вход', // Enter
     'authorization' => 'Авторизация', // authorization
     'authorization_text' => 'Для работы в личном кабинете требуется вход', // To work in your personal account, you need to log in
     'rop_text' => 'Вход для РОП, управление менеджерами', // To work in your personal account, you need to log in
+    'admin_text' => 'Вход для Админа, управление договорами',
     'manager_text' => 'Вход для Менеджера, управление пользователями',
     'head_sales_department' => 'Руководитель отдела продаж', // Head of the sales department.
+    'admin' => 'Админ', // Admin.
     'manager' => 'Менеджер', // manager.
     'you_manager' => 'Ты менеджер',
     'you_head_of_sales_department' => 'Ты РОП (Руководитель отдела продаж)',

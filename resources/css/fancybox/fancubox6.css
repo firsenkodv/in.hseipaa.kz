@@ -21,23 +21,6 @@
 .modal-form-container .modal_padding {
   padding: 24px;
 }
-.modal-form-container .form_title {
-  padding: 3px 0 30px 0;
-  position: relative;
-  cursor: pointer !important;
-}
-.modal-form-container .form_title .form_title__h1 {
-  font-size: 30px;
-  font-weight: 700;
-  line-height: 1.2em;
-  padding: 0 0 8px 0;
-}
-.modal-form-container .form_title .form_title__h2 {
-  color: #667085;
-  font-size: 16px;
-  line-height: 1.2em;
-  padding: 0 0 5px 0;
-}
 .modal-form-container .cabinet-msg-item {
   margin-bottom: 16px;
 }
@@ -63,6 +46,24 @@
 }
 .modal-form-container .cabinet-msg-item .message_body {
   padding: 10px 0 0 0;
+}
+
+.form_title {
+  padding: 3px 0 30px 0;
+  position: relative;
+  cursor: pointer !important;
+}
+.form_title .form_title__h1 {
+  font-size: 30px;
+  font-weight: 700;
+  line-height: 1.2em;
+  padding: 0 0 8px 0;
+}
+.form_title .form_title__h2 {
+  color: #667085;
+  font-size: 16px;
+  line-height: 1.2em;
+  padding: 0 0 5px 0;
 }
 
 /** manager_set_tarif modal **/

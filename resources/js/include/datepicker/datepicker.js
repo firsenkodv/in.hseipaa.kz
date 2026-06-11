@@ -1,4 +1,4 @@
-import {Datepicker} from 'vanillajs-datepicker';
+import {Datepicker, DateRangePicker} from 'vanillajs-datepicker';
 import ru from 'vanillajs-datepicker/locales/ru';
 
 Object.assign(Datepicker.locales, ru);
@@ -46,4 +46,27 @@ export function datepicker_accountant_ticket_date() {
             topPositionLabel(elem)
 
         }
+}
+
+export function datepicker_contract_period() {
+    const wrapper = document.getElementById('contract-period');
+    if (wrapper) {
+        const rangePicker = new DateRangePicker(wrapper, {
+            language: 'ru',
+            format: 'dd.mm.yyyy',
+            autohide: true,
+        });
+
+        const inputs = wrapper.querySelectorAll('input');
+        const dateFrom = inputs[0]?.dataset.date;
+        const dateTo   = inputs[1]?.dataset.date;
+        if (dateFrom && dateTo) {
+            const parse = (s) => { const [d, m, y] = s.split('.'); return new Date(y, m - 1, d); };
+            rangePicker.setDates(parse(dateFrom), parse(dateTo));
+        }
+
+        inputs.forEach(function(elem) {
+            topPositionLabel(elem);
+        });
+    }
 }

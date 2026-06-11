@@ -32,8 +32,8 @@
                 @endif
             </div>
 
-            <div class="selected {{ ($selected)?'active':''  }}"
-                 data-select="{{ $name }}">{{ ($selected)?:$name }} {!! ($required) ?'<span>*</span>':'' !!}</div>
+            <div class="selected {{ ($selected) ? 'active app_selected' : '' }}"
+                 data-select="{{ $name }}">{{ $selected ?: ($label ?: $name) }} {!! ($required) ?'<span>*</span>':'' !!}</div>
             <div class="app_input_error input_error"></div>
 
 

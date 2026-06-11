@@ -15,6 +15,7 @@ use App\MoonShine\Pages\ServiceModulePage;
 use App\MoonShine\Pages\SettingPage;
 
 use App\MoonShine\Pages\UsefulModulePage;
+use App\MoonShine\Resources\AdminResource;
 use App\MoonShine\Resources\HunterCategoryResource;
 use App\MoonShine\Resources\HunterExperienceResource;
 use App\MoonShine\Resources\HunterResumeItemResource;
@@ -80,6 +81,8 @@ use App\MoonShine\Resources\UserLanguageResource;
 use App\MoonShine\Resources\UserProductionResource;
 use App\MoonShine\Resources\ROPResource;
 use App\MoonShine\Resources\ManagerResource;
+use App\MoonShine\Resources\TrainingResource;
+use App\MoonShine\Resources\ContractResource;
 
 
 final class AxeldLayout extends AppLayout
@@ -98,7 +101,8 @@ final class AxeldLayout extends AppLayout
             MenuItem::make('Главная', HomePage::class, 'flag'),
 
             MenuGroup::make('Пользователи', [
-                MenuItem::make('Админ', MoonShineUserResource::class, 'user'),
+                MenuItem::make('Супер', MoonShineUserResource::class, 'user'),
+                MenuItem::make('Админ', AdminResource::class, 'user'),
                 MenuItem::make('РОПы', ROPResource::class, 'user-plus'),
                 MenuItem::make('Менеджеры', ManagerResource::class, 'users'),
                 MenuItem::make('Города', UserCityResource::class, 'building-office-2'),
@@ -167,6 +171,11 @@ final class AxeldLayout extends AppLayout
             ]),
 
             MenuItem::make('Меню', MenuResource::class),
+
+            MenuGroup::make(static fn() => __('Обучение'), [
+                MenuItem::make('Дисциплины', TrainingResource::class, 'academic-cap'),
+                MenuItem::make('Договоры', ContractResource::class, 'document-text'),
+            ]),
 
             MenuGroup::make(static fn() => __('Формы отправки'), [
                 MenuItem::make('Данные с форм', SavedFormDataResource::class , 'envelope'),

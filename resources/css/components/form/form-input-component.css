@@ -113,4 +113,14 @@
   color: #EF533F;
 }
 
+.period-range-wrapper {
+  display: flex;
+  gap: 12px;
+}
+.period-range-wrapper .input-group {
+  flex: 1;
+  min-width: 0;
+  margin-bottom: 20px;
+}
+
 /*# sourceMappingURL=form-input-component.css.map */

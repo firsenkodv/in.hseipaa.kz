@@ -217,7 +217,7 @@ class CabinetROPController extends Controller
 
     /**
      * управление клиентами
-     * спискок
+     * список
      */
     public function ropUsers():View
     {

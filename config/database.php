@@ -63,6 +63,25 @@ return [
             ]) : [],
         ],
 
+        // ============================================================
+        // PRODUCTION: проверить все четыре переменные в .env боевого
+        // сервера перед деплоем. На хостинге имя БД обычно имеет
+        // префикс (например, u12345_hseipaa). Если сайты на разных
+        // серверах — DB_HSEIPAA_HOST должен указывать на хост Сайта 1.
+        // ============================================================
+        'hseipaa' => [
+            'driver'    => 'mysql',
+            'host'      => env('DB_HSEIPAA_HOST', '127.0.0.1'),      // PRODUCTION: хост Сайта 1
+            'port'      => env('DB_HSEIPAA_PORT', '3306'),
+            'database'  => env('DB_HSEIPAA_DATABASE', 'hseipaa'),     // PRODUCTION: имя БД Сайта 1
+            'username'  => env('DB_HSEIPAA_USERNAME', 'root'),        // PRODUCTION: пользователь БД Сайта 1
+            'password'  => env('DB_HSEIPAA_PASSWORD', ''),            // PRODUCTION: пароль БД Сайта 1
+            'charset'   => 'utf8mb4',
+            'collation' => 'utf8mb4_unicode_ci',
+            'prefix'    => '',
+            'strict'    => false,
+        ],
+
         'mariadb' => [
             'driver' => 'mariadb',
             'url' => env('DB_URL'),

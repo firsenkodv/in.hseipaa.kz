@@ -156,3 +156,14 @@ $primary-color: $colorGrey;
     }
 
 }
+
+.period-range-wrapper {
+    display: flex;
+    gap: 12px;
+
+    .input-group {
+        flex: 1;
+        min-width: 0;
+        margin-bottom: 20px;
+    }
+}

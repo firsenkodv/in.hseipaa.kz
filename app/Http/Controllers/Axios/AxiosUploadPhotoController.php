@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Axios;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\AvatarRequest;
+use App\Models\Admin;
+use Domain\Admin\ViewModels\AdminViewModel;
 use Domain\Manager\ViewModels\ManagerViewModel;
 use Domain\ROP\ViewModels\ROPViewModel;
 use Domain\User\ViewModels\UserViewModel;
@@ -168,6 +170,28 @@ class AxiosUploadPhotoController extends Controller
             'response'     => $request->all(),
             'avatar'       => (isset($result['avatar'])) ? $result['avatar'] : null,
             'intervention' => (isset($result['intervention'])) ? $result['intervention'] : null,
+        ], 200);
+    }
+
+    /** загрузка аватара для Администратора */
+    public function uploadAdminPhoto(AvatarRequest $request)
+    {
+        try {
+            $admin = AdminViewModel::make()->a(session()->get('a'));
+            $destinationPath = 'admins/' . $admin->id . '/avatar';
+            $result = $this->uploadFile($destinationPath, $request);
+
+            $admin->avatar = $result['avatar'];
+            $admin->save();
+
+        } catch (\Throwable $th) {
+            logErrors($th);
+        }
+
+        return response()->json([
+            'response'     => $request->all(),
+            'avatar'       => isset($result['avatar']) ? $result['avatar'] : null,
+            'intervention' => isset($result['intervention']) ? $result['intervention'] : null,
         ], 200);
     }
 

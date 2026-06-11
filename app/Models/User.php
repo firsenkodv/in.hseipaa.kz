@@ -177,6 +177,11 @@ class User extends Authenticatable
 
     }
 
+    public function contracts(): HasMany
+    {
+        return $this->hasMany(Contract::class);
+    }
+
     /**
      * Переписки пользователя (кабинет)
      */

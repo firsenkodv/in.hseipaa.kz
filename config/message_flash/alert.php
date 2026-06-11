@@ -20,6 +20,7 @@ return [
     'password_reset_no_correct_email' => '<p>Некорректный email. Попробуйте снова.</p>',
     'password_reset_no_user' => '<p>Пользователь с таким email не найден.</p>',
     'password_reset_error' => '<p>Ссылка для сброса пароля недействительна или устарела.</p>',
+    'admin_user_create_error' => '<p>Ошибка при создании пользователя. Попробуйте ещё раз.</p>',
 
 
 ];

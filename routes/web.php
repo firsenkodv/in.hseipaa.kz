@@ -10,6 +10,8 @@ use App\Http\Controllers\Axios\AxiosCounterPartyController;
 use App\Http\Controllers\Axios\AxiosSendingFromFormController;
 use App\Http\Controllers\Axios\AxiosUploadFilesController;
 use App\Http\Controllers\Axios\AxiosUploadPhotoController;
+use App\Http\Controllers\Cabinet\CabinetAdmin\CabinetAdminController;
+use App\Http\Controllers\Public\PublicContractController;
 use App\Http\Controllers\Cabinet\CabinetManager\CabinetManagerController;
 use App\Http\Controllers\Cabinet\CabinetRop\CabinetROPController;
 use App\Http\Controllers\Cabinet\CabinetUser\CabinetUserController;
@@ -33,6 +35,7 @@ use App\Http\Controllers\SiteNew\SiteNewController;
 use App\Http\Controllers\Tax\TaxController;
 use App\Http\Controllers\TestController;
 use App\Http\Controllers\UseFul\UseFulController;
+use App\Http\Middleware\IsAdminMiddleware;
 use App\Http\Middleware\IsManagerMiddleware;
 use App\Http\Middleware\IsROPAssignedManagerMiddleware;
 use App\Http\Middleware\IsROPIsManagerMiddleware;
@@ -80,6 +83,11 @@ Route::controller(FancyBoxSendingFromFormController::class)->group(function () {
     Route::post('/call_me', 'fancyboxCallMe');
     Route::post('/consult_me', 'fancyboxConsultMe');
     Route::post('/select_tarif', 'fancyboxSelectTarif');
+    Route::post('/cabinet_contract_sign', 'fancyboxContractSign');
+    Route::post('/admin_contract_create', 'fancyboxAdminContractCreate');
+    Route::post('/admin_contract_update', 'fancyboxAdminContractUpdate');
+    Route::post('/admin_user_create', 'fancyboxAdminUserCreate');
+    Route::post('/admin_training_update', 'fancyboxAdminTrainingUpdate');
 
 });
 
@@ -245,6 +253,13 @@ Route::controller(SearchController::class)->group(function () {
 
 
 
+/** Публичная страница договора (без авторизации) */
+Route::get('/contract/{token}', [PublicContractController::class, 'show'])
+    ->name('contract.public');
+Route::post('/contract/{token}/sign', [PublicContractController::class, 'sign'])
+    ->name('contract.public.sign');
+/** /// Публичная страница договора */
+
 /** Login */
 
 
@@ -344,6 +359,11 @@ Route::controller(CabinetUserController::class)->group(function () {
         ->name('cabinet_user_messages')
         ->middleware(UserMiddleware::class);
 
+    /** договоры */
+    Route::get('/cabinet/contracts', 'cabinetContracts')
+        ->name('cabinet_contracts')
+        ->middleware(UserMiddleware::class);
+
 });
 
 /** ** аватар  **   **/
@@ -376,6 +396,11 @@ Route::controller(AxiosUploadPhotoController::class)->group(function () {
     Route::post('/cabinet.upload.photo.manager', 'uploadManagerPhoto')
         ->name('upload_manager_photo')
         ->middleware(IsROPMiddleware::class);
+
+    /** Администратор меняет свой аватар */
+    Route::post('/cabinet.upload.photo.admin', 'uploadAdminPhoto')
+        ->name('upload_admin_photo')
+        ->middleware(IsAdminMiddleware::class);
 
 });
 /** ** аватар  **   **/
@@ -811,3 +836,76 @@ Route::controller(UserResumeController::class)->group(function () {
 /**
  * ///HunterResume
  */
+
+/**
+ * Admin
+ */
+Route::controller(CabinetAdminController::class)->group(function () {
+
+    /** вход  */
+    Route::get('/administrator', 'adminLogin')
+        ->middleware(IsAdminMiddleware::class)
+        ->name('admin_login');
+
+    Route::post('/administrator_login_handle', 'adminLoginHandle')
+        ->name('admin_login_handle');
+
+    /** кабинет  */
+    Route::get('/cabinet-administrator', 'cabinetAdmin')
+        ->middleware(IsAdminMiddleware::class)
+        ->name('cabinet_admin');
+
+    Route::post('/logout_administrator', 'logoutAdmin')
+        ->middleware(IsAdminMiddleware::class)
+        ->name('logout_admin');
+
+    /** update  */
+    Route::get('/cabinet-administrator/update/personal-data', 'cabinetUpdatePersonalDataAdmin')
+        ->middleware(IsAdminMiddleware::class)
+        ->name('cabinet_update_personal_data_admin');
+
+    Route::put('/cabinet_update_post_personal_data_administrator', 'cabinetUpdatePostPersonalDataAdmin')
+        ->middleware(IsAdminMiddleware::class)
+        ->name('cabinet_update_post_personal_data_admin');
+    /** ///update  */
+
+    /** пользователи */
+    Route::get('/cabinet-administrator/users', 'adminUsers')
+        ->middleware(IsAdminMiddleware::class)
+        ->name('admin_users');
+
+    Route::get('/cabinet-administrator/users/search', 'adminUsersSearch')
+        ->middleware(IsAdminMiddleware::class)
+        ->name('admin_users_search');
+
+    Route::get('/cabinet-administrator/users/create', 'adminUserCreate')
+        ->middleware(IsAdminMiddleware::class)
+        ->name('admin_user_create');
+
+    Route::post('/cabinet-administrator/users/create', 'adminUserCreateHandle')
+        ->middleware(IsAdminMiddleware::class)
+        ->name('admin_user_create_handle');
+
+    Route::get('/cabinet-administrator/users/{id}', 'adminUser')
+        ->middleware(IsAdminMiddleware::class)
+        ->name('admin_user');
+
+    Route::get('/cabinet-administrator/users/{id}/contract/create', 'adminUserContractCreate')
+        ->middleware(IsAdminMiddleware::class)
+        ->name('admin_user_contract_create');
+
+    /** дисциплины */
+    Route::get('/cabinet-administrator/trainings', 'adminTrainings')
+        ->middleware(IsAdminMiddleware::class)
+        ->name('admin_trainings');
+
+    /** договоры */
+    Route::get('/cabinet-administrator/contracts', 'adminContracts')
+        ->middleware(IsAdminMiddleware::class)
+        ->name('admin_contracts');
+
+    /** ajax: список договоров пользователя */
+    Route::get('/cabinet-administrator/ajax/user-contracts/{id}', 'adminAjaxUserContracts')
+        ->middleware(IsAdminMiddleware::class)
+        ->name('admin_ajax_user_contracts');
+});
