@@ -9,6 +9,9 @@
         <li class="{{ active_linkMenu(asset(route('rop_users')), 'find') }}">
             <a href="{{ route('rop_users') }}">Пользователи</a>
         </li>
+        <li class="{{ active_linkMenu(asset(route('rop_contracts')), 'find') }}">
+            <a href="{{ route('rop_contracts') }}">Договоры</a>
+        </li>
         <li class="{{ active_linkMenu(asset(route('cabinet_update_personal_data_rop')), 'find')  }}">
             <a href="{{ route('cabinet_update_personal_data_rop') }}">Настройки</a>
         </li>

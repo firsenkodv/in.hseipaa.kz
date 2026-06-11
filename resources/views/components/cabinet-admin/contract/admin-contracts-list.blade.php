@@ -8,12 +8,21 @@
 </div>
 
 @if($contracts->isNotEmpty())
-    <div class="admin-contracts">
+    <div class="user-contracts">
         @foreach($contracts as $contract)
-            <div class="admin-contracts__item {{ $contract->is_signed ? 'admin-contracts__item--signed' : '' }}">
+            <div class="user-contracts__item {{ $contract->is_signed ? 'user-contracts__item--signed' : '' }}"
+                 data-contract-id="{{ $contract->id }}">
 
-                <div class="admin-contracts__discipline">
-                    {{ $contract->discipline ?: '—' }}
+                <div class="user-contracts__top">
+                    <div class="user-contracts__contract-title">
+                        Договор{{ $contract->contract_number ? ' № ' . $contract->contract_number : '' }}
+                        <span class="user-contracts__contract-date">от {{ $contract->created_at->format('d.m.Y') }}</span>
+                    </div>
+                    @if($contract->is_signed)
+                        <span class="user-contracts__badge user-contracts__badge--signed">Подписан</span>
+                    @else
+                        <span class="user-contracts__badge user-contracts__badge--pending">Ожидает подписания</span>
+                    @endif
                 </div>
 
                 <div class="admin-contracts__user">
@@ -27,52 +36,71 @@
                     @endif
                 </div>
 
-                <div class="admin-contracts__meta">
+                <div class="user-contracts__rows">
 
-                    <span class="admin-contracts__meta-item">
-                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
-                        </svg>
-                        @if($contract->date_start && $contract->date_end)
-                            {{ $contract->date_start->format('d.m.Y') }} — {{ $contract->date_end->format('d.m.Y') }}
-                        @else
-                            —
-                        @endif
-                    </span>
+                    <div class="user-contracts__row">
+                        <span class="user-contracts__label">Дисциплина</span>
+                        <span class="user-contracts__value">{{ $contract->discipline ?: '—' }}</span>
+                    </div>
 
-                    <span class="admin-contracts__sep">·</span>
-
-                    <span class="admin-contracts__meta-item admin-contracts__meta-item--price">
-                        {{ number_format($contract->price, 0, '.', ' ') }}&nbsp;{{ $currencies[$contract->currency] ?? $contract->currency }}
-                    </span>
-
-                    <span class="admin-contracts__sep">·</span>
-
-                    <span class="admin-contracts__meta-item">
-                        {{ $contract->hours }}&nbsp;ч.
-                    </span>
-
-                    <span class="admin-contracts__sep">·</span>
-
-                    @if($contract->is_signed)
-                        <span class="admin-contracts__badge admin-contracts__badge--signed">Подписан</span>
-                    @else
-                        <span class="admin-contracts__badge admin-contracts__badge--pending">Ожидает подписания</span>
+                    @if($contract->organizations)
+                    <div class="user-contracts__row">
+                        <span class="user-contracts__label">Организация</span>
+                        <span class="user-contracts__value">
+                            {{ \App\Enums\OrganizationEnum::fromValueSafe($contract->organizations)?->label() ?? $contract->organizations }}
+                        </span>
+                    </div>
                     @endif
+
+                    <div class="user-contracts__row">
+                        <span class="user-contracts__label">Период</span>
+                        <span class="user-contracts__value">
+                            @if($contract->date_start && $contract->date_end)
+                                {{ $contract->date_start->format('d.m.Y') }} — {{ $contract->date_end->format('d.m.Y') }}
+                            @else
+                                —
+                            @endif
+                        </span>
+                    </div>
+
+                    <div class="user-contracts__row">
+                        <span class="user-contracts__label">Часов</span>
+                        <span class="user-contracts__value">{{ $contract->hours }}&nbsp;ч.</span>
+                    </div>
+
+                    <div class="user-contracts__row">
+                        <span class="user-contracts__label">Сумма</span>
+                        <span class="user-contracts__value user-contracts__value--price">
+                            {{ number_format($contract->price, 0, '.', ' ') }}&nbsp;{{ $currencies[$contract->currency] ?? $contract->currency }}
+                        </span>
+                    </div>
 
                 </div>
 
                 @if($contract->public_token)
-                <div class="admin-contracts__actions">
+                <div class="user-contracts__actions">
                     <a href="{{ route('contract.public', $contract->public_token) }}"
                        target="_blank"
-                       class="admin-contracts__link">
-                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
-                            <polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/>
+                       class="user-contracts__contract-link">
+                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6z"/>
+                            <path d="M14 2v6h6"/>
+                            <path d="M9 13h6M9 17h4"/>
                         </svg>
-                        Ссылка на договор
+                        Открыть договор
                     </a>
+                    <button type="button"
+                            class="user-contracts__copy-btn"
+                            data-copy-url="{{ route('contract.public', $contract->public_token) }}"
+                            title="Скопировать ссылку">
+                        <svg class="icon-copy" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/>
+                            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+                        </svg>
+                        <svg class="icon-check" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="display:none;">
+                            <polyline points="20 6 9 17 4 12"/>
+                        </svg>
+                    </button>
                 </div>
                 @endif
 

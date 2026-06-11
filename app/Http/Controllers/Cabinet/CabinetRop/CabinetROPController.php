@@ -9,6 +9,7 @@ use App\Http\Requests\CabinetRop\ManagerUpdateRequest;
 use App\Http\Requests\CabinetRop\RopUpdateRequest;
 use App\Http\Requests\CabinetRop\UserAssignRequest;
 use App\Http\Requests\CabinetUser\UserUpdateRequest;
+use App\Models\Contract;
 use App\Models\User;
 use Domain\HH\Resume\ViewModel\ResumeViewModel;
 use Domain\HH\Vacancy\ViewModel\VacancyViewModel;
@@ -562,6 +563,26 @@ class CabinetROPController extends Controller
             'city'     => $cityId     ? ['id' => $cityId,     'title' => collect($cities)->firstWhere('id', $cityId)['title']         ?? ''] : null,
             'category' => $categoryId ? ['id' => $categoryId, 'title' => collect($categories)->firstWhere('id', $categoryId)['title']  ?? ''] : null,
         ];
+    }
+
+    /**
+     * Список договоров пользователей РОП.
+     * Иерархия: РОП → менеджеры → пользователи → договоры.
+     */
+    public function ropContracts(): View
+    {
+        $r       = ROPViewModel::make()->r(session()->get('r'));
+        $userIds = ROPViewModel::make()->ropUserIds($r);
+
+        $contracts = Contract::with('user')
+            ->whereIn('user_id', $userIds)
+            ->orderByRaw('date_start IS NULL, date_start ASC')
+            ->paginate(config('site.constants.paginate'));
+
+        return view('cabinet.cabinet_rop.contracts.items', [
+            'r'         => $r,
+            'contracts' => $contracts,
+        ]);
     }
 
     /**

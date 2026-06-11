@@ -1,0 +1,964 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Договоры — техническая документация</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg:        #0f1117;
+    --surface:   #1a1d27;
+    --border:    #2a2d3a;
+    --accent:    #6366f1;
+    --accent2:   #10b981;
+    --accent3:   #f59e0b;
+    --accent4:   #ef4444;
+    --text:      #e2e8f0;
+    --muted:     #94a3b8;
+    --code-bg:   #12151f;
+  }
+
+  body {
+    font-family: 'Segoe UI', system-ui, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    font-size: 14px;
+  }
+
+  /* ─── Layout ─── */
+  .layout { display: flex; min-height: 100vh; }
+
+  nav {
+    width: 260px;
+    min-width: 260px;
+    background: var(--surface);
+    border-right: 1px solid var(--border);
+    padding: 24px 0;
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    overflow-y: auto;
+  }
+
+  nav .logo {
+    padding: 0 20px 20px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 16px;
+  }
+  nav .logo span {
+    display: block;
+    font-size: 11px;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: .08em;
+    margin-bottom: 4px;
+  }
+  nav .logo strong { font-size: 15px; color: var(--text); }
+
+  nav a {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 7px 20px;
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 13px;
+    border-left: 2px solid transparent;
+    transition: .15s;
+  }
+  nav a:hover, nav a.active {
+    color: var(--text);
+    background: rgba(99,102,241,.08);
+    border-left-color: var(--accent);
+  }
+  nav .nav-section {
+    padding: 14px 20px 4px;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: .1em;
+    color: #4a5568;
+  }
+
+  main {
+    flex: 1;
+    padding: 48px 56px;
+    max-width: 980px;
+  }
+
+  /* ─── Typography ─── */
+  h1 { font-size: 28px; font-weight: 700; margin-bottom: 8px; }
+  h2 { font-size: 20px; font-weight: 600; margin: 40px 0 16px; padding-bottom: 8px; border-bottom: 1px solid var(--border); }
+  h3 { font-size: 15px; font-weight: 600; margin: 24px 0 10px; color: var(--accent); }
+  h4 { font-size: 13px; font-weight: 600; margin: 16px 0 8px; color: var(--accent3); }
+  p  { margin-bottom: 12px; color: var(--muted); }
+  ul, ol { padding-left: 20px; margin-bottom: 12px; }
+  li { color: var(--muted); margin-bottom: 4px; }
+  li strong, p strong { color: var(--text); }
+
+  /* ─── Code ─── */
+  code {
+    background: var(--code-bg);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 1px 6px;
+    font-family: 'Cascadia Code', 'Fira Code', monospace;
+    font-size: 12px;
+    color: #7dd3fc;
+  }
+  pre {
+    background: var(--code-bg);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 16px 20px;
+    overflow-x: auto;
+    margin-bottom: 16px;
+  }
+  pre code {
+    background: none;
+    border: none;
+    padding: 0;
+    font-size: 12px;
+    color: #e2e8f0;
+  }
+  .kw  { color: #c084fc; }
+  .fn  { color: #7dd3fc; }
+  .str { color: #86efac; }
+  .cm  { color: #475569; font-style: italic; }
+  .num { color: #fbbf24; }
+
+  /* ─── Flow diagram ─── */
+  .flow {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    margin: 24px 0;
+  }
+  .flow-step {
+    display: flex;
+    gap: 0;
+    position: relative;
+  }
+  .flow-step::before {
+    content: '';
+    position: absolute;
+    left: 23px;
+    top: 48px;
+    bottom: -24px;
+    width: 2px;
+    background: var(--border);
+  }
+  .flow-step:last-child::before { display: none; }
+
+  .flow-icon {
+    width: 48px;
+    height: 48px;
+    min-width: 48px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    margin-right: 20px;
+    margin-top: 0;
+    position: relative;
+    z-index: 1;
+  }
+  .flow-body { padding: 4px 0 32px; flex: 1; }
+  .flow-title { font-weight: 600; font-size: 15px; margin-bottom: 6px; }
+  .flow-desc  { color: var(--muted); font-size: 13px; }
+  .flow-files { margin-top: 8px; display: flex; flex-wrap: wrap; gap: 6px; }
+  .flow-file  {
+    background: var(--code-bg);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 3px 8px;
+    font-family: monospace;
+    font-size: 11px;
+    color: #7dd3fc;
+  }
+
+  .c-admin  { background: rgba(99,102,241,.15); border: 1px solid var(--accent); }
+  .c-user   { background: rgba(16,185,129,.15); border: 1px solid var(--accent2); }
+  .c-system { background: rgba(245,158,11,.15); border: 1px solid var(--accent3); }
+  .c-email  { background: rgba(239,68,68,.15);  border: 1px solid var(--accent4); }
+
+  /* ─── Tables ─── */
+  table { width: 100%; border-collapse: collapse; margin-bottom: 20px; }
+  th {
+    background: var(--surface);
+    padding: 10px 14px;
+    text-align: left;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: .07em;
+    color: var(--muted);
+    border-bottom: 1px solid var(--border);
+  }
+  td {
+    padding: 10px 14px;
+    border-bottom: 1px solid var(--border);
+    font-size: 13px;
+    vertical-align: top;
+  }
+  tr:last-child td { border-bottom: none; }
+  tr:hover td { background: rgba(255,255,255,.02); }
+  td code { font-size: 11px; }
+
+  /* ─── Badges ─── */
+  .badge {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: .05em;
+  }
+  .badge-get    { background: rgba(16,185,129,.2); color: #10b981; }
+  .badge-post   { background: rgba(99,102,241,.2); color: #818cf8; }
+  .badge-admin  { background: rgba(245,158,11,.2); color: #f59e0b; }
+  .badge-public { background: rgba(239,68,68,.2);  color: #f87171; }
+  .badge-user   { background: rgba(16,185,129,.2); color: #10b981; }
+  .badge-yes    { background: rgba(16,185,129,.2); color: #10b981; }
+  .badge-no     { background: rgba(239,68,68,.2);  color: #f87171; }
+
+  /* ─── Cards ─── */
+  .cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 16px; margin-bottom: 24px; }
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 18px 20px;
+  }
+  .card-title { font-weight: 600; font-size: 13px; margin-bottom: 8px; }
+  .card-body  { color: var(--muted); font-size: 12px; line-height: 1.7; }
+  .card-body code { font-size: 11px; }
+
+  /* ─── Alert ─── */
+  .alert {
+    border-radius: 8px;
+    padding: 14px 16px;
+    margin-bottom: 16px;
+    font-size: 13px;
+    border-left: 3px solid;
+  }
+  .alert-info    { background: rgba(99,102,241,.08);  border-color: var(--accent);  color: #a5b4fc; }
+  .alert-warning { background: rgba(245,158,11,.08); border-color: var(--accent3); color: #fcd34d; }
+  .alert-success { background: rgba(16,185,129,.08); border-color: var(--accent2); color: #6ee7b7; }
+
+  /* ─── Section anchor ─── */
+  section { margin-bottom: 8px; }
+  .hero-meta { color: var(--muted); font-size: 13px; margin-bottom: 32px; }
+  .hero-meta code { font-size: 12px; }
+
+  hr { border: none; border-top: 1px solid var(--border); margin: 40px 0; }
+
+  /* ─── Scrollbar ─── */
+  ::-webkit-scrollbar { width: 6px; height: 6px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+</style>
+</head>
+<body>
+
+<div class="layout">
+
+<!-- ─── Sidebar ─── -->
+<nav>
+  <div class="logo">
+    <span>Документация</span>
+    <strong>Договоры (Contracts)</strong>
+  </div>
+
+  <div class="nav-section">Обзор</div>
+  <a href="#overview">Общее описание</a>
+  <a href="#db">База данных</a>
+  <a href="#routes">Маршруты</a>
+
+  <div class="nav-section">Цепочка</div>
+  <a href="#step1">1. Открытие модалки</a>
+  <a href="#step2">2. Создание договора</a>
+  <a href="#step3">3. Email пользователю</a>
+  <a href="#step4">4. Просмотр договора</a>
+  <a href="#step5">5. Подписание</a>
+  <a href="#step6">6. После подписания</a>
+
+  <div class="nav-section">Управление</div>
+  <a href="#edit">Редактирование</a>
+  <a href="#cabinet">Кабинет пользователя</a>
+  <a href="#moonshine">MoonShine-панель</a>
+
+  <div class="nav-section">Справочник</div>
+  <a href="#validation">Валидация</a>
+  <a href="#enums">Enum OrganizationEnum</a>
+  <a href="#files">Все файлы</a>
+</nav>
+
+<!-- ─── Content ─── -->
+<main>
+
+  <!-- HERO -->
+  <h1>Договоры — полная цепочка</h1>
+  <p class="hero-meta">
+    Модуль создания, рассылки и подписания договоров на обучение.
+    Модель: <code>App\Models\Contract</code> · Таблица: <code>contracts</code>
+  </p>
+
+  <!-- ─── OVERVIEW ─── -->
+  <section id="overview">
+    <h2>Общее описание</h2>
+    <p>
+      Договор создаётся администратором через модальное окно в кабинете. После создания пользователь получает
+      письмо со ссылкой на публичную страницу, где он может ознакомиться с условиями и подписать договор.
+      Подписание фиксирует IP и время. После подписания договор заблокирован от изменений.
+    </p>
+
+    <div class="cards">
+      <div class="card">
+        <div class="card-title">Кто создаёт</div>
+        <div class="card-body">Администратор кабинета через модальное окно. Требуется сессионный ключ <code>session('a')</code>.</div>
+      </div>
+      <div class="card">
+        <div class="card-title">Кто подписывает</div>
+        <div class="card-body">Пользователь — двумя способами: по публичной ссылке (без авторизации) или из личного кабинета.</div>
+      </div>
+      <div class="card">
+        <div class="card-title">Хранение</div>
+        <div class="card-body">Таблица <code>contracts</code>. Публичный токен (64 символа) — доступ без авторизации.</div>
+      </div>
+      <div class="card">
+        <div class="card-title">Нумерация</div>
+        <div class="card-body">Формат <code>NN/MM/YY</code> — порядковый номер в году / месяц / год. Генерируется в контроллере при создании.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── DATABASE ─── -->
+  <section id="db">
+    <h2>База данных</h2>
+    <p>Файл модели: <code>app/Models/Contract.php</code></p>
+
+    <table>
+      <tr>
+        <th>Поле</th><th>Тип</th><th>Описание</th><th>Cast</th>
+      </tr>
+      <tr><td><code>id</code></td><td>PK</td><td>Первичный ключ</td><td>—</td></tr>
+      <tr><td><code>user_id</code></td><td>FK → users</td><td>Пользователь, с которым заключён договор</td><td>—</td></tr>
+      <tr><td><code>contract_number</code></td><td>string, nullable</td><td>Номер договора в формате <code>NN/MM/YY</code></td><td>—</td></tr>
+      <tr><td><code>full_name</code></td><td>string</td><td>ФИО пользователя</td><td>—</td></tr>
+      <tr><td><code>email</code></td><td>string, nullable</td><td>Email</td><td>—</td></tr>
+      <tr><td><code>phone</code></td><td>string, nullable</td><td>Телефон</td><td>—</td></tr>
+      <tr><td><code>discipline</code></td><td>string, nullable</td><td>Название дисциплины обучения</td><td>—</td></tr>
+      <tr><td><code>organizations</code></td><td>string, nullable</td><td>Значение enum OrganizationEnum (<code>too_hse</code>, <code>ip_hse</code>, <code>niise</code>)</td><td>—</td></tr>
+      <tr><td><code>price</code></td><td>decimal(15,2), nullable</td><td>Стоимость обучения</td><td><code>decimal:2</code></td></tr>
+      <tr><td><code>currency</code></td><td>varchar(10), default KZT</td><td>Валюта</td><td>—</td></tr>
+      <tr><td><code>hours</code></td><td>unsignedInt, nullable</td><td>Количество часов обучения</td><td><code>integer</code></td></tr>
+      <tr><td><code>date_start</code></td><td>date, nullable</td><td>Дата начала обучения</td><td><code>date</code></td></tr>
+      <tr><td><code>date_end</code></td><td>date, nullable</td><td>Дата окончания обучения</td><td><code>date</code></td></tr>
+      <tr><td><code>is_signed</code></td><td>boolean, default false</td><td>Статус подписания</td><td><code>boolean</code></td></tr>
+      <tr><td><code>public_token</code></td><td>varchar(64), unique, nullable</td><td>Токен для публичного доступа без авторизации</td><td>—</td></tr>
+      <tr><td><code>created_at</code> / <code>updated_at</code></td><td>timestamps</td><td>Стандартные временны́е метки</td><td>—</td></tr>
+    </table>
+
+    <h3>Отношения модели</h3>
+    <pre><code><span class="kw">public function</span> <span class="fn">user</span>(): BelongsTo
+{
+    <span class="kw">return</span> $this-&gt;belongsTo(User::class);
+}</code></pre>
+  </section>
+
+  <!-- ─── ROUTES ─── -->
+  <section id="routes">
+    <h2>Маршруты</h2>
+
+    <table>
+      <tr><th>Метод</th><th>URL</th><th>Контроллер → Метод</th><th>Name</th><th>Доступ</th></tr>
+      <tr>
+        <td><span class="badge badge-get">GET</span></td>
+        <td><code>/contract/{token}</code></td>
+        <td><code>PublicContractController@show</code></td>
+        <td><code>contract.public</code></td>
+        <td><span class="badge badge-public">Публичный</span></td>
+      </tr>
+      <tr>
+        <td><span class="badge badge-post">POST</span></td>
+        <td><code>/contract/{token}/sign</code></td>
+        <td><code>PublicContractController@sign</code></td>
+        <td><code>contract.public.sign</code></td>
+        <td><span class="badge badge-public">Публичный</span></td>
+      </tr>
+      <tr>
+        <td><span class="badge badge-post">POST</span></td>
+        <td><code>/admin_contract_create</code></td>
+        <td><code>FancyBoxSendingFromFormController@fancyboxAdminContractCreate</code></td>
+        <td>—</td>
+        <td><span class="badge badge-admin">Админ</span></td>
+      </tr>
+      <tr>
+        <td><span class="badge badge-post">POST</span></td>
+        <td><code>/admin_contract_update</code></td>
+        <td><code>FancyBoxSendingFromFormController@fancyboxAdminContractUpdate</code></td>
+        <td>—</td>
+        <td><span class="badge badge-admin">Админ</span></td>
+      </tr>
+      <tr>
+        <td><span class="badge badge-post">POST</span></td>
+        <td><code>/cabinet_contract_sign</code></td>
+        <td><code>FancyBoxSendingFromFormController@fancyboxContractSign</code></td>
+        <td>—</td>
+        <td><span class="badge badge-user">Авторизован</span></td>
+      </tr>
+      <tr>
+        <td><span class="badge badge-get">GET</span></td>
+        <td><code>/cabinet/contracts</code></td>
+        <td><code>CabinetUserController@cabinetContracts</code></td>
+        <td><code>cabinet_contracts</code></td>
+        <td><span class="badge badge-user">Авторизован</span></td>
+      </tr>
+      <tr>
+        <td><span class="badge badge-get">GET</span></td>
+        <td><code>/cabinet-administrator/contracts</code></td>
+        <td><code>CabinetAdminController@adminContracts</code></td>
+        <td><code>admin_contracts</code></td>
+        <td><span class="badge badge-admin">Админ</span></td>
+      </tr>
+      <tr>
+        <td><span class="badge badge-get">GET</span></td>
+        <td><code>/cabinet-administrator/ajax/user-contracts/{id}</code></td>
+        <td><code>CabinetAdminController@adminAjaxUserContracts</code></td>
+        <td><code>admin_ajax_user_contracts</code></td>
+        <td><span class="badge badge-admin">Админ</span></td>
+      </tr>
+      <tr>
+        <td><span class="badge badge-post">POST</span></td>
+        <td><code>/fancybox-ajax</code></td>
+        <td><code>FancyBoxController@fancybox</code></td>
+        <td>—</td>
+        <td><span class="badge badge-admin">Админ</span></td>
+      </tr>
+    </table>
+
+    <div class="alert alert-info">
+      <strong>Авторизация администратора</strong> — проверяется через <code>session()-&gt;has('a')</code>.
+      Ключ <code>'a'</code> устанавливается в <code>CabinetAdminController</code> при входе в кабинет администратора.
+    </div>
+  </section>
+
+  <hr>
+
+  <!-- ─── FULL CHAIN ─── -->
+  <h2 style="border:none; margin-top:0;">Полная цепочка создания и подписания</h2>
+
+  <div class="flow">
+
+    <!-- STEP 1 -->
+    <div class="flow-step" id="step1">
+      <div class="flow-icon c-admin">🖱️</div>
+      <div class="flow-body">
+        <div class="flow-title">1. Открытие модального окна создания договора</div>
+        <div class="flow-desc">
+          Администратор нажимает кнопку на странице пользователя. Кнопка имеет атрибуты
+          <code>data-form="admin_contract_create"</code> и <code>data-transfer='{"user_id": N}'</code>.
+          JavaScript (<code>fancybox.js</code>) перехватывает клик, отправляет POST на <code>/fancybox-ajax</code>
+          с шаблоном <code>admin_contract_create</code> и данными пользователя.
+          <br><br>
+          <strong>FancyBoxController::fancybox()</strong> получает запрос, загружает:
+          <ul style="margin-top:8px;">
+            <li>Объект пользователя (<code>User::findOrFail($userId)</code>)</li>
+            <li>Список дисциплин из таблицы <code>trainings</code> (сортировка по <code>sorting desc</code>)</li>
+            <li>Список валют из <code>config('currency.currency')</code>, дефолт — <code>KZT</code></li>
+            <li>Список организаций из <code>OrganizationEnum::cases()</code></li>
+          </ul>
+          Возвращает HTML модального окна, Fancybox отображает его. Инициализируются: custom select, IMask (телефон, цена, часы), датапикер периода.
+        </div>
+        <div class="flow-files">
+          <span class="flow-file">resources/js/include/fancybox/fancybox.js</span>
+          <span class="flow-file">app/Http/Controllers/FancyBox/FancyBoxController.php</span>
+          <span class="flow-file">resources/views/fancybox/forms/cabinet/admin_contract_create.blade.php</span>
+          <span class="flow-file">app/Enums/OrganizationEnum.php</span>
+          <span class="flow-file">app/Models/Training.php</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 2 -->
+    <div class="flow-step" id="step2">
+      <div class="flow-icon c-admin">📝</div>
+      <div class="flow-body">
+        <div class="flow-title">2. Заполнение формы и создание договора</div>
+        <div class="flow-desc">
+          Администратор заполняет поля формы. JavaScript (<code>async_execution.js</code>) собирает данные:
+          <ul style="margin-top:8px;">
+            <li>Из <code>.app_input_name</code>-полей: <code>user_id</code>, <code>fio</code>, <code>email</code>, <code>phone</code>, <code>date_from</code>, <code>date_to</code>, <code>price</code>, <code>hours</code></li>
+            <li>Из <code>.app_selected</code>-элементов (custom select): <code>training_id</code>, <code>organization</code>, <code>currency</code></li>
+          </ul>
+          Отправляет JSON через Axios на <code>POST /admin_contract_create</code>.
+          <br><br>
+          <strong>AdminContractCreateRequest</strong> валидирует данные. В <code>prepareForValidation()</code>:
+          символ <code>*</code> удаляется из <code>training_id</code> и <code>currency</code>, пробелы — из <code>price</code>.
+          <br><br>
+          <strong>FancyBoxSendingFromFormController::fancyboxAdminContractCreate()</strong>:
+          <ul style="margin-top:8px;">
+            <li>Генерирует <code>public_token</code> — <code>Str::random(64)</code></li>
+            <li>Вычисляет <code>contract_number</code>: <code>NN/MM/YY</code> (макс. порядковый номер по году + 1)</li>
+            <li>Создаёт запись <code>Contract::create([...])</code></li>
+            <li>Формирует <code>$contractData</code> для письма</li>
+          </ul>
+        </div>
+
+        <h4>Алгоритм генерации номера договора</h4>
+        <pre><code><span class="cm">// Берём максимальный порядковый номер за текущий год</span>
+$lastSeq = Contract::whereYear(<span class="str">'created_at'</span>, now()-&gt;year)
+    -&gt;whereNotNull(<span class="str">'contract_number'</span>)
+    -&gt;get()
+    -&gt;map(<span class="kw">fn</span>($c) =&gt; (<span class="kw">int</span>) explode(<span class="str">'/'</span>, $c-&gt;contract_number)[<span class="num">0</span>])
+    -&gt;max() ?? <span class="num">0</span>;
+
+$contractNumber = sprintf(<span class="str">'%02d/%s/%s'</span>,
+    $lastSeq + <span class="num">1</span>,   <span class="cm">// NN — порядковый номер</span>
+    now()-&gt;format(<span class="str">'m'</span>), <span class="cm">// MM — месяц</span>
+    now()-&gt;format(<span class="str">'y'</span>)  <span class="cm">// YY — год (2 цифры)</span>
+);
+<span class="cm">// Пример: "03/06/26"</span></code></pre>
+
+        <div class="flow-files">
+          <span class="flow-file">resources/js/include/form_async/async_execution.js</span>
+          <span class="flow-file">app/Http/Requests/CabinetAdmin/AdminContractCreateRequest.php</span>
+          <span class="flow-file">app/Http/Controllers/FancyBox/FancyBoxSendingFromFormController.php</span>
+          <span class="flow-file">app/Models/Contract.php</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 3 -->
+    <div class="flow-step" id="step3">
+      <div class="flow-icon c-email">📧</div>
+      <div class="flow-body">
+        <div class="flow-title">3. Email пользователю с ссылкой на договор</div>
+        <div class="flow-desc">
+          После создания записи в БД, контроллер формирует массив данных <code>$contractData</code>
+          и ставит письмо в очередь (<code>Mail::to(...)->queue()</code>).
+          <br><br>
+          <strong>ContractCreatedMail</strong> отправляет HTML-письмо. В письме:
+          <ul style="margin-top:8px;">
+            <li>Логотип организации с корректными размерами для email-клиентов</li>
+            <li>Таблица с деталями договора (дисциплина, период, стоимость, часы)</li>
+            <li>CTA-кнопка <strong>«Открыть и подписать договор»</strong> → публичная ссылка</li>
+            <li>Контакты менеджера (если привязан)</li>
+          </ul>
+          Публичная ссылка строится через: <code>route('contract.public', $token)</code>
+        </div>
+
+        <pre><code><span class="cm">// Данные письма</span>
+$contractData = array_merge(
+    $request-&gt;only([<span class="str">'fio'</span>, <span class="str">'email'</span>, <span class="str">'phone'</span>, <span class="str">'training_id'</span>, ...]),
+    [
+        <span class="str">'contract_number'</span>    =&gt; $contractNumber,
+        <span class="str">'organization_label'</span> =&gt; $request-&gt;input(<span class="str">'organization'</span>),
+        <span class="str">'organization_logo'</span>  =&gt; $orgEnum ? asset($orgEnum-&gt;logo()) : <span class="kw">null</span>,
+        <span class="str">'manager_name'</span>       =&gt; $manager?-&gt;username,
+        <span class="str">'manager_phone'</span>      =&gt; $manager?-&gt;phone ? format_phone($manager-&gt;phone) : <span class="kw">null</span>,
+        <span class="str">'public_url'</span>         =&gt; $publicUrl,
+    ]
+);
+Mail::to($request-&gt;input(<span class="str">'email'</span>))-&gt;queue(<span class="kw">new</span> ContractCreatedMail($contractData));</code></pre>
+
+        <div class="flow-files">
+          <span class="flow-file">app/Mail/Contract/ContractCreatedMail.php</span>
+          <span class="flow-file">resources/views/html/email/contract_created.blade.php</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 4 -->
+    <div class="flow-step" id="step4">
+      <div class="flow-icon c-user">👁️</div>
+      <div class="flow-body">
+        <div class="flow-title">4. Пользователь открывает договор по публичной ссылке</div>
+        <div class="flow-desc">
+          Ссылка вида <code>https://domain/contract/{token}</code> — без авторизации.
+          <br><br>
+          <strong>PublicContractController::show($token)</strong>:
+          <ul style="margin-top:8px;">
+            <li>Находит договор по <code>public_token</code></li>
+            <li>Если договор не найден — 404</li>
+            <li>Возвращает чистую HTML-страницу (без layout сайта)</li>
+          </ul>
+          Страница показывает: статус договора (<code>is_signed</code>), полные данные,
+          кнопку «Подписать» (если ещё не подписан).
+          <br><br>
+          Также пользователь может открыть и подписать договор <strong>из личного кабинета</strong>
+          (<code>/cabinet/contracts</code>) через модальное окно.
+        </div>
+        <div class="flow-files">
+          <span class="flow-file">app/Http/Controllers/Public/PublicContractController.php</span>
+          <span class="flow-file">resources/views/public/contract.blade.php</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 5 -->
+    <div class="flow-step" id="step5">
+      <div class="flow-icon c-user">✍️</div>
+      <div class="flow-body">
+        <div class="flow-title">5. Подписание договора</div>
+        <div class="flow-desc">
+          Существует два способа подписать договор:
+        </div>
+
+        <h4>Способ A — По публичной ссылке (без авторизации)</h4>
+        <div class="flow-desc">
+          Пользователь нажимает «Подписать» на странице <code>/contract/{token}</code>.
+          Страница отправляет AJAX-запрос <code>POST /contract/{token}/sign</code>.
+          <br><br>
+          <strong>PublicContractController::sign($token)</strong>:
+          <ul style="margin-top:8px;">
+            <li>Находит договор по токену, где <code>is_signed = false</code></li>
+            <li>Устанавливает <code>is_signed = true</code></li>
+            <li>Захватывает IP пользователя</li>
+            <li>Ставит в очередь <code>ContractSignedMail</code></li>
+            <li>Возвращает <code>JSON {signed: true}</code></li>
+          </ul>
+        </div>
+
+        <h4>Способ B — Из личного кабинета (авторизованный пользователь)</h4>
+        <div class="flow-desc">
+          Пользователь в кабинете <code>/cabinet/contracts</code> открывает модалку подписания.
+          Форма отправляет <code>contract_id</code> на <code>POST /cabinet_contract_sign</code>.
+          <br><br>
+          <strong>ContractSignRequest</strong> проверяет:
+          <code>exists:contracts,id,user_id,{auth()->id()},is_signed,0</code> — договор принадлежит
+          этому пользователю и ещё не подписан.
+          <br><br>
+          <strong>FancyBoxSendingFromFormController::fancyboxContractSign()</strong>:
+          <ul style="margin-top:8px;">
+            <li>Загружает договор с отношением <code>user.Manager</code></li>
+            <li>Устанавливает <code>is_signed = true</code></li>
+            <li>Ставит в очередь <code>ContractSignedMail</code></li>
+            <li>Возвращает <code>JSON {contract_id, signed: true}</code></li>
+          </ul>
+        </div>
+
+        <div class="alert alert-warning">
+          <strong>Важно:</strong> После установки <code>is_signed = true</code> договор нельзя редактировать
+          ни через кабинет администратора, ни через MoonShine. Это проверяется на уровне
+          <code>AdminContractUpdateRequest</code>: правило <code>exists:contracts,id,is_signed,0</code>.
+        </div>
+
+        <div class="flow-files">
+          <span class="flow-file">app/Http/Controllers/Public/PublicContractController.php</span>
+          <span class="flow-file">app/Http/Controllers/FancyBox/FancyBoxSendingFromFormController.php</span>
+          <span class="flow-file">app/Http/Requests/Cabinet/ContractSignRequest.php</span>
+          <span class="flow-file">resources/views/fancybox/forms/cabinet/cabinet_contract_sign.blade.php</span>
+          <span class="flow-file">resources/views/public/contract.blade.php</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 6 -->
+    <div class="flow-step" id="step6">
+      <div class="flow-icon c-system">✅</div>
+      <div class="flow-body">
+        <div class="flow-title">6. После подписания — уведомление и обновление UI</div>
+        <div class="flow-desc">
+          <strong>ContractSignedMail</strong> — письмо-подтверждение. Содержит:
+          <ul style="margin-top:8px;">
+            <li>Логотип организации</li>
+            <li>Заголовок «Договор подписан On-line»</li>
+            <li>Таблицу с деталями договора</li>
+            <li>Блок «Документ подписан электронной подписью» с временем и IP</li>
+            <li>Раздел «Преимущества обучения»</li>
+            <li>Контакты менеджера и футер</li>
+          </ul>
+          <br>
+          В кабинете администратора UI обновляется <strong>без перезагрузки страницы</strong>:
+          JavaScript слушает событие <code>form:success</code>, при <code>data.signed === true</code>
+          добавляет CSS-класс <code>user-contracts__item--signed</code>, меняет бейдж
+          с «Ожидает подписания» на «Подписан», убирает кнопку подписи.
+          <br><br>
+          При создании договора список договоров пользователя также обновляется через AJAX:
+          <code>GET /cabinet-administrator/ajax/user-contracts/{user_id}</code>.
+        </div>
+
+        <pre><code><span class="cm">// fancybox.js — реакция на подписание</span>
+document.addEventListener(<span class="str">'form:success'</span>, (e) =&gt; {
+    <span class="kw">const</span> data = e.detail;
+    <span class="kw">if</span> (data.contract_id !== <span class="kw">undefined</span> &amp;&amp; data.signed) {
+        item.classList.add(<span class="str">'user-contracts__item--signed'</span>);
+        pending.classList.replace(<span class="str">'badge--pending'</span>, <span class="str">'badge--signed'</span>);
+        pending.textContent = <span class="str">'Подписан'</span>;
+        signBtn.remove();
+    }
+});</code></pre>
+
+        <div class="flow-files">
+          <span class="flow-file">app/Mail/Contract/ContractSignedMail.php</span>
+          <span class="flow-file">resources/views/html/email/contract_signed.blade.php</span>
+          <span class="flow-file">resources/js/include/fancybox/fancybox.js</span>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /flow -->
+
+  <hr>
+
+  <!-- ─── EDIT ─── -->
+  <section id="edit">
+    <h2>Редактирование договора</h2>
+    <p>
+      Редактирование доступно только для <strong>неподписанных</strong> договоров.
+      Администратор открывает модальное окно через кнопку на карточке договора
+      (<code>data-form="admin_contract_edit"</code>).
+    </p>
+
+    <div class="alert alert-warning">
+      <code>AdminContractUpdateRequest</code> содержит правило
+      <code>'contract_id' => ['required', 'integer', 'exists:contracts,id,is_signed,0']</code> —
+      если договор подписан, запрос не пройдёт валидацию с ошибкой 422.
+    </div>
+
+    <h3>Что обновляет fancyboxAdminContractUpdate()</h3>
+    <ul>
+      <li>ФИО, email, телефон, дисциплину, организацию</li>
+      <li>Даты начала и окончания, стоимость, валюту, часы</li>
+      <li><code>contract_number</code> и <code>is_signed</code> — <strong>не обновляются</strong></li>
+    </ul>
+    <p>Возвращает JSON с обновлёнными данными, UI обновляется без перезагрузки через событие <code>form:success</code>.</p>
+
+    <div style="margin-top:12px;" class="flow-files" style="display:flex; gap:6px; flex-wrap:wrap;">
+      <span class="flow-file">app/Http/Requests/CabinetAdmin/AdminContractUpdateRequest.php</span>
+      <span class="flow-file">resources/views/fancybox/forms/cabinet/admin_contract_edit.blade.php</span>
+    </div>
+  </section>
+
+  <!-- ─── CABINET ─── -->
+  <section id="cabinet">
+    <h2>Кабинет пользователя</h2>
+    <p>
+      Страница <code>/cabinet/contracts</code> показывает все договоры текущего пользователя.
+      Для каждого неподписанного договора доступна кнопка «Подписать» — открывает модальное окно
+      <code>cabinet_contract_sign</code> с деталями договора и кнопкой подтверждения.
+    </p>
+    <p>
+      Компонент для отображения списка: <code>x-cabinet-admin.user.user-contracts</code> с параметрами
+      <code>:signable="true"</code> (пользователь может подписывать) и <code>:editable="false"</code>.
+    </p>
+    <div class="flow-files" style="display:flex; gap:6px; flex-wrap:wrap;">
+      <span class="flow-file">resources/views/cabinet/cabinet_user/cabinet_contracts.blade.php</span>
+      <span class="flow-file">resources/views/components/cabinet-admin/user/user-contracts.blade.php</span>
+    </div>
+  </section>
+
+  <!-- ─── MOONSHINE ─── -->
+  <section id="moonshine">
+    <h2>MoonShine-панель</h2>
+    <p>
+      Ресурс <code>ContractResource</code> предоставляет полный CRUD для договоров через административную
+      панель MoonShine. Таблица, форма редактирования, детальный просмотр.
+    </p>
+
+    <h3>Поля в таблице (indexFields)</h3>
+    <ul>
+      <li>ID (сортируемый), Номер договора, ФИО, Email, Телефон</li>
+      <li>Дисциплина, Цена, Валюта, Часов</li>
+      <li>Дата начала / конца (формат <code>d.m.Y</code>)</li>
+      <li><strong>Подписан</strong> — Switcher с <code>updateOnPreview()</code></li>
+      <li>Пользователь — BelongsTo с кастомным форматированием: <code>username (title)</code></li>
+    </ul>
+
+    <h3>Валидация в формах MoonShine</h3>
+    <pre><code>[
+    <span class="str">'full_name'</span> =&gt; <span class="str">'required|string|max:255'</span>,
+    <span class="str">'user_id'</span>   =&gt; <span class="str">'required|exists:users,id'</span>,
+    <span class="str">'email'</span>     =&gt; <span class="str">'nullable|email|max:255'</span>,
+    <span class="str">'price'</span>     =&gt; <span class="str">'nullable|numeric|min:0'</span>,
+    <span class="str">'hours'</span>     =&gt; <span class="str">'nullable|integer|min:0'</span>,
+    <span class="str">'date_end'</span>  =&gt; <span class="str">'nullable|date|after_or_equal:date_start'</span>,
+]</code></pre>
+
+    <div class="flow-files" style="display:flex; gap:6px; flex-wrap:wrap;">
+      <span class="flow-file">app/MoonShine/Resources/ContractResource.php</span>
+    </div>
+  </section>
+
+  <hr>
+
+  <!-- ─── VALIDATION ─── -->
+  <section id="validation">
+    <h2>Справочник — валидация</h2>
+
+    <h3>AdminContractCreateRequest</h3>
+    <table>
+      <tr><th>Поле</th><th>Правила</th><th>prepareForValidation</th></tr>
+      <tr><td><code>user_id</code></td><td>required, integer, exists:users,id</td><td>—</td></tr>
+      <tr><td><code>fio</code></td><td>required, string</td><td>—</td></tr>
+      <tr><td><code>email</code></td><td>required, email</td><td>—</td></tr>
+      <tr><td><code>phone</code></td><td>required, string</td><td>—</td></tr>
+      <tr><td><code>training_id</code></td><td>required, string</td><td>Удаляет <code>*</code> и пробелы</td></tr>
+      <tr><td><code>organization</code></td><td>required, string</td><td>—</td></tr>
+      <tr><td><code>date_from</code></td><td>required, string</td><td>—</td></tr>
+      <tr><td><code>date_to</code></td><td>required, string</td><td>—</td></tr>
+      <tr><td><code>price</code></td><td>required, numeric</td><td>Удаляет пробелы (тысячный разделитель IMask)</td></tr>
+      <tr><td><code>currency</code></td><td>required, string</td><td>Удаляет <code>*</code> и пробелы</td></tr>
+      <tr><td><code>hours</code></td><td>required, integer</td><td>—</td></tr>
+    </table>
+
+    <h3>ContractSignRequest</h3>
+    <table>
+      <tr><th>Поле</th><th>Правила</th></tr>
+      <tr><td><code>contract_id</code></td><td>required, integer, <code>exists:contracts,id,user_id,{auth()->id()},is_signed,0</code></td></tr>
+    </table>
+
+    <h3>AdminContractUpdateRequest</h3>
+    <table>
+      <tr><th>Поле</th><th>Правила</th></tr>
+      <tr><td><code>contract_id</code></td><td>required, integer, <code>exists:contracts,id,is_signed,0</code> — <strong>только неподписанные</strong></td></tr>
+      <tr><td colspan="2" style="color:var(--muted); font-size:12px;">Остальные поля аналогичны CreateRequest</td></tr>
+    </table>
+  </section>
+
+  <!-- ─── ENUMS ─── -->
+  <section id="enums">
+    <h2>Справочник — OrganizationEnum</h2>
+    <p>Файл: <code>app/Enums/OrganizationEnum.php</code></p>
+
+    <table>
+      <tr><th>Кейс</th><th>Value (в БД)</th><th>label()</th></tr>
+      <tr>
+        <td><code>TooHse</code></td>
+        <td><code>too_hse</code></td>
+        <td>ТОО «Высшая школа экономики «Институт профессиональных бухгалтеров и аудиторов»</td>
+      </tr>
+      <tr>
+        <td><code>IpHse</code></td>
+        <td><code>ip_hse</code></td>
+        <td>ИП «Высшая школа экономики «Институт профессиональных бухгалтеров и аудиторов»</td>
+      </tr>
+      <tr>
+        <td><code>Niise</code></td>
+        <td><code>niise</code></td>
+        <td>ТОО «Научно Исследовательский Институт Социологии и Экспертизы»</td>
+      </tr>
+    </table>
+
+    <h3>Методы</h3>
+    <ul>
+      <li><code>label()</code> — полное название для отображения</li>
+      <li><code>logo()</code> — путь к логотипу относительно <code>public/</code></li>
+      <li><code>logoSize()</code> — <code>[width, height]</code> для email-шаблонов</li>
+      <li><code>fromLabel(string $label)</code> — поиск enum по полному названию (используется при создании договора)</li>
+      <li><code>fromValueSafe(string $value)</code> — безопасный <code>tryFrom()</code></li>
+      <li><code>options()</code> — массив <code>[value => label]</code> для select</li>
+    </ul>
+
+    <div class="alert alert-info">
+      В БД хранится <strong>value</strong> enum (<code>too_hse</code>, <code>ip_hse</code>, <code>niise</code>).
+      В форму передаётся <strong>label</strong> через <code>data-select</code>,
+      затем контроллер преобразует label → value через <code>OrganizationEnum::fromLabel()</code>.
+    </div>
+  </section>
+
+  <!-- ─── FILES ─── -->
+  <section id="files">
+    <h2>Все файлы модуля</h2>
+
+    <h3>Контроллеры</h3>
+    <table>
+      <tr><th>Файл</th><th>Описание</th></tr>
+      <tr><td><code>app/Http/Controllers/FancyBox/FancyBoxController.php</code></td><td>Открытие модальных форм; загружает данные для шаблонов договоров</td></tr>
+      <tr><td><code>app/Http/Controllers/FancyBox/FancyBoxSendingFromFormController.php</code></td><td>Создание, обновление, подписание договоров через кабинет</td></tr>
+      <tr><td><code>app/Http/Controllers/Public/PublicContractController.php</code></td><td>Публичная страница договора и подписание по токену</td></tr>
+      <tr><td><code>app/Http/Controllers/Cabinet/CabinetAdminController.php</code></td><td>Список договоров в кабинете админа, AJAX-обновление</td></tr>
+      <tr><td><code>app/Http/Controllers/Cabinet/CabinetUser/CabinetUserController.php</code></td><td>Список договоров в личном кабинете пользователя</td></tr>
+    </table>
+
+    <h3>Requests</h3>
+    <table>
+      <tr><th>Файл</th><th>Описание</th></tr>
+      <tr><td><code>app/Http/Requests/CabinetAdmin/AdminContractCreateRequest.php</code></td><td>Валидация создания</td></tr>
+      <tr><td><code>app/Http/Requests/CabinetAdmin/AdminContractUpdateRequest.php</code></td><td>Валидация обновления (только неподписанные)</td></tr>
+      <tr><td><code>app/Http/Requests/Cabinet/ContractSignRequest.php</code></td><td>Валидация подписания (только свои, неподписанные)</td></tr>
+    </table>
+
+    <h3>Модели и Enums</h3>
+    <table>
+      <tr><th>Файл</th><th>Описание</th></tr>
+      <tr><td><code>app/Models/Contract.php</code></td><td>Модель договора</td></tr>
+      <tr><td><code>app/Models/Training.php</code></td><td>Дисциплины (заполняется в MoonShine)</td></tr>
+      <tr><td><code>app/Enums/OrganizationEnum.php</code></td><td>Организации-исполнители</td></tr>
+    </table>
+
+    <h3>Mail</h3>
+    <table>
+      <tr><th>Файл</th><th>Описание</th></tr>
+      <tr><td><code>app/Mail/Contract/ContractCreatedMail.php</code></td><td>Письмо при создании договора (в очередь)</td></tr>
+      <tr><td><code>app/Mail/Contract/ContractSignedMail.php</code></td><td>Письмо после подписания (в очередь)</td></tr>
+      <tr><td><code>resources/views/html/email/contract_created.blade.php</code></td><td>HTML-шаблон письма о создании</td></tr>
+      <tr><td><code>resources/views/html/email/contract_signed.blade.php</code></td><td>HTML-шаблон письма о подписании</td></tr>
+    </table>
+
+    <h3>Blade-шаблоны</h3>
+    <table>
+      <tr><th>Файл</th><th>Описание</th></tr>
+      <tr><td><code>resources/views/fancybox/forms/cabinet/admin_contract_create.blade.php</code></td><td>Модальная форма создания</td></tr>
+      <tr><td><code>resources/views/fancybox/forms/cabinet/admin_contract_edit.blade.php</code></td><td>Модальная форма редактирования</td></tr>
+      <tr><td><code>resources/views/fancybox/forms/cabinet/cabinet_contract_sign.blade.php</code></td><td>Модальная форма подписания (кабинет)</td></tr>
+      <tr><td><code>resources/views/public/contract.blade.php</code></td><td>Публичная страница договора</td></tr>
+      <tr><td><code>resources/views/cabinet/cabinet_user/cabinet_contracts.blade.php</code></td><td>Страница договоров в кабинете пользователя</td></tr>
+      <tr><td><code>resources/views/ajax/admin-user-contracts.blade.php</code></td><td>AJAX-ответ со списком договоров</td></tr>
+      <tr><td><code>resources/views/components/cabinet-admin/user/user-contracts.blade.php</code></td><td>Компонент карточек договоров</td></tr>
+    </table>
+
+    <h3>JavaScript</h3>
+    <table>
+      <tr><th>Файл</th><th>Описание</th></tr>
+      <tr><td><code>resources/js/include/fancybox/fancybox.js</code></td><td>Открытие модалок, обработка событий договора</td></tr>
+      <tr><td><code>resources/js/include/form_async/async_execution.js</code></td><td>Сборка и отправка данных форм, отображение ошибок</td></tr>
+      <tr><td><code>resources/js/include/datepicker/datepicker.js</code></td><td>Инициализация DateRangePicker для периода договора</td></tr>
+      <tr><td><code>resources/js/include/imask.js</code></td><td>Маски телефона, цены, часов</td></tr>
+    </table>
+
+    <h3>MoonShine</h3>
+    <table>
+      <tr><th>Файл</th><th>Описание</th></tr>
+      <tr><td><code>app/MoonShine/Resources/ContractResource.php</code></td><td>CRUD договоров в MoonShine-панели</td></tr>
+    </table>
+
+    <h3>Миграции</h3>
+    <table>
+      <tr><th>Файл</th><th>Описание</th></tr>
+      <tr><td><code>database/migrations/2026_06_08_000001_create_contracts_table.php</code></td><td>Основная таблица</td></tr>
+      <tr><td><code>database/migrations/2026_06_08_000003_add_currency_to_contracts_table.php</code></td><td>Поле <code>currency</code></td></tr>
+      <tr><td><code>database/migrations/2026_06_09_000001_add_public_token_to_contracts_table.php</code></td><td>Поле <code>public_token</code></td></tr>
+      <tr><td><code>database/migrations/2026_06_10_000001_add_number_and_organizations_to_contracts_table.php</code></td><td>Поля <code>contract_number</code> и <code>organizations</code></td></tr>
+      <tr><td><code>database/migrations/2026_06_10_000002_change_organizations_to_string_in_contracts_table.php</code></td><td>Тип <code>organizations</code>: JSON → string</td></tr>
+    </table>
+  </section>
+
+</main>
+</div>
+
+<script>
+  // Highlight active nav link on scroll
+  const sections = document.querySelectorAll('section[id], div.flow-step[id]');
+  const navLinks  = document.querySelectorAll('nav a[href^="#"]');
+
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        navLinks.forEach(l => l.classList.remove('active'));
+        const active = document.querySelector(`nav a[href="#${e.target.id}"]`);
+        if (active) active.classList.add('active');
+      }
+    });
+  }, { rootMargin: '-30% 0px -65% 0px' });
+
+  sections.forEach(s => obs.observe(s));
+</script>
+
+</body>
+</html>

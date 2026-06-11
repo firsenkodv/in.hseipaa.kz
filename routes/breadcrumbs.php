@@ -217,6 +217,12 @@ Breadcrumbs::for('rop_update_user', function ($trail, $item) {
     $trail->push('Пользователь - ' . $item->username  , route('rop_update_user', $item->id));
 });
 
+// Home > CabinetRop -> Contracts
+Breadcrumbs::for('rop_contracts', function ($trail) {
+    $trail->parent('cabinet_rop');
+    $trail->push('Договоры', route('rop_contracts'));
+});
+
 
 
 // Home > CabinetRop -> HH -> Vacancies
@@ -277,6 +283,12 @@ Breadcrumbs::for('cabinet_manager', function ($trail) {
 Breadcrumbs::for('manager_users', function ($trail) {
     $trail->parent('cabinet_manager');
     $trail->push('Ваши пользователи' , route('manager_users'));
+});
+
+// Home > CabinetManager -> Contracts
+Breadcrumbs::for('manager_contracts', function ($trail) {
+    $trail->parent('cabinet_manager');
+    $trail->push('Договоры', route('manager_contracts'));
 });
 
 

@@ -7,6 +7,9 @@
        <li class="{{ active_linkMenu(asset(route('manager_users')), 'find') }}">
             <a href="{{ route('manager_users') }}">Пользователи</a>
         </li>
+        <li class="{{ active_linkMenu(asset(route('manager_contracts')), 'find') }}">
+            <a href="{{ route('manager_contracts') }}">Договоры</a>
+        </li>
         <li class="{{ active_linkMenu(asset(route('cabinet_update_personal_data_manager')), 'find')  }}">
             <a href="{{ route('cabinet_update_personal_data_manager') }}">Настройки</a>
         </li>

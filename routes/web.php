@@ -570,6 +570,11 @@ Route::controller(CabinetROPController::class)->group(function () {
         ->middleware(IsROPMiddleware::class)
          ->name('rop_update_post_user');
     //rop_update_post_user
+
+    /** договоры */
+    Route::get('/cabinet-rop/contracts', 'ropContracts')
+        ->middleware(IsROPMiddleware::class)
+        ->name('rop_contracts');
 });
 
 /**
@@ -646,6 +651,11 @@ Route::controller(CabinetManagerController::class)->group(function () {
         ->name('manager_update_post_user');
 
 
+
+    /** договоры */
+    Route::get('/cabinet-manager/contracts', 'managerContracts')
+        ->middleware(IsManagerMiddleware::class)
+        ->name('manager_contracts');
 
     /** logout */
     Route::post('/logout_manager', 'logoutManager')

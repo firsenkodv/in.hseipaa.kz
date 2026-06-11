@@ -6,6 +6,7 @@ use App\Enums\User\MarkedDeleteEnum;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CabinetManager\ManagerUpdateRequest;
 use App\Http\Requests\CabinetUser\UserUpdateRequest;
+use App\Models\Contract;
 use App\Models\User;
 use Domain\Manager\ViewModels\ManagerViewModel;
 use Domain\ROP\ViewModels\ROPViewModel;
@@ -203,6 +204,24 @@ class CabinetManagerController extends Controller
         }
     }
 
+
+    /**
+     * Список договоров пользователей менеджера.
+     */
+    public function managerContracts(): View
+    {
+        $m = ManagerViewModel::make()->m(session()->get('m'));
+
+        $contracts = Contract::with('user')
+            ->whereHas('user', fn($q) => $q->where('manager_id', $m->id))
+            ->orderByRaw('date_start IS NULL, date_start ASC')
+            ->paginate(config('site.constants.paginate'));
+
+        return view('cabinet.cabinet_manager.contracts.items', [
+            'm'         => $m,
+            'contracts' => $contracts,
+        ]);
+    }
 
     /**
      * Выход из кабинета manager
