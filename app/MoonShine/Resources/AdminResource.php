@@ -58,8 +58,8 @@ class AdminResource extends ModelResource
             Text::make('ФИО', 'username')->updateOnPreview(),
             Number::make('Телефон', 'phone')->updateOnPreview(),
             Text::make('Email', 'email')->updateOnPreview(),
-            Enum::make('Редактор', 'super')
-                ->attach(SuperEditorEnum::class),
+/*            Enum::make('Редактор', 'super')
+                ->attach(SuperEditorEnum::class),*/
             Date::make(__('Дата создания'), 'created_at')
                 ->format("d.m.Y")
                 ->default(now()->toDateTimeString())
@@ -115,10 +115,6 @@ class AdminResource extends ModelResource
                                 ->default(now()->toDateTimeString())
                                 ->sortable(),
 
-                            Switcher::make('Возможность редактировать', 'super')
-                                ->onValue('SUPEREDITOR')
-                                ->offValue('DEFAULT')
-                                ->default('DEFAULT'),
                         ]),
 
                     ])->columnSpan(6),

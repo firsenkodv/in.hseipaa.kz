@@ -36,48 +36,14 @@
     </div>
 
 
-    @if($user->individual)
-        <div class="cu_row_50">
-            <div class="cu__col">
-                <x-form.form-input
-                    name="phone"
-                    type="tel"
-                    label="Телефон"
-                    value="{{ (old('phone'))?: ($user->phone?:'') }}"
-                    class="imask"
-
-                />
-            </div>
-            <div class="cu__col">
-                <x-form.form-input
-                    name="iin"
-                    type="text"
-                    label="ИИН"
-                    value="{!!  (old('iin'))?: ($user->iin?:'') !!}"
-
-                />
-            </div>
-        </div>
-    @endif
-    @if($user->legal_entity)
-        <x-form.form-input
-            name="phone"
-            type="tel"
-            label="Телефон"
-            value="{{ (old('phone'))?: ($user->phone?:'') }}"
-            class="imask"
-
-        />
-    @endif
-
     <div class="cu_row_50">
         <div class="cu__col">
             <x-form.form-input
-                name="email"
-                type="email"
-                label="Email"
-                value="{{ (old('email'))?: ($user->email?:'') }}"
-
+                name="phone"
+                type="tel"
+                label="Телефон"
+                value="{{ (old('phone'))?: ($user->phone?:'') }}"
+                class="imask"
             />
         </div>
         <div class="cu__col">
@@ -88,6 +54,26 @@
             />
         </div>
     </div>
+
+    @if($user->individual)
+        <div class="cu_row_50">
+            <div class="cu__col">
+                <x-form.form-input
+                    name="iin"
+                    type="text"
+                    label="ИИН"
+                    value="{!!  (old('iin'))?: ($user->iin?:'') !!}"
+                />
+            </div>
+        </div>
+    @endif
+
+    <x-form.form-input
+        name="email"
+        type="email"
+        label="Email"
+        value="{{ (old('email'))?: ($user->email?:'') }}"
+    />
 
     <x-form.form-textarea
         name="about_me"
