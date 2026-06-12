@@ -66,6 +66,7 @@ use App\MoonShine\Resources\TaxResource;
 use App\MoonShine\Resources\AxeldPassportResource;
 use App\MoonShine\Resources\SiteNewModuleResource;
 use App\MoonShine\Resources\MzpResource;
+use App\MoonShine\Resources\PaymentResource;
 use App\MoonShine\Resources\TarifResource;
 use App\MoonShine\Resources\SavedFormDataResource;
 use App\MoonShine\Resources\UserCityResource;
@@ -164,6 +165,7 @@ final class AxeldLayout extends AppLayout
 
             MenuGroup::make(static fn() => __('Тарифы'), [
                 MenuItem::make('Тарифы', TarifResource::class, 'currency-dollar'),
+                MenuItem::make('Платежи', PaymentResource::class, 'credit-card'),
             ]),
 
             MenuGroup::make(static fn() => __('Контакты'), [

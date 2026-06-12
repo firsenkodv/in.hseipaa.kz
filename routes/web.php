@@ -30,6 +30,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Mzp\MzpController;
 use App\Http\Controllers\Registry\RegistryController;
 use App\Http\Controllers\Search\SearchController;
+use App\Http\Controllers\Payment\PaymentController;
 use App\Http\Controllers\Service\ServiceController;
 use App\Http\Controllers\SiteNew\SiteNewController;
 use App\Http\Controllers\Tax\TaxController;
@@ -349,6 +350,7 @@ Route::controller(CabinetUserController::class)->group(function () {
         ->name('cabinet_pricing')
         ->middleware(UserMiddleware::class);
 
+
     /** услуги  */
     Route::get('/cabinet/service', 'cabinetService')
         ->name('cabinet_service')
@@ -363,6 +365,18 @@ Route::controller(CabinetUserController::class)->group(function () {
     Route::get('/cabinet/contracts', 'cabinetContracts')
         ->name('cabinet_contracts')
         ->middleware(UserMiddleware::class);
+
+});
+
+/** оплата тарифа (BerekeBank) **/
+Route::controller(PaymentController::class)->group(function () {
+
+    Route::get('/cabinet/payment/init', 'initPayment')
+        ->name('cabinet_payment_init')
+        ->middleware(UserMiddleware::class);
+
+    Route::get('/cabinet/payment/return', 'returnPaymentOrder')
+        ->name('cabinet_payment_return');
 
 });
 

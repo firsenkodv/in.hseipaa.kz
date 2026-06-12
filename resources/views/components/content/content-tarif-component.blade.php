@@ -19,8 +19,8 @@
 
                         @else
                            <div class="tarif_btn__center">
-                            <a href="#"  class="btn over open-fancybox" data-form="select_tarif"
-                               data-transfer='{"tarif_id": {{$item['id']}}}'>Выбрать тариф</a>
+                            <a href="{{ route('cabinet_payment_init', ['tarif_id' => $item['id']]) }}"
+                               class="btn over">Выбрать тариф</a>
                            </div>
                         @endif
                     @endauth
