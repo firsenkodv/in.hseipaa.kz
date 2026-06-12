@@ -134,18 +134,38 @@ class PaymentViewModel
 
     private function curlPost(string $url, array $data): ?object
     {
+        $body = http_build_query($data);
+
         $ch = curl_init($url);
         curl_setopt_array($ch, [
             CURLOPT_POST           => true,
-            CURLOPT_POSTFIELDS     => http_build_query($data),
+            CURLOPT_POSTFIELDS     => $body,
             CURLOPT_HTTPHEADER     => ['Content-Type: application/x-www-form-urlencoded'],
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_SSL_VERIFYPEER => true,
             CURLOPT_TIMEOUT        => 30,
         ]);
-        $response = curl_exec($ch);
+        $rawResponse = curl_exec($ch);
+        $curlError   = curl_error($ch);
+        $httpCode    = curl_getinfo($ch, CURLINFO_HTTP_CODE);
         curl_close($ch);
 
-        return $response ? json_decode($response) : null;
+        $logData = array_merge($data, ['password' => '***']);
+
+        Log::info('BerekeBank request', [
+            'url'          => $url,
+            'params'       => $logData,
+            'raw_body'     => preg_replace('/password=[^&]+/', 'password=***', $body),
+            'http_code'    => $httpCode,
+            'curl_error'   => $curlError,
+            'raw_response' => $rawResponse,
+        ]);
+
+        if ($curlError) {
+            Log::error('BerekeBank CURL error', ['error' => $curlError, 'url' => $url]);
+            return null;
+        }
+
+        return $rawResponse ? json_decode($rawResponse) : null;
     }
 }
