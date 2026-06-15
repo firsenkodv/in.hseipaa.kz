@@ -20,7 +20,8 @@
         "moonshine/ru": "^1.0",
         "moonshine/tinymce": "^1.0",
         "predis/predis": "^3.3",
-        "spatie/laravel-honeypot": "^4.6"
+        "spatie/laravel-honeypot": "^4.6",
+        "spatie/laravel-sitemap": "^8.0"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.16",

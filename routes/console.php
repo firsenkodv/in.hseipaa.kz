@@ -11,3 +11,6 @@ Artisan::command('inspire', function () {
 Schedule::command('queue:work --stop-when-empty')
     ->everyMinute()
     ->withoutOverlapping();
+Schedule::command('sitemap:cron')->dailyAt('03:00')->withoutOverlapping();
+
+Schedule::command('tarif:expire')->daily();
