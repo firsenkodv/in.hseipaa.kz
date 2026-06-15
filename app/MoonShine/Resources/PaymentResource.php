@@ -28,7 +28,7 @@ class PaymentResource extends ModelResource
 
     protected function activeActions(): ListOf
     {
-        return parent::activeActions()->except(Action::CREATE, Action::EDIT);
+        return parent::activeActions()->except(Action::CREATE, Action::UPDATE);
     }
 
     /**
