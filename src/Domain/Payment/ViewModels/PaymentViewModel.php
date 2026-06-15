@@ -3,6 +3,7 @@
 namespace Domain\Payment\ViewModels;
 
 use App\Models\Payment;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 
@@ -106,6 +107,10 @@ class PaymentViewModel
             'is_paid'      => $isPaid,
             'data'         => json_encode($bankResponse),
         ]);
+
+        if ($isPaid && $payment->tarif_id) {
+            User::where('id', $payment->user_id)->first()?->update(['tarif_id' => $payment->tarif_id]);
+        }
 
         return $isPaid;
     }
