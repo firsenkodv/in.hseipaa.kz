@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Providers;
 
+use App\MoonShine\Resources\PaymentResource;
 use Illuminate\Support\ServiceProvider;
 use MoonShine\Contracts\Core\DependencyInjection\ConfiguratorContract;
 use MoonShine\Contracts\Core\DependencyInjection\CoreContract;
@@ -106,6 +107,7 @@ class MoonShineServiceProvider extends ServiceProvider
                 HunterResumeItemResource::class,
                 ContractResource::class,
                 TrainingResource::class,
+                PaymentResource::class,
             ])
             ->pages([
                 ...$config->getPages(),
