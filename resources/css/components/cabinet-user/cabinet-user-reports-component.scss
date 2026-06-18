@@ -1,0 +1,411 @@
+@charset "utf-8";
+$color: #282828;
+$colorRed: #EF533F;
+$colorGrey: #667085;
+$colorBlue: #095C9A;
+$colorGreen: #0f6567;
+
+.user-reports {
+    margin-top: 28px;
+
+    &__item {
+        padding: 20px 24px;
+        border-radius: 10px;
+        border: 1px solid #e8e8e8;
+        border-left: 3px solid $colorBlue;
+        background: #fff;
+        margin-bottom: 10px;
+        transition: border-color .2s, box-shadow .2s;
+
+        &:hover {
+            border-color: #d0d0d0;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, .06);
+        }
+    }
+
+    &__top {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        margin-bottom: 14px;
+        padding-bottom: 12px;
+        border-bottom: 1px solid #f0f0f0;
+    }
+
+    &__title {
+        font-size: 18px;
+        font-weight: 700;
+        color: $color;
+    }
+
+    &__date {
+        margin-left: 6px;
+        font-size: 15px;
+        font-weight: 400;
+        color: $colorGrey;
+    }
+
+    &__rows {
+        display: flex;
+        flex-direction: column;
+        gap: 7px;
+        margin-bottom: 16px;
+    }
+
+    &__row {
+        display: flex;
+        gap: 16px;
+        font-size: 17px;
+        line-height: 1.45;
+        align-items: baseline;
+    }
+
+    &__label {
+        flex: 0 0 130px;
+        font-size: 13px;
+        font-weight: 600;
+        color: $colorGrey;
+        text-transform: uppercase;
+        letter-spacing: .04em;
+        padding-top: 2px;
+    }
+
+    &__value {
+        color: $color;
+        font-weight: 500;
+    }
+
+    &__files {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        align-items: center;
+    }
+
+    &__file {
+        display: inline-flex;
+        align-items: center;
+        gap: 16px;
+        font-size: 15px;
+        color: $colorRed;
+        text-decoration: none;
+        font-weight: 500;
+        transition: color .2s;
+
+        i {
+            flex-shrink: 0;
+            position: relative;
+            top: -2px;
+        }
+
+        &:hover {
+            color: darken($colorRed, 10%);
+            text-decoration: none;
+        }
+    }
+}
+
+.user-reports__actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 20px;
+    padding: 16px 0 4px;
+}
+
+.user-reports__edit-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 17px;
+    color: $colorBlue;
+    text-decoration: none;
+    transition: color .2s;
+
+    svg {
+        flex-shrink: 0;
+    }
+
+    &:hover {
+        color: darken($colorBlue, 10%);
+        text-decoration: none;
+    }
+}
+
+.user-reports__chat-icon {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 17px;
+    color: $colorGrey;
+    text-decoration: none;
+    transition: color .2s;
+
+    svg {
+        flex-shrink: 0;
+    }
+
+    &:hover {
+        color: $colorBlue;
+        text-decoration: none;
+    }
+}
+
+.user-reports__unread-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 20px;
+    height: 20px;
+    padding: 0 5px;
+    border-radius: 10px;
+    background: $colorRed;
+    color: #fff;
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 1;
+    flex-shrink: 0;
+}
+
+.user-reports__chat-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 17px;
+    color: $colorGrey;
+    text-decoration: none;
+    transition: color .2s;
+
+    svg {
+        flex-shrink: 0;
+    }
+
+    &:hover {
+        color: $colorBlue;
+        text-decoration: none;
+    }
+}
+
+/* ───── Чат по отчёту ───── */
+.report-chat {
+    margin-top: 24px;
+    border-top: 1px solid #f0f0f0;
+    padding-top: 16px;
+
+    &__header {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 15px;
+        font-weight: 600;
+        color: $colorGrey;
+        text-transform: uppercase;
+        letter-spacing: .04em;
+        margin-bottom: 12px;
+
+        svg { flex-shrink: 0; }
+    }
+
+    &__messages {
+        max-height: 220px;
+        overflow-y: auto;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        padding-right: 4px;
+        margin-bottom: 12px;
+    }
+
+    &__msg {
+        padding: 10px 14px;
+        border-radius: 8px;
+        max-width: 90%;
+
+        &--staff {
+            background: rgba(9, 92, 154, .07);
+            align-self: flex-start;
+            border-left: 3px solid $colorBlue;
+        }
+
+        &--user {
+            background: #f8f8f8;
+            align-self: flex-end;
+            border-right: 3px solid #ddd;
+            text-align: right;
+        }
+    }
+
+    &__msg-meta {
+        font-size: 12px;
+        color: $colorGrey;
+        margin-bottom: 4px;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+
+        .report-chat__msg--user & {
+            justify-content: flex-end;
+        }
+    }
+
+    &__msg-time {
+        opacity: .75;
+    }
+
+    &__msg-author {
+        font-weight: 600;
+    }
+
+    &__msg-body {
+        font-size: 15px;
+        line-height: 1.5;
+        color: $color;
+        word-break: break-word;
+    }
+
+    &__empty {
+        font-size: 14px;
+        color: $colorGrey;
+        text-align: center;
+        padding: 12px 0;
+    }
+
+    &__form {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    &__textarea {
+        width: 100%;
+        border: 1px solid #e0e0e0;
+        border-radius: 8px;
+        padding: 10px 14px;
+        font-size: 15px;
+        font-family: inherit;
+        resize: vertical;
+        outline: none;
+        transition: border-color .2s;
+        box-sizing: border-box;
+
+        &:focus {
+            border-color: $colorBlue;
+        }
+    }
+
+    &__send-btn {
+        align-self: flex-start;
+    }
+}
+
+.user-reports__badge {
+    display: inline-flex;
+    align-items: center;
+    flex-shrink: 0;
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: .02em;
+
+    &--accepted {
+        background: rgba(45, 172, 106, .12);
+        color: #2dac6a;
+    }
+
+    &--pending {
+        background: rgba(255, 147, 30, .12);
+        color: #FF931E;
+    }
+}
+
+.manager-report-accepted-notice {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 16px;
+    border-radius: 8px;
+    background: rgba(15, 101, 103, .08);
+    color: $colorGreen;
+    font-size: 15px;
+    font-weight: 600;
+    margin-bottom: 20px;
+
+    svg {
+        flex-shrink: 0;
+    }
+}
+
+.manager-report-readonly {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 20px;
+
+    &__row {
+        display: flex;
+        gap: 16px;
+        font-size: 16px;
+        align-items: baseline;
+    }
+
+    &__label {
+        flex: 0 0 120px;
+        font-size: 13px;
+        font-weight: 600;
+        color: $colorGrey;
+        text-transform: uppercase;
+        letter-spacing: .04em;
+        padding-top: 2px;
+    }
+
+    &__value {
+        color: $color;
+        font-weight: 500;
+    }
+
+    &__files {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+}
+
+.manager-report-certs {
+    margin-top: 6px;
+
+    &__label {
+        font-size: 13px;
+        font-weight: 600;
+        color: $colorGrey;
+        text-transform: uppercase;
+        letter-spacing: .04em;
+        margin-bottom: 8px;
+    }
+
+    &__files {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+    }
+}
+
+@media screen and (max-width: 668px) {
+    .user-reports {
+        &__top {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 8px;
+        }
+
+        &__row {
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        &__label {
+            flex: none;
+        }
+    }
+}

@@ -2,7 +2,9 @@ import { Fancybox } from "@fancyapps/ui/dist/fancybox/";
 import "@fancyapps/ui/dist/fancybox/fancybox.css";
 import {asyncExecution} from "../form_async/async_execution";
 import {scrollCabinetMessages} from "./cabinet_message";
-import {datepicker_contract_period} from "../datepicker/datepicker";
+import {datepicker_contract_period, datepicker_report_period} from "../datepicker/datepicker";
+import {uploadReportFiles} from "../cabinet/uploadReportFiles";
+import {reportChatInit} from "../cabinet/reportChat";
 
 
 /*Fancybox.bind('[data-fancybox]', {
@@ -22,6 +24,17 @@ const metaElements = document.querySelectorAll('meta[name="csrf-token"]');
 const csrf = metaElements.length > 0 ? metaElements[0].content : "";
 /** получаем csrf **/
 
+
+/** обновление страницы отчётов после сохранения **/
+document.addEventListener('form:success', (e) => {
+    const data = e.detail;
+    if (!data) return;
+
+    if (data.report_created || data.report_updated || data.manager_report_updated || data.manager_report_accepted) {
+        window.location.reload();
+        return;
+    }
+});
 
 /** обновление строки дисциплины после сохранения **/
 document.addEventListener('form:success', (e) => {
@@ -144,9 +157,12 @@ async  function openFancyBox(e) {
             );
 
 
-        asyncExecution();       // соберем эту форму
-        scrollCabinetMessages(); // скроллим до последнего сообщения
+        asyncExecution();            // соберем эту форму
+        scrollCabinetMessages();     // скроллим до последнего сообщения
         datepicker_contract_period(); // инициализация датапикера периода договора
+        datepicker_report_period();  // инициализация датапикера периода отчёта
+        uploadReportFiles();         // инициализация загрузки файлов отчёта
+        reportChatInit();            // инициализация чата по отчёту
 
     } catch (err) {
         console.error('Ошибка AJAX:', err.message);

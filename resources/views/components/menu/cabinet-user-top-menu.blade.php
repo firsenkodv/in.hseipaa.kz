@@ -31,6 +31,10 @@
         <a href="{{ route('cabinet_contracts') }}">Договоры</a>
     </li>
 
+    <li class="{{ active_linkMenu(asset(route('cabinet_reports')), 'find')  }}">
+        <a href="{{ route('cabinet_reports') }}">Отчёты</a>
+    </li>
+
     <li class="{{ active_linkMenu(asset(route('cabinet_user_update')), 'find')  }}">
         <a href="{{ route('cabinet_user_update') }}">Настройки</a>
     </li>

@@ -169,6 +169,12 @@ Breadcrumbs::for('cabinet_contracts', function ($trail) {
     $trail->push('Договоры', route('cabinet_contracts'));
 });
 
+// Home > CabinetUser > Reports
+Breadcrumbs::for('cabinet_reports', function ($trail) {
+    $trail->parent('cabinet_user');
+    $trail->push('Отчёты', route('cabinet_reports'));
+});
+
 // Home > CabinetUserMessages
 Breadcrumbs::for('cabinet_user_messages', function ($trail) {
     $trail->parent('home');
@@ -291,6 +297,11 @@ Breadcrumbs::for('manager_contracts', function ($trail) {
     $trail->push('Договоры', route('manager_contracts'));
 });
 
+// Home > CabinetManager -> Reports
+Breadcrumbs::for('manager_reports', function ($trail) {
+    $trail->parent('cabinet_manager');
+    $trail->push('Отчёты', route('manager_reports'));
+});
 
 // Home > CabinetManager -> Users -> User
 Breadcrumbs::for('manager_update_user', function ($trail, $item) {

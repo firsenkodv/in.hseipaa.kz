@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Cabinet\CabinetUser;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CabinetUser\UserUpdateRequest;
 use App\Models\Contract;
+use App\Models\Report;
 use App\Models\User;
 use Domain\CabinetMessage\ViewModels\CabinetMessageViewModel;
 use Domain\Service\ViewModels\ServiceViewModel;
@@ -167,6 +168,37 @@ class CabinetUserController extends Controller
             logErrors($th);
             abort(404);
 
+        }
+    }
+
+    /**
+     * @return View
+     * Страница с отчётами
+     */
+    public function cabinetReports(): View
+    {
+        try {
+            /** @var User $user */
+            $user = UserViewModel::make()->User();
+
+            $reports = Report::where('user_id', $user->id)
+                ->orderBy('created_at', 'desc')
+                ->get();
+
+            $unreadCounts = CabinetMessageViewModel::make()->unreadCountsByReportsForUser(
+                $reports->pluck('id')->toArray(),
+                $user->id,
+            );
+
+            return view('cabinet.cabinet_user.cabinet_reports', [
+                'user'         => $user,
+                'reports'      => $reports,
+                'unreadCounts' => $unreadCounts,
+            ]);
+
+        } catch (\Throwable $th) {
+            logErrors($th);
+            abort(404);
         }
     }
 

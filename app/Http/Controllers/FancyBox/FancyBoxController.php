@@ -4,9 +4,10 @@ namespace App\Http\Controllers\FancyBox;
 
 use App\Http\Controllers\Controller;
 use App\Models\Contract;
-use App\Models\Training;
 use App\Models\Manager;
+use App\Models\Report;
 use App\Models\ROP;
+use App\Models\Training;
 use App\Models\User;
 use Domain\CabinetMessage\ViewModels\CabinetMessageViewModel;
 use Domain\Manager\ViewModels\ManagerViewModel;
@@ -38,6 +39,82 @@ class FancyBoxController extends Controller
 
         if($request->template == 'cabinet_user_social_description') {
             return view('fancybox.forms.cabinet_user_social_description');
+        }
+
+        if ($request->template == 'user_report_create') {
+            return view('fancybox.forms.cabinet.user_report_create');
+        }
+
+        if ($request->template == 'user_report_edit') {
+            $data     = json_decode($request->data);
+            $reportId = (int) $data->report_id;
+            $report   = Report::where('id', $reportId)
+                ->where('user_id', auth()->id())
+                ->firstOrFail();
+            return view('fancybox.forms.cabinet.user_report_edit', ['report' => $report]);
+        }
+
+        if ($request->template == 'manager_report_view') {
+            $data     = json_decode($request->data);
+            $reportId = (int) $data->report_id;
+            $m        = ManagerViewModel::make()->m(session('m'));
+            if (!$m) {
+                return view('fancybox.forms.error.error_form');
+            }
+            $report = Report::with('user')
+                ->where('id', $reportId)
+                ->whereHas('user', fn($q) => $q->where('manager_id', $m->id))
+                ->firstOrFail();
+            try {
+                CabinetMessageViewModel::make()->markReadByStaffForReport(
+                    $report->user->id,
+                    Manager::class,
+                    $m->id,
+                    $report->id,
+                );
+                $messages = CabinetMessageViewModel::make()->forReport(
+                    $report->user->id,
+                    Manager::class,
+                    $m->id,
+                    $report->id,
+                );
+            } catch (\Throwable $e) {
+                $messages = collect();
+            }
+            return view('fancybox.forms.cabinet.manager_report_view', [
+                'report'   => $report,
+                'messages' => $messages,
+            ]);
+        }
+
+        if ($request->template == 'report_chat_user') {
+            $data     = json_decode($request->data);
+            $reportId = (int) $data->report_id;
+            $user     = auth()->user();
+            if (!$user) {
+                return view('fancybox.forms.error.error_form');
+            }
+            $report   = Report::where('id', $reportId)
+                ->where('user_id', $user->id)
+                ->firstOrFail();
+            $messages = collect();
+            if ($user->manager_id) {
+                try {
+                    CabinetMessageViewModel::make()->markReadByUserForReport($user->id, $report->id);
+                    $messages = CabinetMessageViewModel::make()->forReport(
+                        $user->id,
+                        Manager::class,
+                        $user->manager_id,
+                        $report->id,
+                    );
+                } catch (\Throwable $e) {
+                    $messages = collect();
+                }
+            }
+            return view('fancybox.forms.cabinet.report_chat_user', [
+                'report'   => $report,
+                'messages' => $messages,
+            ]);
         }
 
 

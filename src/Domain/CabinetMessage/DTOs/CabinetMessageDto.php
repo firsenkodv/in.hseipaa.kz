@@ -15,5 +15,6 @@ class CabinetMessageDto
         public readonly int    $staff_id,
         public readonly string $sender_type,
         public readonly int    $sender_id,
+        public readonly int    $report_id = 0,
     ) {}
 }

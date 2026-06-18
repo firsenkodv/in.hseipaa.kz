@@ -3,10 +3,12 @@
 namespace App\Http\Controllers\Axios;
 
 use App\Http\Controllers\Controller;
+use App\Models\Report;
 use App\Models\User;
 use Domain\User\ViewModels\UserFilesViewModel;
 use Domain\User\ViewModels\UserViewModel;
 use Exception;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\File;
@@ -97,6 +99,84 @@ class AxiosUploadFilesController extends Controller
     }
 
 
+
+    public function uploadReportFiles(Request $request): JsonResponse
+    {
+        $request->validate([
+            'files'     => ['required', 'array'],
+            'files.*'   => ['mimes:pdf', 'max:15360'],
+            'report_id' => ['nullable', 'integer'],
+        ]);
+
+        $user     = auth()->user();
+        $reportId = $request->integer('report_id');
+
+        $directory = $reportId
+            ? 'reports/' . $user->id . '/' . $reportId . '/'
+            : 'reports/temp/' . $user->id . '/';
+
+        if (!Storage::exists($directory)) {
+            Storage::makeDirectory($directory, 0755, true);
+        }
+
+        $filesInfo = [];
+        foreach ($request->file('files') as $file) {
+            $originalFilename = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
+            $fileExt          = $file->getClientOriginalExtension();
+            $fullPath         = $directory . $originalFilename . '.' . $fileExt;
+
+            $file->storePubliclyAs('', $fullPath);
+
+            $filesInfo[] = [
+                'url'        => asset(Storage::url($fullPath)),
+                'extension'  => $fileExt,
+                'icon_class' => 'fa-file-pdf-o',
+                'json_file'  => $fullPath,
+            ];
+        }
+
+        return response()->json([
+            'success' => true,
+            'files'   => $filesInfo,
+        ]);
+    }
+
+    public function deleteReportFiles(Request $request): JsonResponse
+    {
+        $request->validate([
+            'json_file'  => ['required', 'string'],
+            'report_id'  => ['nullable', 'integer'],
+        ]);
+
+        $user     = auth()->user();
+        $strFile  = $request->input('json_file');
+        $reportId = $request->integer('report_id');
+
+        // Проверяем, что файл принадлежит текущему пользователю
+        $belongsToUser = str_starts_with($strFile, 'reports/' . $user->id . '/')
+            || str_starts_with($strFile, 'reports/temp/' . $user->id . '/');
+
+        if (!$belongsToUser) {
+            return response()->json(['success' => false, 'message' => 'Access denied'], 403);
+        }
+
+        if (Storage::disk('public')->exists($strFile)) {
+            Storage::disk('public')->delete($strFile);
+        }
+
+        // Если редактируем существующий отчёт — немедленно убираем файл из БД
+        if ($reportId) {
+            $report = Report::where('id', $reportId)->where('user_id', $user->id)->first();
+            if ($report && $report->certificates) {
+                $certs = array_values(
+                    array_filter($report->certificates->toArray(), fn($c) => $c['json_file'] !== $strFile)
+                );
+                $report->update(['certificates' => $certs ?: null]);
+            }
+        }
+
+        return response()->json(['success' => true]);
+    }
 
     public function deleteFiles(Request $request) {
 

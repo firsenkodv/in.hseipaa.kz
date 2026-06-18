@@ -90,6 +90,7 @@ class CabinetMessageViewModel
             'user_id'    => $dto->user_id,
             'staff_type' => $dto->staff_type,
             'staff_id'   => $dto->staff_id,
+            'report_id'  => $dto->report_id,
         ]);
 
         return $conversation->messages()->create([
@@ -97,6 +98,113 @@ class CabinetMessageViewModel
             'sender_id'   => $dto->sender_id,
             'body'        => $dto->body,
         ]);
+    }
+
+    /**
+     * Получить все сообщения переписки по конкретному отчёту.
+     */
+    public function forReport(int $userId, string $staffType, int $staffId, int $reportId): Collection
+    {
+        $conversation = CabinetConversation::where([
+            'user_id'    => $userId,
+            'staff_type' => $staffType,
+            'staff_id'   => $staffId,
+            'report_id'  => $reportId,
+        ])->first();
+
+        if (!$conversation) {
+            return collect();
+        }
+
+        return $conversation->messages()
+            ->with('sender')
+            ->orderBy('created_at')
+            ->get();
+    }
+
+    /**
+     * Количество непрочитанных сообщений от менеджера/стафа по каждому отчёту пользователя.
+     * Возвращает массив [report_id => count] только для отчётов с непрочитанными.
+     */
+    public function unreadCountsByReportsForUser(array $reportIds, int $userId): array
+    {
+        if (empty($reportIds)) {
+            return [];
+        }
+
+        return CabinetConversation::whereIn('report_id', $reportIds)
+            ->where('user_id', $userId)
+            ->join('cabinet_messages', 'cabinet_conversations.id', '=', 'cabinet_messages.cabinet_conversation_id')
+            ->where('cabinet_messages.sender_type', '!=', \App\Models\User::class)
+            ->whereNull('cabinet_messages.read_at')
+            ->groupBy('cabinet_conversations.report_id')
+            ->selectRaw('cabinet_conversations.report_id, COUNT(cabinet_messages.id) as cnt')
+            ->pluck('cnt', 'report_id')
+            ->map(fn($v) => (int) $v)
+            ->toArray();
+    }
+
+    /**
+     * Количество непрочитанных сообщений от пользователей по каждому отчёту.
+     * Возвращает массив [report_id => count] только для отчётов с непрочитанными.
+     */
+    public function unreadCountsByReports(array $reportIds, string $staffType, int $staffId): array
+    {
+        if (empty($reportIds)) {
+            return [];
+        }
+
+        return CabinetConversation::whereIn('report_id', $reportIds)
+            ->where('staff_type', $staffType)
+            ->where('staff_id', $staffId)
+            ->join('cabinet_messages', 'cabinet_conversations.id', '=', 'cabinet_messages.cabinet_conversation_id')
+            ->where('cabinet_messages.sender_type', \App\Models\User::class)
+            ->whereNull('cabinet_messages.read_at')
+            ->groupBy('cabinet_conversations.report_id')
+            ->selectRaw('cabinet_conversations.report_id, COUNT(cabinet_messages.id) as cnt')
+            ->pluck('cnt', 'report_id')
+            ->map(fn($v) => (int) $v)
+            ->toArray();
+    }
+
+    /**
+     * Пометить сообщения от пользователя в переписке по конкретному отчёту как прочитанные менеджером.
+     */
+    public function markReadByStaffForReport(int $userId, string $staffType, int $staffId, int $reportId): void
+    {
+        $conversationIds = CabinetConversation::where('user_id', $userId)
+            ->where('staff_type', $staffType)
+            ->where('staff_id', $staffId)
+            ->where('report_id', $reportId)
+            ->pluck('id');
+
+        if ($conversationIds->isEmpty()) {
+            return;
+        }
+
+        CabinetMessage::whereIn('cabinet_conversation_id', $conversationIds)
+            ->where('sender_type', \App\Models\User::class)
+            ->whereNull('read_at')
+            ->update(['read_at' => now()]);
+    }
+
+    /**
+     * Пометить сообщения в переписке по отчёту как прочитанные пользователем.
+     */
+    public function markReadByUserForReport(int $userId, int $reportId): void
+    {
+        $conversationIds = CabinetConversation::where('user_id', $userId)
+            ->where('report_id', $reportId)
+            ->pluck('id');
+
+        if ($conversationIds->isEmpty()) {
+            return;
+        }
+
+        CabinetMessage::whereIn('cabinet_conversation_id', $conversationIds)
+            ->where('sender_type', '!=', \App\Models\User::class)
+            ->whereNull('read_at')
+            ->update(['read_at' => now()]);
     }
 
     /**
@@ -118,6 +226,7 @@ class CabinetMessageViewModel
     public function allMessagesForUser(int $userId, string $order = 'asc'): Collection
     {
         $conversationIds = CabinetConversation::where('user_id', $userId)
+            ->where('report_id', 0)
             ->pluck('id');
 
         if ($conversationIds->isEmpty()) {
@@ -140,6 +249,7 @@ class CabinetMessageViewModel
             'user_id'    => $userId,
             'staff_type' => $staffType,
             'staff_id'   => $staffId,
+            'report_id'  => 0,
         ])->first();
 
         if (!$conversation) {

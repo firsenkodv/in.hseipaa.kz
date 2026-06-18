@@ -70,3 +70,26 @@ export function datepicker_contract_period() {
         });
     }
 }
+
+export function datepicker_report_period() {
+    const wrapper = document.getElementById('report-period');
+    if (wrapper) {
+        const rangePicker = new DateRangePicker(wrapper, {
+            language: 'ru',
+            format: 'dd.mm.yyyy',
+            autohide: true,
+        });
+
+        const inputs = wrapper.querySelectorAll('input');
+        const dateFrom = inputs[0]?.dataset.date;
+        const dateTo   = inputs[1]?.dataset.date;
+        if (dateFrom && dateTo) {
+            const parse = (s) => { const [d, m, y] = s.split('.'); return new Date(y, m - 1, d); };
+            rangePicker.setDates(parse(dateFrom), parse(dateTo));
+        }
+
+        inputs.forEach(function(elem) {
+            topPositionLabel(elem);
+        });
+    }
+}

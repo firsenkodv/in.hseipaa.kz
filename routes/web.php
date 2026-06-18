@@ -15,6 +15,7 @@ use App\Http\Controllers\Public\PublicContractController;
 use App\Http\Controllers\Cabinet\CabinetManager\CabinetManagerController;
 use App\Http\Controllers\Cabinet\CabinetRop\CabinetROPController;
 use App\Http\Controllers\Cabinet\CabinetUser\CabinetUserController;
+use App\Http\Controllers\Cabinet\Message\ReportChatController;
 use App\Http\Controllers\Cabinet\Message\ToManager;
 use App\Http\Controllers\Cabinet\Message\ToUser;
 use App\Http\Controllers\Company\CompanyController;
@@ -89,6 +90,14 @@ Route::controller(FancyBoxSendingFromFormController::class)->group(function () {
     Route::post('/admin_contract_update', 'fancyboxAdminContractUpdate');
     Route::post('/admin_user_create', 'fancyboxAdminUserCreate');
     Route::post('/admin_training_update', 'fancyboxAdminTrainingUpdate');
+    Route::post('/user_report_create', 'fancyboxUserReportCreate')
+        ->middleware(UserMiddleware::class);
+    Route::post('/user_report_update', 'fancyboxUserReportUpdate')
+        ->middleware(UserMiddleware::class);
+    Route::post('/manager_report_update', 'fancyboxManagerReportUpdate')
+        ->middleware(IsManagerMiddleware::class);
+    Route::post('/manager_report_accept', 'fancyboxManagerReportAccept')
+        ->middleware(IsManagerMiddleware::class);
 
 });
 
@@ -366,6 +375,11 @@ Route::controller(CabinetUserController::class)->group(function () {
         ->name('cabinet_contracts')
         ->middleware(UserMiddleware::class);
 
+    /** отчёты */
+    Route::get('/cabinet/reports', 'cabinetReports')
+        ->name('cabinet_reports')
+        ->middleware(UserMiddleware::class);
+
 });
 
 /** оплата тарифа (BerekeBank) **/
@@ -424,6 +438,12 @@ Route::controller(AxiosUploadFilesController::class)->group(function () {
         ->middleware(AuthAnyMiddleware::class);
     Route::post('/cabinet.delete.files', 'deleteFiles')
         ->middleware(AuthAnyMiddleware::class);
+
+    /** файлы отчётов */
+    Route::post('/cabinet.upload.report.files', 'uploadReportFiles')
+        ->middleware(UserMiddleware::class);
+    Route::post('/cabinet.delete.report.files', 'deleteReportFiles')
+        ->middleware(UserMiddleware::class);
 });
 /** ** загрузка файлов  **   **/
 /** ** новый токен ** **/
@@ -671,6 +691,11 @@ Route::controller(CabinetManagerController::class)->group(function () {
         ->middleware(IsManagerMiddleware::class)
         ->name('manager_contracts');
 
+    /** отчёты */
+    Route::get('/cabinet-manager/reports', 'managerReports')
+        ->middleware(IsManagerMiddleware::class)
+        ->name('manager_reports');
+
     /** logout */
     Route::post('/logout_manager', 'logoutManager')
         ->middleware(IsManagerMiddleware::class)
@@ -685,6 +710,16 @@ Route::controller(CabinetManagerController::class)->group(function () {
 /**
  * Общий для РОМ м менеджером
  */
+
+/** Чат по отчётам */
+Route::controller(ReportChatController::class)->group(function () {
+    Route::post('/report-chat/manager-send', 'managerSend')
+        ->middleware(IsManagerMiddleware::class)
+        ->name('report_chat_manager_send');
+    Route::post('/report-chat/user-send', 'userSend')
+        ->middleware(UserMiddleware::class)
+        ->name('report_chat_user_send');
+});
 
 Route::controller(ToUser::class)->group(function () {
     Route::post('/cabinet/to_user_message', 'toUser')

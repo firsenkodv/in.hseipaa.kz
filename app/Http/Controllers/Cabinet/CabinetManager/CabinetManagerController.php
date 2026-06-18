@@ -7,7 +7,10 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\CabinetManager\ManagerUpdateRequest;
 use App\Http\Requests\CabinetUser\UserUpdateRequest;
 use App\Models\Contract;
+use App\Models\Manager;
+use App\Models\Report;
 use App\Models\User;
+use Domain\CabinetMessage\ViewModels\CabinetMessageViewModel;
 use Domain\Manager\ViewModels\ManagerViewModel;
 use Domain\ROP\ViewModels\ROPViewModel;
 use Domain\User\ViewModels\UserViewModel;
@@ -220,6 +223,31 @@ class CabinetManagerController extends Controller
         return view('cabinet.cabinet_manager.contracts.items', [
             'm'         => $m,
             'contracts' => $contracts,
+        ]);
+    }
+
+    /**
+     * Отчёты пользователей менеджера.
+     */
+    public function managerReports(): View
+    {
+        $m = ManagerViewModel::make()->m(session()->get('m'));
+
+        $reports = Report::with('user')
+            ->whereHas('user', fn($q) => $q->where('manager_id', $m->id))
+            ->orderByDesc('created_at')
+            ->paginate(config('site.constants.paginate'));
+
+        $unreadCounts = CabinetMessageViewModel::make()->unreadCountsByReports(
+            $reports->pluck('id')->toArray(),
+            Manager::class,
+            $m->id,
+        );
+
+        return view('cabinet.cabinet_manager.reports.items', [
+            'm'            => $m,
+            'reports'      => $reports,
+            'unreadCounts' => $unreadCounts,
         ]);
     }
 

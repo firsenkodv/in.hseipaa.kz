@@ -6,7 +6,11 @@ use App\Events\Form\FancyBoxSelectTarifEvent;
 use App\Events\Form\FancyBoxSendingFromFormEvent;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Cabinet\ContractSignRequest;
+use App\Http\Requests\Cabinet\UserReportCreateRequest;
+use App\Http\Requests\Cabinet\UserReportUpdateRequest;
 use App\Http\Requests\CabinetAdmin\AdminContractCreateRequest;
+use App\Http\Requests\CabinetManager\ManagerReportAcceptRequest;
+use App\Http\Requests\CabinetManager\ManagerReportUpdateRequest;
 use App\Http\Requests\CabinetAdmin\AdminContractUpdateRequest;
 use App\Http\Requests\CabinetAdmin\AdminTrainingUpdateRequest;
 use App\Http\Requests\CabinetAdmin\AdminUserCreateRequest;
@@ -14,6 +18,7 @@ use App\Http\Requests\RequestCallMeBlueRequest;
 use App\Mail\Contract\ContractCreatedMail;
 use App\Mail\Contract\ContractSignedMail;
 use App\Models\Contract;
+use App\Models\Report;
 use App\Models\Training;
 use App\Models\User;
 use Carbon\Carbon;
@@ -24,6 +29,7 @@ use App\Http\Requests\RequestForTrainingRequest;
 use App\Http\Requests\SendSubscriptionMeRequest;
 use App\Mail\Auth\AdminNewUserNotificationMail;
 use App\Mail\Auth\UserRegisteredMail;
+use Domain\Manager\ViewModels\ManagerViewModel;
 use Domain\SavedFormData\ViewModel\SavedFormDataViewModel;
 use Domain\User\ViewModels\UserViewModel;
 use Illuminate\Http\Request;
@@ -242,6 +248,101 @@ class FancyBoxSendingFromFormController extends Controller
         $training->update(['title' => $request->input('title')]);
 
         return response()->json(['response' => $request->all()], 200);
+    }
+
+    /** создание отчёта пользователем */
+    public function fancyboxUserReportCreate(UserReportCreateRequest $request): \Illuminate\Http\JsonResponse
+    {
+        $user = auth()->user();
+
+        $certData = null;
+        if ($request->input('certificates')) {
+            $decoded = json_decode($request->input('certificates'), true);
+            $certData = is_array($decoded) && count($decoded) ? $decoded : null;
+        }
+
+        Report::create([
+            'user_id'         => $user->id,
+            'period_from'     => Carbon::createFromFormat('d.m.Y', $request->input('report_period_from')),
+            'period_to'       => Carbon::createFromFormat('d.m.Y', $request->input('report_period_to')),
+            'report_type'     => trim($request->input('report_type')),
+            'discipline_name' => trim($request->input('discipline_name')),
+            'school_name'     => trim($request->input('school_name')),
+            'certificates'    => $certData,
+        ]);
+
+        return response()->json(['response' => ['report_created' => true]], 200);
+    }
+
+    /** редактирование отчёта пользователем */
+    public function fancyboxUserReportUpdate(UserReportUpdateRequest $request): \Illuminate\Http\JsonResponse
+    {
+        $user   = auth()->user();
+        $report = Report::where('id', $request->integer('report_id'))
+            ->where('user_id', $user->id)
+            ->firstOrFail();
+
+        $certData = $report->certificates ? $report->certificates->toArray() : null;
+        if ($request->input('certificates') !== null && $request->input('certificates') !== '') {
+            $decoded  = json_decode($request->input('certificates'), true);
+            $certData = is_array($decoded) && count($decoded) ? $decoded : null;
+        }
+
+        $report->update([
+            'period_from'     => Carbon::createFromFormat('d.m.Y', $request->input('report_period_from')),
+            'period_to'       => Carbon::createFromFormat('d.m.Y', $request->input('report_period_to')),
+            'report_type'     => trim($request->input('report_type')),
+            'discipline_name' => trim($request->input('discipline_name')),
+            'school_name'     => trim($request->input('school_name')),
+            'certificates'    => $certData,
+        ]);
+
+        return response()->json(['response' => [
+            'report_updated' => true,
+            'report_id'      => $report->id,
+        ]], 200);
+    }
+
+    /** обновление отчёта менеджером */
+    public function fancyboxManagerReportUpdate(ManagerReportUpdateRequest $request): \Illuminate\Http\JsonResponse
+    {
+        $m = ManagerViewModel::make()->m(session('m'));
+        $report = Report::with('user')
+            ->where('id', $request->integer('report_id'))
+            ->where('accepted', false)
+            ->whereHas('user', fn($q) => $q->where('manager_id', $m->id))
+            ->firstOrFail();
+
+        $report->update([
+            'period_from'     => Carbon::createFromFormat('d.m.Y', $request->input('report_period_from')),
+            'period_to'       => Carbon::createFromFormat('d.m.Y', $request->input('report_period_to')),
+            'report_type'     => trim($request->input('report_type')),
+            'discipline_name' => trim($request->input('discipline_name')),
+            'school_name'     => trim($request->input('school_name')),
+        ]);
+
+        return response()->json(['response' => [
+            'manager_report_updated' => true,
+            'report_id'              => $report->id,
+        ]], 200);
+    }
+
+    /** принятие отчёта менеджером */
+    public function fancyboxManagerReportAccept(ManagerReportAcceptRequest $request): \Illuminate\Http\JsonResponse
+    {
+        $m = ManagerViewModel::make()->m(session('m'));
+        $report = Report::with('user')
+            ->where('id', $request->integer('report_id'))
+            ->where('accepted', false)
+            ->whereHas('user', fn($q) => $q->where('manager_id', $m->id))
+            ->firstOrFail();
+
+        $report->update(['accepted' => true]);
+
+        return response()->json(['response' => [
+            'manager_report_accepted' => true,
+            'report_id'               => $report->id,
+        ]], 200);
     }
 
     /** перезвоните мне с голубой, горизонтальной, сквозной формы  */

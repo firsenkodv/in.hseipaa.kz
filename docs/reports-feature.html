@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Функционал «Отчёты об обучении»</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-size: 15px;
+    line-height: 1.6;
+    color: #1a1a1a;
+    background: #f5f6f8;
+    margin: 0;
+    padding: 0;
+  }
+  .layout {
+    display: flex;
+    min-height: 100vh;
+  }
+  /* Sidebar */
+  .sidebar {
+    width: 260px;
+    flex-shrink: 0;
+    background: #1e2535;
+    color: #c8d0e0;
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    overflow-y: auto;
+    padding: 28px 0 40px;
+  }
+  .sidebar__logo {
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .08em;
+    color: #6b7faa;
+    padding: 0 24px 20px;
+    border-bottom: 1px solid #2a3248;
+    margin-bottom: 16px;
+  }
+  .sidebar__nav a {
+    display: block;
+    padding: 7px 24px;
+    color: #c8d0e0;
+    text-decoration: none;
+    font-size: 13.5px;
+    transition: background .15s, color .15s;
+    border-left: 3px solid transparent;
+  }
+  .sidebar__nav a:hover {
+    background: #252d40;
+    color: #fff;
+    border-left-color: #4e7df5;
+  }
+  /* Main */
+  .main {
+    flex: 1;
+    padding: 48px 56px 80px;
+    max-width: 960px;
+  }
+  h1 {
+    font-size: 28px;
+    font-weight: 800;
+    color: #111;
+    margin: 0 0 6px;
+  }
+  .subtitle {
+    color: #667085;
+    font-size: 15px;
+    margin-bottom: 48px;
+  }
+  h2 {
+    font-size: 20px;
+    font-weight: 700;
+    color: #111;
+    margin: 48px 0 16px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid #e8eaf0;
+  }
+  h3 {
+    font-size: 16px;
+    font-weight: 700;
+    color: #2c3656;
+    margin: 28px 0 10px;
+  }
+  p { margin: 0 0 12px; }
+  a { color: #4e7df5; text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  /* Table */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 16px 0 24px;
+    font-size: 14px;
+  }
+  th {
+    background: #f0f2f7;
+    text-align: left;
+    padding: 9px 14px;
+    font-weight: 600;
+    color: #444;
+    border-bottom: 2px solid #dde1ea;
+  }
+  td {
+    padding: 8px 14px;
+    border-bottom: 1px solid #eceef3;
+    vertical-align: top;
+  }
+  tr:last-child td { border-bottom: none; }
+  tr:hover td { background: #fafbfd; }
+  /* Code */
+  code {
+    font-family: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace;
+    font-size: 13px;
+    background: #eef0f6;
+    padding: 2px 6px;
+    border-radius: 4px;
+    color: #c0392b;
+  }
+  pre {
+    background: #1e2535;
+    color: #c8d8ff;
+    padding: 20px 24px;
+    border-radius: 8px;
+    overflow-x: auto;
+    font-size: 13px;
+    line-height: 1.6;
+    margin: 12px 0 24px;
+  }
+  pre code { background: none; color: inherit; padding: 0; }
+  /* Badges */
+  .badge {
+    display: inline-block;
+    padding: 2px 10px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+  .badge-green  { background: rgba(45,172,106,.12); color: #2dac6a; }
+  .badge-orange { background: rgba(255,147,30,.12);  color: #FF931E; }
+  .badge-blue   { background: rgba(78,125,245,.1);   color: #4e7df5; }
+  .badge-red    { background: rgba(239,83,63,.1);    color: #ef533f; }
+  /* Cards */
+  .card {
+    background: #fff;
+    border: 1px solid #e4e7ef;
+    border-radius: 10px;
+    padding: 20px 24px;
+    margin-bottom: 16px;
+  }
+  /* Flow */
+  .flow {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    flex-wrap: wrap;
+    margin: 16px 0 24px;
+  }
+  .flow__step {
+    background: #fff;
+    border: 1.5px solid #dde1ea;
+    border-radius: 8px;
+    padding: 12px 18px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #2c3656;
+    white-space: nowrap;
+  }
+  .flow__arrow {
+    padding: 0 10px;
+    color: #aab;
+    font-size: 20px;
+    font-weight: 300;
+  }
+  .flow__step--accepted {
+    border-color: #2dac6a;
+    color: #2dac6a;
+    background: rgba(45,172,106,.06);
+  }
+  .flow__step--locked {
+    border-color: #667085;
+    color: #667085;
+    background: #f8f9fb;
+  }
+  /* Role sections */
+  .role-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 8px;
+  }
+  .role-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    flex-shrink: 0;
+  }
+  .role-icon--user    { background: rgba(78,125,245,.1); }
+  .role-icon--manager { background: rgba(45,172,106,.1); }
+  /* Endpoints */
+  .endpoint {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    padding: 8px 14px;
+    border-radius: 6px;
+    background: #f8f9fb;
+    margin-bottom: 6px;
+    font-size: 13.5px;
+  }
+  .method {
+    font-weight: 700;
+    font-size: 12px;
+    padding: 2px 8px;
+    border-radius: 4px;
+    flex-shrink: 0;
+  }
+  .method-get  { background: rgba(45,172,106,.15); color: #2dac6a; }
+  .method-post { background: rgba(78,125,245,.15); color: #4e7df5; }
+  .endpoint code { background: none; padding: 0; color: #1a1a1a; }
+  /* Unread badge example */
+  .unread-badge-demo {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 20px;
+    height: 20px;
+    padding: 0 5px;
+    border-radius: 10px;
+    background: #ef533f;
+    color: #fff;
+    font-size: 12px;
+    font-weight: 700;
+    margin-left: 4px;
+    vertical-align: middle;
+  }
+  hr { border: none; border-top: 1px solid #e4e7ef; margin: 40px 0; }
+</style>
+</head>
+<body>
+<div class="layout">
+
+  <!-- Sidebar -->
+  <nav class="sidebar">
+    <div class="sidebar__logo">Документация</div>
+    <div class="sidebar__nav">
+      <a href="#overview">1. Обзор</a>
+      <a href="#database">2. База данных</a>
+      <a href="#lifecycle">3. Жизненный цикл</a>
+      <a href="#user">4. Роль: Пользователь</a>
+      <a href="#manager">5. Роль: Менеджер</a>
+      <a href="#chat">6. Чат по отчёту</a>
+      <a href="#unread">7. Счётчики непрочитанных</a>
+      <a href="#routes">8. Маршруты</a>
+      <a href="#controllers">9. Контроллеры</a>
+      <a href="#javascript">10. JavaScript</a>
+      <a href="#files">11. Структура файлов</a>
+    </div>
+  </nav>
+
+  <!-- Main content -->
+  <main class="main">
+
+    <h1>Отчёты об обучении</h1>
+    <p class="subtitle">Подача, модерация и переписка по отчётам — полное техническое описание</p>
+
+    <!-- 1. Обзор -->
+    <h2 id="overview">1. Обзор</h2>
+    <p>Функционал позволяет пользователям подавать отчёты об обучении, а менеджерам — модерировать их. К каждому отчёту привязан отдельный чат между пользователем и его менеджером.</p>
+    <table>
+      <thead><tr><th>Роль</th><th>Возможности</th></tr></thead>
+      <tbody>
+        <tr><td>Пользователь</td><td>Создать, редактировать (до принятия), просматривать отчёты, вести переписку с менеджером</td></tr>
+        <tr><td>Менеджер</td><td>Просматривать отчёты своих пользователей, редактировать поля, принять отчёт, вести переписку</td></tr>
+      </tbody>
+    </table>
+
+    <!-- 2. База данных -->
+    <h2 id="database">2. База данных</h2>
+    <h3>Таблица <code>reports</code></h3>
+    <table>
+      <thead><tr><th>Колонка</th><th>Тип</th><th>Описание</th></tr></thead>
+      <tbody>
+        <tr><td><code>id</code></td><td>bigint PK</td><td>—</td></tr>
+        <tr><td><code>user_id</code></td><td>bigint FK → users</td><td>Автор отчёта</td></tr>
+        <tr><td><code>period_from</code></td><td>date</td><td>Начало периода обучения</td></tr>
+        <tr><td><code>period_to</code></td><td>date</td><td>Конец периода обучения</td></tr>
+        <tr><td><code>report_type</code></td><td>string</td><td>Вид отчёта (обязательные дисциплины)</td></tr>
+        <tr><td><code>discipline_name</code></td><td>string</td><td>Наименование дисциплины</td></tr>
+        <tr><td><code>school_name</code></td><td>string</td><td>Наименование учебного заведения</td></tr>
+        <tr><td><code>certificates</code></td><td>json</td><td>Массив PDF-файлов: <code>[{json_file, url}]</code></td></tr>
+        <tr><td><code>accepted</code></td><td>boolean</td><td><code>false</code> — на рассмотрении, <code>true</code> — принят и заблокирован</td></tr>
+        <tr><td><code>created_at</code> / <code>updated_at</code></td><td>timestamps</td><td>—</td></tr>
+      </tbody>
+    </table>
+
+    <h3>Расширение <code>cabinet_conversations</code></h3>
+    <p>Добавлена колонка <code>report_id</code>:</p>
+    <table>
+      <thead><tr><th>Значение</th><th>Смысл</th></tr></thead>
+      <tbody>
+        <tr><td><code>report_id = 0</code></td><td>Общая переписка (без привязки к отчёту)</td></tr>
+        <tr><td><code>report_id > 0</code></td><td>Переписка привязана к конкретному отчёту</td></tr>
+      </tbody>
+    </table>
+    <p>Уникальный индекс: <code>(user_id, staff_type, staff_id, report_id)</code> — одна переписка на пару пользователь–менеджер для каждого отчёта.</p>
+
+    <h3>Миграции</h3>
+    <div class="card">
+      <code>2026_06_17_000001_create_reports_table.php</code><br>
+      <code>2026_06_18_000001_add_accepted_to_reports_table.php</code><br>
+      <code>2026_06_18_000002_add_report_id_to_cabinet_conversations_table.php</code>
+    </div>
+
+    <!-- 3. Жизненный цикл -->
+    <h2 id="lifecycle">3. Жизненный цикл отчёта</h2>
+    <div class="flow">
+      <div class="flow__step">Создан пользователем</div>
+      <div class="flow__arrow">→</div>
+      <div class="flow__step"><span class="badge badge-orange">На рассмотрении</span><br><small style="font-weight:400;color:#888">accepted = false</small></div>
+      <div class="flow__arrow">→</div>
+      <div class="flow__step flow__step--accepted"><span class="badge badge-green">Принят</span><br><small style="font-weight:400">accepted = true</small></div>
+      <div class="flow__arrow">→</div>
+      <div class="flow__step flow__step--locked">🔒 Редактирование заблокировано</div>
+    </div>
+    <p>После принятия ни пользователь, ни менеджер не могут изменять данные отчёта. Чат остаётся доступным.</p>
+
+    <!-- 4. Пользователь -->
+    <h2 id="user">4. Роль: Пользователь</h2>
+
+    <h3>4.1 Страница отчётов</h3>
+    <div class="endpoint"><span class="method method-get">GET</span><code>/cabinet/reports</code> &mdash; список отчётов пользователя</div>
+    <p>Для каждого отчёта отображаются период, вид, дисциплина, заведение, файлы сертификатов. Кнопки:</p>
+    <ul>
+      <li><strong>«Редактировать»</strong> — только при <code>accepted = false</code></li>
+      <li><strong>«Переписка»</strong> — всегда, с красным бейджем <span class="unread-badge-demo">3</span> числа непрочитанных от менеджера</li>
+    </ul>
+
+    <h3>4.2 Создание отчёта</h3>
+    <p>Открывается через Fancybox (<code>data-form="user_report_create"</code>).</p>
+    <div class="endpoint"><span class="method method-post">POST</span><code>/user_report_create</code></div>
+    <p>Поля: период (датапикер), вид отчёта, дисциплина, заведение, PDF-сертификаты (до 4 файлов, до 15 МБ каждый).</p>
+
+    <h3>4.3 Редактирование отчёта</h3>
+    <p>Открывается через Fancybox (<code>data-form="user_report_edit"</code>, <code>data-transfer='{"report_id": N}'</code>). Доступно только при <code>accepted = false</code>.</p>
+    <div class="endpoint"><span class="method method-post">POST</span><code>/user_report_update</code></div>
+
+    <h3>4.4 Файлы сертификатов</h3>
+    <div class="endpoint"><span class="method method-post">POST</span><code>/cabinet.upload.report.files</code> &mdash; загрузка (только PDF, макс. 15 МБ, до 4 файлов)</div>
+    <div class="endpoint"><span class="method method-post">POST</span><code>/cabinet.delete.report.files</code> &mdash; удаление</div>
+
+    <!-- 5. Менеджер -->
+    <h2 id="manager">5. Роль: Менеджер</h2>
+
+    <h3>5.1 Страница отчётов</h3>
+    <div class="endpoint"><span class="method method-get">GET</span><code>/cabinet-manager/reports</code> &mdash; отчёты пользователей менеджера</div>
+    <p>Для каждого отчёта отображаются имя пользователя, период, данные и статус:</p>
+    <ul>
+      <li><span class="badge badge-green">Принят</span> или <span class="badge badge-orange">На рассмотрении</span></li>
+      <li><strong>«Редактировать»</strong> — только при <code>accepted = false</code></li>
+      <li>Иконка чата с красным бейджем <span class="unread-badge-demo">2</span> — если есть непрочитанные от пользователя</li>
+    </ul>
+
+    <h3>5.2 Просмотр и редактирование (модал)</h3>
+    <p>Открывается через Fancybox (<code>data-form="manager_report_view"</code>). При открытии сообщения от пользователя автоматически помечаются прочитанными.</p>
+    <table>
+      <thead><tr><th>Состояние отчёта</th><th>Что показывается в модале</th></tr></thead>
+      <tbody>
+        <tr><td><span class="badge badge-green">Принят</span></td><td>Уведомление «принят и не может быть изменён», поля read-only, чат доступен</td></tr>
+        <tr><td><span class="badge badge-orange">На рассмотрении</span></td><td>Редактируемая форма, файлы — только скачивание, кнопки «Сохранить» и «Принять»</td></tr>
+      </tbody>
+    </table>
+
+    <h3>5.3 Сохранение изменений</h3>
+    <div class="endpoint"><span class="method method-post">POST</span><code>/manager_report_update</code> &mdash; редактирование полей отчёта</div>
+    <p>Менеджер может изменить: период, вид отчёта, дисциплину, заведение. Файлы не редактируются.</p>
+
+    <h3>5.4 Принятие отчёта</h3>
+    <div class="endpoint"><span class="method method-post">POST</span><code>/manager_report_accept</code> &mdash; устанавливает accepted = true</div>
+    <p>После принятия редактирование заблокировано для обеих сторон навсегда.</p>
+
+    <!-- 6. Чат -->
+    <h2 id="chat">6. Чат по отчёту</h2>
+    <p>Каждый отчёт имеет собственную переписку. Сообщения отправляются без перезагрузки страницы (AJAX) и сразу добавляются в DOM.</p>
+
+    <h3>6.1 Со стороны менеджера</h3>
+    <p>Расположен в нижней части модала <code>manager_report_view</code>. Доступен всегда, в том числе для принятых отчётов.</p>
+    <div class="endpoint"><span class="method method-post">POST</span><code>/report-chat/manager-send</code> &mdash; параметры: report_id, user_id, body (до 5000 символов)</div>
+
+    <h3>6.2 Со стороны пользователя</h3>
+    <p>Открывается отдельным модалом (<code>data-form="report_chat_user"</code>). При открытии сообщения от менеджера помечаются прочитанными.</p>
+    <div class="endpoint"><span class="method method-post">POST</span><code>/report-chat/user-send</code> &mdash; параметры: report_id, body (до 5000 символов)</div>
+
+    <h3>6.3 Визуальное оформление сообщений</h3>
+    <table>
+      <thead><tr><th>Отправитель</th><th>Выравнивание</th><th>Стиль</th></tr></thead>
+      <tbody>
+        <tr><td>Менеджер</td><td>Слева</td><td>Синяя левая граница, голубой фон</td></tr>
+        <tr><td>Пользователь</td><td>Справа</td><td>Серая правая граница, светло-серый фон</td></tr>
+      </tbody>
+    </table>
+
+    <!-- 7. Счётчики -->
+    <h2 id="unread">7. Счётчики непрочитанных сообщений</h2>
+
+    <h3>У пользователя — кнопка «Переписка»</h3>
+    <p>Показывает количество непрочитанных сообщений <strong>от менеджера</strong> по данному отчёту. Сбрасывается при открытии чата.</p>
+    <pre><code>CabinetMessageViewModel::unreadCountsByReportsForUser(
+    array $reportIds,
+    int   $userId
+): array  // [report_id => count]</code></pre>
+
+    <h3>У менеджера — иконка чата</h3>
+    <p>Показывает количество непрочитанных сообщений <strong>от пользователя</strong> по данному отчёту. Сбрасывается при открытии модала отчёта.</p>
+    <pre><code>CabinetMessageViewModel::unreadCountsByReports(
+    array  $reportIds,
+    string $staffType,  // Manager::class
+    int    $staffId
+): array  // [report_id => count]</code></pre>
+
+    <!-- 8. Маршруты -->
+    <h2 id="routes">8. Маршруты (Routes)</h2>
+    <table>
+      <thead><tr><th>Метод</th><th>URI</th><th>Контроллер::метод</th><th>Middleware</th></tr></thead>
+      <tbody>
+        <tr><td><span class="badge badge-green">GET</span></td><td><code>/cabinet/reports</code></td><td><code>CabinetUserController::cabinetReports</code></td><td>UserMiddleware</td></tr>
+        <tr><td><span class="badge badge-blue">POST</span></td><td><code>/user_report_create</code></td><td><code>FancyBoxSendingFromFormController::fancyboxUserReportCreate</code></td><td>UserMiddleware</td></tr>
+        <tr><td><span class="badge badge-blue">POST</span></td><td><code>/user_report_update</code></td><td><code>FancyBoxSendingFromFormController::fancyboxUserReportUpdate</code></td><td>UserMiddleware</td></tr>
+        <tr><td><span class="badge badge-blue">POST</span></td><td><code>/cabinet.upload.report.files</code></td><td><code>AxiosUploadFilesController::uploadReportFiles</code></td><td>UserMiddleware</td></tr>
+        <tr><td><span class="badge badge-blue">POST</span></td><td><code>/cabinet.delete.report.files</code></td><td><code>AxiosUploadFilesController::deleteReportFiles</code></td><td>UserMiddleware</td></tr>
+        <tr><td><span class="badge badge-green">GET</span></td><td><code>/cabinet-manager/reports</code></td><td><code>CabinetManagerController::managerReports</code></td><td>IsManagerMiddleware</td></tr>
+        <tr><td><span class="badge badge-blue">POST</span></td><td><code>/manager_report_update</code></td><td><code>FancyBoxSendingFromFormController::fancyboxManagerReportUpdate</code></td><td>IsManagerMiddleware</td></tr>
+        <tr><td><span class="badge badge-blue">POST</span></td><td><code>/manager_report_accept</code></td><td><code>FancyBoxSendingFromFormController::fancyboxManagerReportAccept</code></td><td>IsManagerMiddleware</td></tr>
+        <tr><td><span class="badge badge-blue">POST</span></td><td><code>/report-chat/manager-send</code></td><td><code>ReportChatController::managerSend</code></td><td>IsManagerMiddleware</td></tr>
+        <tr><td><span class="badge badge-blue">POST</span></td><td><code>/report-chat/user-send</code></td><td><code>ReportChatController::userSend</code></td><td>UserMiddleware</td></tr>
+        <tr><td><span class="badge badge-blue">POST</span></td><td><code>/fancybox-ajax</code></td><td><code>FancyBoxController::fancybox</code></td><td>—</td></tr>
+      </tbody>
+    </table>
+
+    <!-- 9. Контроллеры -->
+    <h2 id="controllers">9. Контроллеры</h2>
+    <table>
+      <thead><tr><th>Файл</th><th>Назначение</th></tr></thead>
+      <tbody>
+        <tr><td><code>Cabinet/CabinetUser/CabinetUserController</code></td><td><code>cabinetReports()</code> — список отчётов пользователя</td></tr>
+        <tr><td><code>Cabinet/CabinetManager/CabinetManagerController</code></td><td><code>managerReports()</code> — список отчётов менеджера</td></tr>
+        <tr><td><code>FancyBox/FancyBoxController</code></td><td>Рендер модалов: <code>user_report_create</code>, <code>user_report_edit</code>, <code>manager_report_view</code>, <code>report_chat_user</code></td></tr>
+        <tr><td><code>FancyBox/FancyBoxSendingFromFormController</code></td><td>Сохранение данных всех форм из модалов</td></tr>
+        <tr><td><code>Cabinet/Message/ReportChatController</code></td><td>AJAX-отправка сообщений чата (менеджер и пользователь)</td></tr>
+        <tr><td><code>Axios/AxiosUploadFilesController</code></td><td>Загрузка и удаление PDF-файлов сертификатов</td></tr>
+      </tbody>
+    </table>
+
+    <!-- 10. JavaScript -->
+    <h2 id="javascript">10. JavaScript</h2>
+    <table>
+      <thead><tr><th>Файл</th><th>Назначение</th></tr></thead>
+      <tbody>
+        <tr><td><code>cabinet/uploadReportFiles.js</code></td><td>Загрузка/удаление PDF, превью файлов, клиентская валидация (тип, размер, количество)</td></tr>
+        <tr><td><code>cabinet/reportChat.js</code></td><td>AJAX-чат: отправка, добавление HTML-сообщения в DOM, автоскролл к последнему сообщению</td></tr>
+        <tr><td><code>fancybox/fancybox.js</code></td><td>Открытие модалов, обработка <code>form:success</code> — перезагрузка страницы после создания/сохранения/принятия отчёта</td></tr>
+      </tbody>
+    </table>
+
+    <!-- 11. Структура файлов -->
+    <h2 id="files">11. Структура файлов</h2>
+    <pre><code>app/
+├── Http/
+│   ├── Controllers/
+│   │   ├── Cabinet/
+│   │   │   ├── CabinetUser/CabinetUserController.php
+│   │   │   ├── CabinetManager/CabinetManagerController.php
+│   │   │   └── Message/ReportChatController.php
+│   │   └── FancyBox/
+│   │       ├── FancyBoxController.php
+│   │       └── FancyBoxSendingFromFormController.php
+│   └── Requests/
+│       ├── Cabinet/UserReportCreateRequest.php
+│       ├── Cabinet/UserReportUpdateRequest.php
+│       ├── CabinetManager/ManagerReportUpdateRequest.php
+│       └── CabinetManager/ManagerReportAcceptRequest.php
+└── Models/Report.php
+
+database/migrations/
+├── 2026_06_17_000001_create_reports_table.php
+├── 2026_06_18_000001_add_accepted_to_reports_table.php
+└── 2026_06_18_000002_add_report_id_to_cabinet_conversations_table.php
+
+resources/
+├── js/include/cabinet/
+│   ├── uploadReportFiles.js
+│   └── reportChat.js
+├── views/
+│   ├── cabinet/cabinet_user/cabinet_reports.blade.php
+│   ├── cabinet/cabinet_manager/reports/items.blade.php
+│   ├── fancybox/forms/cabinet/
+│   │   ├── user_report_create.blade.php
+│   │   ├── user_report_edit.blade.php
+│   │   ├── manager_report_view.blade.php
+│   │   └── report_chat_user.blade.php
+│   └── components/report-chat/message.blade.php
+└── css/components/cabinet-user/
+    └── cabinet-user-reports-component.scss
+
+src/Domain/CabinetMessage/
+├── DTOs/CabinetMessageDto.php
+└── ViewModels/CabinetMessageViewModel.php</code></pre>
+
+  </main>
+</div>
+</body>
+</html>

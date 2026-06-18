@@ -13,6 +13,7 @@ class CabinetConversation extends Model
         'user_id',
         'staff_type',
         'staff_id',
+        'report_id',
     ];
 
     /**
