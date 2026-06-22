@@ -29,10 +29,18 @@
                         <div class="form_title__h1">{{ $poll->title }}</div>
                         @if($response)
                             <div class="form_title__h2">Вы уже ответили на этот опрос. Ниже приведены ваши ответы.</div>
+                        @elseif($isExpired)
+                            <div class="form_title__h2 poll-expired-notice">Срок проведения опроса истёк. Вы не успели принять участие.</div>
                         @else
-                            <div class="form_title__h2">Пожалуйста, ответьте на все вопросы. Все поля обязательны.</div>
+                            <div class="form_title__h2">Пожалуйста, выберите ответ на каждый вопрос. Все поля обязательны.</div>
                         @endif
                     </div>
+
+                    @if($poll->expires_at)
+                        <div class="poll-deadline">
+                            Опрос проходит до: <strong>{{ $poll->expires_at->format('d.m.Y') }}</strong>
+                        </div>
+                    @endif
 
                     @php $questions = $poll->questions ?? []; @endphp
 
@@ -58,32 +66,57 @@
                             <a href="{{ route('cabinet_polls') }}" class="btn btn-big">← Назад к списку</a>
                         </div>
 
+                    @elseif($isExpired)
+
+                        {{-- Опрос истёк, пользователь не ответил --}}
+                        <div class="input-button" style="margin-top: 20px;">
+                            <a href="{{ route('cabinet_polls') }}" class="btn btn-big">← Назад к списку</a>
+                        </div>
+
                     @else
 
-                        {{-- Режим прохождения: форма --}}
+                        {{-- Режим прохождения: форма с вариантами ответа --}}
                         <form action="{{ route('cabinet_poll_submit', $poll->id) }}" method="POST">
                             @csrf
 
                             @foreach($questions as $index => $q)
+                                @php
+                                    $options    = collect($q['options'] ?? [])->pluck('option')->filter()->values();
+                                    $fieldName  = 'answers[' . $index . ']';
+                                    $errorKey   = 'answers.' . $index;
+                                    $oldValue   = old('answers.' . $index, '');
+                                    $optionsArr = $options->map(fn($opt) => ['id' => $opt, 'title' => $opt])->values()->toArray();
+                                @endphp
                                 <div class="poll-question">
                                     <div class="poll-question__text">{{ $index + 1 }}. {{ $q['question'] ?? '' }}</div>
-                                    <x-form.form-textarea
-                                        :name="'answers[' . $index . ']'"
-                                        label="Ваш ответ"
-                                        :value="old('answers.' . $index, '')"
-                                        :error="'answers.' . $index"
-                                        :required="true"
-                                    />
+
+                                    @if($options->isNotEmpty())
+                                        <div class="poll-select-wrap">
+                                            <x-form.form-select-cabinet
+                                                name="— Выберите вариант —"
+                                                :selected="$oldValue"
+                                                :value="$oldValue"
+                                                :options="$optionsArr"
+                                                :field_name="$fieldName"
+                                                :required="true"
+                                            />
+                                            @error($errorKey)
+                                                <div class="poll-select__error">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+                                    @else
+                                        <p class="grey">Варианты ответа не заданы.</p>
+                                    @endif
                                 </div>
                             @endforeach
 
                             <div class="input-button">
                                 <div class="cu_row_50">
                                     <div class="cu__col">
-                                        <button type="submit" class="button">Отправить ответы</button>
+                                        <button type="submit" class="btn btn-big btn-green" style="width:100%">Отправить ответы</button>
                                     </div>
                                     <div class="cu__col">
-                                        <a href="{{ route('cabinet_polls') }}" class="button white">Отмена</a>
+                                        <a href="{{ route('cabinet_polls') }}" class="btn btn-big btn-red" style="width:100%">Отмена</a>
                                     </div>
                                 </div>
                             </div>

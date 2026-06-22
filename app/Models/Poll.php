@@ -11,6 +11,8 @@ class Poll extends Model
         'title',
         'questions',
         'is_active',
+        'expires_at',
+        'results_file',
         'for_all',
         'city_ids',
         'has_tariff',
@@ -23,15 +25,24 @@ class Poll extends Model
     protected function casts(): array
     {
         return [
-            'questions'    => 'array',
-            'city_ids'     => 'array',
-            'is_active'    => 'boolean',
-            'for_all'      => 'boolean',
-            'has_tariff'   => 'boolean',
+            'questions'     => 'array',
+            'city_ids'      => 'array',
+            'expires_at'    => 'date',
+            'is_active'     => 'boolean',
+            'for_all'       => 'boolean',
+            'has_tariff'    => 'boolean',
             'is_specialist' => 'boolean',
-            'is_expert'    => 'boolean',
-            'is_lecturer'  => 'boolean',
+            'is_expert'     => 'boolean',
+            'is_lecturer'   => 'boolean',
         ];
+    }
+
+    public function isExpired(): bool
+    {
+        if (!$this->expires_at) {
+            return false;
+        }
+        return today()->gte($this->expires_at);
     }
 
     public function responses(): HasMany

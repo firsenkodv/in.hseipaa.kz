@@ -17,6 +17,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Validation\Rule;
 use Illuminate\View\View;
 
 class CabinetUserController extends Controller
@@ -254,12 +255,14 @@ class CabinetUserController extends Controller
                 abort(403);
             }
 
-            $response = $poll->responseByUser($user->id);
+            $response   = $poll->responseByUser($user->id);
+            $isExpired  = $poll->isExpired();
 
             return view('cabinet.cabinet_user.polls.show', [
-                'user'     => $user,
-                'poll'     => $poll,
-                'response' => $response,
+                'user'      => $user,
+                'poll'      => $poll,
+                'response'  => $response,
+                'isExpired' => $isExpired,
             ]);
 
         } catch (\Throwable $th) {
@@ -285,17 +288,36 @@ class CabinetUserController extends Controller
                 abort(403);
             }
 
+            if ($poll->isExpired()) {
+                return redirect()->route('cabinet_poll', $poll->id);
+            }
+
             if ($poll->hasRespondedBy($user->id)) {
                 return redirect()->route('cabinet_poll', $poll->id);
             }
 
             $questions = $poll->questions ?? [];
 
-            $rules = [];
+            $rules      = [];
+            $messages   = [];
+            $attributes = [];
+
             foreach ($questions as $index => $q) {
-                $rules["answers.{$index}"] = ['required', 'string', 'max:5000'];
+                $validOptions = collect($q['options'] ?? [])->pluck('option')->filter()->values()->toArray();
+                $num = $index + 1;
+
+                $attributes["answers.{$index}"] = "вопрос {$num}";
+                $messages["answers.{$index}.required"] = "Пожалуйста, выберите ответ на вопрос {$num}.";
+
+                if (!empty($validOptions)) {
+                    $rules["answers.{$index}"] = ['required', 'string', Rule::in($validOptions)];
+                    $messages["answers.{$index}.in"] = "Выберите один из предложенных вариантов для вопроса {$num}.";
+                } else {
+                    $rules["answers.{$index}"] = ['required', 'string'];
+                }
             }
-            $request->validate($rules);
+
+            $request->validate($rules, $messages, $attributes);
 
             DB::transaction(function () use ($poll, $user, $request, $questions) {
                 $response = PollResponse::create([

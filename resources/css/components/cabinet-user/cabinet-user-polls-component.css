@@ -48,26 +48,71 @@
   background: rgba(255, 147, 30, 0.12);
   color: #FF931E;
 }
+.user_contracts .user-polls__badge--expired {
+  background: rgba(102, 112, 133, 0.12);
+  color: #667085;
+}
 .user_contracts .user-polls__meta {
   font-size: 14px;
   color: #667085;
   margin-bottom: 14px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.user_contracts .user-polls__deadline--expired {
+  color: #EF533F;
 }
 .user_contracts .user-polls__actions {
   padding-top: 4px;
 }
 
+/* ───── Дата окончания на странице опроса ───── */
+.poll-deadline {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 16px;
+  font-weight: 500;
+  color: #095C9A;
+  background: rgba(9, 92, 154, 0.07);
+  border-left: 3px solid #095C9A;
+  border-radius: 4px;
+  padding: 8px 16px;
+  margin-bottom: 24px;
+}
+.poll-deadline strong {
+  font-weight: 700;
+}
+
+/* ───── Уведомление об истечении ───── */
+.poll-expired-notice {
+  color: #EF533F !important;
+}
+
 /* ───── Вопрос в форме ───── */
 .poll-question {
-  margin-bottom: 8px;
+  margin-bottom: 20px;
 }
 .poll-question__text {
   font-size: 16px;
   font-weight: 600;
   color: #282828;
-  margin-bottom: 4px;
+  margin-bottom: 10px;
   line-height: 1.5;
   padding: 0 0 0 5px;
+}
+
+/* ───── Обёртка select (использует существующий form-select-cabinet) ───── */
+.poll-select-wrap {
+  position: relative;
+}
+
+.poll-select__error {
+  font-size: 13px;
+  color: #EF533F;
+  margin-top: 5px;
+  padding-left: 4px;
 }
 
 /* ───── Просмотр ответов (read-only) ───── */
@@ -102,6 +147,10 @@
     flex-direction: column;
     align-items: flex-start;
     gap: 8px;
+  }
+  .user-polls__meta {
+    flex-direction: column;
+    gap: 4px;
   }
 }
 

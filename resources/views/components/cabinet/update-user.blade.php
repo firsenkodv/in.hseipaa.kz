@@ -56,7 +56,7 @@
     </div>
 
     @if($user->individual)
-        <div class="cu_row_50">
+        <div class="cu_row_100">
             <div class="cu__col">
                 <x-form.form-input
                     name="iin"
@@ -185,7 +185,7 @@
         />
 
 
-        <div class="cu_row_50">
+{{--        <div class="cu_row_50">
             <div class="cu__col">
 
                 <x-form.form-input
@@ -204,7 +204,7 @@
                 />
 
             </div>
-        </div>
+        </div>--}}
 
     @endif
 
