@@ -51,9 +51,14 @@ class UserViewModel
         $languageIds = $request->input('languages', []);
         /** Чекбоксы передают именно IDs **/
 
-        /** Получаем выбранные IDs направлений эксперта **/
-        $specialistIds = $request->input('specialists', []);
-        /** Чекбоксы передают именно IDs **/
+        /** Получаем выбранные IDs специалистов с данными сертификатов **/
+        $specialistIds        = $request->input('specialists', []);
+        $certificateNumbers   = $request->input('specialist_certificate_number', []);
+        $certificateDates     = $request->input('specialist_certificate_date', []);
+
+        /** Получаем выбранные IDs квалификаций с номерами документов **/
+        $qualificationIds       = $request->input('qualifications', []);
+        $qualificationDocuments = $request->input('qualification_custom_documents', []);
 
         /** Получаем выбранные IDs направлений эксперта **/
         $expertIds = $request->input('experts', []);
@@ -82,8 +87,27 @@ class UserViewModel
             /** Синхронизируем связи с направлениями языков **/
             $user->UserLanguage()->sync($languageIds);
 
-            /** Синхронизируем связи с направлениями cпециалистов **/
-            $user->UserSpecialist()->sync($specialistIds);
+            /** Синхронизируем специалистов с данными сертификатов в pivot **/
+            $specialistsData = [];
+            foreach ($specialistIds as $id) {
+                $date = $certificateDates[$id] ?? null;
+                $specialistsData[$id] = [
+                    'certificate_number' => $certificateNumbers[$id] ?? '',
+                    'certificate_date'   => $date
+                        ? \Carbon\Carbon::createFromFormat('d.m.Y', $date)->format('Y-m-d')
+                        : null,
+                ];
+            }
+            $user->UserSpecialist()->sync($specialistsData);
+
+            /** Синхронизируем квалификации с номерами документов в pivot **/
+            $qualificationsData = [];
+            foreach ($qualificationIds as $id) {
+                $qualificationsData[$id] = [
+                    'custom_documents' => $qualificationDocuments[$id] ?? '',
+                ];
+            }
+            $user->UserFileQualification()->sync($qualificationsData);
 
             /** Синхронизируем связи с направлениями экспертов **/
             $user->UserExpert()->sync($expertIds);

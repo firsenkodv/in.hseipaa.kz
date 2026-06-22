@@ -285,10 +285,66 @@
     @if($user->individual)
 
         <h2 class="h2 pad_b20 pad_t10">Специалист</h2>
-        <x-form.form-checkboxes class="pad_b10"
-                                name="specialists[]"
-                                :checkboxes="$user->user_specialists"
-        />
+    <p class="p_ch">Укажите квалификацию</p>
+        @if(count($user->user_specialists))
+            <div class="checkbox__wrapper pad_b10">
+                @foreach($user->user_specialists as $specialist)
+                    @php
+                        $specId = $specialist['id'];
+                        $hasOld = count(old()) > 0;
+                        $isChecked = $hasOld
+                            ? in_array((string)$specId, array_map('strval', old('specialists', [])))
+                            : $specialist['checked'];
+                        $certNum  = old('specialist_certificate_number.' . $specId) ?: $specialist['certificate_number'];
+                        $certDate = old('specialist_certificate_date.' . $specId) ?: $specialist['certificate_date'];
+                        $certDateError = 'specialist_certificate_date.' . $specId;
+                        $certNumError  = 'specialist_certificate_number.' . $specId;
+                    @endphp
+
+                    <div class="checkbox__flex">
+                        <div class="checkbox__left">
+                            <div class="checkbox__title">{{ $specialist['title'] }}</div>
+                            <div class="checkbox__subtitle">{{ $specialist['subtitle'] }}</div>
+                        </div>
+                        <div class="checkbox__right">
+                            <div class="checkbox-wrapper-3">
+                                <input type="checkbox"
+                                       name="specialists[]"
+                                       value="{{ $specId }}"
+                                       id="spec-cbx-{{ $specId }}"
+                                       class="cbx-3 js-spec-cbx"
+                                       data-target="spec-cert-{{ $specId }}"
+                                       @if($isChecked) checked @endif />
+                                <label for="spec-cbx-{{ $specId }}" class="toggle"><span></span></label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="spec-cert-{{ $specId }}" class="specialist-cert-fields" @if(!$isChecked) style="display:none" @endif>
+                        <x-form.form-input
+                            name="specialist_certificate_number[{{ $specId }}]"
+                            label="Номер сертификата"
+                            :error="$certNumError"
+                            value="{{ $certNum }}"
+                        />
+                        <div class="input-group app_input_group input-date-picker">
+                            <input
+                                data-date="{{ $certDate }}"
+                                data-role="specialist-cert-date"
+                                class="input-group__input app_input_name @error($certDateError) _error @enderror"
+                                type="text"
+                                placeholder="{{ $certDate }}"
+                                name="specialist_certificate_date[{{ $specId }}]"
+                                value=""
+                                autocomplete="off"
+                            />
+                            <label class="input-group__label @if($certDate) position_top @endif">Дата выдачи сертификата</label>
+                            <div class="input_error app_input_error">@error($certDateError){{ $message }}@enderror</div>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+        @endif
 
         <h2 class="h2 pad_b20 pad_t10">Эксперт</h2>
         <x-form.form-checkboxes class="pad_b10"
@@ -301,6 +357,52 @@
                                 name="lecturers[]"
                                 :checkboxes="$user->user_lecturers"
         />
+
+        <h2 class="h2 pad_b20 pad_t10">Квалификации</h2>
+        <p class="p_ch">Укажите квалификации и номер документа</p>
+        @if(count($user->user_file_qualifications))
+            <div class="checkbox__wrapper pad_b10">
+                @foreach($user->user_file_qualifications as $qualification)
+                    @php
+                        $qualId = $qualification['id'];
+                        $hasOld = count(old()) > 0;
+                        $isChecked = $hasOld
+                            ? in_array((string)$qualId, array_map('strval', old('qualifications', [])))
+                            : $qualification['checked'];
+                        $docNum = old('qualification_custom_documents.' . $qualId) ?: $qualification['custom_documents'];
+                        $docNumError = 'qualification_custom_documents.' . $qualId;
+                    @endphp
+
+                    <div class="checkbox__flex">
+                        <div class="checkbox__left">
+                            <div class="checkbox__title">{{ $qualification['title'] }}</div>
+                            <div class="checkbox__subtitle">{{ $qualification['subtitle'] }}</div>
+                        </div>
+                        <div class="checkbox__right">
+                            <div class="checkbox-wrapper-3">
+                                <input type="checkbox"
+                                       name="qualifications[]"
+                                       value="{{ $qualId }}"
+                                       id="qual-cbx-{{ $qualId }}"
+                                       class="cbx-3 js-qual-cbx"
+                                       data-target="qual-doc-{{ $qualId }}"
+                                       @if($isChecked) checked @endif />
+                                <label for="qual-cbx-{{ $qualId }}" class="toggle"><span></span></label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="qual-doc-{{ $qualId }}" class="specialist-cert-fields" @if(!$isChecked) style="display:none" @endif>
+                        <x-form.form-input
+                            name="qualification_custom_documents[{{ $qualId }}]"
+                            label="Номер документа"
+                            :error="$docNumError"
+                            value="{{ $docNum }}"
+                        />
+                    </div>
+                @endforeach
+            </div>
+        @endif
     @endif
     @if($user->legal_entity)
         <h2 class="h2 pad_b20 pad_t10">Вид деятельности</h2>
@@ -397,3 +499,14 @@
     </div>
 
 </x-form.form>
+
+<script>
+document.querySelectorAll('.js-spec-cbx, .js-qual-cbx').forEach(function (cbx) {
+    cbx.addEventListener('change', function () {
+        var target = document.getElementById(this.dataset.target);
+        if (target) {
+            target.style.display = this.checked ? '' : 'none';
+        }
+    });
+});
+</script>

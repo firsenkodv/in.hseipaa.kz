@@ -71,6 +71,33 @@ export function datepicker_contract_period() {
     }
 }
 
+export function datepicker_specialist_certificate_dates() {
+    const elems = document.querySelectorAll('input[data-role="specialist-cert-date"]');
+    if (!elems.length) return;
+
+    const today = new Date();
+    elems.forEach(function (elem) {
+        const datepicker = new Datepicker(elem, {
+            title: 'Дата выдачи сертификата',
+            language: 'ru',
+            format: 'dd.mm.yyyy',
+            minDate: '01.01.1950',
+            maxDate: today.toLocaleDateString(),
+        });
+
+        const dateVal = elem.dataset.date;
+        if (dateVal) {
+            const parts = dateVal.split('.');
+            if (parts.length === 3) {
+                const parsed = new Date(parseInt(parts[2]), parseInt(parts[1]) - 1, parseInt(parts[0]));
+                datepicker.setDate(parsed);
+            }
+        }
+
+        topPositionLabel(elem);
+    });
+}
+
 export function datepicker_report_period() {
     const wrapper = document.getElementById('report-period');
     if (wrapper) {

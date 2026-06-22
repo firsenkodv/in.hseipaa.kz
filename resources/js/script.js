@@ -14,7 +14,7 @@ import {removeErrors} from "./include/fancybox/form/removeErrors";
 import {flash_message} from "./include/flash_message/flash_message";
 import {uploadAvatar} from "./include/cabinet/uploadAvatar";
 import {uploadFiles} from "./include/cabinet/uploadFiles";
-import {datepicker_accountant_ticket_date, datepicker_date_birthday, datepicker_contract_period} from "./include/datepicker/datepicker";
+import {datepicker_accountant_ticket_date, datepicker_date_birthday, datepicker_contract_period, datepicker_specialist_certificate_dates} from "./include/datepicker/datepicker";
 import {checkCounterparty} from "./include/counterparty/check_counterparty";
 import {searchUser, assignUser, checkAll, managerUserToggle, managerSetTarifConfirm, managerRoleFilterAutoSubmit} from "./include/cabinet/forms";
 import {tarifCardToggle} from "./include/fancybox/tarifCardToggle";
@@ -44,6 +44,7 @@ document.addEventListener('DOMContentLoaded', function () {
     datepicker_date_birthday() // календарик день рождения
     datepicker_accountant_ticket_date() // календарик (Дата выдачи сертификата профессионального бухгалтера)
     datepicker_contract_period() // календарик периода договора
+    datepicker_specialist_certificate_dates() // календарики дат сертификатов специалиста
     checkCounterparty() // проверка на существование контрагента
 
     searchUser() // поиск пользователя из РОП и менеджера

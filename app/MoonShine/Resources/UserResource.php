@@ -154,6 +154,10 @@ class UserResource extends ModelResource
 
                                     BelongsToMany::make('Специалист', 'UserSpecialist', 'title', resource: UserSpecialistResource::class)
                                         ->valuesQuery(fn(Builder $query, Field $field) => $query->orderBy('sorting', 'DESC'))
+                                        ->fields([
+                                            Text::make('Номер сертификата', 'certificate_number'),
+                                            Date::make('Дата выдачи', 'certificate_date')->format('d.m.Y'),
+                                        ])
                                         ->nullable()->creatable(),
 
 

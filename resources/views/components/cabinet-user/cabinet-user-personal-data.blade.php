@@ -4,7 +4,6 @@
         <div class="cabinet_user_personal__flex">
             <div class="cabinet_user_personal__left">
                 <x-avatar.avatar-user :user="$user"/>
-
             </div>
             <div class="cabinet_user_personal__right">
                 <div class="cu_username">
@@ -15,7 +14,6 @@
                 </div>
             </div>
         </div>
-
         <div class="cu__personal_wrap">
             <div class="cabinet_user_personal__flex">
                 <div class="cabinet_user_personal__left">
@@ -27,7 +25,6 @@
                     </div>
                 </div>
             </div>
-
             <div class="cabinet_user_personal__flex">
                 <div class="cabinet_user_personal__left">
                     <div class="cu__personal_label"><span>Электронная почта:</span></div>
@@ -38,7 +35,6 @@
                     </div>
                 </div>
             </div>
-
             <div class="cabinet_user_personal__flex">
                 <div class="cabinet_user_personal__left">
                     <div class="cu__personal_label"><span>Телефон:</span></div>
@@ -201,7 +197,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="cabinet_user_personal__flex">
+{{--                <div class="cabinet_user_personal__flex">
                     <div class="cabinet_user_personal__left">
                         <div class="cu__personal_label"><span>Номер сертификата:</span></div>
                     </div>
@@ -210,7 +206,7 @@
                             {{ $user->accountant_ticket ?  : ' - '}}
                         </div>
                     </div>
-                </div>
+                </div>--}}
             @endif
               @if($user->legal_entity)
                 <div class="cabinet_user_personal__flex">
@@ -253,10 +249,7 @@
                         </div>
                     </div>
                 </div>
-
             @endif
-
-
         </div>
 
     </div>

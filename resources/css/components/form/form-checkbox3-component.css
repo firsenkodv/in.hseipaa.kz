@@ -70,6 +70,14 @@
   transition: all 0.4s ease;
 }
 
+.p_ch {
+  position: relative;
+  font-weight: 700;
+  top: -10px;
+  text-transform: uppercase;
+  color: #EF533F;
+}
+
 .checkbox__flex {
   display: flex;
   justify-content: space-between;

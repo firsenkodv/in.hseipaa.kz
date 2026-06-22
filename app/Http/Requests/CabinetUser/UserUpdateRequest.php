@@ -29,7 +29,7 @@ class UserUpdateRequest extends FormRequest
 
     public function rules(): array
     {
-        return [
+        $rules = [
             'username' => ['required', 'string', 'min:1', 'max:255'],
             'email' => ['required', 'email', 'email:dns',
                 Rule::unique('users')->ignore($this->input('id'), 'id')],
@@ -48,13 +48,21 @@ class UserUpdateRequest extends FormRequest
             'instagram' => ['nullable', 'string', 'min:3', 'max:256'],
             'website' => ['nullable', 'string', 'min:3', 'max:256', new   \App\Rules\ValidUrl],
             'about_me' => ['nullable', 'string', 'min:3', 'max:1000'],
-            'date_birthday' => ['date_format:d.m.Y', 'nullable'], // Правило date_format заменено на date_format:d.m.Y
-            'accountant_ticket_date' => ['date_format:d.m.Y', 'nullable'], // Правило date_format заменено на date_format:d.m.Y
-
-
+            'date_birthday' => ['date_format:d.m.Y', 'nullable'],
+            'accountant_ticket_date' => ['date_format:d.m.Y', 'nullable'],
         ];
 
+        foreach ($this->input('specialists', []) as $id) {
+            $rules["specialist_certificate_number.{$id}"] = ['required', 'string', 'max:255'];
+            $rules["specialist_certificate_date.{$id}"] = ['required', 'date_format:d.m.Y'];
+        }
 
+        foreach ($this->input('qualifications', []) as $id) {
+            $rules["qualification_custom_documents.{$id}"] = ['nullable', 'string', 'max:255'];
+            $rules["qualification_certificate_date.{$id}"]  = ['nullable', 'date_format:d.m.Y'];
+        }
+
+        return $rules;
     }
 
     protected function prepareForValidation(): void
@@ -83,7 +91,7 @@ class UserUpdateRequest extends FormRequest
 
     public function messages(): array
     {
-        return [
+        $messages = [
             'username.required' => 'Необходимо ввести имя.',
             'username.min' => 'Длина имени мин. :min.',
             'username.max' => 'Длина имени макс. :max.',
@@ -114,8 +122,19 @@ class UserUpdateRequest extends FormRequest
             'experience.max' => 'Длина описания макс. :max.',
             'date_birthday.date_format' => 'Не правильный формат даты.',
             'accountant_ticket_date.date_format' => 'Не правильный формат даты.',
-
-
         ];
+
+        foreach ($this->input('specialists', []) as $id) {
+            $messages["specialist_certificate_number.{$id}.required"]  = 'Укажите номер сертификата.';
+            $messages["specialist_certificate_number.{$id}.max"]       = 'Номер сертификата слишком длинный.';
+            $messages["specialist_certificate_date.{$id}.required"]    = 'Укажите дату выдачи сертификата.';
+            $messages["specialist_certificate_date.{$id}.date_format"] = 'Неправильный формат даты сертификата.';
+        }
+
+        foreach ($this->input('qualifications', []) as $id) {
+            $messages["qualification_certificate_date.{$id}.date_format"] = 'Неправильный формат даты сертификата.';
+        }
+
+        return $messages;
     }
 }

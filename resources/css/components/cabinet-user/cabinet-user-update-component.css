@@ -26,6 +26,12 @@
   position: relative;
 }
 
+.specialist-cert-fields {
+  padding: 10px 0 5px 20px;
+  border-left: 3px solid #095C9A;
+  margin-bottom: 10px;
+}
+
 @media screen and (max-width: 999px) {
   .cu_row_50 {
     display: block;

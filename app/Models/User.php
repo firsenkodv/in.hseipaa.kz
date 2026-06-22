@@ -15,6 +15,7 @@ use Domain\UserLanguage\ViewModels\UserLanguageViewModel;
 use Domain\UserLecturer\ViewModels\UserLecturerViewModel;
 use Domain\UserProduction\View_Models\UserProductionViewModel;
 use Domain\UserSex\ViewModels\UserSexViewModel;
+use Domain\UserFileQualification\ViewModels\UserFileQualificationViewModel;
 use Domain\UserSpecialist\ViewModels\UserSpecialistViewModel;
 use Exception;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -148,8 +149,8 @@ class User extends Authenticatable
 
     public function UserSpecialist(): BelongsToMany
     {
-        return $this->belongsToMany(UserSpecialist::class);
-
+        return $this->belongsToMany(UserSpecialist::class)
+            ->withPivot(['certificate_number', 'certificate_date']);
     }
 
     public function UserLanguage(): BelongsToMany
@@ -167,7 +168,7 @@ class User extends Authenticatable
     public function UserFileQualification(): BelongsToMany
     {
         return $this->belongsToMany(UserFileQualification::class)
-            ->withPivot(['custom_documents']);
+            ->withPivot(['custom_documents', 'certificate_date']);
 
     }
 
@@ -389,6 +390,20 @@ class User extends Authenticatable
         $lecturers = UserLecturerViewModel::make()->UserLecturers($this->id);
         if (!is_null($lecturers)) {
             return $lecturers->toArray();
+        }
+        return [];
+    }
+
+    /**
+     * @return array
+     * Получение всех квалификаций
+     */
+    public
+    function getUserFileQualificationsAttribute(): array
+    {
+        $qualifications = UserFileQualificationViewModel::make()->UserFileQualifications($this->id);
+        if (!is_null($qualifications)) {
+            return $qualifications->toArray();
         }
         return [];
     }

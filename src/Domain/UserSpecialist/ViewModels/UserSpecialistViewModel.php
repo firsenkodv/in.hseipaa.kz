@@ -26,25 +26,29 @@ class UserSpecialistViewModel
 
     public function UserSpecialists($user_id): Collection|null
     {
-
         $row = [];
-        return $this->Specialists()->each(function (UserSpecialist $specialist) use ($user_id) {
+        $user             = User::find($user_id);
+        $user_specialists = $user->UserSpecialist;
 
-            $user = User::find($user_id);
-            $user_specialists = $user->UserSpecialist;
+        return $this->Specialists()->each(function (UserSpecialist $specialist) use ($user_specialists, &$row) {
+
             $row[$specialist->id] = $specialist;
-            $row[$specialist->id]['checked'] = false;
+            $row[$specialist->id]['checked']            = false;
+            $row[$specialist->id]['certificate_number'] = '';
+            $row[$specialist->id]['certificate_date']   = '';
 
             foreach ($user_specialists as $user_specialist) {
-                if  ($user_specialist->id == $specialist->id) {
-                    $row[$specialist->id]['checked'] = true;
+                if ($user_specialist->id == $specialist->id) {
+                    $row[$specialist->id]['checked']            = true;
+                    $row[$specialist->id]['certificate_number'] = $user_specialist->pivot->certificate_number ?? '';
+                    $row[$specialist->id]['certificate_date']   = $user_specialist->pivot->certificate_date
+                        ? \Carbon\Carbon::parse($user_specialist->pivot->certificate_date)->format('d.m.Y')
+                        : '';
                 }
             }
 
             return $row;
         });
-
-
     }
 
     public function UserSpecialistsSearch($search, $cityId, $specialistId): LengthAwarePaginator|null
