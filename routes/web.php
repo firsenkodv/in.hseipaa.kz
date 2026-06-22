@@ -380,6 +380,21 @@ Route::controller(CabinetUserController::class)->group(function () {
         ->name('cabinet_reports')
         ->middleware(UserMiddleware::class);
 
+    /** голосования — список */
+    Route::get('/cabinet/polls', 'cabinetPolls')
+        ->name('cabinet_polls')
+        ->middleware(UserMiddleware::class);
+
+    /** голосование — просмотр/прохождение */
+    Route::get('/cabinet/polls/{id}', 'cabinetPoll')
+        ->name('cabinet_poll')
+        ->middleware(UserMiddleware::class);
+
+    /** голосование — отправка ответов */
+    Route::post('/cabinet/polls/{id}', 'cabinetPollSubmit')
+        ->name('cabinet_poll_submit')
+        ->middleware(UserMiddleware::class);
+
 });
 
 /** оплата тарифа (BerekeBank) **/

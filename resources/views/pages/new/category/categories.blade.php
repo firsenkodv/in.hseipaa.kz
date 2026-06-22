@@ -3,6 +3,7 @@
     title="{{ config2('moonshine.new.metatitle') }}"
     description="{{ config2('moonshine.new.description') }}"
     keywords="{{ config2('moonshine.new.keywords') }}"
+    seo-key="page:news"
 />
 
 @section('content')

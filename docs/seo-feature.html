@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Функционал «SEO»</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-size: 15px;
+    line-height: 1.6;
+    color: #1a1a1a;
+    background: #f5f6f8;
+    margin: 0;
+    padding: 0;
+  }
+  .layout { display: flex; min-height: 100vh; }
+  .sidebar {
+    width: 260px;
+    flex-shrink: 0;
+    background: #1e2535;
+    color: #c8d0e0;
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    overflow-y: auto;
+    padding: 28px 0 40px;
+  }
+  .sidebar__logo {
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .08em;
+    color: #6b7faa;
+    padding: 0 24px 20px;
+    border-bottom: 1px solid #2a3248;
+    margin-bottom: 16px;
+  }
+  .sidebar__nav a {
+    display: block;
+    padding: 7px 24px;
+    color: #c8d0e0;
+    text-decoration: none;
+    font-size: 13.5px;
+    transition: background .15s, color .15s;
+    border-left: 3px solid transparent;
+  }
+  .sidebar__nav a:hover { background: #252d40; color: #fff; border-left-color: #4e7df5; }
+  .main { flex: 1; padding: 48px 56px 80px; max-width: 960px; }
+  h1 { font-size: 28px; font-weight: 800; color: #111; margin: 0 0 6px; }
+  .subtitle { color: #667085; font-size: 15px; margin-bottom: 48px; }
+  h2 { font-size: 20px; font-weight: 700; color: #111; margin: 48px 0 16px; padding-bottom: 8px; border-bottom: 2px solid #e8eaf0; }
+  h3 { font-size: 16px; font-weight: 700; color: #2c3656; margin: 28px 0 10px; }
+  p { margin: 0 0 12px; }
+  a { color: #4e7df5; text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  table { width: 100%; border-collapse: collapse; margin: 16px 0 24px; font-size: 14px; }
+  th { background: #f0f2f7; text-align: left; padding: 9px 14px; font-weight: 600; color: #444; border-bottom: 2px solid #dde1ea; }
+  td { padding: 8px 14px; border-bottom: 1px solid #eceef3; vertical-align: top; }
+  tr:last-child td { border-bottom: none; }
+  tr:hover td { background: #fafbfd; }
+  code {
+    font-family: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace;
+    font-size: 13px;
+    background: #eef0f6;
+    padding: 2px 6px;
+    border-radius: 4px;
+    color: #c0392b;
+  }
+  pre {
+    background: #1e2535;
+    color: #c8d8ff;
+    padding: 20px 24px;
+    border-radius: 8px;
+    overflow-x: auto;
+    font-size: 13px;
+    line-height: 1.6;
+    margin: 12px 0 24px;
+  }
+  pre code { background: none; color: inherit; padding: 0; }
+  .badge {
+    display: inline-block;
+    padding: 2px 10px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+  .badge-green  { background: rgba(45,172,106,.12); color: #2dac6a; }
+  .badge-orange { background: rgba(255,147,30,.12);  color: #FF931E; }
+  .badge-blue   { background: rgba(78,125,245,.1);   color: #4e7df5; }
+  .badge-red    { background: rgba(239,83,63,.1);    color: #ef533f; }
+  .info-box {
+    background: rgba(78,125,245,.06);
+    border-left: 3px solid #4e7df5;
+    border-radius: 0 8px 8px 0;
+    padding: 12px 16px;
+    margin: 0 0 20px;
+    font-size: 14px;
+  }
+  .success-box {
+    background: rgba(45,172,106,.07);
+    border-left: 3px solid #2dac6a;
+    border-radius: 0 8px 8px 0;
+    padding: 12px 16px;
+    margin: 0 0 20px;
+    font-size: 14px;
+  }
+  .flow {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0;
+    margin: 16px 0 24px;
+  }
+  .flow__step {
+    background: #fff;
+    border: 1.5px solid #dde1ea;
+    border-radius: 8px;
+    padding: 10px 16px;
+    font-size: 13.5px;
+    font-weight: 600;
+    color: #2c3656;
+    white-space: nowrap;
+  }
+  .flow__arrow { padding: 0 10px; color: #aab; font-size: 20px; }
+  .file-tree {
+    background: #1e2535;
+    color: #c8d8ff;
+    padding: 20px 24px;
+    border-radius: 8px;
+    font-family: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace;
+    font-size: 13px;
+    line-height: 1.7;
+    margin: 12px 0 24px;
+    white-space: pre;
+    overflow-x: auto;
+  }
+  .file-tree .hi { color: #7ee787; }
+  .file-tree .dim { color: #6b7faa; }
+</style>
+</head>
+<body>
+<div class="layout">
+
+  <aside class="sidebar">
+    <div class="sidebar__logo">Документация</div>
+    <nav class="sidebar__nav">
+      <a href="#overview">1. Обзор</a>
+      <a href="#database">2. База данных</a>
+      <a href="#model">3. Модель</a>
+      <a href="#trait">4. Трейт HasSeo</a>
+      <a href="#config">5. Конфигурация</a>
+      <a href="#helper">6. Хелпер seo_override()</a>
+      <a href="#component">7. Компонент x-seo.meta</a>
+      <a href="#admin">8. Администратор (MoonShine)</a>
+      <a href="#seed">9. Первоначальное заполнение</a>
+      <a href="#howto">10. Подключить новую модель</a>
+      <a href="#files">11. Структура файлов</a>
+    </nav>
+  </aside>
+
+  <main class="main">
+
+    <h1>Функционал «SEO»</h1>
+    <p class="subtitle">Централизованное управление metatitle / description / keywords для всех моделей сайта</p>
+
+    <!-- 1. Обзор -->
+    <h2 id="overview">1. Обзор</h2>
+
+    <div class="success-box">
+      <strong>Цель:</strong> SEO-ресурс в MoonShine всегда пуст — это значит, что SEO заполнено на всех страницах.
+    </div>
+
+    <p>Таблица <code>seos</code> является <strong>зеркалом</strong> SEO-полей из моделей. Администратор заполняет данные через SEO-ресурс — они записываются <strong>напрямую в модель</strong> (<code>metatitle</code>, <code>description</code>, <code>keywords</code>). Ресурс показывает только те записи, где хотя бы одно поле пустое.</p>
+
+    <div class="flow">
+      <div class="flow__step">Сохранение модели</div>
+      <div class="flow__arrow">→</div>
+      <div class="flow__step">syncSeoRecord()</div>
+      <div class="flow__arrow">→</div>
+      <div class="flow__step">копия полей в seos</div>
+    </div>
+
+    <div class="flow">
+      <div class="flow__step">SEO-ресурс (MoonShine)</div>
+      <div class="flow__arrow">→</div>
+      <div class="flow__step">afterUpdated()</div>
+      <div class="flow__arrow">→</div>
+      <div class="flow__step">запись обратно в модель</div>
+    </div>
+
+    <p><strong>Статические страницы</strong> (<code>home</code>, <code>contacts</code> и др.) управляются через настройки MoonShine и в SEO-ресурсе <strong>не отображаются</strong>.</p>
+
+    <h3>Охват моделей</h3>
+    <table>
+      <thead><tr><th>Уровень</th><th>Модели</th></tr></thead>
+      <tbody>
+        <tr><td>Разделы</td><td><code>Service</code>, <code>Useful</code></td></tr>
+        <tr><td>Категории</td><td><code>SiteNew</code>, <code>ServiceCategory</code>, <code>CompanyCategory</code>, <code>UsefulCategory</code>, <code>UsefulSubcategory</code></td></tr>
+        <tr><td>Материалы</td><td><code>SiteNewItem</code>, <code>UsefulItem</code>, <code>ServiceItem</code>, <code>CompanyItem</code>, <code>Tax</code>, <code>Mzp</code></td></tr>
+      </tbody>
+    </table>
+
+    <!-- 2. База данных -->
+    <h2 id="database">2. База данных</h2>
+
+    <h3>Таблица <code>seos</code></h3>
+    <table>
+      <thead><tr><th>Колонка</th><th>Тип</th><th>Описание</th></tr></thead>
+      <tbody>
+        <tr><td><code>id</code></td><td>bigint PK</td><td>—</td></tr>
+        <tr><td><code>key</code></td><td>varchar UNIQUE</td><td>Составной идентификатор: <code>{prefix}:{id}</code> или <code>page:{slug}</code></td></tr>
+        <tr><td><code>model_class</code></td><td>varchar nullable</td><td>FQCN модели (<code>App\Models\SiteNewItem</code>). NULL для статических страниц</td></tr>
+        <tr><td><code>label</code></td><td>varchar</td><td>Читаемое название (обновляется автоматически из <code>title</code> модели)</td></tr>
+        <tr><td><code>title</code></td><td>varchar nullable</td><td>Зеркало поля <code>metatitle</code> модели</td></tr>
+        <tr><td><code>description</code></td><td>text nullable</td><td>Зеркало поля <code>description</code> модели</td></tr>
+        <tr><td><code>keywords</code></td><td>text nullable</td><td>Зеркало поля <code>keywords</code> модели</td></tr>
+        <tr><td><code>created_at / updated_at</code></td><td>timestamp</td><td>—</td></tr>
+      </tbody>
+    </table>
+
+    <h3>Формат ключа (<code>key</code>)</h3>
+    <p>Ключ = <strong>префикс из конфига</strong> + <code>:</code> + <strong>ID записи</strong>:</p>
+    <pre><code>site_new_item:1      →  SiteNewItem с id=1
+service_category:5   →  ServiceCategory с id=5
+tax:3                →  Tax с id=3
+page:home            →  статическая страница (model_class = null)</code></pre>
+    <p>По ключу <code>afterUpdated()</code> определяет модель для обратной записи: парсит <code>id</code> → делает <code>$item->model_class::find($id)</code>.</p>
+
+    <!-- 3. Модель -->
+    <h2 id="model">3. Модель</h2>
+    <p><strong><code>App\Models\Seo</code></strong></p>
+    <pre><code>// Только незаполненные модельные записи (используется в SeoResource)
+Seo::incomplete()->get();
+
+// Поиск по ключу — только для статических страниц
+seo_override('page:home');</code></pre>
+
+    <p>Скоуп <code>incomplete</code> возвращает записи, где <code>model_class IS NOT NULL</code> и хотя бы одно из <code>title</code> / <code>description</code> / <code>keywords</code> — пустое или NULL.</p>
+
+    <!-- 4. Трейт -->
+    <h2 id="trait">4. Трейт HasSeo</h2>
+    <p><strong><code>App\Models\Concerns\HasSeo</code></strong> — подключён к 13 моделям:</p>
+    <pre><code>use App\Models\Concerns\HasSeo;
+
+class SiteNewItem extends Model
+{
+    use HasSeo;
+}</code></pre>
+
+    <table>
+      <thead><tr><th>Метод</th><th>Описание</th></tr></thead>
+      <tbody>
+        <tr><td><code>bootHasSeo()</code></td><td>Слушает событие <code>saved</code>, вызывает <code>syncSeoRecord()</code>. Обёрнут в <code>try/catch</code> — не ломает сохранение если таблица не создана</td></tr>
+        <tr><td><code>syncSeoRecord()</code></td><td>Создаёт или обновляет запись в <code>seos</code>: копирует <code>metatitle</code>→<code>title</code>, <code>description</code>→<code>description</code>, <code>keywords</code>→<code>keywords</code>, заполняет <code>model_class</code> и <code>label</code></td></tr>
+        <tr><td><code>seoPrefix(): string</code></td><td>Определяет префикс ключа: обратный поиск по классу в <code>config/seo.models</code></td></tr>
+        <tr><td><code>seoLabel(): string</code></td><td>Возвращает <code>$this->title</code> для поля <code>label</code> в таблице <code>seos</code></td></tr>
+      </tbody>
+    </table>
+
+    <!-- 5. Конфигурация -->
+    <h2 id="config">5. Конфигурация</h2>
+    <p><strong><code>config/seo.php</code></strong></p>
+    <pre><code>return [
+    'models' => [
+        // Разделы
+        'service'            => \App\Models\Service::class,
+        'useful'             => \App\Models\Useful::class,
+        // Категории
+        'site_new'           => \App\Models\SiteNew::class,
+        'service_category'   => \App\Models\ServiceCategory::class,
+        'company_category'   => \App\Models\CompanyCategory::class,
+        'useful_category'    => \App\Models\UsefulCategory::class,
+        'useful_subcategory' => \App\Models\UsefulSubcategory::class,
+        // Материалы
+        'site_new_item'      => \App\Models\SiteNewItem::class,
+        'useful_item'        => \App\Models\UsefulItem::class,
+        'service_item'       => \App\Models\ServiceItem::class,
+        'company_item'       => \App\Models\CompanyItem::class,
+        'tax'                => \App\Models\Tax::class,
+        'mzp'                => \App\Models\Mzp::class,
+    ],
+    'pages' => [
+        'page:home'     => 'Главная страница',
+        'page:contacts' => 'Контакты',
+        'page:news'     => 'Новости (раздел)',
+        'page:company'  => 'О нас (раздел)',
+    ],
+];</code></pre>
+
+    <table>
+      <thead><tr><th>Секция</th><th>Используется</th></tr></thead>
+      <tbody>
+        <tr><td><code>models</code></td><td>Трейтом <code>HasSeo</code> для определения префикса; командой <code>seo:seed</code> для обхода всех записей</td></tr>
+        <tr><td><code>pages</code></td><td>Только командой <code>seo:seed</code> — создаёт заглушки с <code>model_class = null</code>; в SEO-ресурсе не отображаются</td></tr>
+      </tbody>
+    </table>
+
+    <!-- 6. Хелпер -->
+    <h2 id="helper">6. Хелпер seo_override()</h2>
+    <p><strong><code>src/Support/Helpers/helpers.php</code></strong></p>
+    <pre><code>function seo_override(string $key): ?Seo</code></pre>
+    <p>Используется <strong>только для статических страниц</strong> (где нет Eloquent-модели). Возвращает запись <code>Seo</code> или <code>null</code>.</p>
+
+    <!-- 7. Компонент -->
+    <h2 id="component">7. Компонент x-seo.meta</h2>
+    <p><strong><code>resources/views/components/seo/meta.blade.php</code></strong></p>
+
+    <h3>Модельные страницы — без seo-key</h3>
+    <p>SEO берётся напрямую из полей модели через пропы. <code>seo-key</code> не передаётся:</p>
+    <pre><code>&lt;x-seo.meta
+    title="{{ ($item-&gt;metatitle) ?? $item-&gt;title }}"
+    description="{{ $item-&gt;description }}"
+    keywords="{{ $item-&gt;keywords }}"
+/&gt;</code></pre>
+
+    <h3>Статические страницы — с seo-key</h3>
+    <p>Передаётся <code>seo-key</code>; компонент вызывает <code>seo_override()</code> и перекрывает пропы если в <code>seos</code> есть данные:</p>
+    <pre><code>&lt;x-seo.meta
+    title="{!! config2('moonshine.home.metatitle') !!}"
+    description="{!! config2('moonshine.home.description') !!}"
+    keywords="{!! config2('moonshine.home.keywords') !!}"
+    seo-key="page:home"
+/&gt;</code></pre>
+
+    <div class="info-box">
+      Вызов <code>seo_override()</code> внутри компонента обёрнут в <code>try/catch</code> — если таблица <code>seos</code> ещё не создана, страница не ломается и использует значения из пропов.
+    </div>
+
+    <!-- 8. Администратор -->
+    <h2 id="admin">8. Администратор (MoonShine)</h2>
+    <p><strong>Ресурс:</strong> <code>app/MoonShine/Resources/SeoResource.php</code></p>
+    <p>Меню: <code>MenuItem::make('SEO', SeoResource::class, 'magnifying-glass')</code></p>
+
+    <h3>Что показывает ресурс</h3>
+    <p>Только записи с <code>model_class IS NOT NULL</code>, где хотя бы одно поле пустое. Сортировка: сначала записи с максимальным числом пустых полей.</p>
+
+    <div class="success-box">
+      Когда ресурс пуст — SEO заполнено на всех страницах сайта.
+    </div>
+
+    <h3>Поля формы редактирования</h3>
+    <table>
+      <thead><tr><th>Поле</th><th>Редактируется</th><th>Примечание</th></tr></thead>
+      <tbody>
+        <tr><td>Страница / Материал (<code>label</code>)</td><td><span class="badge badge-red">нет</span></td><td>Обновляется автоматически при сохранении модели</td></tr>
+        <tr><td>Ключ (<code>key</code>)</td><td><span class="badge badge-red">нет</span></td><td>Формат <code>prefix:id</code></td></tr>
+        <tr><td>Title</td><td><span class="badge badge-green">да</span></td><td>Пишется в <code>seos.title</code> и в <code>model.metatitle</code></td></tr>
+        <tr><td>Description</td><td><span class="badge badge-green">да</span></td><td>Пишется в <code>seos.description</code> и в <code>model.description</code></td></tr>
+        <tr><td>Keywords</td><td><span class="badge badge-green">да</span></td><td>Пишется в <code>seos.keywords</code> и в <code>model.keywords</code></td></tr>
+      </tbody>
+    </table>
+
+    <h3>Обратная запись в модель (<code>afterUpdated</code>)</h3>
+    <pre><code>// SeoResource::afterUpdated()
+$id = last(explode(':', $item->key));           // извлекаем id из ключа
+$model = $item->model_class::find($id);         // находим модель
+$item->model_class::withoutEvents(function() {  // без повторного события saved
+    $model->update([
+        'metatitle'   => $item->title,
+        'description' => $item->description,
+        'keywords'    => $item->keywords,
+    ]);
+});</code></pre>
+
+    <h3>Ограничения действий</h3>
+    <p>Отключены: <span class="badge badge-red">CREATE</span> <span class="badge badge-red">VIEW</span> <span class="badge badge-red">DELETE</span></p>
+
+    <!-- 9. Заполнение -->
+    <h2 id="seed">9. Первоначальное заполнение</h2>
+    <pre><code>php artisan migrate
+php artisan seo:seed</code></pre>
+
+    <p><strong>Что делает <code>seo:seed</code>:</strong></p>
+    <ol style="font-size:14px;line-height:1.9">
+      <li>Проходит по всем записям 13 моделей из <code>config/seo.models</code></li>
+      <li>Для каждой вызывает <code>$item->syncSeoRecord()</code> — копирует текущие <code>metatitle</code> / <code>description</code> / <code>keywords</code> в <code>seos</code></li>
+      <li>Создаёт заглушки для статических страниц (<code>model_class = null</code>) — они не попадают в SEO-ресурс</li>
+    </ol>
+
+    <div class="info-box">
+      Команда идемпотентна — повторный запуск обновляет существующие записи без дубликатов.<br>
+      Новые записи появляются в <code>seos</code> автоматически при первом сохранении через событие <code>saved</code>.
+    </div>
+
+    <!-- 10. Как подключить -->
+    <h2 id="howto">10. Как подключить новую модель</h2>
+
+    <p>1. Убедиться, что в модели есть поля <code>metatitle</code>, <code>description</code>, <code>keywords</code>.</p>
+
+    <p>2. Добавить трейт:</p>
+    <pre><code>use App\Models\Concerns\HasSeo;
+
+class NewModel extends Model
+{
+    use HasSeo;
+}</code></pre>
+
+    <p>3. Добавить префикс в <code>config/seo.php → models</code>:</p>
+    <pre><code>'new_prefix' => \App\Models\NewModel::class,</code></pre>
+
+    <p>4. View менять <strong>не нужно</strong> — SEO берётся из полей модели напрямую:</p>
+    <pre><code>&lt;x-seo.meta
+    title="{{ ($item-&gt;metatitle) ?? $item-&gt;title }}"
+    description="{{ $item-&gt;description }}"
+    keywords="{{ $item-&gt;keywords }}"
+/&gt;</code></pre>
+
+    <p>5. Запустить <code>php artisan seo:seed</code> для существующих записей.</p>
+
+    <!-- 11. Файлы -->
+    <h2 id="files">11. Структура файлов</h2>
+    <div class="file-tree"><span class="hi">app/
+├── Models/
+│   ├── Seo.php                              ← модель со скоупом incomplete
+│   └── Concerns/
+│       └── HasSeo.php                       ← трейт: syncSeoRecord, seoPrefix, seoLabel
+├── MoonShine/Resources/
+│   └── SeoResource.php                      ← фильтр незаполненных + afterUpdated
+├── Console/Commands/
+│   └── SeoSeedCommand.php                   ← artisan seo:seed
+
+config/
+└── seo.php                                  ← 13 моделей + 4 статических ключа
+
+database/migrations/
+├── 2026_06_18_300001_create_seos_table.php
+└── 2026_06_19_100001_add_model_class_to_seos_table.php
+
+src/Support/Helpers/
+└── helpers.php                              ← seo_override(): только для статических страниц</span>
+
+resources/views/
+├── components/seo/
+│   └── meta.blade.php                       ← seo-key только для статических страниц
+│
+├── <span class="hi">home.blade.php                            ← seo-key="page:home"</span>
+│
+└── pages/
+    ├── <span class="hi">contacts.blade.php                    ← seo-key="page:contacts"
+    ├── new/category/categories.blade.php    ← seo-key="page:news"
+    └── company/category/categories.blade.php ← seo-key="page:company"</span>
+
+    <span class="dim">    [модельные страницы — seo-key не используется, данные из полей модели]
+    pages/new/item/item.blade.php
+    pages/new/category/category.blade.php
+    pages/useful/item/item.blade.php
+    pages/useful/category/category.blade.php
+    pages/useful/category/subcategory.blade.php
+    pages/useful/section/section.blade.php
+    pages/service/item/item.blade.php
+    pages/service/category/category.blade.php
+    pages/service/section/section.blade.php
+    pages/company/item/item.blade.php
+    pages/company/category/category.blade.php
+    pages/mzp/item.blade.php
+    pages/tax/tax_calendar.blade.php</span></div>
+
+  </main>
+</div>
+</body>
+</html>

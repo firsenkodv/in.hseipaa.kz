@@ -56,6 +56,7 @@
 @import 'components/cabinet-user/cabinet-user-personal-data-relation-component.scss';
 @import 'components/cabinet-user/cabinet-user-update-component.scss';
 @import 'components/cabinet-user/cabinet-user-reports-component.scss';
+@import 'components/cabinet-user/cabinet-user-polls-component.scss';
 @import 'components/cabinet-admin/cabinet-admin-user-card-component.scss';
 @import 'components/cabinet/main-manager.scss';
 @import 'components/avatar/avatar-user-component.scss';

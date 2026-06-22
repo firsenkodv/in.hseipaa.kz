@@ -2,10 +2,13 @@
 
 namespace App\Models;
 
+use App\Models\Concerns\HasSeo;
 use Illuminate\Database\Eloquent\Model;
 
 class Tax extends Model
 {
+    use HasSeo;
+
     protected $table = 'taxes';
 
     protected $fillable = [

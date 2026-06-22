@@ -2,11 +2,14 @@
 
 namespace App\Models;
 
+use App\Models\Concerns\HasSeo;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class SiteNewItem extends Model
 {
+    use HasSeo;
+
     protected $table = 'site_new_items';
 
     protected $fillable = [

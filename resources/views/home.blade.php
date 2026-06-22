@@ -3,6 +3,7 @@
     title="{!!  (config2('moonshine.home.metatitle')) !!}"
     description="{!!  (config2('moonshine.home.description')) !!}"
     keywords="{!!  (config2('moonshine.home.keywords'))  !!}"
+    seo-key="page:home"
 />
 @section('content')
 

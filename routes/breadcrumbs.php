@@ -175,6 +175,18 @@ Breadcrumbs::for('cabinet_reports', function ($trail) {
     $trail->push('Отчёты', route('cabinet_reports'));
 });
 
+// Home > CabinetUser > Polls
+Breadcrumbs::for('cabinet_polls', function ($trail) {
+    $trail->parent('cabinet_user');
+    $trail->push('Голосования', route('cabinet_polls'));
+});
+
+// Home > CabinetUser > Polls > Poll
+Breadcrumbs::for('cabinet_poll', function ($trail, $poll) {
+    $trail->parent('cabinet_polls');
+    $trail->push($poll->title, route('cabinet_poll', $poll->id));
+});
+
 // Home > CabinetUserMessages
 Breadcrumbs::for('cabinet_user_messages', function ($trail) {
     $trail->parent('home');

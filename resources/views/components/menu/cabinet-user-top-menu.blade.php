@@ -35,6 +35,10 @@
         <a href="{{ route('cabinet_reports') }}">Отчёты</a>
     </li>
 
+    <li class="{{ active_linkMenu(asset(route('cabinet_polls')), 'find')  }}">
+        <a href="{{ route('cabinet_polls') }}">Голосование</a>
+    </li>
+
     <li class="{{ active_linkMenu(asset(route('cabinet_user_update')), 'find')  }}">
         <a href="{{ route('cabinet_user_update') }}">Настройки</a>
     </li>

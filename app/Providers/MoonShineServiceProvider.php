@@ -55,6 +55,8 @@ use App\MoonShine\Resources\HunterCategoryResource;
 use App\MoonShine\Resources\HunterVacancyItemResource;
 use App\MoonShine\Resources\HunterResumeItemResource;
 use App\MoonShine\Resources\ContractResource;
+use App\MoonShine\Resources\PollResource;
+use App\MoonShine\Resources\SeoResource;
 use App\MoonShine\Resources\TrainingResource;
 
 class MoonShineServiceProvider extends ServiceProvider
@@ -108,6 +110,8 @@ class MoonShineServiceProvider extends ServiceProvider
                 ContractResource::class,
                 TrainingResource::class,
                 PaymentResource::class,
+                PollResource::class,
+                SeoResource::class,
             ])
             ->pages([
                 ...$config->getPages(),

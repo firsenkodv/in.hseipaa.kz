@@ -67,6 +67,8 @@ use App\MoonShine\Resources\AxeldPassportResource;
 use App\MoonShine\Resources\SiteNewModuleResource;
 use App\MoonShine\Resources\MzpResource;
 use App\MoonShine\Resources\PaymentResource;
+use App\MoonShine\Resources\PollResource;
+use App\MoonShine\Resources\SeoResource;
 use App\MoonShine\Resources\TarifResource;
 use App\MoonShine\Resources\SavedFormDataResource;
 use App\MoonShine\Resources\UserCityResource;
@@ -178,6 +180,11 @@ final class AxeldLayout extends AppLayout
                 MenuItem::make('Дисциплины', TrainingResource::class, 'academic-cap'),
                 MenuItem::make('Договоры', ContractResource::class, 'document-text'),
             ]),
+            MenuGroup::make(static fn() => __('Голосования'), [
+                MenuItem::make('Голосования', PollResource::class, 'chat-bubble-left-right'),
+              //  MenuItem::make('Результаты', ContractResource::class, 'document-text'),
+            ]),
+
 
             MenuGroup::make(static fn() => __('Формы отправки'), [
                 MenuItem::make('Данные с форм', SavedFormDataResource::class , 'envelope'),
@@ -187,6 +194,7 @@ final class AxeldLayout extends AppLayout
             MenuGroup::make(static fn() => __('Настройки'), [
                 MenuItem::make('Настройки', SettingPage::class, 'adjustments-vertical'),
                 MenuItem::make('Как пользоваться', AxeldPassportResource::class, 'academic-cap'),
+                MenuItem::make('SEO', SeoResource::class, 'magnifying-glass'),
 
             ]),
 

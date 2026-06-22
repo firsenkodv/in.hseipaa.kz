@@ -3,6 +3,7 @@
     title="{{ config2('moonshine.company.metatitle') }}"
     description="{{ config2('moonshine.company.description') }}"
     keywords="{{ config2('moonshine.company.keywords') }}"
+    seo-key="page:company"
 />
 
 @section('content')

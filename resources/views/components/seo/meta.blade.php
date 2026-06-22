@@ -2,29 +2,23 @@
     'title' => '',
     'description'=> '',
     'keywords' => '',
+    'seoKey' => null,
 ])
 
-@if(isset($seo_title))
-     @php
-         $title = $seo_title;
-     @endphp
-
-@endif
-
-@if(isset($seo_description))
-    @php
-        $description = $seo_description;
-    @endphp
-
-@endif
-
-@if(isset($seo_keywords))
-    @php
-        $title = $seo_title;
-    @endphp
-
-@endif
-
+@php
+    if ($seoKey) {
+        try {
+            $override = seo_override($seoKey);
+            if ($override) {
+                if (!empty($override->title))       $title       = $override->title;
+                if (!empty($override->description)) $description = $override->description;
+                if (!empty($override->keywords))    $keywords    = $override->keywords;
+            }
+        } catch (\Throwable $e) {
+            // таблица seos ещё не создана — используем значения из пропов
+        }
+    }
+@endphp
 
 @section('title', ($title)?:null)
 @section('description', ($description)?:null)

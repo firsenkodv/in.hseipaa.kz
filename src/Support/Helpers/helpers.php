@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Seo;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
@@ -21,6 +22,14 @@ if (!function_exists('flash')) {
     function flash(): Flash
     {
         return app(Flash::class);
+    }
+}
+
+if (!function_exists('seo_override')) {
+
+    function seo_override(string $key): ?Seo
+    {
+        return Seo::where('key', $key)->first();
     }
 }
 /**
