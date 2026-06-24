@@ -56,9 +56,10 @@ class UserViewModel
         $certificateNumbers   = $request->input('specialist_certificate_number', []);
         $certificateDates     = $request->input('specialist_certificate_date', []);
 
-        /** Получаем выбранные IDs квалификаций с номерами документов **/
+        /** Получаем выбранные IDs квалификаций с номерами документов и датами **/
         $qualificationIds       = $request->input('qualifications', []);
         $qualificationDocuments = $request->input('qualification_custom_documents', []);
+        $qualificationDates     = $request->input('qualification_certificate_date', []);
 
         /** Получаем выбранные IDs направлений эксперта **/
         $expertIds = $request->input('experts', []);
@@ -103,8 +104,12 @@ class UserViewModel
             /** Синхронизируем квалификации с номерами документов в pivot **/
             $qualificationsData = [];
             foreach ($qualificationIds as $id) {
+                $date = $qualificationDates[$id] ?? null;
                 $qualificationsData[$id] = [
                     'custom_documents' => $qualificationDocuments[$id] ?? '',
+                    'certificate_date' => $date
+                        ? \Carbon\Carbon::createFromFormat('d.m.Y', $date)->format('Y-m-d')
+                        : null,
                 ];
             }
             $user->UserFileQualification()->sync($qualificationsData);

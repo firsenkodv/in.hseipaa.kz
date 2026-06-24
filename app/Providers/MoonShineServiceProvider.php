@@ -58,6 +58,7 @@ use App\MoonShine\Resources\ContractResource;
 use App\MoonShine\Resources\PollResource;
 use App\MoonShine\Resources\SeoResource;
 use App\MoonShine\Resources\TrainingResource;
+use App\MoonShine\Pages\UserExportPage;
 
 class MoonShineServiceProvider extends ServiceProvider
 {
@@ -122,6 +123,7 @@ class MoonShineServiceProvider extends ServiceProvider
                 UsefulModulePage::class,
                 ServiceModulePage::class,
                 HomePage::class,
+                UserExportPage::class,
             ])
         ;
     }

@@ -13,6 +13,7 @@ use App\MoonShine\Pages\HomePage;
 use App\MoonShine\Pages\NewPage;
 use App\MoonShine\Pages\ServiceModulePage;
 use App\MoonShine\Pages\SettingPage;
+use App\MoonShine\Pages\UserExportPage;
 
 use App\MoonShine\Pages\UsefulModulePage;
 use App\MoonShine\Resources\AdminResource;
@@ -195,7 +196,7 @@ final class AxeldLayout extends AppLayout
                 MenuItem::make('Настройки', SettingPage::class, 'adjustments-vertical'),
                 MenuItem::make('Как пользоваться', AxeldPassportResource::class, 'academic-cap'),
                 MenuItem::make('SEO', SeoResource::class, 'magnifying-glass'),
-
+                MenuItem::make('Экспорт пользователей', UserExportPage::class, 'arrow-down-tray'),
             ]),
 
         ];

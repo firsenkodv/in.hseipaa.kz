@@ -52,6 +52,7 @@ use App\MoonShine\Controllers\MoonshineNew;
 use App\MoonShine\Controllers\MoonshineServiceModule;
 use App\MoonShine\Controllers\MoonshineSetting;
 use App\MoonShine\Controllers\MoonshineUsefulModule;
+use App\MoonShine\Controllers\MoonshineUserExport;
 use Illuminate\Support\Facades\Route;
 use Spatie\Honeypot\ProtectAgainstSpam;
 
@@ -65,6 +66,7 @@ Route::post('/moonshine/new', [MoonshineNew::class, 'new' ]);
 Route::post('/moonshine/company', [MoonshineCompany::class, 'company' ]);
 Route::post('/moonshine/useful_module', [MoonshineUsefulModule::class, 'useful_module' ]);
 Route::post('/moonshine/service_module', [MoonshineServiceModule::class, 'service_module' ]);
+Route::get('/moonshine/users-export', [MoonshineUserExport::class, 'export']);
 /**
  * админка
  */

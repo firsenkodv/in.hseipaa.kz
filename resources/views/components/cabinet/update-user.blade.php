@@ -369,8 +369,10 @@
                         $isChecked = $hasOld
                             ? in_array((string)$qualId, array_map('strval', old('qualifications', [])))
                             : $qualification['checked'];
-                        $docNum = old('qualification_custom_documents.' . $qualId) ?: $qualification['custom_documents'];
-                        $docNumError = 'qualification_custom_documents.' . $qualId;
+                        $docNum       = old('qualification_custom_documents.' . $qualId) ?: $qualification['custom_documents'];
+                        $qualCertDate = old('qualification_certificate_date.' . $qualId) ?: $qualification['certificate_date'];
+                        $docNumError      = 'qualification_custom_documents.' . $qualId;
+                        $qualDateError    = 'qualification_certificate_date.' . $qualId;
                     @endphp
 
                     <div class="checkbox__flex">
@@ -399,6 +401,20 @@
                             :error="$docNumError"
                             value="{{ $docNum }}"
                         />
+                        <div class="input-group app_input_group input-date-picker">
+                            <input
+                                data-date="{{ $qualCertDate }}"
+                                data-role="specialist-cert-date"
+                                class="input-group__input app_input_name @error($qualDateError) _error @enderror"
+                                type="text"
+                                placeholder="{{ $qualCertDate }}"
+                                name="qualification_certificate_date[{{ $qualId }}]"
+                                value=""
+                                autocomplete="off"
+                            />
+                            <label class="input-group__label @if($qualCertDate) position_top @endif">Дата выдачи сертификата</label>
+                            <div class="input_error app_input_error">@error($qualDateError){{ $message }}@enderror</div>
+                        </div>
                     </div>
                 @endforeach
             </div>
