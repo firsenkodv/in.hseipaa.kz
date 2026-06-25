@@ -118,6 +118,17 @@
                         </svg>
                     </button>
                 @endif
+
+                <a href="https://hseipaa.kz/onas/dokumenty/contract"
+                   target="_blank"
+                   class="user-contracts__contract-link">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6z"/>
+                        <path d="M14 2v6h6"/>
+                        <path d="M9 13h6M9 17h4"/>
+                    </svg>
+                    Договор оферты
+                </a>
             </div>
 
         </div>

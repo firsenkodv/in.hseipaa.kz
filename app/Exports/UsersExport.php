@@ -4,12 +4,14 @@ namespace App\Exports;
 
 use Maatwebsite\Excel\Concerns\FromArray;
 use Maatwebsite\Excel\Concerns\ShouldAutoSize;
+use Maatwebsite\Excel\Concerns\WithColumnFormatting;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\WithStyles;
 use PhpOffice\PhpSpreadsheet\Style\Fill;
+use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
-class UsersExport implements FromArray, WithHeadings, ShouldAutoSize, WithStyles
+class UsersExport implements FromArray, WithHeadings, ShouldAutoSize, WithStyles, WithColumnFormatting
 {
     public function __construct(private readonly array $data) {}
 
@@ -34,6 +36,13 @@ class UsersExport implements FromArray, WithHeadings, ShouldAutoSize, WithStyles
     public function array(): array
     {
         return $this->data;
+    }
+
+    public function columnFormats(): array
+    {
+        return [
+            'E' => NumberFormat::FORMAT_TEXT,
+        ];
     }
 
     public function styles(Worksheet $sheet): array

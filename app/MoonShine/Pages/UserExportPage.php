@@ -99,7 +99,7 @@ class UserExportPage extends Page
         $columns = [];
         foreach ($items as $item) {
             $columns[] = Column::make([
-                Checkbox::make($item->title, $group . '[' . $item->id . ']'),
+                Checkbox::make($item->title, $group . '[' . $item->id . ']')->default(true),
             ])->columnSpan(3);
         }
         return $columns;

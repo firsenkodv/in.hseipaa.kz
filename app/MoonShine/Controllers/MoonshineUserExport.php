@@ -6,6 +6,10 @@ namespace App\MoonShine\Controllers;
 
 use App\Exports\UsersExport;
 use App\Models\User;
+use App\Models\UserExpert;
+use App\Models\UserFileQualification;
+use App\Models\UserLecturer;
+use App\Models\UserSpecialist;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 use MoonShine\Laravel\Http\Controllers\MoonShineController;
@@ -26,6 +30,11 @@ final class MoonshineUserExport extends MoonShineController
         $lecturerIds      = array_keys((array) $request->input('lecturers', []));
         $qualificationIds = array_keys((array) $request->input('qualifications', []));
 
+        $totalSpecialists    = UserSpecialist::count();
+        $totalExperts        = UserExpert::count();
+        $totalLecturers      = UserLecturer::count();
+        $totalQualifications = UserFileQualification::count();
+
         $query = User::query()->with([
             'UserCity',
             'UserHuman',
@@ -43,27 +52,27 @@ final class MoonshineUserExport extends MoonShineController
             $query->where('user_human_id', $userHumanId);
         }
 
-        if (!empty($specialistIds)) {
+        if (!empty($specialistIds) && count($specialistIds) < $totalSpecialists) {
             $query->whereHas('UserSpecialist', function ($q) use ($specialistIds) {
-                $q->whereIn('id', $specialistIds);
+                $q->whereIn('user_specialists.id', $specialistIds);
             });
         }
 
-        if (!empty($expertIds)) {
+        if (!empty($expertIds) && count($expertIds) < $totalExperts) {
             $query->whereHas('UserExpert', function ($q) use ($expertIds) {
-                $q->whereIn('id', $expertIds);
+                $q->whereIn('user_experts.id', $expertIds);
             });
         }
 
-        if (!empty($lecturerIds)) {
+        if (!empty($lecturerIds) && count($lecturerIds) < $totalLecturers) {
             $query->whereHas('UserLecturer', function ($q) use ($lecturerIds) {
-                $q->whereIn('id', $lecturerIds);
+                $q->whereIn('user_lecturers.id', $lecturerIds);
             });
         }
 
-        if (!empty($qualificationIds)) {
+        if (!empty($qualificationIds) && count($qualificationIds) < $totalQualifications) {
             $query->whereHas('UserFileQualification', function ($q) use ($qualificationIds) {
-                $q->whereIn('id', $qualificationIds);
+                $q->whereIn('user_file_qualifications.id', $qualificationIds);
             });
         }
 
@@ -73,7 +82,7 @@ final class MoonshineUserExport extends MoonShineController
             $user->id,
             $user->username ?? $user->company,
             $user->email,
-            $user->phone,
+            format_phone($user->phone),
             $user->iin ?? $user->bin,
             $user->UserCity?->title,
             $user->UserHuman?->title,
