@@ -59,4 +59,20 @@
   padding: 30px 0;
 }
 
+.search_page .search__wrapper {
+  padding: 40px 0 20px 0;
+  display: block;
+}
+.search_page .search__wrapper form {
+  max-width: 100%;
+  min-height: 56px;
+  margin: 0 auto;
+  background: #fff;
+  border-radius: 8px;
+  padding: 4px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
 /*# sourceMappingURL=search.css.map */

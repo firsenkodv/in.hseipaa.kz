@@ -7,7 +7,7 @@
 @section('content')
 
     <section>
-        <div class="block relative block_content">
+        <div class="block relative block_content search_page">
             <div class="block_content__breadcrumbs">{{ Breadcrumbs::render('search') }}</div>
             <x-cabinet.title
                 title="Результаты поиска"
@@ -41,16 +41,16 @@
                 @if(count($items))
                     <div class="teaser">
                         @foreach($items as $item)
-
-                           <div class="desc">
-                                {!!  ($item->short_desc)??$item->title !!}
+                            <div class="desc">
+                                <a href="{{ $item->url ?? '#' }}">{{ $item->title }}</a>
+                                @if($item->short_desc)
+                                   {!! $item->short_desc !!}
+                                @endif
                             </div>
                             <hr>
-
                         @endforeach
                     </div>
                     {{ $items->withQueryString()->links('pagination::default') }}
-
                 @endif
 
             </div>

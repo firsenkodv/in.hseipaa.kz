@@ -82,9 +82,12 @@ if (!function_exists('cache_clear ')) {
         Cache::forget('cities');
         Cache::forget('user_specialists');
         Cache::forget('user_experts');
+        Cache::forget('user_file_qualifications');
+        Cache::forget('list_contacts');
         Cache::forget('tax_items');
         Cache::forget('site_new_items');
         Cache::forget('site_new_modules');
+        Cache::forget('home_useful_info_items');
         Cache::forget('mzp_items');
         Cache::forget('tarifs');
     }
@@ -659,6 +662,18 @@ if (!function_exists('select')) {
             array_unshift($arrItems, ['id' => '0', 'title' => 'Все']);
         }
         return $arrItems;
+    }
+}
+
+if (!function_exists('title_limit')) {
+    function title_limit(?string $text, int $limit = 61, string $end = '...'): string
+    {
+        if (!$text || mb_strlen($text) <= $limit) {
+            return $text ?? '';
+        }
+        $trimmed   = mb_substr($text, 0, $limit);
+        $lastSpace = mb_strrpos($trimmed, ' ');
+        return ($lastSpace !== false ? mb_substr($trimmed, 0, $lastSpace) : $trimmed) . $end;
     }
 }
 

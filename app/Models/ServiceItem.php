@@ -67,6 +67,13 @@ class ServiceItem extends Model
     }
 
 
+    public function getUrlAttribute(): string
+    {
+        $category = $this->category;
+        $section  = $category->service;
+        return route('service_item', ['service' => $section->slug, 'category_slug' => $category->slug, 'item_slug' => $this->slug]);
+    }
+
     /** метод написан для компонента teaser (получение правильных url) **/
     public function getParentCategoryAttribute()
     {

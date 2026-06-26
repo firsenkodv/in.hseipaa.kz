@@ -15,8 +15,8 @@
 
 
                 <x-cabinet.title
-                    :title="{{ $item->title }}"
-                    :subtitle="{{ $item->subtitle }}"
+                    :title="$item->title"
+                    :subtitle="$item->subtitle"
                 />
 
                 <div class="block_content__flex">

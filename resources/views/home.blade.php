@@ -18,7 +18,7 @@
                     <div class="m_sb_middle">
 
                         <x-form.form
-                            method="POST"
+                            method="GET"
                             :action="route('search')"
                             class="row_form_800"
                         >

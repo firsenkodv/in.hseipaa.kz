@@ -53,6 +53,12 @@ class UsefulCategory extends Model
         return $this->belongsTo(Useful::class, 'useful_id')->where('published', 1);
     }
 
+    public function getUrlAttribute(): string
+    {
+        $useful = $this->useful;
+        return route('useful_category', ['useful' => $useful->slug, 'category_slug' => $this->slug]);
+    }
+
 
     public function subcategory(): HasMany
     {

@@ -141,3 +141,9 @@ $maxWidth: 1200;
 .animate__animated.animate__fadeInDown {
     --animate-duration: 0.4s;
 }
+@media (max-width: 600px) {
+    .plus__search {
+        display: none !important;
+
+    }
+}

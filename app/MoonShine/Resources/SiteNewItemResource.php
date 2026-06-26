@@ -97,10 +97,10 @@ class SiteNewItemResource extends ModelResource
                                 ]),
                                 Collapse::make('Анонс', [
 
-                             /*       Image::make(__('Изображение'), 'img')
-                                        ->dir('useful')
+                                  Image::make(__('Изображение'), 'img')
+                                        ->dir('news')
                                         ->allowedExtensions(['jpg', 'png', 'jpeg', 'gif', 'svg', 'webp'])
-                                        ->removable(),*/
+                                        ->removable(),
                                     TinyMce::make('Краткое описание', 'short_desc'),
 
                                 ]),

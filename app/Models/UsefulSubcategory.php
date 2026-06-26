@@ -53,6 +53,13 @@ class UsefulSubcategory extends Model
         return $this->belongsTo(UsefulCategory::class, 'useful_category_id')->where('published', 1);
     }
 
+    public function getUrlAttribute(): string
+    {
+        $category = $this->category;
+        $useful   = $category->useful;
+        return route('useful_subcategory', ['useful' => $useful->slug, 'category_slug' => $category->slug, 'subcategory_slug' => $this->slug]);
+    }
+
     public function item(): HasMany
     {
         return $this->hasMany(UsefulItem::class)->where('published', 1)->orderBy('sorting', 'asc');

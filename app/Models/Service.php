@@ -51,6 +51,11 @@ class Service extends Model
         return $this->hasMany(ServiceCategory::class)->where('published', 1)->orderBy('sorting', 'asc');
     }
 
+    public function getUrlAttribute(): string
+    {
+        return route('service_section', ['service' => $this->slug]);
+    }
+
 
 
     protected static function boot(): void

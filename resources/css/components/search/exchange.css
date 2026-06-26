@@ -87,6 +87,7 @@
   }
   .exchange .row_form_800 {
     max-width: 1000px;
+    width: auto;
   }
   .exchange .sub_m_sb_flex {
     flex-direction: column;
